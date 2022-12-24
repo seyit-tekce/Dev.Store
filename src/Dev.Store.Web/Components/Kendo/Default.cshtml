@@ -1,0 +1,17 @@
+﻿@using Kendo.Mvc.UI;
+@using System.Globalization;
+@using Dev.StoreAbp.Web.Bundling.Kendo;
+@addTagHelper *, Volo.Abp.AspNetCore.Mvc.UI.Bundling
+
+<!-- Kendo -->
+<abp-script type="typeof(KendoScriptContributor)" />
+
+<script>
+    @{
+        var culture = CultureInfo.CurrentCulture.Name;
+
+    }
+        kendo.culture("@culture-@culture.ToUpper()");
+</script>
+@Html.Kendo().DeferredScripts()
+<script src="~/custom/js/kendo-grid.js" ></script>

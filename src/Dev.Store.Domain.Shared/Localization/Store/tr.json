@@ -1,0 +1,27 @@
+{
+  "culture": "tr",
+  "texts": {
+    "Menu:Home": "Ana sayfa",
+    "Welcome": "Hoşgeldiniz",
+    "LongWelcomeMessage": "Uygulamaya hoşgeldiniz. Bu, ABP framework'ü üzerine bina edilmiş bir başlangıç projesidir. Daha fazla bilgi için abp.io adresini ziyaret edebilirsiniz.",
+    "Permission:Brand": "Markalar",
+    "Permission:Create": "Ekle",
+    "Permission:Update": "Güncelle",
+    "Permission:Delete": "Sil",
+    "Menu:Brand": "Markalar",
+    "Brand": "Markalar",
+    "BrandName": "Marka Adı",
+    "BrandCode": "Marka Kodu",
+    "BrandDescription": "Açıklama",
+    "CreateBrand": "Marka Oluştur",
+    "EditBrand": "Marka Güncelle",
+    "BrandDeletionConfirmationMessage": "Markayı silmek istediğinize emin misiniz?",
+    "SuccessfullyDeleted": "Başarıyla Silindi",
+    "BrandNameHolder": "Lütfen Marka Adı Giriniz",
+    "BrandCodeHolder": "Lütfen Marka Kodu Giriniz",
+    "BrandDescriptionHolder": "Lütfen Marka Açıklaması Giriniz",
+    "BrandCodeExist": "Girilen kod mevcuttur.",
+    "TableFilter": "Tablo Filtresi",
+    "Loading": "Yükleniyor..."
+  }
+}

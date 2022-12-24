@@ -1,0 +1,26 @@
+{
+  "culture": "en",
+  "texts": {
+    "Menu:Home": "Home",
+    "Welcome": "Welcome",
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    "Permission:Brand": "Brands",
+    "Permission:Create": "Create Brand",
+    "Permission:Update": "Update Brand",
+    "Permission:Delete": "Delete Brand",
+    "Menu:Brand": "Brands",
+    "Brand": "Brands",
+    "BrandName": "Brand Name",
+    "BrandCode": "Brand Code",
+    "BrandDescription": "Brand Description",
+    "CreateBrand": "Create Brand",
+    "EditBrand": "Edit Brand",
+    "BrandDeletionConfirmationMessage": "Are you sure to delete the brand?",
+    "SuccessfullyDeleted": "Successfully deleted",
+    "BrandNameHolder": "Please Enter Brand Name",
+    "BrandCodeHolder": "Please Enter Brand Code",
+    "BrandDescriptionHolder": "Please Enter Brand Description",
+    "Loading": "Loading..."
+
+  }
+}
