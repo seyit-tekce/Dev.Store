@@ -9,6 +9,19 @@
     margin-left: auto;
 }
 
-.hide{
-    display:none;
+.hide {
+    display: none;
 }
+
+
+    .k-grid-toolbar .k-button {
+        background-color: transparent;
+        border: none;
+        color: black;
+    }
+        .k-grid-toolbar .k-button:hover {
+            background-color: #5c6bc0;
+            border-color: #5c6bc0;
+            color: black;
+        }
+

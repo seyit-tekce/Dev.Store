@@ -2,10 +2,11 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Dev.Store.EntityFrameworkCore;
+using Dev.Store.Repositories;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-namespace Dev.Store;
+namespace Dev.Store.Entities;
 
 public class BrandRepository : EfCoreRepository<StoreDbContext, Brand, Guid>, IBrandRepository
 {

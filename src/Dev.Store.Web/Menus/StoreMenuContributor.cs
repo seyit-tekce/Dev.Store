@@ -52,5 +52,11 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Brand, l["Menu:Brand"], "/Brand","fa fa-fax")
             );
         }
+        if (await context.IsGrantedAsync(StorePermissions.Category.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Category", "fas fa-list-tree")
+            );
+        }
     }
 }

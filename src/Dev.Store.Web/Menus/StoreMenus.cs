@@ -8,4 +8,5 @@ public class StoreMenus
     //Add your menu items here...
 
     public const string Brand = Prefix + ".Brand";
+    public const string Category = Prefix + ".Category";
 }

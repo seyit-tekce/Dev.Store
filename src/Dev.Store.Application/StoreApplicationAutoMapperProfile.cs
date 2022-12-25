@@ -1,6 +1,7 @@
 using AutoMapper;
 using Dev.Store;
 using Dev.Store.Dtos;
+using Dev.Store.Entities.Dtos;
 using Dev.Store.Entities;
 
 namespace Dev.Store;
@@ -15,5 +16,7 @@ public class StoreApplicationAutoMapperProfile : Profile
    
         CreateMap<Brand, BrandDto>();
         CreateMap<CreateUpdateBrandDto, Brand>(MemberList.Source);
+        CreateMap<Category, CategoryDto>();
+        CreateMap<CreateUpdateCategoryDto, Category>(MemberList.Source);
     }
 }

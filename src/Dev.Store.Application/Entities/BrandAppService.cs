@@ -1,6 +1,7 @@
 using Dev.Store.Dtos;
 using Dev.Store.Localization;
 using Dev.Store.Permissions;
+using Dev.Store.Repositories;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Domain.Repositories;
 
-namespace Dev.Store;
+namespace Dev.Store.Entities;
 
 public class BrandAppService : CrudAppService<Brand, BrandDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateBrandDto, CreateUpdateBrandDto>,
     IBrandAppService
@@ -51,7 +52,7 @@ public class BrandAppService : CrudAppService<Brand, BrandDto, Guid, PagedAndSor
     }
     public async override Task<BrandDto> UpdateAsync(Guid id, CreateUpdateBrandDto input)
     {
-        var isExist = await _repository.AnyAsync(x => x.Code == input.Code && x.Id!=id);
+        var isExist = await _repository.AnyAsync(x => x.Code == input.Code && x.Id != id);
         if (isExist)
         {
             throw new UserFriendlyException(L["BrandCodeExist"]);

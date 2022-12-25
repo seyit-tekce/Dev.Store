@@ -3,7 +3,7 @@ using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Dev.Store.Entities
 {
-    public class Address : FullAuditedAggregateRoot<Guid>
+    public class Address : AuditedEntity<Guid>
     {
         public string AddressName { get; set; }
         public string FirstName { get; set; }

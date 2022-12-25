@@ -54,33 +54,49 @@
             _data[idColumnKey] = _postArray == false ? postData[0] : postData;
         }
     }
-    var _modalType = typeof (_this.attr('data-modalType')) != 'undefined' ? ('type-' + _this.attr('data-modalType')) : ('type-info');
-    var _isask = typeof (_this.attr('data-ask')) != 'undefined';
-    var _ask = _this.attr('data-ask') || "İşlemi gerçekleştirmek için onay vermeniz gereklidir. Devam etmek istediğinize emin misiniz !";
+    var _ask = _this.attr('data-ask');
 
-    if (_isask) {
+    var isApi = _this.attr('data-api') != undefined;
 
-        swal({
-            title: "Devam Et ?",
-            text: _ask,
-            type: "warning",
+    if (_ask != null ) {
+        Swal.fire({
+            title: _ask,
+            icon: "question",
             showCancelButton: true,
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Evet",
-            cancelButtonText: "Hayır",
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function (isConfirm) {
+            confirmButtonText: l('Yes'),
+            denyButtonText: l('No')
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                if (isApi) {
+                    var href = _this.attr('data-href').split(".");
+                    var jApi = dev.store;
+                    $.each(href, function (i, item) {
+                        jApi = jApi[item];
+                    });
+                    jApi(_data[idColumnKey]).then(function () {
+                        abp.notify.info(l('SuccessfullyDeleted'));
+                        if (_grid != null) {
+                            _grid.dataSource.read();
+                        }
+                    });
+                }
 
-            if (isConfirm) {
+                else if (_modal) {
+                    var modalManager = new abp.ModalManager(_this.attr('data-href'));
+                    modalManager.open(_data);
+                    modalManager.onResult(function (e, a) {
+                        if (_grid != null) {
+                            _grid.dataSource.read();
+                        }
+                    });
+                    modalManager.onOpen(function () {
+                        loading.Remove();
 
-                if (_modal) {
-                    Kendo_GetRequest(_this.attr('data-href'), _data, _this, _modalType);
-                    _this.trigger("success:swal");
+                    });
                 } else {
                     var __data = '';
                     $.each(_data, function (i, item) { if (item != '' && item != null) { __data += '&' + i + '=' + item; } });
-
                     var tUrl = window.encodeURI(_this.attr('data-href') + (__data.length > 0 ? (_this.attr('data-href').indexOf('?') > -1 ? '&' : '?') + __data.substring(1) : ''));
                     if (_blank) {
                         window.open(tUrl, '_blank');
@@ -89,8 +105,8 @@
                     }
                 }
             }
-            swal.close();
-        });
+        })
+
 
     }
     else {

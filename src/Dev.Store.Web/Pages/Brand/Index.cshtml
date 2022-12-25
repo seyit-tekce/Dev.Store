@@ -46,17 +46,18 @@
     <abp-card-body>
         @(
             Html.Kendo().Grid<BrandDto>()
-                        .Name("brands")
-                        .Columns(columns =>
-                        {
+            .Name("brands")
+            .Columns(columns =>
+            {
 
-                            columns.Bound(p => p.Name).Title(L["BrandName"].Value);
-                            columns.Bound(p => p.Code).Title(L["BrandCode"].Value);
-                            columns.Bound(p => p.Description).Title(L["BrandDescription"].Value);
-                        })
-                        .ToolBar(tools =>
-                        {
-                tools.Custom().Text("<i class='fa fa-edit' data-original-title='Düzenle'></i>").HtmlAttributes(new Dictionary<string, object> { { "data-method", "get" }, { "data-href",Url.Action("EditModal", "Brand")} });
+                columns.Bound(p => p.Name).Title(L["BrandName"].Value);
+                columns.Bound(p => p.Code).Title(L["BrandCode"].Value);
+                columns.Bound(p => p.Description).Title(L["BrandDescription"].Value);
+            })
+            .ToolBar(tools =>
+            {
+                tools.Custom().Text("<i class='fa fa-edit' data-original-title='Düzenle'></i>").HtmlAttributes(new Dictionary<string, object> { { "data-method", "get" }, { "data-href", Url.Action("EditModal", "Brand") } });
+                tools.Custom().Text("<i class='fa fa-trash' data-original-title='Sil'></i>").HtmlAttributes(new Dictionary<string, object> { { "data-method", "get" }, { "data-ask", L["BrandDeletionConfirmationMessage"].Value }, { "data-api", "true" }, { "data-href", "brand.delete" } });
 
                 tools.Search().Text(" ");
                 tools.Excel().Text(" ");

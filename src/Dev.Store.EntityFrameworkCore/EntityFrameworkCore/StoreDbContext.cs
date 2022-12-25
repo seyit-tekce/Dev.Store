@@ -13,6 +13,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Dev.Store.Entities;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -53,6 +54,7 @@ public class StoreDbContext :
 
     #endregion
     public DbSet<Brand> Brands { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -93,6 +95,19 @@ public class StoreDbContext :
 
             b.ConfigureByConvention();
 
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<Category>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "Categories", StoreConsts.DbSchema);
+            b.HasIndex(x => x.Link);
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.Property(x => x.Link).IsRequired().HasMaxLength(256);
+            b.ConfigureByConvention(); 
+            
 
             /* Configure more properties here */
         });

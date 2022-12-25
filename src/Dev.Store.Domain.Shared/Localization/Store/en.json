@@ -20,7 +20,18 @@
     "BrandNameHolder": "Please Enter Brand Name",
     "BrandCodeHolder": "Please Enter Brand Code",
     "BrandDescriptionHolder": "Please Enter Brand Description",
-    "Loading": "Loading..."
-
+    "Loading": "Loading...",
+    "Permission:Category": "Category",
+    "Menu:Category": "MenuCategory",
+    "Category": "Category",
+    "CategoryName": "CategoryName",
+    "CategoryLink": "CategoryLink",
+    "CategoryDescription": "CategoryDescription",
+    "CategoryPid": "CategoryPid",
+    "CategoryCategories": "CategoryCategories",
+    "CreateCategory": "CreateCategory",
+    "EditCategory": "EditCategory",
+    "CategoryDeletionConfirmationMessage": "Are you sure to delete the category {0}?",
+    "TableFilter": "TableFilter"
   }
 }

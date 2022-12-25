@@ -1,7 +1,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dev.Store;
+namespace Dev.Store.Entities;
 
 public static class BrandEfCoreQueryableExtensions
 {

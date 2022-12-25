@@ -1,3 +1,4 @@
+using Dev.Store.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -44,6 +45,7 @@ public class StoreEntityFrameworkCoreModule : AbpModule
                  * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
             options.AddRepository<Brand, BrandRepository>();
+            options.AddRepository<Category, CategoryRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

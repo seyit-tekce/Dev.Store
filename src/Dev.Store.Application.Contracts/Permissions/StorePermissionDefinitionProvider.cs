@@ -16,6 +16,11 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         brandPermission.AddChild(StorePermissions.Brand.Create, L("Permission:Create"));
         brandPermission.AddChild(StorePermissions.Brand.Update, L("Permission:Update"));
         brandPermission.AddChild(StorePermissions.Brand.Delete, L("Permission:Delete"));
+
+        var categoryPermission = myGroup.AddPermission(StorePermissions.Category.Default, L("Permission:Category"));
+        categoryPermission.AddChild(StorePermissions.Category.Create, L("Permission:Create"));
+        categoryPermission.AddChild(StorePermissions.Category.Update, L("Permission:Update"));
+        categoryPermission.AddChild(StorePermissions.Category.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

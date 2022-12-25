@@ -22,6 +22,17 @@
     "BrandDescriptionHolder": "Lütfen Marka Açıklaması Giriniz",
     "BrandCodeExist": "Girilen kod mevcuttur.",
     "TableFilter": "Tablo Filtresi",
-    "Loading": "Yükleniyor..."
+    "Loading": "Yükleniyor...",
+    "Permission:Category": "Category",
+    "Menu:Category": "MenuCategory",
+    "Category": "Category",
+    "CategoryName": "CategoryName",
+    "CategoryLink": "CategoryLink",
+    "CategoryDescription": "CategoryDescription",
+    "CategoryPid": "CategoryPid",
+    "CategoryCategories": "CategoryCategories",
+    "CreateCategory": "CreateCategory",
+    "EditCategory": "EditCategory",
+    "CategoryDeletionConfirmationMessage": "Are you sure to delete the category {0}?"
   }
 }
