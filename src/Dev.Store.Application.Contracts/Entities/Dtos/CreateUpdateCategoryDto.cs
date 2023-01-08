@@ -11,8 +11,6 @@ public class CreateUpdateCategoryDto
     public string Link { get; set; }
 
     public string Description { get; set; }
-
-    public Guid? Pid { get; set; }
-
-    public List<CategoryDto> Categories { get; set; }
+    public Guid? CategoryParentId { get; set; }
+    public bool isVisible { get; set; }
 }

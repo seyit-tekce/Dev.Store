@@ -91,12 +91,12 @@ public class StoreDbContext :
             b.ToTable(StoreConsts.DbTablePrefix + "Brands", StoreConsts.DbSchema);
             b.HasIndex(a => a.Code);
             b.Property(t => t.Name).IsRequired().HasMaxLength(128);
-            b.Property(t => t.Code).IsRequired().HasMaxLength(8);
+            b.Property(t => t.Code).IsRequired().HasMaxLength(12);
 
             b.ConfigureByConvention();
 
 
-            /* Configure more properties here */
+          
         });
 
 
@@ -106,10 +106,10 @@ public class StoreDbContext :
             b.HasIndex(x => x.Link);
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             b.Property(x => x.Link).IsRequired().HasMaxLength(256);
+            b.HasMany(c => c.CategoryChildren).WithOne(a => a.CategoryParent).HasForeignKey(g => g.CategoryParentId);
             b.ConfigureByConvention(); 
             
 
-            /* Configure more properties here */
         });
     }
 }

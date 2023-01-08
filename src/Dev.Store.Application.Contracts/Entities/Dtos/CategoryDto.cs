@@ -12,7 +12,8 @@ public class CategoryDto : AuditedEntityDto<Guid>
 
     public string Description { get; set; }
 
-    public Guid? Pid { get; set; }
+    public Guid? CategoryParentId { get; set; }
+    public bool IsVisible { get; set; }
 
     public System.Collections.Generic.List<CategoryDto> Categories { get; set; }
 }

@@ -8,6 +8,8 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Runtime.CompilerServices;
 
 namespace Dev.Store.Entities;
 
@@ -28,6 +30,7 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         _repository = repository;
     }
     [HttpGet]
+    [Authorize(StorePermissions.Category.Default)]
     public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
     {
         return (await _repository.GetQueryableAsync()).ToDataSourceResult(request, x => ObjectMapper.Map<Category, CategoryDto>(x));

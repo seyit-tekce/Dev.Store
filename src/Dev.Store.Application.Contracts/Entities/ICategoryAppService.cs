@@ -1,5 +1,7 @@
 using System;
+using System.Threading.Tasks;
 using Dev.Store.Entities.Dtos;
+using Kendo.Mvc.UI;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -13,5 +15,5 @@ public interface ICategoryAppService :
         CreateUpdateCategoryDto,
         CreateUpdateCategoryDto>
 {
-
+    Task<DataSourceResult> DataSource(DataSourceRequest request);
 }

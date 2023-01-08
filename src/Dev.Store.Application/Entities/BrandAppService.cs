@@ -4,6 +4,7 @@ using Dev.Store.Permissions;
 using Dev.Store.Repositories;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
@@ -35,10 +36,12 @@ public class BrandAppService : CrudAppService<Brand, BrandDto, Guid, PagedAndSor
     }
 
     [HttpGet]
+    [Authorize(StorePermissions.Category.Default)]
     public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
     {
         return (await _repository.GetQueryableAsync()).ToDataSourceResult(request, x => ObjectMapper.Map<Brand, BrandDto>(x));
     }
+    [Authorize(StorePermissions.Category.Create)]
 
     public override async Task<BrandDto> CreateAsync(CreateUpdateBrandDto input)
     {
@@ -50,6 +53,8 @@ public class BrandAppService : CrudAppService<Brand, BrandDto, Guid, PagedAndSor
         }
         return await base.CreateAsync(input);
     }
+    [Authorize(StorePermissions.Category.Update)]
+
     public async override Task<BrandDto> UpdateAsync(Guid id, CreateUpdateBrandDto input)
     {
         var isExist = await _repository.AnyAsync(x => x.Code == input.Code && x.Id != id);

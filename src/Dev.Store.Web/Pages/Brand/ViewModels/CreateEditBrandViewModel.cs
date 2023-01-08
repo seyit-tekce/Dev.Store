@@ -15,12 +15,11 @@ public class CreateEditBrandViewModel
     [Display(Name = "BrandCode")]
     [Placeholder("BrandCodeHolder")]
     [Required]
-    [MaxLength(8)]
+    [MaxLength(12)]
     public string Code { get; set; }
 
     [Display(Name = "BrandDescription")]
     [Placeholder("BrandDescriptionHolder")]
-
     [DataType(DataType.MultilineText)]
     [TextArea]
     public string Description { get; set; }

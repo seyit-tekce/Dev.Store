@@ -1,27 +1,157 @@
-/* Your Global Styles */
+﻿/* Your Global Styles */
 
 :root .lpx-brand-logo {
     --lpx-logo: url('/images/logo/leptonx/logo-light.png');
     --lpx-logo-icon: url('/images/logo/leptonx/logo-light-thumbnail.png');
 }
 
-.k-grid-excel {
-    margin-left: auto;
+/* Your Global Styles */
+.k-grid {
+    border: none !important;
 }
 
-.hide {
-    display: none;
+.k-grid-header {
+    background-color: transparent !important;
+}
+
+.btn.btn-xs {
+    padding: 1px 6px !important;
+    font-size: 10px !important;
 }
 
 
-    .k-grid-toolbar .k-button {
-        background-color: transparent;
-        border: none;
-        color: black;
+
+.k-button {
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+
+form .k-dropdown, .k-multiselect {
+    width: 100% !important;
+}
+
+.k-filter-menu-container {
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+
+.k-widget.k-dropdown {
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+
+.k-grid-toolbar {
+    border-radius: 0 !important;
+    border-bottom: rgba(0, 0, 0, 0.075) !important;
+    background: transparent !important;
+}
+
+
+.k-button-icontext .k-icon, .k-button-icontext .k-image, .k-button-icontext .k-sprite {
+    margin: 0px !important;
+}
+
+.k-grid-search {
+   width: 50% !important;
+    margin-left: auto !important;
+}
+
+.k-column-menu .k-link {
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.k-command-cell .k-button > span {
+    margin-right: 5px !important;
+}
+
+.k-grid-header-wrap tr th {
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.k-grid tr td {
+    border-width: 0px !important;
+    overflow: initial;
+}
+
+.k-grid-header th.k-header {
+    border-top-width: 1px !important;
+    border-left: 0px;
+    border-right: 0px;
+    padding: 1.4em 0.6em 1.4em 0.6em;
+}
+
+    .k-grid-header th.k-header .k-grid-filter {
+        bottom: 1rem !important;
     }
-        .k-grid-toolbar .k-button:hover {
-            background-color: #5c6bc0;
-            border-color: #5c6bc0;
-            color: black;
-        }
 
+.k-header-column-menu {
+    bottom: auto !important;
+}
+
+.k-grid {
+    background: transparent !important;
+}
+
+.k-grid-pager {
+    border-radius: 0 !important;
+    border-bottom: rgba(0, 0, 0, 0.075) !important;
+    background: transparent !important;
+    padding: 15px 0px 0px 0px !important;
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.k-grid td {
+    font-family: Poppins, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+
+.k-dropdown .k-dropdown-wrap, .k-dropdowntree .k-dropdown-wrap {
+    border-color: #e4e7eb;
+    color: #212529;
+    background-color: #ebebeb;
+}
+
+.k-filter-menu .k-radio-list, .k-filter-menu .k-searchbox, .k-filter-menu .k-textbox, .k-filter-menu .k-widget {
+    margin: 4px 0 !important;
+}
+
+    .k-filter-menu .k-widget.k-datepicker, .k-filter-menu .k-widget.k-numerictextbox {
+        width: 100%;
+    }
+
+.k-dropdowntree .k-multiselect-wrap .k-button, .k-multiselect .k-multiselect-wrap .k-button {
+    padding: 0.125rem 1.200rem 0.125rem 0.375rem !important;
+}
+
+.k-filter-menu.k-popup .k-filter-help-text, .k-grid-filter-popup.k-popup .k-filter-help-text, .k-popup .k-filter-menu .k-filter-help-text, .k-popup .k-grid-filter-popup .k-filter-help-text {
+    padding: 0 !important;
+}
+
+.k-datetimepicker .k-picker-wrap .k-icon {
+    margin: -12px 2px 0 2px;
+}
+
+
+.k-multiselect-wrap {
+    background-color: #f2f2f2 !important;
+}
+
+.k-spacer{
+    display:none;
+}
+.k-button-icon {
+    margin-right: 5px;
+}

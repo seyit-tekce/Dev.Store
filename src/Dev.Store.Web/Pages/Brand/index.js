@@ -1,74 +1,63 @@
-//$(function () {
+var l = abp.localization.getResource("Store");
+var brands = {
+    defines: {
+        service: dev.store.brand,
+        createModal: new abp.ModalManager(abp.appPath + 'brand/createmodal'),
+        editModal: new abp.ModalManager(abp.appPath + 'brand/editmodal'),
+        grid: function () { return $("#brands").data("kendoGrid") }
+    },
+    functions: {
+        create: function (e) {
+            var load = new Loading($(e));
+            load.Start();
+            brands.defines.createModal.onOpen(function () {
+                load.Done();
+            });
+            brands.defines.createModal.open();
+            brands.defines.createModal.onResult(function () {
+                brands.defines.grid().dataSource.read();
 
-//    var l = abp.localization.getResource('Store');
 
-//    var service = dev.store.brand;
-//    var createModal = new abp.ModalManager(abp.appPath + 'Dev/Store/Brand/CreateModal');
-//    var editModal = new abp.ModalManager(abp.appPath + 'Dev/Store/Brand/EditModal');
 
-//    var dataTable = $('#BrandTable').DataTable(abp.libs.datatables.normalizeConfiguration({
-//        processing: true,
-//        serverSide: true,
-//        paging: true,
-//        searching: false,
-//        autoWidth: false,
-//        scrollCollapse: true,
-//        order: [[0, "asc"]],
-//        ajax: abp.libs.datatables.createAjax(service.getList),
-//        columnDefs: [
-//            {
-//                rowAction: {
-//                    items:
-//                        [
-//                            {
-//                                text: l('Edit'),
-//                                visible: abp.auth.isGranted('Store.Brand.Update'),
-//                                action: function (data) {
-//                                    editModal.open({ id: data.record.id });
-//                                }
-//                            },
-//                            {
-//                                text: l('Delete'),
-//                                visible: abp.auth.isGranted('Store.Brand.Delete'),
-//                                confirmMessage: function (data) {
-//                                    return l('BrandDeletionConfirmationMessage', data.record.id);
-//                                },
-//                                action: function (data) {
-//                                    service.delete(data.record.id)
-//                                        .then(function () {
-//                                            abp.notify.info(l('SuccessfullyDeleted'));
-//                                            dataTable.ajax.reload();
-//                                        });
-//                                }
-//                            }
-//                        ]
-//                }
-//            },
-//            {
-//                title: l('BrandName'),
-//                data: "name"
-//            },
-//            {
-//                title: l('BrandCode'),
-//                data: "code"
-//            },
-//            {
-//                title: l('BrandDescription'),
-//                data: "description"
-//            },
-//        ]
-//    }));
+            });
+        },
+        edit: function (e) {
+            var load = new Loading($(e.target));
+            load.Start();
+            brands.defines.editModal.onOpen(function () {
+                load.Done();
+            });
+            brands.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
+            brands.defines.editModal.onResult(function () {
+                brands.defines.grid().dataSource.read();
+            });
+        },
+        delete: function (e) {
+            e.preventDefault();
+            abp.message.confirm(l("BrandDeletionConfirmationMessage"))
+                .then(function (confirmed) {
+                    if (confirmed) {
+                        var recordId = e.currentTarget.dataset["id"];
+                        dev.store.entities.brand.delete(recordId)
+                            .then(function () {
+                                abp.notify.info(l("SuccessfullyDeleted"));
+                                brands.defines.grid().dataSource.read();
 
-//    createModal.onResult(function () {
-//        dataTable.ajax.reload();
-//    });
+                            });
+                    }
+                });
 
-//    editModal.onResult(function () {
-//        dataTable.ajax.reload();
-//    });
 
-//    $('#NewBrandButton').click(function (e) {
-//        e.preventDefault();
-//        createModal.open();
-//    });
-//});
+        }
+
+
+    },
+    init: function () {
+
+
+
+
+    }
+
+
+}

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Dev.Store;
 using Dev.Store.Dtos;
 using Dev.Store.Web.Pages.Dev.Store.Brand.ViewModels;
+using Dev.Store.Utils;
 
 namespace Dev.Store.Web.Pages.Dev.Store.Brand;
 
@@ -15,6 +16,8 @@ public class CreateModalModel : StorePageModel
 
     public CreateModalModel(IBrandAppService service)
     {
+        this.ViewModel = new CreateEditBrandViewModel();
+        this.ViewModel.Code = RandomCode.GetRandomCode();
         _service = service;
     }
 

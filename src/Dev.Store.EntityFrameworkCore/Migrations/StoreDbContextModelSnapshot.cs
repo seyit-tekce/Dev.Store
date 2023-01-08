@@ -19,7 +19,7 @@ namespace Dev.Store.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.PostgreSql)
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -31,8 +31,8 @@ namespace Dev.Store.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasMaxLength(12)
+                        .HasColumnType("character varying(12)");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp without time zone")
@@ -42,8 +42,22 @@ namespace Dev.Store.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CreatorId");
 
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp without time zone")
@@ -62,7 +76,7 @@ namespace Dev.Store.Migrations
 
                     b.HasIndex("Code");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("AppBrands", (string)null);
                 });
 
             modelBuilder.Entity("Dev.Store.Entities.Category", b =>
@@ -70,7 +84,7 @@ namespace Dev.Store.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid?>("CategoryParentId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationTime")
@@ -81,8 +95,25 @@ namespace Dev.Store.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("CreatorId");
 
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp without time zone")
@@ -102,16 +133,13 @@ namespace Dev.Store.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<Guid?>("Pid")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CategoryParentId");
 
                     b.HasIndex("Link");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("AppCategories", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -1724,9 +1752,11 @@ namespace Dev.Store.Migrations
 
             modelBuilder.Entity("Dev.Store.Entities.Category", b =>
                 {
-                    b.HasOne("Dev.Store.Entities.Category", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("CategoryId");
+                    b.HasOne("Dev.Store.Entities.Category", "CategoryParent")
+                        .WithMany("CategoryChildren")
+                        .HasForeignKey("CategoryParentId");
+
+                    b.Navigation("CategoryParent");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
@@ -1873,7 +1903,7 @@ namespace Dev.Store.Migrations
 
             modelBuilder.Entity("Dev.Store.Entities.Category", b =>
                 {
-                    b.Navigation("Categories");
+                    b.Navigation("CategoryChildren");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

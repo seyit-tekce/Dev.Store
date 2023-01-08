@@ -20,7 +20,8 @@ namespace Dev.StoreAbp.Web.Bundling.Kendo
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-			context.Files.AddIfNotContains("/kendo/styles/kendo.bootstrap-main.min.css");
+			context.Files.AddIfNotContains("/kendo/styles/kendo.common-bootstrap.min.css");
+			context.Files.AddIfNotContains("/kendo/styles/kendo.bootstrap-v4.min.css");
         }
     }
 

@@ -1,4 +1,4 @@
-﻿#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
@@ -7,10 +7,17 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Dev.Store.Web/Dev.Store.Web.csproj", "DevStore/"]
-RUN dotnet restore "Dev.Store.Web/Dev.Store.Web.csproj"
+COPY ["NuGet.Config", "."]
+COPY ["src/Dev.Store.Web/Dev.Store.Web.csproj", "src/Dev.Store.Web/"]
+COPY ["src/Dev.Store.Application/Dev.Store.Application.csproj", "src/Dev.Store.Application/"]
+COPY ["src/Dev.Store.Domain/Dev.Store.Domain.csproj", "src/Dev.Store.Domain/"]
+COPY ["src/Dev.Store.Domain.Shared/Dev.Store.Domain.Shared.csproj", "src/Dev.Store.Domain.Shared/"]
+COPY ["src/Dev.Store.Application.Contracts/Dev.Store.Application.Contracts.csproj", "src/Dev.Store.Application.Contracts/"]
+COPY ["src/Dev.Store.HttpApi/Dev.Store.HttpApi.csproj", "src/Dev.Store.HttpApi/"]
+COPY ["src/Dev.Store.EntityFrameworkCore/Dev.Store.EntityFrameworkCore.csproj", "src/Dev.Store.EntityFrameworkCore/"]
+RUN dotnet restore "src/Dev.Store.Web/Dev.Store.Web.csproj"
 COPY . .
-WORKDIR "/src/Dev.Store.Web"
+WORKDIR "/src/src/Dev.Store.Web"
 RUN dotnet build "Dev.Store.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish

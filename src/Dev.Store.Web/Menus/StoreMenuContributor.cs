@@ -55,7 +55,7 @@ public class StoreMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(StorePermissions.Category.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Category", "fas fa-list-tree")
+                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Category", "fa fa-th")
             );
         }
     }

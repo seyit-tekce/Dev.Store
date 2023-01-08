@@ -15,6 +15,10 @@
     PageLayout.Content.Title = L["Brand"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:Brand"].Value);
     PageLayout.Content.MenuItemName = StoreMenus.Brand;
+    var _default = await Authorization.IsGrantedAsync(StorePermissions.Brand.Default);
+    var create = await Authorization.IsGrantedAsync(StorePermissions.Brand.Create);
+    var delete = await Authorization.IsGrantedAsync(StorePermissions.Brand.Delete);
+    var update = await Authorization.IsGrantedAsync(StorePermissions.Brand.Update);
 }
 
 @section scripts
@@ -23,7 +27,7 @@
 }
 @section styles
     {
-    <abp-style src="/Pages/index.css" />
+    <abp-style src="/Pages/Brand/index.css" />
 }
 
 <abp-card>
@@ -33,12 +37,9 @@
                 <abp-card-title>@L["Brand"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-                @if (await Authorization.IsGrantedAsync(StorePermissions.Brand.Create))
+                @if (create)
                 {
-                    <abp-button id="NewBrandButton"
-                            text="@L["CreateBrand"].Value"
-                            icon="plus"
-                            button-type="Primary" data-original-title="@L["CreateBrand"].Value" data-task="insert" data-modal="true" data-href="@(Url.Action("CreateModal","Brand",new {}))" data-grid="brands" />
+                    <abp-button text="@L["CreateBrand"].Value" icon="plus" onclick="brands.functions.create(this)" button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
@@ -49,16 +50,17 @@
             .Name("brands")
             .Columns(columns =>
             {
-
+                columns.Command(command =>
+                {
+                    if (update) command.Custom(L["Edit"].Value).Click("brands.functions.edit");
+                    if (delete) command.Custom(L["Delete"].Value).Click("brands.functions.delete");
+                });
                 columns.Bound(p => p.Name).Title(L["BrandName"].Value);
                 columns.Bound(p => p.Code).Title(L["BrandCode"].Value);
                 columns.Bound(p => p.Description).Title(L["BrandDescription"].Value);
             })
             .ToolBar(tools =>
             {
-                tools.Custom().Text("<i class='fa fa-edit' data-original-title='Düzenle'></i>").HtmlAttributes(new Dictionary<string, object> { { "data-method", "get" }, { "data-href", Url.Action("EditModal", "Brand") } });
-                tools.Custom().Text("<i class='fa fa-trash' data-original-title='Sil'></i>").HtmlAttributes(new Dictionary<string, object> { { "data-method", "get" }, { "data-ask", L["BrandDeletionConfirmationMessage"].Value }, { "data-api", "true" }, { "data-href", "brand.delete" } });
-
                 tools.Search().Text(" ");
                 tools.Excel().Text(" ");
                 tools.Pdf().Text(" ");
@@ -69,8 +71,12 @@
             .Selectable()
             .Pageable(x => x.Refresh(true))
             .Filterable()
-            .DataSource(dataSource =>
-            dataSource
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
             .WebApi()
             .Model(model =>
             {

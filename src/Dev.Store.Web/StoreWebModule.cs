@@ -125,6 +125,7 @@ public class StoreWebModule : AbpModule
             {
                 bundle.AddFiles("/kendo/js/kendo.all.min.js");
                 bundle.AddFiles("/kendo/js/kendo.aspnetmvc.min.js");
+                bundle.AddFiles("/kendo/js/jszip.min.js");
                 bundle.AddFiles($"/kendo/js/cultures/kendo.culture.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
                 bundle.AddFiles($"/kendo/js/messages/kendo.messages.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
                 bundle.AddFiles("/custom/js/master.js");

@@ -349,45 +349,51 @@ namespace Dev.Store.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Brands",
+                name: "AppBrands",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
-                    Code = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    Code = table.Column<string>(type: "character varying(12)", maxLength: 12, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true)
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brands", x => x.Id);
+                    table.PrimaryKey("PK_AppBrands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "AppCategories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     Link = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    Pid = table.Column<Guid>(type: "uuid", nullable: true),
-                    CategoryId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsVisible = table.Column<bool>(type: "boolean", nullable: false),
+                    CategoryParentId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true)
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_AppCategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categories_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        name: "FK_AppCategories_AppCategories_CategoryParentId",
+                        column: x => x.CategoryParentId,
+                        principalTable: "AppCategories",
                         principalColumn: "Id");
                 });
 
@@ -968,18 +974,18 @@ namespace Dev.Store.Migrations
                 column: "UserName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Brands_Code",
-                table: "Brands",
+                name: "IX_AppBrands_Code",
+                table: "AppBrands",
                 column: "Code");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_CategoryId",
-                table: "Categories",
-                column: "CategoryId");
+                name: "IX_AppCategories_CategoryParentId",
+                table: "AppCategories",
+                column: "CategoryParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_Link",
-                table: "Categories",
+                name: "IX_AppCategories_Link",
+                table: "AppCategories",
                 column: "Link");
 
             migrationBuilder.CreateIndex(
@@ -1080,10 +1086,10 @@ namespace Dev.Store.Migrations
                 name: "AbpUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Brands");
+                name: "AppBrands");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "AppCategories");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
