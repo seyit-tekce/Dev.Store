@@ -1,7 +1,7 @@
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Dev.Store
+namespace Dev.Store.Brand
 {
     public class Brand : FullAuditedEntity<Guid>
     {

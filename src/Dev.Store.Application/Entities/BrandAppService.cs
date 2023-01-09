@@ -1,7 +1,7 @@
+using Dev.Store.Brand;
 using Dev.Store.Dtos;
 using Dev.Store.Localization;
 using Dev.Store.Permissions;
-using Dev.Store.Repositories;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;

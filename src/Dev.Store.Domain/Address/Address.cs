@@ -1,7 +1,7 @@
 ﻿using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Dev.Store.Entities
+namespace Dev.Store.Address
 {
     public class Address : AuditedEntity<Guid>
     {

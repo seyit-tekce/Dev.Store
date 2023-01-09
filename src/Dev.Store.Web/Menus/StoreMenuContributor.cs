@@ -44,8 +44,7 @@ public class StoreMenuContributor : IMenuContributor
             administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
         }
 
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+      
         if (await context.IsGrantedAsync(StorePermissions.Brand.Default))
         {
             context.Menu.AddItem(
@@ -58,5 +57,7 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Category", "fa fa-th")
             );
         }
+        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
+        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
     }
 }

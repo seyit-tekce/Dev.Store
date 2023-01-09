@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Dev.Store.Entities
+namespace Dev.Store.Category
 {
     public class Category : FullAuditedEntity<Guid>
     {
@@ -11,7 +11,6 @@ namespace Dev.Store.Entities
         public string Description { get; set; }
         public bool IsVisible { get; set; }
         public virtual Guid? CategoryParentId { get; set; }
-
         public Category CategoryParent { get; set; }
         public List<Category> CategoryChildren { get; set; }
         protected Category()

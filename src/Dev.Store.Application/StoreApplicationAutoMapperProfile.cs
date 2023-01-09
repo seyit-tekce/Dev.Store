@@ -1,8 +1,6 @@
 using AutoMapper;
-using Dev.Store;
 using Dev.Store.Dtos;
 using Dev.Store.Entities.Dtos;
-using Dev.Store.Entities;
 
 namespace Dev.Store;
 
