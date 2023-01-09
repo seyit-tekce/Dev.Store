@@ -37,7 +37,7 @@ public class StoreMenuContributor : IMenuContributor
 
         if (MultiTenancyConsts.IsEnabled)
         {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 49);
         }
         else
         {
@@ -48,21 +48,21 @@ public class StoreMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(StorePermissions.Brand.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Brand, l["Menu:Brand"], "/Brand", "fa fa-fax")
+                new ApplicationMenuItem(StoreMenus.Brand, l["Menu:Brand"], "/Brands", "fa fa-fax")
             );
         }
         if (await context.IsGrantedAsync(StorePermissions.Category.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Category", "fa fa-th")
+                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Categories", "fa fa-th")
             );
         }
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 50);
+        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 51);
         if (await context.IsGrantedAsync(StorePermissions.Location.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Location, l["Menu:Location"], "/Location/Location")
+                new ApplicationMenuItem(StoreMenus.Location, l["Menu:Location"], "/Locations","fa fa-map-marker")
             );
         }
     }

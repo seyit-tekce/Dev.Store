@@ -13,7 +13,7 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Dev.Store.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20230108174736_Initial")]
+    [Migration("20230109193634_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,7 +27,7 @@ namespace Dev.Store.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Dev.Store.Brand", b =>
+            modelBuilder.Entity("Dev.Store.Brands.Brand", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -82,7 +82,7 @@ namespace Dev.Store.Migrations
                     b.ToTable("AppBrands", (string)null);
                 });
 
-            modelBuilder.Entity("Dev.Store.Entities.Category", b =>
+            modelBuilder.Entity("Dev.Store.Categories.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
@@ -143,6 +143,47 @@ namespace Dev.Store.Migrations
                     b.HasIndex("Link");
 
                     b.ToTable("AppCategories", (string)null);
+                });
+
+            modelBuilder.Entity("Dev.Store.Locations.Location", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid?>("LocationParentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("LocationParentId");
+
+                    b.ToTable("AppLocations", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -1753,13 +1794,22 @@ namespace Dev.Store.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("Dev.Store.Entities.Category", b =>
+            modelBuilder.Entity("Dev.Store.Categories.Category", b =>
                 {
-                    b.HasOne("Dev.Store.Entities.Category", "CategoryParent")
+                    b.HasOne("Dev.Store.Categories.Category", "CategoryParent")
                         .WithMany("CategoryChildren")
                         .HasForeignKey("CategoryParentId");
 
                     b.Navigation("CategoryParent");
+                });
+
+            modelBuilder.Entity("Dev.Store.Locations.Location", b =>
+                {
+                    b.HasOne("Dev.Store.Locations.Location", "LocationParent")
+                        .WithMany("LocationChildren")
+                        .HasForeignKey("LocationParentId");
+
+                    b.Navigation("LocationParent");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
@@ -1904,9 +1954,14 @@ namespace Dev.Store.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Dev.Store.Entities.Category", b =>
+            modelBuilder.Entity("Dev.Store.Categories.Category", b =>
                 {
                     b.Navigation("CategoryChildren");
+                });
+
+            modelBuilder.Entity("Dev.Store.Locations.Location", b =>
+                {
+                    b.Navigation("LocationChildren");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

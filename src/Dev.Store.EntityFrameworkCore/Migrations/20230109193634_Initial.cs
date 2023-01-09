@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -394,6 +394,29 @@ namespace Dev.Store.Migrations
                         name: "FK_AppCategories_AppCategories_CategoryParentId",
                         column: x => x.CategoryParentId,
                         principalTable: "AppCategories",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppLocations",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Code = table.Column<int>(type: "integer", nullable: false),
+                    LocationParentId = table.Column<Guid>(type: "uuid", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppLocations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppLocations_AppLocations_LocationParentId",
+                        column: x => x.LocationParentId,
+                        principalTable: "AppLocations",
                         principalColumn: "Id");
                 });
 
@@ -989,6 +1012,16 @@ namespace Dev.Store.Migrations
                 column: "Link");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppLocations_Code",
+                table: "AppLocations",
+                column: "Code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppLocations_LocationParentId",
+                table: "AppLocations",
+                column: "LocationParentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId");
@@ -1090,6 +1123,9 @@ namespace Dev.Store.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppCategories");
+
+            migrationBuilder.DropTable(
+                name: "AppLocations");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");

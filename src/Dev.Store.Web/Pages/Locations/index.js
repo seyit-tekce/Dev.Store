@@ -1,100 +1,87 @@
-$(function () {
+var l = abp.localization.getResource("Store");
+var locations = {
+    defines: {
+        service: dev.store.category,
+        createModal: new abp.ModalManager(abp.appPath + 'locations/createmodal'),
+        editModal: new abp.ModalManager(abp.appPath + 'locations/editmodal'),
+        grid: function () { return $("#locations").data("kendoGrid") }
+    },
+    functions: {
+        create: function (e) {
+            var load = new Loading($(e));
+            load.Start();
+            locations.defines.createModal.onOpen(function () {
+                load.Done();
+            });
+            locations.defines.createModal.open({
+                locationParentId: _id
+            });
+            locations.defines.createModal.onResult(function () {
+                locations.defines.grid().dataSource.read();
 
-    $("#LocationFilter :input").on('input', function () {
-        dataTable.ajax.reload();
-    });
+            });
+        },
+        edit: function (e) {
+            var load = new Loading($(e.target));
+            load.Start();
+            locations.defines.editModal.onOpen(function () {
+                load.Done();
+            });
+            locations.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
+            locations.defines.editModal.onResult(function () {
+                locations.defines.grid().dataSource.read();
+            });
+        },
+        delete: function (e) {
+            e.preventDefault();
+            abp.message.confirm(l("categoryDeletionConfirmationMessage"))
+                .then(function (confirmed) {
+                    if (confirmed) {
+                        var recordId = e.currentTarget.dataset["id"];
+                        dev.store.locations.location.delete(recordId)
+                            .then(function () {
+                                abp.notify.info(l("SuccessfullyDeleted"));
+                                locations.defines.grid().dataSource.read();
 
-    $('#LocationFilter div').addClass('col-sm-3').parent().addClass('row');
+                            });
+                    }
+                });
 
-    var getFilter = function () {
-        var input = {};
-        $("#LocationFilter")
-            .serializeArray()
-            .forEach(function (data) {
-                if (data.value != '') {
-                    input[abp.utils.toCamelCase(data.name.replace(/LocationFilter./g, ''))] = data.value;
-                }
-            })
-        return input;
-    };
 
-    var l = abp.localization.getResource('Store');
+        },
+        detail: function (e) {
+            e.preventDefault();
+            var recordId = e.currentTarget.dataset["id"];
+            window.location.href = abp.appPath + "locations/Index?Id=" + recordId;
 
-    var service = dev.store.location.location;
-    var createModal = new abp.ModalManager(abp.appPath + 'Location/Location/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Location/Location/EditModal');
 
-    var dataTable = $('#LocationTable').DataTable(abp.libs.datatables.normalizeConfiguration({
-        processing: true,
-        serverSide: true,
-        paging: true,
-        searching: false,//disable default searchbox
-        autoWidth: false,
-        scrollCollapse: true,
-        order: [[0, "asc"]],
-        ajax: abp.libs.datatables.createAjax(service.getList,getFilter),
-        columnDefs: [
-            {
-                rowAction: {
-                    items:
-                        [
-                            {
-                                text: l('Edit'),
-                                visible: abp.auth.isGranted('Store.Location.Update'),
-                                action: function (data) {
-                                    editModal.open({ id: data.record.id });
-                                }
-                            },
-                            {
-                                text: l('Delete'),
-                                visible: abp.auth.isGranted('Store.Location.Delete'),
-                                confirmMessage: function (data) {
-                                    return l('LocationDeletionConfirmationMessage', data.record.id);
-                                },
-                                action: function (data) {
-                                    service.delete(data.record.id)
-                                        .then(function () {
-                                            abp.notify.info(l('SuccessfullyDeleted'));
-                                            dataTable.ajax.reload();
-                                        });
-                                }
-                            }
-                        ]
-                }
-            },
-            {
-                title: l('LocationName'),
-                data: "name"
-            },
-            {
-                title: l('LocationCode'),
-                data: "code"
-            },
-            {
-                title: l('LocationPid'),
-                data: "pid"
-            },
-            {
-                title: l('LocationLocationParentId'),
-                data: "locationParentId"
-            },
-            {
-                title: l('LocationLocationParent'),
-                data: "locationParent"
-            },
-        ]
-    }));
+        },
+        nameChange: function () {
+            var name = $("#ViewModel_Name").val();
+            var code = $("#ViewModel_Link").val();
 
-    createModal.onResult(function () {
-        dataTable.ajax.reload();
-    });
+            if (name == null) {
+                return;
+            }
+            $("#ViewModel_Link").val(name.toLower());
+        }
 
-    editModal.onResult(function () {
-        dataTable.ajax.reload();
-    });
+    },
+    init: function () {
 
-    $('#NewLocationButton').click(function (e) {
-        e.preventDefault();
-        createModal.open();
-    });
-});
+
+
+
+    }
+
+
+}
+$(document).on("change", "#ViewModel_Name", function () {
+    locations.functions.nameChange();
+}).on("keyup", "#ViewModel_Name", function () {
+    locations.functions.nameChange();
+}).on("change", "#ViewModel_Link", function () {
+    locations.functions.nameChange();
+}).on("keyup", "#ViewModel_Link", function () {
+    locations.functions.nameChange();
+})

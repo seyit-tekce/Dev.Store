@@ -9,9 +9,7 @@ public class LocationDto : AuditedEntityDto<Guid>
 {
     public string Name { get; set; }
 
-    public string Code { get; set; }
-
-    public Guid? Pid { get; set; }
+    public int? Code { get; set; }
 
     public Guid? LocationParentId { get; set; }
 

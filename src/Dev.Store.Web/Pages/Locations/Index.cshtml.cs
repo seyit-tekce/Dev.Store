@@ -1,34 +1,32 @@
+using Dev.Store.Locations;
+using Dev.Store.Locations.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
-namespace Dev.Store.Web.Pages.Location.Location;
+namespace Dev.Store.Web.Pages.Locations;
 
 public class IndexModel : StorePageModel
 {
-    public LocationFilterInput LocationFilter { get; set; }
+    [BindProperty(SupportsGet = true)]
+    public Guid? Id { get; set; }
+
+    private readonly ILocationAppService locationAppService;
+
+    public IndexModel(ILocationAppService locationAppService)
+    {
+        this.locationAppService = locationAppService;
+    }
+
+    public LocationDto Location { get; set; }
 
     public virtual async Task OnGetAsync()
     {
+        if (this.Id.HasValue)
+        {
+            this.Location = await locationAppService.GetAsync(this.Id.Value);
+        }
         await Task.CompletedTask;
     }
 }
 
-public class LocationFilterInput
-{
-    [FormControlSize(AbpFormControlSize.Small)]
-    [Display(Name = "LocationName")]
-    public string Name { get; set; }
-
-    [FormControlSize(AbpFormControlSize.Small)]
-    [Display(Name = "LocationCode")]
-    public string Code { get; set; }
-
-
-    [FormControlSize(AbpFormControlSize.Small)]
-    [Display(Name = "LocationLocationParentId")]
-    public Guid? LocationParentId { get; set; }
-
-
-}

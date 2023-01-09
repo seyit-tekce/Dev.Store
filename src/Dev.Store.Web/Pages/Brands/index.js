@@ -38,7 +38,7 @@ var brands = {
                 .then(function (confirmed) {
                     if (confirmed) {
                         var recordId = e.currentTarget.dataset["id"];
-                        dev.store.entities.brand.delete(recordId)
+                        dev.store.brands.brand.delete(recordId)
                             .then(function () {
                                 abp.notify.info(l("SuccessfullyDeleted"));
                                 brands.defines.grid().dataSource.read();

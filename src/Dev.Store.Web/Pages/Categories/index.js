@@ -38,7 +38,7 @@ var categories = {
                 .then(function (confirmed) {
                     if (confirmed) {
                         var recordId = e.currentTarget.dataset["id"];
-                        dev.store.entities.category.delete(recordId)
+                        dev.store.categories.category.delete(recordId)
                             .then(function () {
                                 abp.notify.info(l("SuccessfullyDeleted"));
                                 categories.defines.grid().dataSource.read();

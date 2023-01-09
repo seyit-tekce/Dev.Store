@@ -1,11 +1,12 @@
 @page
+@using Dev.Store.Locations.Dtos;
 @using Dev.Store.Permissions
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
-@using Dev.Store.Web.Pages.Location.Location
 @using Dev.Store.Localization
 @using Dev.Store.Web.Menus
+@using Dev.Store.Web.Pages.Locations
 @model IndexModel
 @inject IPageLayout PageLayout
 @inject IHtmlLocalizer<StoreResource> L
@@ -14,42 +15,74 @@
     PageLayout.Content.Title = L["Location"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:Location"].Value);
     PageLayout.Content.MenuItemName = StoreMenus.Location;
+    var _default = await Authorization.IsGrantedAsync(StorePermissions.Location.Default);
+    var create = await Authorization.IsGrantedAsync(StorePermissions.Location.Create);
+    var delete = await Authorization.IsGrantedAsync(StorePermissions.Location.Delete);
+    var update = await Authorization.IsGrantedAsync(StorePermissions.Location.Update);
 }
-
 @section scripts
-{
-    <abp-script src="/Pages/Location/Location/index.js" />
+    {
+    <script>var _id = "@Model.Id"</script>
+    <abp-script src="/Pages/Locations/index.js" />
 }
 @section styles
-{
-    <abp-style src="/Pages/Location/Location/index.css"/>
+    {
+    <abp-style src="/Pages/Locations/index.css" />
 }
-
 <abp-card>
     <abp-card-header>
         <abp-row>
             <abp-column size-md="_6">
-                <abp-card-title>@L["Location"]</abp-card-title>
+                <abp-card-title>@(Model.Location == null ? L["Location"] : Model.Location.Name)</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-			    @if (await Authorization.IsGrantedAsync(StorePermissions.Location.Create))
+                @if (create)
                 {
-                <abp-button id="NewLocationButton"
-                            text="@L["CreateLocation"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                    <abp-button text="@L["CreateLocation"].Value" icon="plus" onclick="locations.functions.create(this)" button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-        <abp-row class="mb-3">
-            <a abp-collapse-id="LocationCollapse" class="text-secondary">@L["TableFilter"] </a>
-        </abp-row>
-        <abp-collapse-body id="LocationCollapse">
-            <abp-dynamic-form abp-model="LocationFilter" id="LocationFilter" required-symbols="false"/>
-            <hr />
-        </abp-collapse-body>
-        <abp-table striped-rows="true" id="LocationTable" class="nowrap"/>
+        @(
+            Html.Kendo().Grid<LocationDto>()
+            .Name("locations")
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
+                    if (_default) command.Custom(L["Detail"].Value).IconClass("fa fa-info-circle").Click("locations.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+                    if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("locations.functions.edit");
+                    if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("locations.functions.delete");
+                });
+                columns.Bound(p => p.Name).Title(L["LocationName"].Value);
+                columns.Bound(p => p.Code).Title(L["LocationCode"].Value);
+            })
+            .ToolBar(tools =>
+            {
+                tools.Search().Text(" ");
+                tools.Excel().Text(" ");
+                tools.Pdf().Text(" ");
+            })
+            .Height(650)
+            .Scrollable(x => x.Height(650))
+            .Sortable()
+            .Selectable()
+            .Pageable(x => x.Refresh(true))
+            .Filterable()
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+            .Read(read => read.Url("/api/app/Location/data-source")).Filter(a => a.Add(b => b.LocationParentId).IsEqualTo(Model.Id))
+            ).Deferred()
+            )
     </abp-card-body>
 </abp-card>

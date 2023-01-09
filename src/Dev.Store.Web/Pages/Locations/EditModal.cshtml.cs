@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
-namespace Dev.Store.Web.Pages.Location.Location;
+namespace Dev.Store.Web.Pages.Locations;
 
 public class EditModalModel : StorePageModel
 {
