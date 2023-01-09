@@ -9,4 +9,5 @@ public class StoreMenus
 
     public const string Brand = Prefix + ".Brand";
     public const string Category = Prefix + ".Category";
+    public const string Location = Prefix + ".Location";
 }

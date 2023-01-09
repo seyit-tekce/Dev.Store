@@ -1,3 +1,6 @@
+using Dev.Store.Brands;
+using Dev.Store.Categories;
+using Dev.Store.Locations;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -54,6 +57,7 @@ public class StoreDbContext :
     #endregion
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Location> Locations { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -95,7 +99,7 @@ public class StoreDbContext :
             b.ConfigureByConvention();
 
 
-          
+
         });
 
 
@@ -106,9 +110,23 @@ public class StoreDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             b.Property(x => x.Link).IsRequired().HasMaxLength(256);
             b.HasMany(c => c.CategoryChildren).WithOne(a => a.CategoryParent).HasForeignKey(g => g.CategoryParentId);
-            b.ConfigureByConvention(); 
-            
+            b.ConfigureByConvention();
 
+
+        });
+
+
+        builder.Entity<Location>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "Locations", StoreConsts.DbSchema);
+            b.HasIndex(a => a.Code);
+            b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.Property(x => x.Code).IsRequired();
+            b.HasMany(c => c.LocationChildren).WithOne(a => a.LocationParent).HasForeignKey(g => g.LocationParentId);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
         });
     }
 }

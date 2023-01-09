@@ -1,4 +1,6 @@
-using Dev.Store.Entities;
+using Dev.Store.Brands;
+using Dev.Store.Categories;
+using Dev.Store.Locations;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -41,18 +43,20 @@ public class StoreEntityFrameworkCoreModule : AbpModule
     {
         context.Services.AddAbpDbContext<StoreDbContext>(options =>
         {
-                /* Remove "includeAllEntities: true" to create
-                 * default repositories only for aggregate roots */
+            /* Remove "includeAllEntities: true" to create
+             * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
             options.AddRepository<Brand, BrandRepository>();
             options.AddRepository<Category, CategoryRepository>();
+            options.AddRepository<Location, LocationRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>
         {
-                /* The main point to change your DBMS.
-                 * See also StoreMigrationsDbContextFactory for EF Core tooling. */
+            /* The main point to change your DBMS.
+             * See also StoreMigrationsDbContextFactory for EF Core tooling. */
             options.UseNpgsql();
+
         });
 
     }

@@ -32,6 +32,18 @@
     "CreateCategory": "CreateCategory",
     "EditCategory": "EditCategory",
     "CategoryDeletionConfirmationMessage": "Are you sure to delete the category {0}?",
-    "TableFilter": "TableFilter"
+    "TableFilter": "TableFilter",
+    "Permission:Location": "Location",
+    "Menu:Location": "MenuLocation",
+    "Location": "Location",
+    "LocationName": "LocationName",
+    "LocationCode": "LocationCode",
+    "LocationPid": "LocationPid",
+    "LocationLocationParentId": "LocationLocationParentId",
+    "LocationLocationParent": "LocationLocationParent",
+    "LocationLocationChildren": "LocationLocationChildren",
+    "CreateLocation": "CreateLocation",
+    "EditLocation": "EditLocation",
+    "LocationDeletionConfirmationMessage": "Are you sure to delete the location {0}?"
   }
 }

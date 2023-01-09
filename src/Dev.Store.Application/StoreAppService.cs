@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Dev.Store.Localization;
+﻿using Dev.Store.Localization;
 using Volo.Abp.Application.Services;
 
 namespace Dev.Store;

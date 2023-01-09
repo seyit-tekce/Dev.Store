@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dev.Store.Utils
 {
@@ -16,7 +14,7 @@ namespace Dev.Store.Utils
 
             }
             var date = DateTime.Now;
-            return date.Year.ToString() + date.Month.ToString() + date.Day.ToString()+ rndCode;
+            return date.Year.ToString() + date.Month.ToString() + date.Day.ToString() + rndCode;
         }
     }
 }

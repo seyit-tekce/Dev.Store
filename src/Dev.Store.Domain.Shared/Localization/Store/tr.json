@@ -38,6 +38,18 @@
     "CategoryNameHolder": "Lütfen Kategori Adı Giriniz",
     "CategoryCodeHolder": "Lütfen Kategori Kodu Giriniz",
     "CategoryDescriptionHolder": "Lütfen Kategori Açıklaması Giriniz",
-    "CategoryIsVisible": "Kategori Görünebilir mi ? "
+    "CategoryIsVisible": "Kategori Görünebilir mi ? ",
+    "Permission:Location": "Location",
+    "Menu:Location": "MenuLocation",
+    "Location": "Location",
+    "LocationName": "LocationName",
+    "LocationCode": "LocationCode",
+    "LocationPid": "LocationPid",
+    "LocationLocationParentId": "LocationLocationParentId",
+    "LocationLocationParent": "LocationLocationParent",
+    "LocationLocationChildren": "LocationLocationChildren",
+    "CreateLocation": "CreateLocation",
+    "EditLocation": "EditLocation",
+    "LocationDeletionConfirmationMessage": "Are you sure to delete the location {0}?"
   }
 }
