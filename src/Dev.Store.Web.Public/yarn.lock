@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.0.0":
+"@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.0.0-rc.4":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.0.0.tgz#d50a3887400a8207fff73da94e76cf12f699b2ad"
   integrity sha512-fIXnuIZMtZ8HriuRDcKJeayFXA1WxPjM4iwRPJ8E2/IGNw5oiBydWNUQVopJX+kx98YDDnGT2j+qLZDTeQttbg==
@@ -64,21 +64,6 @@
   dependencies:
     "@abp/core" "~7.0.0"
     bootstrap "^5.1.3"
-
-"@abp/clipboard@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@abp/clipboard/-/clipboard-2.9.0.tgz#b6d7180fbe3d8043e71b182ee620efa4877b8cf6"
-  integrity sha512-1rGd0PTQRWUUn2KkfOZF+2pp7rw7iSV5nUGOJ3sdTc/rLiH8tKv8FL4Sdj9EfaCiU8QVwDVmLtd5Kt6fLxeKDg==
-  dependencies:
-    "@abp/core" "^2.9.0"
-    clipboard "^2.0.4"
-
-"@abp/core@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@abp/core/-/core-2.9.0.tgz#5460925a121c88f8afb69dbce65da1cd4257b024"
-  integrity sha512-6Hn6dPN47kqmJF0VbxNcDu370oNZPTlEGMm1dQcgM31DvOMS8ICy/4thxNYTTEr0DN9chujkw38aHFd2XqyBnw==
-  dependencies:
-    "@abp/utils" "^2.9.0"
 
 "@abp/core@~7.0.0":
   version "7.0.0"
@@ -174,15 +159,6 @@
   dependencies:
     moment "^2.9.0"
 
-"@abp/prismjs@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@abp/prismjs/-/prismjs-2.9.0.tgz#d82ba6a5f03a09c4cc6697b3ae47955d3b4bbc20"
-  integrity sha512-WErltCoD6N1NTUTY9936OKzLjM/5lUJlB/utFs4gxR7yrtImW9ryUsjkRbIy42taZ+FkkB+suDDwa5g/9hujBA==
-  dependencies:
-    "@abp/clipboard" "^2.9.0"
-    "@abp/core" "^2.9.0"
-    prismjs "^1.17.1"
-
 "@abp/select2@~7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@abp/select2/-/select2-7.0.0.tgz#510b6a281beb10708609308fe8a001ceb294bdbe"
@@ -215,27 +191,12 @@
     "@abp/jquery" "~7.0.0"
     toastr "^2.1.4"
 
-"@abp/utils@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@abp/utils/-/utils-2.9.0.tgz#8a66b7e1d422eae5898d32af7810d6bd625276f2"
-  integrity sha512-0gvWUH3jT7YE4ym2C45uKDzHs/oOdMW5lPq9ncCZ58wMxTrgPvxXNuMmRW0P259OcXYiRwmsNtb09/WlTQQbKA==
-  dependencies:
-    just-compare "^1.3.0"
-
 "@abp/utils@~7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@abp/utils/-/utils-7.0.0.tgz#662645b8774b048ba5eb6f7971fa1f20b909ad96"
   integrity sha512-JLufGsUmZ8jUdZNteXXp/phYqVCiOHO6ymMyd2oUjVEnRh3wRtRs4snhN2MQruGa6KCbPHkjGhXiQTUo75IbaQ==
   dependencies:
     just-compare "^1.3.0"
-
-"@abp/virtual-file-explorer@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@abp/virtual-file-explorer/-/virtual-file-explorer-2.9.0.tgz#a55b94c8beafbb8757ca0b9794e3fa957e61221d"
-  integrity sha512-/CWxu3q5QF5jshLX3lw4XNWxTBBOGvZDSkuCM/pE9XNPXjIu6G3YB9XCBmqvk8toSp0d6QjShwzPcjAKPCQcpA==
-  dependencies:
-    "@abp/clipboard" "^2.9.0"
-    "@abp/prismjs" "^2.9.0"
 
 "@fortawesome/fontawesome-free@^5.15.4":
   version "5.15.4"
@@ -554,15 +515,6 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-clipboard@^2.0.4:
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-2.0.11.tgz#62180360b97dd668b6b3a84ec226975762a70be5"
-  integrity sha512-C+0bbOqkezLIsmWSvlsXS0Q0bmkugu7jcfMIACB+RDEntIzQIkdr148we28AfSloQLRdZlYL/QYyrq05j/3Faw==
-  dependencies:
-    good-listener "^1.2.2"
-    select "^1.1.2"
-    tiny-emitter "^2.0.0"
-
 cliui@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/cliui/-/cliui-3.2.0.tgz#120601537a916d29940f934da3b48d585a39213d"
@@ -747,11 +699,6 @@ define-property@^2.0.2:
   dependencies:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
-
-delegate@^3.1.2:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
-  integrity sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==
 
 detect-file@^1.0.0:
   version "1.0.0"
@@ -1120,13 +1067,6 @@ glogg@^1.0.0:
   integrity sha512-5mwUoSuBk44Y4EshyiqcH95ZntbDdTQqA3QYSrxmzj28Ai0vXBGMH1ApSANH14j2sIRtqCEyg6PfsuP7ElOEDA==
   dependencies:
     sparkles "^1.0.0"
-
-good-listener@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/good-listener/-/good-listener-1.2.2.tgz#d53b30cdf9313dffb7dc9a0d477096aa6d145c50"
-  integrity sha512-goW1b+d9q/HIwbVYZzZ6SsTr4IgE+WA44A0GmPIQstuOrgsFcT7VEJ48nmr9GaRtNu0XTKacFLGnBPAM6Afouw==
-  dependencies:
-    delegate "^3.1.2"
 
 graceful-fs@^4.0.0, graceful-fs@^4.1.11, graceful-fs@^4.1.2, graceful-fs@^4.1.6:
   version "4.2.10"
@@ -1594,9 +1534,9 @@ lodash@^4.17.21:
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
 luxon@^2.3.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-2.5.0.tgz#098090f67d690b247e83c090267a60b1aa8ea96c"
-  integrity sha512-IDkEPB80Rb6gCAU+FEib0t4FeJ4uVOuX1CQ9GsvU3O+JAGIgu0J7sf1OarXKaKDygTZIoJyU6YdZzTFRu+YR0A==
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-2.5.2.tgz#17ed497f0277e72d58a4756d6a9abee4681457b6"
+  integrity sha512-Yg7/RDp4nedqmLgyH0LwgGRvMEKVzKbUdkBYyCosbHgJ+kaOUx0qzSiSatVc3DFygnirTPYnMM2P5dg2uH1WvA==
 
 make-iterator@^1.0.0:
   version "1.0.1"
@@ -1948,11 +1888,6 @@ pretty-hrtime@^1.0.0:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==
 
-prismjs@^1.17.1:
-  version "1.29.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
-  integrity sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==
-
 process-nextick-args@^2.0.0, process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
@@ -2141,11 +2076,6 @@ select2@^4.0.13:
   resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.13.tgz#0dbe377df3f96167c4c1626033e924372d8ef44d"
   integrity sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
 
-select@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
-  integrity sha512-OwpTSOfy6xSs1+pwcNrv0RBMOzI39Lp3qQKUTPVVPRjCdNa5JH/oPRiqsesIskK8TVgmRiHwO4KXlV2Li9dANA==
-
 semver-greatest-satisfied-range@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/semver-greatest-satisfied-range/-/semver-greatest-satisfied-range-1.1.0.tgz#13e8c2658ab9691cb0cd71093240280d36f77a5b"
@@ -2172,11 +2102,6 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-extendable "^0.1.1"
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
-
-slugify@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.6.5.tgz#c8f5c072bf2135b80703589b39a3d41451fbe8c8"
-  integrity sha512-8mo9bslnBO3tr5PEVFzMPIWwWnipGS0xVbYf65zxDqfNwmzYn1LpiKNrR6DlClusuvo+hDHd1zKpmfAe83NQSQ==
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -2365,11 +2290,6 @@ timeago@^1.6.7:
   integrity sha512-FikcjN98+ij0siKH4VO4dZ358PR3oDDq4Vdl1+sN9gWz1/+JXGr3uZbUShYH/hL7bMhcTpPbplJU5Tej4b4jbQ==
   dependencies:
     jquery ">=1.5.0 <4.0"
-
-tiny-emitter@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
-  integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
 
 to-absolute-glob@^2.0.0:
   version "2.0.2"

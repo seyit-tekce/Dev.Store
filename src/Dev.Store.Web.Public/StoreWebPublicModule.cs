@@ -1,44 +1,44 @@
-using Dev.Store.EntityFrameworkCore;
-using Dev.Store.Localization;
-using Dev.Store.MultiTenancy;
-using Dev.Store.Web.Menus;
-using Dev.StoreAbp.Web.Bundling.Kendo;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Dev.Store.EntityFrameworkCore;
+using Dev.Store.Localization;
+using Dev.Store.MultiTenancy;
+using Dev.Store.Web.Public.Menus;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
-using System.Globalization;
-using System.IO;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Localization;
+using Volo.Abp.AspNetCore.Mvc.UI;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
+using Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity.Web;
+using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
+using Volo.Abp.PermissionManagement.Web;
 using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
-using Volo.Abp.Ui.LayoutHooks;
-using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
+using Volo.Abp.UI;
+using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Abp.VirtualFileExplorer.Web;
-using Volo.CmsKit.Web;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
 
-namespace Dev.Store.Web;
+namespace Dev.Store.Web.Public;
 
 [DependsOn(
     typeof(StoreHttpApiModule),
@@ -51,12 +51,9 @@ namespace Dev.Store.Web;
     typeof(AbpAspNetCoreMvcUiLeptonXLiteThemeModule),
     typeof(AbpTenantManagementWebModule),
     typeof(AbpAspNetCoreSerilogModule),
-    typeof(AbpSwashbuckleModule),
-    typeof(AbpVirtualFileExplorerWebModule)
+    typeof(AbpSwashbuckleModule)
     )]
-[DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
-[DependsOn(typeof(CmsKitWebModule))]
-    public class StoreWebModule : AbpModule
+public class StoreWebPublicModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -68,7 +65,7 @@ namespace Dev.Store.Web;
                 typeof(StoreDomainSharedModule).Assembly,
                 typeof(StoreApplicationModule).Assembly,
                 typeof(StoreApplicationContractsModule).Assembly,
-                typeof(StoreWebModule).Assembly
+                typeof(StoreWebPublicModule).Assembly
             );
         });
 
@@ -96,8 +93,6 @@ namespace Dev.Store.Web;
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
-        ConfigureKendo(context);
-        ConfigureSerializers(context);
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -117,53 +112,21 @@ namespace Dev.Store.Web;
     {
         Configure<AbpBundlingOptions>(options =>
         {
-            options
-                .StyleBundles.Configure(
-                    LeptonXLiteThemeBundles.Styles.Global,
-                    bundle =>
-                    {
-                        bundle.AddFiles("/global-styles.css");
-                    }
-                )
-                .Get(StandardBundles.Styles.Global)
-                .AddContributors(typeof(KendoStyleContributor)); // add this
-            options.ScriptBundles.Configure(LeptonXLiteThemeBundles.Scripts.Global, bundle =>
-            {
-                bundle.AddFiles("/kendo/js/kendo.all.min.js");
-                bundle.AddFiles("/kendo/js/kendo.aspnetmvc.min.js");
-                bundle.AddFiles("/kendo/js/jszip.min.js");
-                bundle.AddFiles($"/kendo/js/cultures/kendo.culture.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
-                bundle.AddFiles($"/kendo/js/messages/kendo.messages.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
-                bundle.AddFiles("/custom/js/master.js");
-                bundle.AddFiles("/custom-libs/linq/jquery.linq.js");
-                bundle.AddFiles("/custom-libs/jquery.livequery.min.js");
-            });
-        });
-        Configure<AbpLayoutHookOptions>(options =>
-        {
-            options.Add(
-                LayoutHooks.Body.Last, //The hook name
-                typeof(KendoViewComponent) //The component to add
+            options.StyleBundles.Configure(
+                LeptonXLiteThemeBundles.Styles.Global,
+                bundle =>
+                {
+                    bundle.AddFiles("/global-styles.css");
+                }
             );
         });
+    }
 
-    }
-    private void ConfigureSerializers(ServiceConfigurationContext context)
-    {
-        context.Services.AddControllers(options => { }).AddJsonOptions(a =>
-        {
-            a.JsonSerializerOptions.Converters.Add(new Dev.Store.Infrastructure.Converter.Json.Microsoft.DataSourceResultConverter());
-        });
-    }
-    private void ConfigureKendo(ServiceConfigurationContext context)
-    {
-        context.Services.AddKendo();
-    }
     private void ConfigureAutoMapper()
     {
         Configure<AbpAutoMapperOptions>(options =>
         {
-            options.AddMaps<StoreWebModule>();
+            options.AddMaps<StoreWebPublicModule>();
         });
     }
 
@@ -177,7 +140,7 @@ namespace Dev.Store.Web;
                 options.FileSets.ReplaceEmbeddedByPhysical<StoreDomainModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dev.Store.Domain"));
                 options.FileSets.ReplaceEmbeddedByPhysical<StoreApplicationContractsModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dev.Store.Application.Contracts"));
                 options.FileSets.ReplaceEmbeddedByPhysical<StoreApplicationModule>(Path.Combine(hostingEnvironment.ContentRootPath, $"..{Path.DirectorySeparatorChar}Dev.Store.Application"));
-                options.FileSets.ReplaceEmbeddedByPhysical<StoreWebModule>(hostingEnvironment.ContentRootPath);
+                options.FileSets.ReplaceEmbeddedByPhysical<StoreWebPublicModule>(hostingEnvironment.ContentRootPath);
             });
         }
     }

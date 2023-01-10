@@ -16,6 +16,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Volo.CmsKit.EntityFrameworkCore;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -128,5 +129,6 @@ public class StoreDbContext :
 
             /* Configure more properties here */
         });
-    }
+        builder.ConfigureCmsKit();
+        }
 }

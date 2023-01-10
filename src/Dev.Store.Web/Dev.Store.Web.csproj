@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <Import Project="..\..\common.props" />
 
@@ -62,6 +62,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+    <ProjectReference Include="..\..\packages\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
+    <PackageReference Include="Volo.Abp.VirtualFileExplorer.Web" Version="7.0.0-rc.5" />
+    <PackageReference Include="Volo.CmsKit.Web" Version="7.0.0-rc.5" />
   </ItemGroup>
 
   <ItemGroup>
