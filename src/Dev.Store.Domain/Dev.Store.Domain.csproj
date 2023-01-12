@@ -26,4 +26,8 @@
     <PackageReference Include="Volo.CmsKit.Domain" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Product\" />
+  </ItemGroup>
+
 </Project>
