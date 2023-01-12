@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
+using Dev.Store.Permissions;
 using Dev.Store.Localization;
 using Dev.Store.MultiTenancy;
 using Volo.Abp.Identity.Web.Navigation;
@@ -45,5 +46,11 @@ public class StoreMenuContributor : IMenuContributor
 
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+        if (await context.IsGrantedAsync(StorePermissions.Keyword.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords/Keyword")
+            );
+        }
     }
 }

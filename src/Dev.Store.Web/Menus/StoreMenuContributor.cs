@@ -65,5 +65,11 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Location, l["Menu:Location"], "/Locations","fa fa-map-marker")
             );
         }
+        if (await context.IsGrantedAsync(StorePermissions.Keyword.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords/Keyword")
+            );
+        }
     }
 }

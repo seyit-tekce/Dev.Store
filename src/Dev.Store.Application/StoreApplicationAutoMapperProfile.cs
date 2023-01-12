@@ -4,6 +4,8 @@ using Dev.Store.Brands.Dtos;
 using Dev.Store.Categories;
 using Dev.Store.Categories.Dtos;
 using Dev.Store.Locations;
+using Dev.Store.Keywords;
+using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations.Dtos;
 
 namespace Dev.Store;
@@ -22,5 +24,7 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateCategoryDto, Category>(MemberList.Source);
         CreateMap<Location, LocationDto>();
         CreateMap<CreateUpdateLocationDto, Location>(MemberList.Source);
+        CreateMap<Keyword, KeywordDto>();
+        CreateMap<CreateUpdateKeywordDto, Keyword>(MemberList.Source);
     }
 }

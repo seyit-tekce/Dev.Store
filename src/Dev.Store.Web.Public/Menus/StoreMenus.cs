@@ -1,4 +1,4 @@
-﻿namespace Dev.Store.Web.Public.Menus;
+namespace Dev.Store.Web.Public.Menus;
 
 public class StoreMenus
 {
@@ -7,4 +7,5 @@ public class StoreMenus
 
     //Add your menu items here...
 
+    public const string Keyword = Prefix + ".Keyword";
 }
