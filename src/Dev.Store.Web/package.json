@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~2.0.0",
-    "@abp/virtual-file-explorer": "^2.9.0",
+    "@abp/virtual-file-explorer": "~7.0.0",
     "slugify": "^1.6.5"
   }
 }

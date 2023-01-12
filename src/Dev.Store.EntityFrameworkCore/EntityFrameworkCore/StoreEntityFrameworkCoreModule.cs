@@ -1,3 +1,4 @@
+using Dev.Store.Keywords;
 using Dev.Store.Brands;
 using Dev.Store.Categories;
 using Dev.Store.Locations;
@@ -15,6 +16,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
+using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -31,6 +33,7 @@ namespace Dev.Store.EntityFrameworkCore;
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
 [DependsOn(typeof(CmsKitEntityFrameworkCoreModule))]
+    [DependsOn(typeof(BlobStoringDatabaseEntityFrameworkCoreModule))]
     public class StoreEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
@@ -51,6 +54,7 @@ namespace Dev.Store.EntityFrameworkCore;
             options.AddRepository<Brand, BrandRepository>();
             options.AddRepository<Category, CategoryRepository>();
             options.AddRepository<Location, LocationRepository>();
+            options.AddRepository<Keyword, KeywordRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

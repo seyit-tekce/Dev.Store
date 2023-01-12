@@ -17,6 +17,8 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
+using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
+using Dev.Store.Keywords;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -59,6 +61,7 @@ public class StoreDbContext :
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Location> Locations { get; set; }
+    public DbSet<Keyword> Keywords { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -130,5 +133,16 @@ public class StoreDbContext :
             /* Configure more properties here */
         });
         builder.ConfigureCmsKit();
+            builder.ConfigureBlobStoring();
+
+
+        builder.Entity<Keyword>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "Keywords", StoreConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
         }
 }

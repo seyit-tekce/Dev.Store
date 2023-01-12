@@ -15,6 +15,7 @@ using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.CmsKit;
+using Volo.Abp.BlobStoring.Database;
 
 namespace Dev.Store;
 
@@ -32,6 +33,7 @@ namespace Dev.Store;
     typeof(AbpEmailingModule)
 )]
 [DependsOn(typeof(CmsKitDomainModule))]
+    [DependsOn(typeof(BlobStoringDatabaseDomainModule))]
     public class StoreDomainModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Volo.Abp.BlobStoring.Database.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="Volo.CmsKit.EntityFrameworkCore" Version="7.0.0" />
     <ProjectReference Include="..\Dev.Store.Domain\Dev.Store.Domain.csproj" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="7.0.0" />

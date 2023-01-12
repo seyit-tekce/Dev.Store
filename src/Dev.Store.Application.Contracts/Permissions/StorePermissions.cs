@@ -30,4 +30,12 @@ public static class StorePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+
+    public class Keyword
+    {
+        public const string Default = GroupName + ".Keyword";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

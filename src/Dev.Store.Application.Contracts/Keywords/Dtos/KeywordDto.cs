@@ -1,0 +1,10 @@
+using System;
+using Volo.Abp.Application.Dtos;
+
+namespace Dev.Store.Keywords.Dtos;
+
+[Serializable]
+public class KeywordDto : FullAuditedEntityDto<Guid>
+{
+    public string Name { get; set; }
+}

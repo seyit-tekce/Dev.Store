@@ -13,6 +13,7 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 using Volo.CmsKit;
+using Volo.Abp.BlobStoring.Database;
 
 namespace Dev.Store;
 
@@ -27,6 +28,7 @@ namespace Dev.Store;
     typeof(AbpTenantManagementDomainSharedModule)
     )]
 [DependsOn(typeof(CmsKitDomainSharedModule))]
+    [DependsOn(typeof(BlobStoringDatabaseDomainSharedModule))]
     public class StoreDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

@@ -37,6 +37,8 @@ using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.VirtualFileExplorer.Web;
 using Volo.CmsKit.Web;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.Database;
 
 namespace Dev.Store.Web;
 
@@ -79,6 +81,13 @@ namespace Dev.Store.Web;
                 options.AddAudiences("Store");
                 options.UseLocalServer();
                 options.UseAspNetCore();
+            });
+        });
+        Configure<AbpBlobStoringOptions>(options =>
+        {
+            options.Containers.ConfigureDefault(container =>
+            {
+                container.UseDatabase();
             });
         });
     }
