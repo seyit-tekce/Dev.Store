@@ -1,8 +1,12 @@
+using Dev.Store.Keywords.Dtos;
+using Dev.Store.Permissions;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dev.Store.Permissions;
-using Dev.Store.Keywords.Dtos;
 using Volo.Abp.Application.Services;
 
 namespace Dev.Store.Keywords;
@@ -30,5 +34,11 @@ public class KeywordAppService : CrudAppService<Keyword, KeywordDto, Guid, Keywo
         return (await base.CreateFilteredQueryAsync(input))
             .WhereIf(!input.Name.IsNullOrWhiteSpace(), x => x.Name.Contains(input.Name))
             ;
+    }
+    [HttpGet]
+    [Authorize(StorePermissions.Category.Default)]
+    public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
+    {
+        return (await _repository.GetQueryableAsync()).ToDataSourceResult(request, x => ObjectMapper.Map<Keyword, KeywordDto>(x));
     }
 }

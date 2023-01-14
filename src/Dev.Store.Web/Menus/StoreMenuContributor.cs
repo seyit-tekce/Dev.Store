@@ -62,13 +62,13 @@ public class StoreMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(StorePermissions.Location.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Location, l["Menu:Location"], "/Locations","fa fa-map-marker")
+                new ApplicationMenuItem(StoreMenus.Location, l["Menu:Location"], "/Locations", "fa fa-map-marker")
             );
         }
         if (await context.IsGrantedAsync(StorePermissions.Keyword.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords/Keyword")
+                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-keyword")
             );
         }
     }

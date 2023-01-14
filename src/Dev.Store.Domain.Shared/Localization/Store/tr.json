@@ -50,13 +50,13 @@
     "LocationLocationChildren": "LocationLocationChildren",
     "CreateLocation": "Lokasyon Oluştur",
     "EditLocation": "Lokasyon Düzenle",
-    "LocationDeletionConfirmationMessage": "Are you sure to delete the location {0}?",
-    "Permission:Keyword": "Keyword",
-    "Menu:Keyword": "MenuKeyword",
-    "Keyword": "Keyword",
-    "KeywordName": "KeywordName",
-    "CreateKeyword": "CreateKeyword",
-    "EditKeyword": "EditKeyword",
-    "KeywordDeletionConfirmationMessage": "Are you sure to delete the keyword {0}?"
+    "LocationDeletionConfirmationMessage": "Lokasyonu silmek istediğinze emin misiniz ?",
+    "Permission:Keyword": "Anahtar Kelimeler",
+    "Menu:Keyword": "Anahtar Kelimeler",
+    "Keyword": "Anahtar Kelimeler",
+    "KeywordName": "Anahtar Kelime",
+    "CreateKeyword": "Anahtar Kelime Oluştur",
+    "EditKeyword": "Anahtar Kelime Düzenle",
+    "KeywordDeletionConfirmationMessage": "Anahtar kelimeyi silmek istediğinze emin misiniz?"
   }
 }

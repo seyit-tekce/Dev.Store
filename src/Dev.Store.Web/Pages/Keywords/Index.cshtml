@@ -1,9 +1,10 @@
 @page
+@using Dev.Store.Keywords.Dtos;
 @using Dev.Store.Permissions
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
-@using Dev.Store.Web.Pages.Keywords.Keyword
+@using Dev.Store.Web.Pages.Keywords
 @using Dev.Store.Localization
 @using Dev.Store.Web.Menus
 @model IndexModel
@@ -14,15 +15,19 @@
     PageLayout.Content.Title = L["Keyword"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:Keyword"].Value);
     PageLayout.Content.MenuItemName = StoreMenus.Keyword;
+    var _default = await Authorization.IsGrantedAsync(StorePermissions.Keyword.Default);
+    var create = await Authorization.IsGrantedAsync(StorePermissions.Keyword.Create);
+    var delete = await Authorization.IsGrantedAsync(StorePermissions.Keyword.Delete);
+    var update = await Authorization.IsGrantedAsync(StorePermissions.Keyword.Update);
 }
 
 @section scripts
 {
-    <abp-script src="/Pages/Keywords/Keyword/index.js" />
+    <abp-script src="/Pages/Keywords/index.js" />
 }
 @section styles
 {
-    <abp-style src="/Pages/Keywords/Keyword/index.css"/>
+    <abp-style src="/Pages/Keywords/index.css"/>
 }
 
 <abp-card>
@@ -32,24 +37,54 @@
                 <abp-card-title>@L["Keyword"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-			    @if (await Authorization.IsGrantedAsync(StorePermissions.Keyword.Create))
+                @if (create)
                 {
-                <abp-button id="NewKeywordButton"
-                            text="@L["CreateKeyword"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                    <abp-button text="@L["CreateKeyword"].Value" icon="plus" onclick="keywords.functions.create(this)" button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-        <abp-row class="mb-3">
-            <a abp-collapse-id="KeywordCollapse" class="text-secondary">@L["TableFilter"] </a>
-        </abp-row>
-        <abp-collapse-body id="KeywordCollapse">
-            <abp-dynamic-form abp-model="KeywordFilter" id="KeywordFilter" required-symbols="false"/>
-            <hr />
-        </abp-collapse-body>
-        <abp-table striped-rows="true" id="KeywordTable" class="nowrap"/>
+        @(
+            Html.Kendo().Grid<KeywordDto>()
+            .Name("keywords")
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
+                    if (update) command.Custom(L["Edit"].Value).Click("keywords.functions.edit");
+                    if (delete) command.Custom(L["Delete"].Value).Click("keywords.functions.delete");
+                });
+                columns.Bound(p => p.Name).Title(L["KeywordName"].Value);
+            })
+            .ToolBar(tools =>
+            {
+                tools.Search().Text(" ");
+                tools.Excel().Text(" ");
+                tools.Pdf().Text(" ");
+            })
+            .Height(650)
+            .Scrollable(x => x.Height(650))
+            .Sortable()
+            .Selectable()
+            .Pageable(x => x.Refresh(true))
+            .Filterable()
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+            .Read(read => read.Url("/api/app/Keyword/data-source"))
+            ).Deferred()
+            )
+
+
+
     </abp-card-body>
 </abp-card>

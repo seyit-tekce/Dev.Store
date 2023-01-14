@@ -1,9 +1,11 @@
 using Dev.Store.Brands;
 using Dev.Store.Categories;
+using Dev.Store.Keywords;
 using Dev.Store.Locations;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
+using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
@@ -16,9 +18,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using Volo.CmsKit.EntityFrameworkCore;
-using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
-using Dev.Store.Keywords;
+using Volo.Blogging.EntityFrameworkCore;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -132,17 +132,19 @@ public class StoreDbContext :
 
             /* Configure more properties here */
         });
-        builder.ConfigureCmsKit();
-            builder.ConfigureBlobStoring();
+        builder.ConfigureBlobStoring();
 
 
         builder.Entity<Keyword>(b =>
         {
             b.ToTable(StoreConsts.DbTablePrefix + "Keywords", StoreConsts.DbSchema);
-            b.ConfigureByConvention(); 
-            
+            b.Property(x => x.Name).IsRequired().HasMaxLength(20);
+            b.HasIndex(x => x.Name);
+            b.ConfigureByConvention();
+
 
             /* Configure more properties here */
         });
-        }
+        builder.ConfigureBlogging();
+    }
 }

@@ -1,7 +1,6 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dev.Store.Web.Pages.Keywords.Keyword.ViewModels;
+namespace Dev.Store.Web.Pages.Keywords.ViewModels;
 
 public class CreateEditKeywordViewModel
 {

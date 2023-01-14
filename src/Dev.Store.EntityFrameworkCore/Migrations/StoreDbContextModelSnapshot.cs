@@ -142,6 +142,53 @@ namespace Dev.Store.Migrations
                     b.ToTable("AppCategories", (string)null);
                 });
 
+            modelBuilder.Entity("Dev.Store.Keywords.Keyword", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("AppKeywords", (string)null);
+                });
+
             modelBuilder.Entity("Dev.Store.Locations.Location", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1864,7 +1911,7 @@ namespace Dev.Store.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Blogs.Blog", b =>
+            modelBuilder.Entity("Volo.Blogging.Blogs.Blog", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1891,6 +1938,11 @@ namespace Dev.Store.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DeletionTime");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1024)
+                        .HasColumnType("character varying(1024)")
+                        .HasColumnName("Description");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
@@ -1912,30 +1964,25 @@ namespace Dev.Store.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)")
+                        .HasColumnName("Name");
 
-                    b.Property<string>("Slug")
+                    b.Property<string>("ShortName")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)")
+                        .HasColumnName("ShortName");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CmsBlogs", (string)null);
+                    b.ToTable("BlgBlogs", (string)null);
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Blogs.BlogFeature", b =>
+            modelBuilder.Entity("Volo.Blogging.Comments.Comment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BlogId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -1943,78 +1990,6 @@ namespace Dev.Store.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)")
                         .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("DeleterId");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("DeletionTime");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("text")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("FeatureName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsDeleted");
-
-                    b.Property<bool>("IsEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("LastModifierId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CmsBlogFeatures", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.Blogs.BlogPost", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("BlogId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("CoverImageMediaId")
-                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp without time zone")
@@ -2050,296 +2025,38 @@ namespace Dev.Store.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<string>("ShortDescription")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("TenantId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("Slug", "BlogId");
-
-                    b.ToTable("CmsBlogPosts", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.Comments.Comment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<string>("EntityId")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("EntityType")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("text")
-                        .HasColumnName("ExtraProperties");
+                        .HasColumnName("PostId");
 
                     b.Property<Guid?>("RepliedCommentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("TenantId")
                         .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
+                        .HasColumnName("RepliedCommentId");
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("character varying(512)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId", "RepliedCommentId");
-
-                    b.HasIndex("TenantId", "EntityType", "EntityId");
-
-                    b.ToTable("CmsComments", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.GlobalResources.GlobalResource", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("text")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CmsGlobalResources", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.MediaDescriptors.MediaDescriptor", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<Guid?>("DeleterId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("DeleterId");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("DeletionTime");
-
-                    b.Property<string>("EntityType")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("text")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false)
-                        .HasColumnName("IsDeleted");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<string>("MimeType")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("character varying(128)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<long>("Size")
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CmsMediaDescriptors", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.Menus.MenuItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<string>("CssClass")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("ElementId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("text")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("LastModifierId");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid?>("PageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("ParentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Target")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
                         .HasMaxLength(1024)
-                        .HasColumnType("character varying(1024)");
+                        .HasColumnType("character varying(1024)")
+                        .HasColumnName("Text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("CmsMenuItems", (string)null);
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("RepliedCommentId");
+
+                    b.ToTable("BlgComments", (string)null);
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Pages.Page", b =>
+            modelBuilder.Entity("Volo.Blogging.Posts.Post", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlogId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("BlogId");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -2348,8 +2065,14 @@ namespace Dev.Store.Migrations
                         .HasColumnName("ConcurrencyStamp");
 
                     b.Property<string>("Content")
-                        .HasMaxLength(2147483647)
-                        .HasColumnType("text");
+                        .HasMaxLength(1048576)
+                        .HasColumnType("character varying(1048576)")
+                        .HasColumnName("Content");
+
+                    b.Property<string>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CoverImage");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("timestamp without time zone")
@@ -2367,6 +2090,11 @@ namespace Dev.Store.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("Description");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
@@ -2377,9 +2105,6 @@ namespace Dev.Store.Migrations
                         .HasDefaultValue(false)
                         .HasColumnName("IsDeleted");
 
-                    b.Property<bool>("IsHomePage")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("LastModificationTime");
@@ -2388,135 +2113,60 @@ namespace Dev.Store.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<string>("Script")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Style")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
+                    b.Property<int>("ReadCount")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasColumnName("Title");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("Url");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TenantId", "Slug");
+                    b.HasIndex("BlogId");
 
-                    b.ToTable("CmsPages", (string)null);
+                    b.ToTable("BlgPosts", (string)null);
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Ratings.Rating", b =>
+            modelBuilder.Entity("Volo.Blogging.Posts.PostTag", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid>("CreatorId")
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<string>("EntityId")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("EntityType")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<short>("StarCount")
-                        .HasColumnType("smallint");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId", "EntityType", "EntityId", "CreatorId");
-
-                    b.ToTable("CmsRatings", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.Reactions.UserReaction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("CreatorId");
-
-                    b.Property<string>("EntityId")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("EntityType")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("ReactionName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId", "EntityType", "EntityId", "ReactionName");
-
-                    b.HasIndex("TenantId", "CreatorId", "EntityType", "EntityId", "ReactionName");
-
-                    b.ToTable("CmsUserReactions", (string)null);
-                });
-
-            modelBuilder.Entity("Volo.CmsKit.Tags.EntityTag", b =>
-                {
-                    b.Property<string>("EntityId")
-                        .HasColumnType("text");
+                        .HasColumnName("PostId");
 
                     b.Property<Guid>("TagId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("TenantId")
                         .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
+                        .HasColumnName("TagId");
 
-                    b.HasKey("EntityId", "TagId");
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
 
-                    b.HasIndex("TenantId", "EntityId", "TagId");
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
 
-                    b.ToTable("CmsEntityTags", (string)null);
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("BlgPostTags", (string)null);
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Tags.Tag", b =>
+            modelBuilder.Entity("Volo.Blogging.Tagging.Tag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlogId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -2541,10 +2191,10 @@ namespace Dev.Store.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DeletionTime");
 
-                    b.Property<string>("EntityType")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
+                    b.Property<string>("Description")
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)")
+                        .HasColumnName("Description");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
@@ -2566,21 +2216,20 @@ namespace Dev.Store.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)")
+                        .HasColumnName("Name");
 
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("TenantId");
+                    b.Property<int>("UsageCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("UsageCount");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TenantId", "Name");
-
-                    b.ToTable("CmsTags", (string)null);
+                    b.ToTable("BlgTags", (string)null);
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Users.CmsUser", b =>
+            modelBuilder.Entity("Volo.Blogging.Users.BlogUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -2645,11 +2294,7 @@ namespace Dev.Store.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TenantId", "Email");
-
-                    b.HasIndex("TenantId", "UserName");
-
-                    b.ToTable("CmsUsers", (string)null);
+                    b.ToTable("BlgUsers", (string)null);
                 });
 
             modelBuilder.Entity("Dev.Store.Categories.Category", b =>
@@ -2821,15 +2466,41 @@ namespace Dev.Store.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Volo.CmsKit.Blogs.BlogPost", b =>
+            modelBuilder.Entity("Volo.Blogging.Comments.Comment", b =>
                 {
-                    b.HasOne("Volo.CmsKit.Users.CmsUser", "Author")
+                    b.HasOne("Volo.Blogging.Posts.Post", null)
                         .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
+                    b.HasOne("Volo.Blogging.Comments.Comment", null)
+                        .WithMany()
+                        .HasForeignKey("RepliedCommentId");
+                });
+
+            modelBuilder.Entity("Volo.Blogging.Posts.Post", b =>
+                {
+                    b.HasOne("Volo.Blogging.Blogs.Blog", null)
+                        .WithMany()
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Volo.Blogging.Posts.PostTag", b =>
+                {
+                    b.HasOne("Volo.Blogging.Posts.Post", null)
+                        .WithMany("Tags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Volo.Blogging.Tagging.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Dev.Store.Categories.Category", b =>
@@ -2880,6 +2551,11 @@ namespace Dev.Store.Migrations
             modelBuilder.Entity("Volo.Abp.TenantManagement.Tenant", b =>
                 {
                     b.Navigation("ConnectionStrings");
+                });
+
+            modelBuilder.Entity("Volo.Blogging.Posts.Post", b =>
+                {
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

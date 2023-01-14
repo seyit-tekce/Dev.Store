@@ -3,9 +3,9 @@ using Dev.Store.Brands;
 using Dev.Store.Brands.Dtos;
 using Dev.Store.Categories;
 using Dev.Store.Categories.Dtos;
-using Dev.Store.Locations;
 using Dev.Store.Keywords;
 using Dev.Store.Keywords.Dtos;
+using Dev.Store.Locations;
 using Dev.Store.Locations.Dtos;
 
 namespace Dev.Store;

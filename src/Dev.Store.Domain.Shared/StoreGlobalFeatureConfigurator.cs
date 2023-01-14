@@ -1,5 +1,4 @@
-﻿using Volo.Abp.GlobalFeatures;
-using Volo.Abp.Threading;
+﻿using Volo.Abp.Threading;
 
 namespace Dev.Store;
 
@@ -19,9 +18,6 @@ public static class StoreGlobalFeatureConfigurator
              * https://docs.abp.io/en/abp/latest/Global-Features
              */
         });
-        GlobalFeatureManager.Instance.Modules.CmsKit(cmsKit =>
-        {
-            cmsKit.EnableAll();
-        });
+
     }
 }

@@ -1,84 +1,63 @@
-$(function () {
+var l = abp.localization.getResource("Store");
+var keywords = {
+    defines: {
+        service: dev.store.brand,
+        createModal: new abp.ModalManager(abp.appPath + 'keywords/createmodal'),
+        editModal: new abp.ModalManager(abp.appPath + 'keywords/editmodal'),
+        grid: function () { return $("#keywords").data("kendoGrid") }
+    },
+    functions: {
+        create: function (e) {
+            var load = new Loading($(e));
+            load.Start();
+            keywords.defines.createModal.onOpen(function () {
+                load.Done();
+            });
+            keywords.defines.createModal.open();
+            keywords.defines.createModal.onResult(function () {
+                keywords.defines.grid().dataSource.read();
 
-    $("#KeywordFilter :input").on('input', function () {
-        dataTable.ajax.reload();
-    });
 
-    $('#KeywordFilter div').addClass('col-sm-3').parent().addClass('row');
 
-    var getFilter = function () {
-        var input = {};
-        $("#KeywordFilter")
-            .serializeArray()
-            .forEach(function (data) {
-                if (data.value != '') {
-                    input[abp.utils.toCamelCase(data.name.replace(/KeywordFilter./g, ''))] = data.value;
-                }
-            })
-        return input;
-    };
+            });
+        },
+        edit: function (e) {
+            var load = new Loading($(e.target));
+            load.Start();
+            keywords.defines.editModal.onOpen(function () {
+                load.Done();
+            });
+            keywords.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
+            keywords.defines.editModal.onResult(function () {
+                keywords.defines.grid().dataSource.read();
+            });
+        },
+        delete: function (e) {
+            e.preventDefault();
+            abp.message.confirm(l("KeywordDeletionConfirmationMessage"))
+                .then(function (confirmed) {
+                    if (confirmed) {
+                        var recordId = e.currentTarget.dataset["id"];
+                        dev.store.keywords.brand.delete(recordId)
+                            .then(function () {
+                                abp.notify.info(l("SuccessfullyDeleted"));
+                                keywords.defines.grid().dataSource.read();
 
-    var l = abp.localization.getResource('Store');
+                            });
+                    }
+                });
 
-    var service = dev.store.keywords.keyword;
-    var createModal = new abp.ModalManager(abp.appPath + 'Keywords/Keyword/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Keywords/Keyword/EditModal');
 
-    var dataTable = $('#KeywordTable').DataTable(abp.libs.datatables.normalizeConfiguration({
-        processing: true,
-        serverSide: true,
-        paging: true,
-        searching: false,//disable default searchbox
-        autoWidth: false,
-        scrollCollapse: true,
-        order: [[0, "asc"]],
-        ajax: abp.libs.datatables.createAjax(service.getList,getFilter),
-        columnDefs: [
-            {
-                rowAction: {
-                    items:
-                        [
-                            {
-                                text: l('Edit'),
-                                visible: abp.auth.isGranted('Store.Keyword.Update'),
-                                action: function (data) {
-                                    editModal.open({ id: data.record.id });
-                                }
-                            },
-                            {
-                                text: l('Delete'),
-                                visible: abp.auth.isGranted('Store.Keyword.Delete'),
-                                confirmMessage: function (data) {
-                                    return l('KeywordDeletionConfirmationMessage', data.record.id);
-                                },
-                                action: function (data) {
-                                    service.delete(data.record.id)
-                                        .then(function () {
-                                            abp.notify.info(l('SuccessfullyDeleted'));
-                                            dataTable.ajax.reload();
-                                        });
-                                }
-                            }
-                        ]
-                }
-            },
-            {
-                title: l('KeywordName'),
-                data: "name"
-            },
-        ]
-    }));
+        }
 
-    createModal.onResult(function () {
-        dataTable.ajax.reload();
-    });
 
-    editModal.onResult(function () {
-        dataTable.ajax.reload();
-    });
+    },
+    init: function () {
 
-    $('#NewKeywordButton').click(function (e) {
-        e.preventDefault();
-        createModal.open();
-    });
-});
+
+
+
+    }
+
+
+}

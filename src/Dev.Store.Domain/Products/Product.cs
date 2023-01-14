@@ -5,11 +5,6 @@ using Dev.Store.ProductSizes;
 using Dev.Store.SeoSettings;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Dev.Store.Products
@@ -29,7 +24,7 @@ namespace Dev.Store.Products
         public ICollection<ProductSet> ProductSets { get; set; }
         public ICollection<ProductSize> ProductSizes { get; set; }
         public virtual SeoSetting SeoSetting { get; set; }
-            
+
 
     }
 }

@@ -25,6 +25,8 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Bundling;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BlobStoring;
+using Volo.Abp.BlobStoring.Database;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
 using Volo.Abp.SettingManagement.Web;
@@ -33,12 +35,10 @@ using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.Ui.LayoutHooks;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
-using Volo.Abp.VirtualFileSystem;
 using Volo.Abp.VirtualFileExplorer.Web;
-using Volo.CmsKit.Web;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic;
-using Volo.Abp.BlobStoring;
-using Volo.Abp.BlobStoring.Database;
+using Volo.Abp.VirtualFileSystem;
+using Volo.Blogging;
+using Volo.Blogging.Admin;
 
 namespace Dev.Store.Web;
 
@@ -57,8 +57,9 @@ namespace Dev.Store.Web;
     typeof(AbpVirtualFileExplorerWebModule)
     )]
 [DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
-[DependsOn(typeof(CmsKitWebModule))]
-    public class StoreWebModule : AbpModule
+[DependsOn(typeof(BloggingAdminWebModule))]
+[DependsOn(typeof(BloggingWebModule))]
+public class StoreWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

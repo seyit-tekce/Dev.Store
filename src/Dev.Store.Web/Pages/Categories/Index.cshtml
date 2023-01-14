@@ -12,8 +12,9 @@
 @inject IHtmlLocalizer<StoreResource> L
 @inject IAuthorizationService Authorization
 @{
+    var breadCrumb = Model.Category == null ? L["Menu:Category"].Value : Model.Category.Name;
     PageLayout.Content.Title = L["Category"].Value;
-    PageLayout.Content.BreadCrumb.Add(L["Menu:Category"].Value);
+    PageLayout.Content.BreadCrumb.Add(breadCrumb);
     PageLayout.Content.MenuItemName = StoreMenus.Category;
     var _default = await Authorization.IsGrantedAsync(StorePermissions.Category.Default);
     var create = await Authorization.IsGrantedAsync(StorePermissions.Category.Create);

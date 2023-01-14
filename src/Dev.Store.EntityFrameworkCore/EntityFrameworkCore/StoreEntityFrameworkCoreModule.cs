@@ -1,11 +1,12 @@
-using Dev.Store.Keywords;
 using Dev.Store.Brands;
 using Dev.Store.Categories;
+using Dev.Store.Keywords;
 using Dev.Store.Locations;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
+using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
@@ -15,8 +16,8 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using Volo.CmsKit.EntityFrameworkCore;
-using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
+using Volo.Abp.Users.EntityFrameworkCore;
+using Volo.Blogging.EntityFrameworkCore;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -32,9 +33,10 @@ namespace Dev.Store.EntityFrameworkCore;
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
-[DependsOn(typeof(CmsKitEntityFrameworkCoreModule))]
-    [DependsOn(typeof(BlobStoringDatabaseEntityFrameworkCoreModule))]
-    public class StoreEntityFrameworkCoreModule : AbpModule
+[DependsOn(typeof(BlobStoringDatabaseEntityFrameworkCoreModule))]
+[DependsOn(typeof(AbpUsersEntityFrameworkCoreModule))]
+[DependsOn(typeof(BloggingEntityFrameworkCoreModule))]
+public class StoreEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

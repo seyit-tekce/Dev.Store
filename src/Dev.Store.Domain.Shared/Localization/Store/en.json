@@ -44,13 +44,13 @@
     "LocationLocationChildren": "LocationLocationChildren",
     "CreateLocation": "CreateLocation",
     "EditLocation": "EditLocation",
-    "LocationDeletionConfirmationMessage": "Are you sure to delete the location {0}?",
-    "Permission:Keyword": "Keyword",
-    "Menu:Keyword": "MenuKeyword",
-    "Keyword": "Keyword",
-    "KeywordName": "KeywordName",
-    "CreateKeyword": "CreateKeyword",
-    "EditKeyword": "EditKeyword",
-    "KeywordDeletionConfirmationMessage": "Are you sure to delete the keyword {0}?"
+    "LocationDeletionConfirmationMessage": "Are you sure to delete the location?",
+    "Permission:Keyword": "Keywords",
+    "Menu:Keyword": "Keywords",
+    "Keyword": "Keywords",
+    "KeywordName": "Keyword",
+    "CreateKeyword": "Create Keyword",
+    "EditKeyword": "Edit Keyword",
+    "KeywordDeletionConfirmationMessage": "Are you sure to delete the keyword?"
   }
 }

@@ -1,6 +1,5 @@
 using Dev.Store.Locations;
 using Dev.Store.Locations.Dtos;
-using Dev.Store.Web.Pages.Entities.Category.ViewModels;
 using Dev.Store.Web.Pages.Locations.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;

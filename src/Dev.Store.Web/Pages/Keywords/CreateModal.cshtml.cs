@@ -1,10 +1,10 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Dev.Store.Keywords;
 using Dev.Store.Keywords.Dtos;
-using Dev.Store.Web.Pages.Keywords.Keyword.ViewModels;
+using Dev.Store.Web.Pages.Keywords.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace Dev.Store.Web.Pages.Keywords.Keyword;
+namespace Dev.Store.Web.Pages.Keywords;
 
 public class CreateModalModel : StorePageModel
 {

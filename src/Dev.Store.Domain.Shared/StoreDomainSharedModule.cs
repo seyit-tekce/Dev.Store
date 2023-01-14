@@ -1,6 +1,7 @@
 using Dev.Store.Localization;
 using Volo.Abp.AuditLogging;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BlobStoring.Database;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
@@ -10,10 +11,10 @@ using Volo.Abp.OpenIddict;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp.Users;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
-using Volo.CmsKit;
-using Volo.Abp.BlobStoring.Database;
+using Volo.Blogging;
 
 namespace Dev.Store;
 
@@ -27,9 +28,10 @@ namespace Dev.Store;
     typeof(AbpSettingManagementDomainSharedModule),
     typeof(AbpTenantManagementDomainSharedModule)
     )]
-[DependsOn(typeof(CmsKitDomainSharedModule))]
-    [DependsOn(typeof(BlobStoringDatabaseDomainSharedModule))]
-    public class StoreDomainSharedModule : AbpModule
+[DependsOn(typeof(BlobStoringDatabaseDomainSharedModule))]
+[DependsOn(typeof(AbpUsersDomainSharedModule))]
+[DependsOn(typeof(BloggingDomainSharedModule))]
+public class StoreDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
