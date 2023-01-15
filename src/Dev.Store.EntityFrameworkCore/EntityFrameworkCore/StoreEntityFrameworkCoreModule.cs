@@ -16,8 +16,6 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using Volo.Abp.Users.EntityFrameworkCore;
-using Volo.Blogging.EntityFrameworkCore;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -34,8 +32,6 @@ namespace Dev.Store.EntityFrameworkCore;
     typeof(AbpFeatureManagementEntityFrameworkCoreModule)
     )]
 [DependsOn(typeof(BlobStoringDatabaseEntityFrameworkCoreModule))]
-[DependsOn(typeof(AbpUsersEntityFrameworkCoreModule))]
-[DependsOn(typeof(BloggingEntityFrameworkCoreModule))]
 public class StoreEntityFrameworkCoreModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

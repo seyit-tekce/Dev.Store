@@ -1,0 +1,98 @@
+﻿@page
+@using Dev.Store.Web.Pages.Identity.Roles;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Net;
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout;
+@using Volo.Abp.Identity.Localization;
+@using Volo.Abp.Identity.Web.Navigation;
+@using Volo.Abp.Identity;
+@model Dev.Store.Web.Pages.Identity.Roles.IndexModel
+@inject IHtmlLocalizer<IdentityResource> L
+@inject IPageLayout PageLayout
+@inject IAuthorizationService Authorization
+@{
+
+    var editPermission = await Authorization.IsGrantedAsync("AbpIdentity.Roles.Update");
+    var createPermission = await Authorization.IsGrantedAsync("AbpIdentity.Roles.Create");
+    var deletePermission = await Authorization.IsGrantedAsync("AbpIdentity.Roles.Delete");
+    var permissionsPermission = await Authorization.IsGrantedAsync("AbpIdentity.Roles.ManagePermissions");
+    PageLayout.Content.Title = L["Roles"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:IdentityManagement"].Value);
+    PageLayout.Content.MenuItemName = IdentityMenuNames.Roles;
+}
+@section styles {
+    <abp-style-bundle name="@typeof(IndexModel).FullName">
+        <abp-style src="/Pages/AbpPermissionManagement/permission-management-modal.css" />
+    </abp-style-bundle>
+}
+@section scripts {
+    <abp-script-bundle name="@typeof(IndexModel).FullName">
+        <abp-script src="/client-proxies/identity-proxy.js" />
+        <abp-script src="/Pages/AbpPermissionManagement/permission-management-modal.js" />
+        <abp-script src="/Pages/identity/roles/index.js" />
+    </abp-script-bundle>
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Roles"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (createPermission)
+                {
+                          <abp-button text="@L["NewRole"].Value" icon="plus" onclick="roles.actions.create()" button-type="Primary" />
+
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        @(
+            Html.Kendo().Grid<IdentityRoleDto>()
+            .Name("RolesGrid")
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
+                    if (editPermission) command.Custom(L["Edit"].Value).Click("roles.actions.edit");
+                    if (permissionsPermission) command.Custom(L["Permissions"].Value).Click("roles.actions.permissions");
+                    if (deletePermission) command.Custom(L["Delete"].Value).Click("roles.actions.delete");
+
+                });
+                columns.Bound(p => p.Name).Title(L["RoleName"].Value);
+                columns.Bound(c => c.IsDefault).Title(L["DisplayName:IsDefault"].Value).Width(200).ClientTemplate("#=(IsDefault ? 'Evet' : 'Hayır' )#");
+                columns.Bound(c => c.IsPublic).Title(L["DisplayName:IsPublic"].Value).Width(200).ClientTemplate("#=(IsPublic ? 'Evet' : 'Hayır' )#");
+            })
+            .ToolBar(tools =>
+            {
+                tools.Search().Text(" ");
+                tools.Excel().Text(" ");
+                tools.Pdf().Text(" ");
+            })
+            .Height(650)
+            .Scrollable(x => x.Height(650))
+            .Sortable()
+            .Selectable()
+            .Pageable(x => x.Refresh(true))
+            .Filterable()
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+            .Read(read => read.Url("/api/app/role/data-source"))
+            ).Deferred()
+            )
+
+
+
+    </abp-card-body>
+</abp-card>

@@ -6,8 +6,6 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-using Volo.Blogging;
-using Volo.Blogging.Admin;
 
 namespace Dev.Store;
 
@@ -21,8 +19,6 @@ namespace Dev.Store;
     typeof(AbpFeatureManagementApplicationModule),
     typeof(AbpSettingManagementApplicationModule)
     )]
-[DependsOn(typeof(BloggingAdminApplicationModule))]
-[DependsOn(typeof(BloggingApplicationModule))]
 public class StoreApplicationModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

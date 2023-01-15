@@ -7,6 +7,7 @@
 @using Dev.Store.Web.Pages.Dev.Store.Brand
 @using Dev.Store.Localization
 @using Dev.Store.Web.Menus
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageToolbar;
 @model IndexModel
 @inject IPageLayout PageLayout
 @inject IHtmlLocalizer<StoreResource> L
@@ -29,7 +30,9 @@
     {
     <abp-style src="/Pages/Brands/index.css" />
 }
-
+@section content_toolbar {
+    @await Component.InvokeAsync(typeof(AbpPageToolbarViewComponent), new { pageName = typeof(IndexModel).FullName })
+}
 <abp-card>
     <abp-card-header>
         <abp-row>

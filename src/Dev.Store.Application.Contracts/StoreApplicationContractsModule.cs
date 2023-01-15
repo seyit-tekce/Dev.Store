@@ -6,8 +6,6 @@ using Volo.Abp.ObjectExtending;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-using Volo.Blogging;
-using Volo.Blogging.Admin;
 
 namespace Dev.Store;
 
@@ -21,8 +19,6 @@ namespace Dev.Store;
     typeof(AbpTenantManagementApplicationContractsModule),
     typeof(AbpObjectExtendingModule)
 )]
-[DependsOn(typeof(BloggingApplicationContractsModule))]
-[DependsOn(typeof(BloggingAdminApplicationContractsModule))]
 public class StoreApplicationContractsModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

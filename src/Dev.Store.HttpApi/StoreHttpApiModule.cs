@@ -8,8 +8,6 @@ using Volo.Abp.Modularity;
 using Volo.Abp.PermissionManagement.HttpApi;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-using Volo.Blogging;
-using Volo.Blogging.Admin;
 
 namespace Dev.Store;
 
@@ -22,8 +20,6 @@ namespace Dev.Store;
     typeof(AbpFeatureManagementHttpApiModule),
     typeof(AbpSettingManagementHttpApiModule)
     )]
-[DependsOn(typeof(BloggingAdminHttpApiModule))]
-[DependsOn(typeof(BloggingHttpApiModule))]
 public class StoreHttpApiModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

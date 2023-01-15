@@ -7,8 +7,6 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Blogging;
-using Volo.Blogging.Admin;
 
 namespace Dev.Store;
 
@@ -21,8 +19,6 @@ namespace Dev.Store;
     typeof(AbpFeatureManagementHttpApiClientModule),
     typeof(AbpSettingManagementHttpApiClientModule)
 )]
-[DependsOn(typeof(BloggingHttpApiClientModule))]
-[DependsOn(typeof(BloggingAdminHttpApiClientModule))]
 public class StoreHttpApiClientModule : AbpModule
 {
     public const string RemoteServiceName = "Default";

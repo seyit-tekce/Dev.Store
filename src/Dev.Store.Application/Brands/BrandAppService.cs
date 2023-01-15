@@ -40,8 +40,8 @@ public class BrandAppService : CrudAppService<Brand, BrandDto, Guid, PagedAndSor
     {
         return (await _repository.GetQueryableAsync()).ToDataSourceResult(request, x => ObjectMapper.Map<Brand, BrandDto>(x));
     }
-    [Authorize(StorePermissions.Category.Create)]
 
+    [Authorize(StorePermissions.Category.Create)]
     public override async Task<BrandDto> CreateAsync(CreateUpdateBrandDto input)
     {
         var isExist = await _repository.AnyAsync(x => x.Code == input.Code);

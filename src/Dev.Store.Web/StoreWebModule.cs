@@ -37,8 +37,6 @@ using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileExplorer.Web;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Blogging;
-using Volo.Blogging.Admin;
 
 namespace Dev.Store.Web;
 
@@ -57,8 +55,6 @@ namespace Dev.Store.Web;
     typeof(AbpVirtualFileExplorerWebModule)
     )]
 [DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
-[DependsOn(typeof(BloggingAdminWebModule))]
-[DependsOn(typeof(BloggingWebModule))]
 public class StoreWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

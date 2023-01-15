@@ -11,10 +11,8 @@ using Volo.Abp.OpenIddict;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
-using Volo.Abp.Users;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
-using Volo.Blogging;
 
 namespace Dev.Store;
 
@@ -29,8 +27,6 @@ namespace Dev.Store;
     typeof(AbpTenantManagementDomainSharedModule)
     )]
 [DependsOn(typeof(BlobStoringDatabaseDomainSharedModule))]
-[DependsOn(typeof(AbpUsersDomainSharedModule))]
-[DependsOn(typeof(BloggingDomainSharedModule))]
 public class StoreDomainSharedModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)

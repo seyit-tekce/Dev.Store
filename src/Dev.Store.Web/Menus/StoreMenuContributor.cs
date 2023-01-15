@@ -68,7 +68,7 @@ public class StoreMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(StorePermissions.Keyword.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-keyword")
+                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-key")
             );
         }
     }

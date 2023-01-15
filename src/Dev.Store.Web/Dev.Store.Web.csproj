@@ -62,8 +62,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-    <PackageReference Include="Volo.Blogging.Admin.Web" Version="7.0.0" />
-    <PackageReference Include="Volo.Blogging.Web" Version="7.0.0" />
     <ProjectReference Include="..\..\packages\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
     <PackageReference Include="Volo.Abp.VirtualFileExplorer.Web" Version="7.0.0" />
   </ItemGroup>
