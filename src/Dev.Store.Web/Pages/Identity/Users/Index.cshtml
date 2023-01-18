@@ -1,103 +1,102 @@
 ﻿@page
-@using Microsoft.AspNetCore.Authorization
-@using Microsoft.AspNetCore.Mvc.Localization
-@using Volo.Abp.AspNetCore.Mvc.UI.Layout
-@using Volo.Abp.AspNetCore.Mvc.UI.Packages.JsTree
-@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageSearchBox
-@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Pages.Shared.Components.AbpPageToolbar
-@using Volo.Abp.Identity.Localization
-@using Volo.Abp.Identity
-@using Volo.Abp.Identity.Web.Navigation
-@using Dev.Store.Web.Pages.Identity.Roles
-@model IndexModel
+@using Dev.Store.Web.Pages.Identity.Roles;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Net;
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout;
+@using Volo.Abp.Identity.Localization;
+@using Volo.Abp.Identity.Web.Navigation;
+@using Volo.Abp.Identity;
+@model Dev.Store.Web.Pages.Identity.Roles.IndexModel
 @inject IHtmlLocalizer<IdentityResource> L
-@inject IAuthorizationService Authorization
 @inject IPageLayout PageLayout
+@inject IAuthorizationService Authorization
 @{
-	PageLayout.Content.Title = L["Users"].Value;
-	PageLayout.Content.BreadCrumb.Add(L["Menu:IdentityManagement"].Value);
-	var editPermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.Update");
-	var createPermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.Create");
-	var deletePermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.Delete");
-	var permissionsPermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.ManagePermissions");
-	var changeHistoryPermission = await Authorization.IsGrantedAsync("AuditLogging.ViewChangeHistory:Volo.Abp.Identity.IdentityUser");
-	PageLayout.Content.MenuItemName = IdentityMenuNames.Users;
-}
 
+    PageLayout.Content.Title = L["Users"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:IdentityManagement"].Value);
+    var editPermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.Update");
+    var createPermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.Create");
+    var deletePermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.Delete");
+    var permissionsPermission = await Authorization.IsGrantedAsync("AbpIdentity.Users.ManagePermissions");
+    PageLayout.Content.MenuItemName = IdentityMenuNames.Users;
+}
 @section styles {
-	<abp-style src="/Pages/AbpPermissionManagement/permission-management-modal.css" />
+    <abp-style-bundle name="@typeof(IndexModel).FullName">
+        <abp-style src="/Pages/AbpPermissionManagement/permission-management-modal.css" />
+    </abp-style-bundle>
 }
-
 @section scripts {
-	<abp-script src="/Pages/AbpPermissionManagement/permission-management-modal.js" />
-	<abp-script src="/Pages/Identity/Users/index.js" />
-	<abp-script src="/Pages/Identity/Users/edit.js" />
-	<abp-script src="/Pages/Identity/Users/create.js" />
-	<abp-script src="/Pages/Identity/Users/setPassword.js" />
-	<abp-script src="/Pages/Identity/Shared/claimTypeEdit.js" />
-	<abp-script src="/components/xlsx/xlsx.full.min.js" />
-	<abp-script src="/components/xlsx/jszip.js" />
+    <abp-script-bundle name="@typeof(IndexModel).FullName">
+        <abp-script src="/client-proxies/identity-proxy.js" />
+        <abp-script src="/Pages/AbpPermissionManagement/permission-management-modal.js" />
+        <abp-script src="/Pages/identity/users/index.js" />
+    </abp-script-bundle>
 }
-@section content_toolbar {
-
-	@if (createPermission)
-	{
-		<abp-button text="@L["NewUser"].Value" icon="plus" onclick="users.actions.create()" button-type="Primary" />
-	}
-}
-
 <abp-card>
-	<abp-card-body>
-		@(Html.Kendo().Grid<IdentityUserDto >()
-			.Name("UsersGrid")
-			.Columns(columns =>
-			{
-				columns.Command(command =>
-				{
-					if (editPermission) command.Custom(L["Edit"].Value).Click("users.actions.edit");
-					if (editPermission) command.Custom(L["Claims"].Value).Click("users.actions.claims");
-					if (editPermission) command.Custom(L["Lock"].Value).Click("users.actions.lock");
-					if (editPermission) command.Custom(L["Unlock"].Value).Click("users.actions.unlock");
-					if (permissionsPermission) command.Custom(L["Permissions"].Value).Click("users.actions.permissions");
-					if (editPermission) command.Custom(L["SetPassword"].Value).Click("users.actions.setPassword");
-					if (editPermission) command.Custom(L["TwoFactor"].Value).Click("users.actions.twoFactor");
-					if (changeHistoryPermission) command.Custom(L["ChangeHistory"].Value).Click("users.actions.changeHistory");
-					if (deletePermission) command.Custom(L["Delete"].Value).Click("users.actions.delete");
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Roles"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (createPermission)
+                {
+                    <abp-button text="@L["NewUser"].Value" icon="plus" onclick="users.actions.create()" button-type="Primary" />
 
-				}).Title(L["Actions"].Value).Width(50);
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        @(
+            Html.Kendo().Grid<IdentityUserDto>()
+            .Name("UsersGrid")
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
+                    if (editPermission) command.Custom(L["Edit"].Value).Click("users.actions.edit");
+                    if (permissionsPermission) command.Custom(L["Permissions"].Value).Click("users.actions.permissions");
+                    if (editPermission) command.Custom(L["SetPassword"].Value).Click("users.actions.setPassword");
+                    if (deletePermission) command.Custom(L["Delete"].Value).Click("users.actions.delete");
 
-				columns.Bound(c => c.UserName).Width(150);
-				columns.Bound(c => c.Email).Width(200);
-				columns.Bound(c => c.PhoneNumber).Width(130);
-			})
-			.ToolBar(tools =>
-			{
-				tools.Excel().Text(" ");
-				tools.Pdf().Text(" ");
-				tools.Search().Text(L["Search"].Value);
-			})
-			.Mobile()
-			.Reorderable(a => a.Columns(true))
-			.Search(c => { c.Field(c => c.UserName); c.Field(c => c.Email); c.Field(c => c.Name); c.Field(c => c.Surname); })
-			.Sortable(a => a.AllowUnsort(true).SortMode(GridSortMode.MultipleColumn))
-			.Resizable(a => a.Columns(true))
-			.Filterable(a => a.Enabled(true))
-			.Scrollable(x => x.Height(530))
-			.Pageable(x => x.PageSizes(new[] { 25, 50, 100 }).Refresh(true))
-			.Filterable(a => a.Enabled(true))
-			.Excel(a => a.AllPages(true).FileName(string.Format("{0} {1:dd-MM-yyyy-hh-mm-ss}.xlsx", L["Users"].Value, DateTime.Now)).Filterable(true))
-			.Pdf(a => a.AllPages(true).FileName(string.Format("{0} {1:dd-MM-yyyy-hh-mm-ss}.pdf", L["Users"].Value, DateTime.Now)))
-			.Events(a => a.DataBound("kendoGrid.events.databound")
-			.Edit("kendoGrid.events.edit")
-			.Cancel("kendoGrid.events.cancel")
-			.CellClose("kendoGrid.events.cellClose")
-			.Change("kendoGrid.events.change"))
-			.DataSource(dataSource =>
-			dataSource.WebApi()
-			.Model(model => { model.Id(a => a.Id); })
-			.Sort(a => { a.Add(c => c.UserName).Ascending(); })
-			.Read(read => read.Url("/api/app/user/datasource"))
-			.PageSize(25)
-			))
-	</abp-card-body>
+                });
+                columns.Bound(c => c.Name).Title(L["Name"].Value);
+                columns.Bound(c => c.Surname).Title(L["Surname"].Value);
+                columns.Bound(c => c.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
+                columns.Bound(c => c.UserName).Title(L["UserName"].Value);
+                columns.Bound(c => c.Email).Width(200).Title(L["Email"].Value);
+                columns.Bound(c => c.PhoneNumber).Width(130).Title(L["PhoneNumber"].Value);
+            })
+            .ToolBar(tools =>
+            {
+                tools.Search().Text(" ");
+                tools.Excel().Text(" ");
+                tools.Pdf().Text(" ");
+            })
+            .Height(650)
+            .Scrollable(x => x.Height(650))
+            .Sortable()
+            .Selectable()
+            .Pageable(x => x.Refresh(true))
+            .Filterable()
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+            .Read(read => read.Url("/api/app/user/data-source"))
+            ).Deferred()
+            )
+
+
+
+    </abp-card-body>
 </abp-card>

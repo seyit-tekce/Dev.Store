@@ -17,6 +17,8 @@
     "EditBrand": "Edit Brand",
     "BrandDeletionConfirmationMessage": "Are you sure to delete the brand?",
     "SuccessfullyDeleted": "Successfully deleted",
+    "SuccessfullyAdded": "Successfully created",
+    "SuccessfullyUpdated": "Successfully edited",
     "BrandNameHolder": "Please Enter Brand Name",
     "BrandCodeHolder": "Please Enter Brand Code",
     "BrandDescriptionHolder": "Please Enter Brand Description",
@@ -51,6 +53,9 @@
     "KeywordName": "Keyword",
     "CreateKeyword": "Create Keyword",
     "EditKeyword": "Edit Keyword",
-    "KeywordDeletionConfirmationMessage": "Are you sure to delete the keyword?"
+    "KeywordDeletionConfirmationMessage": "Are you sure to delete the keyword?",
+    "CreationTime": "Creation Time",
+    "Order": "Order"
+
   }
 }

@@ -11,9 +11,11 @@ public class CategoryDto : AuditedEntityDto<Guid>
     public string Link { get; set; }
 
     public string Description { get; set; }
+    public int Order { get; set; }
 
     public Guid? CategoryParentId { get; set; }
     public bool IsVisible { get; set; }
 
     public System.Collections.Generic.List<CategoryDto> Categories { get; set; }
+    public CategoryDto CategoryParent { get; set; }
 }

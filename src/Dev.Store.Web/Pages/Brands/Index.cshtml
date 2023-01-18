@@ -59,6 +59,7 @@
                     if (delete) command.Custom(L["Delete"].Value).Click("brands.functions.delete");
                 });
                 columns.Bound(p => p.Name).Title(L["BrandName"].Value);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
                 columns.Bound(p => p.Code).Title(L["BrandCode"].Value);
                 columns.Bound(p => p.Description).Title(L["BrandDescription"].Value);
             })

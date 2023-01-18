@@ -16,8 +16,7 @@ var brands = {
             brands.defines.createModal.open();
             brands.defines.createModal.onResult(function () {
                 brands.defines.grid().dataSource.read();
-
-
+                abp.notify.success(l("SuccessfullyAdded"));
 
             });
         },
@@ -30,6 +29,8 @@ var brands = {
             brands.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
             brands.defines.editModal.onResult(function () {
                 brands.defines.grid().dataSource.read();
+                abp.notify.success(l("SuccessfullyUpdated"));
+
             });
         },
         delete: function (e) {
@@ -40,7 +41,7 @@ var brands = {
                         var recordId = e.currentTarget.dataset["id"];
                         dev.store.brands.brand.delete(recordId)
                             .then(function () {
-                                abp.notify.info(l("SuccessfullyDeleted"));
+                                abp.notify.success(l("SuccessfullyDeleted"));
                                 brands.defines.grid().dataSource.read();
 
                             });

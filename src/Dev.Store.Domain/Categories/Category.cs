@@ -10,6 +10,7 @@ namespace Dev.Store.Categories
         public string Link { get; set; }
         public string Description { get; set; }
         public bool IsVisible { get; set; }
+        public int Order { get; set; }
         public virtual Guid? CategoryParentId { get; set; }
         public Category CategoryParent { get; set; }
         public List<Category> CategoryChildren { get; set; }

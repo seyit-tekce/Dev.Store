@@ -1,8 +1,8 @@
-﻿var l = abp.localization.getResource("KontrolBulutu");
+﻿var l = abp.localization.getResource("DevStore");
 users = {
     const: {
         _identityUserAppService: volo.abp.identity.identityUser,
-        _identityUserWithRolesAppService: window.infoline.kontrolBulutu.identity.user,
+        _identityUserWithRolesAppService: window.dev.store.identity.user,
         _claimTypeEditModal: new abp.ModalManager({ viewUrl: abp.appPath + 'Identity/Users/ClaimTypeEditModal', modalClass: 'claimTypeEdit' }),
         _editModal: new abp.ModalManager({ viewUrl: abp.appPath + 'Identity/Users/EditModal', modalClass: 'editUser' }),
         _createModal: new abp.ModalManager({ viewUrl: abp.appPath + 'Identity/Users/CreateModal', modalClass: 'createUser' }),
@@ -122,89 +122,7 @@ users = {
                             });
                     }
                 });
-        },
-        bulkCreate: function (e) {
-
-            $('<input type="file"  accept="*.xlsx,*.csv,*.xls"/>')
-                .on("change", function (e) {
-                    var dosya = this.files[0];
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var data = e.target.result;
-                        var workbook = XLSX.read(data, {
-                            type: 'binary',
-                            cellDates: true,
-                            cellText: false,
-                            cellNF: false,
-                        });
-                        var sheetData = [];
-                        var sheet = workbook.Sheets[workbook.SheetNames[0]];
-                        sheetData = XLSX.utils.sheet_to_row_object_array(sheet);
-                        abp.ui.setBusy();
-                        infoline.kontrolBulutu.identity.user.bulkCreate(sheetData).done(data => {
-                            debugger;
-                            if (data.length > 0) {
-                                var errorList = [];
-                                $.each(data, function (i, item) {
-                                    var row = sheetData.filter(x => x["__rowNum__"] == item.rowNumber)[0];
-                                    if (row == null) {
-                                        return;
-                                    }
-                                    row["Error"] = item.message;
-                                    errorList.push(row);
-                                });
-                                var columns = errorList.map(x => Object.keys(x)).sort(function (a, b) { return b.length - a.length; })[0];
-                                var rows = [{
-                                    cells: columns.map(function (c) {
-                                        return {
-                                            background: "#7a7a7a",
-                                            colSpan: 1,
-                                            color: "#fff",
-                                            rowSpan: 1,
-                                            value: c,
-                                        }
-                                    }),
-                                    type: "header"
-                                }];
-                                errorList.forEach(function (d) {
-                                    rows.push({
-                                        cells: columns.map(function (c) { return { value: d[c] } }),
-                                        type: "data"
-                                    });
-                                });
-                                var workbook = {
-                                    sheets: [{
-                                        columns: columns.map(function (c) { return { autoWidth: true }; }),
-                                        filter: null,
-                                        freezePane: { rowSplit: 1, colSplit: 0 },
-                                        rows: rows,
-                                    }]
-                                };
-
-                                var c = new kendo.ooxml.Workbook(workbook);
-                                kendo.saveAs({
-                                    dataURI: c.toDataURL(),
-                                    fileName: "Uncommited Datas.xlsx"
-                                });
-
-                            }
-
-
-                            abp.ui.clearBusy();
-                            $("#UsersGrid").data("kendoGrid").dataSource.read()
-
-                        });
-                    };
-                    reader.onerror = function (ex) {
-                        console.log(ex);
-                    };
-                    reader.readAsBinaryString(dosya);
-                })
-                .trigger("click")
-
-
         }
-
     },
     init: function () {
 

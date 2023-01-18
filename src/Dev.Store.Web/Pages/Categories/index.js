@@ -17,8 +17,8 @@ var categories = {
                 categoryParentId: _id
             });
             categories.defines.createModal.onResult(function () {
+                abp.notify.success(l("SuccessfullyCreated"));
                 categories.defines.grid().dataSource.read();
-
             });
         },
         edit: function (e) {
@@ -29,6 +29,7 @@ var categories = {
             });
             categories.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
             categories.defines.editModal.onResult(function () {
+                abp.notify.success(l("SuccessfullyEdited"));
                 categories.defines.grid().dataSource.read();
             });
         },
@@ -40,7 +41,7 @@ var categories = {
                         var recordId = e.currentTarget.dataset["id"];
                         dev.store.categories.category.delete(recordId)
                             .then(function () {
-                                abp.notify.info(l("SuccessfullyDeleted"));
+                                abp.notify.success(l("SuccessfullyDeleted"));
                                 categories.defines.grid().dataSource.read();
 
                             });
@@ -56,14 +57,12 @@ var categories = {
 
 
         },
-        nameChange: function () {
-            var name = $("#ViewModel_Name").val();
-            var code = $("#ViewModel_Link").val();
-
+        nameChange: function (name) {
+          
             if (name == null) {
                 return;
             }
-            $("#ViewModel_Link").val(name.toLower());
+            $("#ViewModel_Link").val($.slugify(name));
         }
 
     },
@@ -76,12 +75,10 @@ var categories = {
 
 
 }
-$(document).on("change", "#ViewModel_Name", function () {
-    categories.functions.nameChange();
-}).on("keyup", "#ViewModel_Name", function () {
-    categories.functions.nameChange();
+$(document).on("keyup", "#ViewModel_Name", function () {
+    var name = $(this).val();
+    categories.functions.nameChange(name);
 }).on("change", "#ViewModel_Link", function () {
-    categories.functions.nameChange();
-}).on("keyup", "#ViewModel_Link", function () {
-    categories.functions.nameChange();
+    var name = $(this).val();
+    categories.functions.nameChange(name);
 })

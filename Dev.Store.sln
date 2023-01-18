@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.HttpApi.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.DbMigrator", "src\Dev.Store.DbMigrator\Dev.Store.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Web.Public", "D:\Yeni klasör\src\Dev.Store.Web.Public\Dev.Store.Web.Public.csproj", "{A8EAF001-5A8B-43FB-A8C2-F88F7B8DF0C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Web.Public", "src\Dev.Store.Web.Public\Dev.Store.Web.Public.csproj", "{36941A13-BDD7-429B-9C98-EA2C8C0186EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,10 +73,10 @@ Global
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA94D832-1CCC-4715-95A9-A483F23A1A5D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8EAF001-5A8B-43FB-A8C2-F88F7B8DF0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8EAF001-5A8B-43FB-A8C2-F88F7B8DF0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8EAF001-5A8B-43FB-A8C2-F88F7B8DF0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8EAF001-5A8B-43FB-A8C2-F88F7B8DF0C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

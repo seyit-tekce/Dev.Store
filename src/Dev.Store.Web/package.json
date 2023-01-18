@@ -5,6 +5,7 @@
   "dependencies": {
     "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~2.0.0",
     "@abp/virtual-file-explorer": "~7.0.0",
-    "slugify": "^1.6.5"
+    "jquery-slugify": "1.2.5",
+    "speakingurl": "14.0.1"
   }
 }

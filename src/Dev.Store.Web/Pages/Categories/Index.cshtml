@@ -23,6 +23,8 @@
 }
 @section scripts
     {
+    <abp-script src="/libs/speakingurl/speakingurl.min.js"/>
+    <abp-script src="/libs/jquery-slugify/slugify.min.js"/>
     <script>var _id = "@Model.Id"</script>
     <abp-script src="/Pages/Categories/index.js" />
 }
@@ -58,6 +60,8 @@
                 });
                 columns.Bound(p => p.Name).Title(L["CategoryName"].Value);
                 columns.Bound(p => p.Link).Title(L["CategoryCode"].Value);
+                columns.Bound(p => p.Order).Title(L["Order"].Value);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
                 columns.Bound(p => p.Description).Title(L["CategoryDescription"].Value);
                 columns.Bound(p => p.IsVisible).Title(L["CategoryIsVisible"].Value).ClientTemplate($"#=IsVisible==true?'{L["Yes"].Value}':'{L["No"].Value}'#");
             })
