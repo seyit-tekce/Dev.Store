@@ -6,5 +6,5 @@ namespace Dev.Store.Web;
 [Dependency(ReplaceServices = true)]
 public class StoreBrandingProvider : DefaultBrandingProvider
 {
-    public override string AppName => "Store";
+    public override string AppName => "Yönetim Paneli";
 }

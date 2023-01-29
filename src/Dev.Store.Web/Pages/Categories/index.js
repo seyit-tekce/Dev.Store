@@ -8,10 +8,7 @@ var categories = {
     },
     functions: {
         create: function (e) {
-            var load = new Loading($(e));
-            load.Start();
             categories.defines.createModal.onOpen(function () {
-                load.Done();
             });
             categories.defines.createModal.open({
                 categoryParentId: _id
@@ -22,10 +19,7 @@ var categories = {
             });
         },
         edit: function (e) {
-            var load = new Loading($(e.target));
-            load.Start();
             categories.defines.editModal.onOpen(function () {
-                load.Done();
             });
             categories.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
             categories.defines.editModal.onResult(function () {
