@@ -16,4 +16,7 @@ public interface ICategoryAppService :
         CreateUpdateCategoryDto>
 {
     Task<DataSourceResult> DataSource(DataSourceRequest request);
+
+    Task MoveUp(Guid id);
+    Task MoveDown(Guid id);
 }

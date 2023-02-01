@@ -12,4 +12,5 @@ public class CreateUpdateCategoryDto
     public string Description { get; set; }
     public Guid? CategoryParentId { get; set; }
     public bool isVisible { get; set; }
+    public int Order { get; set; }
 }

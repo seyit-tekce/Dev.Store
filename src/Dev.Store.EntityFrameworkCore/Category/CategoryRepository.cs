@@ -1,6 +1,8 @@
 using Dev.Store.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -15,6 +17,6 @@ public class CategoryRepository : EfCoreRepository<StoreDbContext, Category, Gui
 
     public override async Task<IQueryable<Category>> WithDetailsAsync()
     {
-        return (await GetQueryableAsync()).IncludeDetails();
+        return (await GetQueryableAsync()).Include(x => x.CategoryChildren).Include(a => a.CategoryParent);
     }
 }

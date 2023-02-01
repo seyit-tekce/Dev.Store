@@ -10,6 +10,7 @@
     "Permission:Delete": "Sil",
     "Menu:Brand": "Markalar",
     "Brand": "Markalar",
+    "BrandList": "Marka Listesi",
     "BrandName": "Marka Adı",
     "BrandCode": "Marka Kodu",
     "BrandDescription": "Açıklama",
@@ -61,7 +62,13 @@
     "EditKeyword": "Anahtar Kelime Düzenle",
     "KeywordDeletionConfirmationMessage": "Anahtar kelimeyi silmek istediğinze emin misiniz?",
     "CreationTime": "Oluşturma Zamanı",
-    "Order": "Sıra"
+    "Order": "Sıra",
+    "MoveUp": "Yukarı Taşı",
+    "MoveDown": "Aşağıya Taşı",
+    "MoveUpCategory": "Üst Kategoriye Taşı",
+    "MoveDownCategory": "Alt Kategoriye Taşı"
+
+
 
   }
 }

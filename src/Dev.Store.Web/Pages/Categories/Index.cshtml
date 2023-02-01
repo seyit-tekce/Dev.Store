@@ -23,8 +23,8 @@
 }
 @section scripts
     {
-    <abp-script src="/libs/speakingurl/speakingurl.min.js"/>
-    <abp-script src="/libs/jquery-slugify/slugify.min.js"/>
+    <abp-script src="/libs/speakingurl/speakingurl.min.js" />
+    <abp-script src="/libs/jquery-slugify/slugify.min.js" />
     <script>var _id = "@Model.Id"</script>
     <abp-script src="/Pages/Categories/index.js" />
 }
@@ -47,6 +47,7 @@
         </abp-row>
     </abp-card-header>
     <abp-card-body>
+
         @(
             Html.Kendo().Grid<CategoryDto>()
             .Name("categories")
@@ -54,6 +55,18 @@
             {
                 columns.Command(command =>
                 {
+                    if (_default) command.Custom(L["MoveUp"].Value).IconClass("fa fa-arrow-up").Click("categories.functions.moveUp").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+                    if (_default) command.Custom(L["MoveDown"].Value).IconClass("fa fa-arrow-down").Click("categories.functions.moveDown").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+                    //if (Model.Id.HasValue)
+                    //{
+                    //    if (_default) command.Custom(L["MoveUpCategory"].Value).IconClass("fa-solid fa-arrow-up-right-dots").Click("categories.functions.moveUp").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+
+                    //}
+                    //else
+                    //{
+                    //    if (_default) command.Custom(L["MoveDownCategory"].Value).IconClass("fa-solid fa-arrow-up-right-dots").Click("categories.functions.moveDown").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+
+                    //}
                     if (_default) command.Custom(L["Detail"].Value).IconClass("fa fa-info-circle").Click("categories.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
                     if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("categories.functions.edit");
                     if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("categories.functions.delete");
@@ -89,6 +102,7 @@
                 model.Id(p => p.Id);
             })
             .Read(read => read.Url("/api/app/Category/data-source")).Filter(a => a.Add(b => b.CategoryParentId).IsEqualTo(Model.Id))
+            .Sort(a=>a.Add(b=>b.Order))
             ).Deferred()
             )
     </abp-card-body>

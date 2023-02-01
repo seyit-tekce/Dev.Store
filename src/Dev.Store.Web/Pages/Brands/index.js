@@ -14,7 +14,7 @@ var brands = {
                 load.Done();
             });
             brands.defines.createModal.open();
-            brands.defines.createModal.onResult(function () {
+            brands.defines.createModal.onResult(function (e,a) {
                 brands.defines.grid().dataSource.read();
                 abp.notify.success(l("SuccessfullyAdded"));
 

@@ -37,42 +37,32 @@ var categories = {
                             .then(function () {
                                 abp.notify.success(l("SuccessfullyDeleted"));
                                 categories.defines.grid().dataSource.read();
-
                             });
                     }
                 });
-
-
         },
         detail: function (e) {
             e.preventDefault();
             var recordId = e.currentTarget.dataset["id"];
             window.location.href = abp.appPath + "categories/Index?Id=" + recordId;
-
+        },
+        moveUp: function (e) {
+            var recordId = e.currentTarget.dataset["id"];
+            dev.store.categories.category.moveUp(recordId).then(function () {
+                abp.notify.success(l("SuccessfullyUpdated"));
+                categories.defines.grid().dataSource.read();
+            });
 
         },
-        nameChange: function (name) {
-          
-            if (name == null) {
-                return;
-            }
-            $("#ViewModel_Link").val($.slugify(name));
-        }
+        moveDown: function (e) {
+            var recordId = e.currentTarget.dataset["id"];
+            dev.store.categories.category.moveDown(recordId).then(function () {
+                abp.notify.success(l("SuccessfullyUpdated"));
+                categories.defines.grid().dataSource.read();
+            });
 
+        }
     },
     init: function () {
-
-
-
-
     }
-
-
 }
-$(document).on("keyup", "#ViewModel_Name", function () {
-    var name = $(this).val();
-    categories.functions.nameChange(name);
-}).on("change", "#ViewModel_Link", function () {
-    var name = $(this).val();
-    categories.functions.nameChange(name);
-})

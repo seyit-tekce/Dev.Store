@@ -13,7 +13,7 @@
 @inject IHtmlLocalizer<StoreResource> L
 @inject IAuthorizationService Authorization
 @{
-    PageLayout.Content.Title = L["Brand"].Value;
+    PageLayout.Content.Title = L["BrandList"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:Brand"].Value);
     PageLayout.Content.MenuItemName = StoreMenus.Brand;
     var _default = await Authorization.IsGrantedAsync(StorePermissions.Brand.Default);

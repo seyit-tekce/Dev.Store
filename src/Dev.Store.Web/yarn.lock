@@ -65,12 +65,12 @@
     "@abp/core" "~7.0.0"
     bootstrap "^5.1.3"
 
-"@abp/clipboard@~7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@abp/clipboard/-/clipboard-7.0.0.tgz#d148a9a509c1343e145835d204ec2ba00ff82445"
-  integrity sha512-3Pq++9D6pU93osVNWwJeVVzvWz/eU3dFE0fWBnqgvH9wdOClIIIy6SQJfAXHj0yxThQ8p6dl1QjonPn7AevRNA==
+"@abp/clipboard@~7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@abp/clipboard/-/clipboard-7.0.1.tgz#70c64cb8d8e89e301ddf0cb34c5ba5389e3e908d"
+  integrity sha512-7NIjhnGyyt72otrxPfMjJzb7PYyp2QcZTKqqsFqJr13mtJqPfQCOmFU0JMKVXDEydRqbTpOVjgIuv+K1BRczbg==
   dependencies:
-    "@abp/core" "~7.0.0"
+    "@abp/core" "~7.0.1"
     clipboard "^2.0.8"
 
 "@abp/core@~7.0.0":
@@ -79,6 +79,13 @@
   integrity sha512-I9V+amo8a4eYlKeMV6fxb+2uvBLZkuJv78IRilmL6jOxg5F9mJuvPzg7XQugMnDQ9NZXErjDW04DyR/5OfeIiA==
   dependencies:
     "@abp/utils" "~7.0.0"
+
+"@abp/core@~7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@abp/core/-/core-7.0.1.tgz#e1952c7172d3e9549c4f997082926eac0c42ceea"
+  integrity sha512-lTaeq40RMGYJun8FU2N9ovqjSYseCJGVqHdyhiWVI8Mba/qAkCmxwgKqGZeKGhImwxwLXva0P5r2vClp59Ymzw==
+  dependencies:
+    "@abp/utils" "~7.0.1"
 
 "@abp/datatables.net-bs5@~7.0.0":
   version "7.0.0"
@@ -167,13 +174,13 @@
   dependencies:
     moment "^2.9.0"
 
-"@abp/prismjs@~7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@abp/prismjs/-/prismjs-7.0.0.tgz#0c0b085205de8e4d9f8c5e1fa33f8ba3cfda97b4"
-  integrity sha512-kWglpAUKZI9XltBFzs8fUEy0BaaPNDC5WWTlFx2Aj8zHgV9a6ljprx1gcJX9lm4+H8YGf6IISbr2nUeCWGJ0TA==
+"@abp/prismjs@~7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@abp/prismjs/-/prismjs-7.0.1.tgz#8c217d6dbba3f8403c31fd5b1d539fe572c66733"
+  integrity sha512-8ep2r92MuDy8uWFg4WyWqUTJy8R/BxYGd2O9xFgkUrdABqIELm21Gx6vTL/xdeBACg1tTvR/51piE04McxXEGg==
   dependencies:
-    "@abp/clipboard" "~7.0.0"
-    "@abp/core" "~7.0.0"
+    "@abp/clipboard" "~7.0.1"
+    "@abp/core" "~7.0.1"
     prismjs "^1.26.0"
 
 "@abp/select2@~7.0.0":
@@ -215,13 +222,25 @@
   dependencies:
     just-compare "^1.3.0"
 
-"@abp/virtual-file-explorer@~7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@abp/virtual-file-explorer/-/virtual-file-explorer-7.0.0.tgz#f428cd80b7f67eba3be3d2fe2c6472b77e199e0a"
-  integrity sha512-STwfLEQeP8p2B8tTMQRKL6oFzxBAVUXZVKh9GQXS6lQS2X7O2rwqgXWs4mGaGB6vrDYEjcvJS5Un1wAcLItkKA==
+"@abp/utils@~7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@abp/utils/-/utils-7.0.1.tgz#fa687f6f85e02763e3f7fd0743bd2326d86b3863"
+  integrity sha512-ruGndiJjtJBRbiBlzWaddJ8kkn+vOCcC26du29w0E2HLwvUjIba/Hz4AW4HEJqABoKO5J+yUSh+2htpfcBt8hg==
   dependencies:
-    "@abp/clipboard" "~7.0.0"
-    "@abp/prismjs" "~7.0.0"
+    just-compare "^1.3.0"
+
+"@abp/virtual-file-explorer@~7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@abp/virtual-file-explorer/-/virtual-file-explorer-7.0.1.tgz#55799ef70ba0706b001f07b29fe27b7332acf559"
+  integrity sha512-qcx2BrammlPfCJhA5xOdL2PJyXb2qFLjstmJ63rdEE6So0MxZ1t5ILIT9yfTQr6S/8QukXSAAqDlanAYiabpKQ==
+  dependencies:
+    "@abp/clipboard" "~7.0.1"
+    "@abp/prismjs" "~7.0.1"
+
+"@fortawesome/fontawesome-free@6.2.1":
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.2.1.tgz#344baf6ff9eaad7a73cff067d8c56bfc11ae5304"
+  integrity sha512-viouXhegu/TjkvYQoiRZK3aax69dGXxgEjpvZW81wIJdxm5Fnvp3VVIP4VHKqX4SvFw6qpmkILkD4RJWAdrt7A==
 
 "@fortawesome/fontawesome-free@^5.15.4":
   version "5.15.4"

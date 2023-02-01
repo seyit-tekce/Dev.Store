@@ -3,6 +3,7 @@ using Dev.Store.Categories.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Volo.Abp.AspNetCore.Mvc.UI.Layout;
 
 namespace Dev.Store.Web.Pages.Entities.Category;
 
@@ -13,6 +14,7 @@ public class IndexModel : StorePageModel
 
     private readonly ICategoryAppService categoryAppService;
     public CategoryDto Category { get; set; }
+    public BreadCrumb BreadCrumb { get; set; }
     public IndexModel(ICategoryAppService categoryAppService)
     {
         this.categoryAppService = categoryAppService;
@@ -26,5 +28,7 @@ public class IndexModel : StorePageModel
         }
         await Task.CompletedTask;
     }
+
+
 }
 

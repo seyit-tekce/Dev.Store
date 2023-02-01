@@ -17,6 +17,7 @@ public class CreateModalModel : StorePageModel
     public CreateModalModel(IBrandAppService service)
     {
         this.ViewModel = new CreateEditBrandViewModel();
+        this.ViewModel.Code = RandomCode.GetRandomCode();
         _service = service;
     }
 

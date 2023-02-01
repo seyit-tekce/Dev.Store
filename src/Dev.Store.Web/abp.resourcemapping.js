@@ -9,5 +9,6 @@ module.exports = {
     mappings: {
         "@node_modules/jquery-slugify/dist/**/*": "@libs/jquery-slugify",
         "@node_modules/speakingurl/speakingurl.min.js": "@libs/speakingurl",
+        "@node_modules/speakingurl/speakingurl.min.js": "@libs/speakingurl",
     }
 };

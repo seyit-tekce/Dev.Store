@@ -20,8 +20,12 @@ public class StoreApplicationAutoMapperProfile : Profile
 
         CreateMap<Brand, BrandDto>();
         CreateMap<CreateUpdateBrandDto, Brand>(MemberList.Source);
+
         CreateMap<Category, CategoryDto>();
+        CreateMap<Category, CategoryListDto>();
         CreateMap<CreateUpdateCategoryDto, Category>(MemberList.Source);
+
+
         CreateMap<Location, LocationDto>();
         CreateMap<CreateUpdateLocationDto, Location>(MemberList.Source);
         CreateMap<Keyword, KeywordDto>();

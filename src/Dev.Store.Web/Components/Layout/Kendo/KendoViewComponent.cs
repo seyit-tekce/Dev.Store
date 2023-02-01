@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 
-namespace Dev.StoreAbp.Web.Bundling.Kendo
+namespace Dev.Store.Web.Components.Layout.Kendo
 {
     public class KendoViewComponent : AbpViewComponent
     {

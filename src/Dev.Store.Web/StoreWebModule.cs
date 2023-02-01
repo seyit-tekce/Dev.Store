@@ -135,14 +135,14 @@ public class StoreWebModule : AbpModule
                 .AddContributors(typeof(KendoStyleContributor)); // add this
             options.ScriptBundles.Configure(LeptonXLiteThemeBundles.Scripts.Global, bundle =>
             {
+                bundle.AddFiles("/custom-libs/jquery.livequery.min.js");
+                bundle.AddFiles("/custom-libs/linq/jquery.linq.js");
                 bundle.AddFiles("/kendo/js/kendo.all.min.js");
                 bundle.AddFiles("/kendo/js/kendo.aspnetmvc.min.js");
                 bundle.AddFiles("/kendo/js/jszip.min.js");
                 bundle.AddFiles($"/kendo/js/cultures/kendo.culture.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
                 bundle.AddFiles($"/kendo/js/messages/kendo.messages.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
                 bundle.AddFiles("/custom/js/master.js");
-                bundle.AddFiles("/custom-libs/linq/jquery.linq.js");
-                bundle.AddFiles("/custom-libs/jquery.livequery.min.js");
             });
         });
         Configure<AbpLayoutHookOptions>(options =>

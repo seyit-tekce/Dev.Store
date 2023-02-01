@@ -10,6 +10,7 @@
     "Permission:Delete": "Delete Brand",
     "Menu:Brand": "Brands",
     "Brand": "Brands",
+    "BrandList": "Brand List",
     "BrandName": "Brand Name",
     "BrandCode": "Brand Code",
     "BrandDescription": "Brand Description",
@@ -55,7 +56,11 @@
     "EditKeyword": "Edit Keyword",
     "KeywordDeletionConfirmationMessage": "Are you sure to delete the keyword?",
     "CreationTime": "Creation Time",
-    "Order": "Order"
+    "Order": "Order",
+    "MoveUp": "Move Up",
+    "MoveDown": "Move Don",
+    "MoveUpCategory": "Move to Higher Category",
+    "MoveDownCategory": "Move to Lower Category"
 
   }
 }
