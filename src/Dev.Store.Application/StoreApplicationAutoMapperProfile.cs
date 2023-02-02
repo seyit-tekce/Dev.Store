@@ -6,6 +6,10 @@ using Dev.Store.Categories.Dtos;
 using Dev.Store.Keywords;
 using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations;
+using Dev.Store.CloudinarySettings;
+using Dev.Store.CloudinarySettings.Dtos;
+using Dev.Store.UploadFiles;
+using Dev.Store.UploadFiles.Dtos;
 using Dev.Store.Locations.Dtos;
 
 namespace Dev.Store;
@@ -30,5 +34,12 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateLocationDto, Location>(MemberList.Source);
         CreateMap<Keyword, KeywordDto>();
         CreateMap<CreateUpdateKeywordDto, Keyword>(MemberList.Source);
+
+
+
+        CreateMap<CloudinarySetting, CloudinarySettingDto>();
+        CreateMap<CreateUpdateCloudinarySettingDto, CloudinarySetting>(MemberList.Source);
+        CreateMap<UploadFile, UploadFileDto>();
+        CreateMap<CreateUpdateUploadFileDto, UploadFile>(MemberList.Source);
     }
 }

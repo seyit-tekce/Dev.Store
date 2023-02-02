@@ -11,4 +11,6 @@ public class StoreMenus
     public const string Category = Prefix + ".Category";
     public const string Location = Prefix + ".Location";
     public const string Keyword = Prefix + ".Keyword";
+    public const string CloudinarySetting = Prefix + ".CloudinarySetting";
+    public const string UploadFile = Prefix + ".UploadFile";
 }

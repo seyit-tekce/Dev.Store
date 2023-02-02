@@ -54,7 +54,7 @@ public class StoreMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(StorePermissions.Category.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Categories", "fa fa-th")
+                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Categories", "fa fa-th",1)
             );
         }
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 50);
@@ -69,6 +69,18 @@ public class StoreMenuContributor : IMenuContributor
         {
             context.Menu.AddItem(
                 new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-key")
+            );
+        }
+        if (await context.IsGrantedAsync(StorePermissions.CloudinarySetting.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.CloudinarySetting, l["Menu:CloudinarySetting"], "/CloudinarySettings","fa fa-image")
+            );
+        }
+        if (await context.IsGrantedAsync(StorePermissions.UploadFile.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.UploadFile, l["Menu:UploadFile"], "/UploadFiles/UploadFile")
             );
         }
     }

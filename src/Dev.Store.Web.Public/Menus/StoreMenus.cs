@@ -8,4 +8,6 @@ public class StoreMenus
     //Add your menu items here...
 
     public const string Keyword = Prefix + ".Keyword";
+    public const string CloudinarySetting = Prefix + ".CloudinarySetting";
+    public const string UploadFile = Prefix + ".UploadFile";
 }

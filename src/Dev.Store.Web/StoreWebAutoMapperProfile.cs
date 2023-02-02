@@ -1,8 +1,10 @@
 using AutoMapper;
 using Dev.Store.Brands.Dtos;
 using Dev.Store.Categories.Dtos;
+using Dev.Store.CloudinarySettings.Dtos;
 using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations.Dtos;
+using Dev.Store.Web.Pages.CloudinarySettings.ViewModels;
 using Dev.Store.Web.Pages.Dev.Store.Brand.ViewModels;
 using Dev.Store.Web.Pages.Entities.Category.ViewModels;
 using Dev.Store.Web.Pages.Keywords.ViewModels;
@@ -26,5 +28,12 @@ public class StoreWebAutoMapperProfile : Profile
 
         CreateMap<KeywordDto, CreateEditKeywordViewModel>();
         CreateMap<CreateEditKeywordViewModel, CreateUpdateKeywordDto>();
+
+
+        CreateMap<CreateEditCloudinarySettingViewModel, CreateUpdateCloudinarySettingDto>();
+        CreateMap<CloudinarySettingDto, CreateEditCloudinarySettingViewModel>();
+
+
+
     }
 }

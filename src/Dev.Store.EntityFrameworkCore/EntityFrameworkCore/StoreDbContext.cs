@@ -18,6 +18,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Dev.Store.CloudinarySettings;
+using Dev.Store.UploadFiles;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -61,6 +63,8 @@ public class StoreDbContext :
     public DbSet<Category> Categories { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Keyword> Keywords { get; set; }
+    public DbSet<CloudinarySetting> CloudinarySettings { get; set; }
+    public DbSet<UploadFile> UploadFiles { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -143,6 +147,29 @@ public class StoreDbContext :
 
 
             /* Configure more properties here */
+        });
+
+
+        builder.Entity<CloudinarySetting>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "CloudinarySettings", StoreConsts.DbSchema);
+            b.Property(x => x.CloudName).IsRequired();
+            b.Property(x => x.ApiKey).IsRequired();
+            b.Property(x => x.ApiSecret).IsRequired();
+            b.Property(x => x.IsEnabled).IsRequired();
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<UploadFile>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "UploadFiles", StoreConsts.DbSchema);
+            b.Property(x => x.FileName).IsRequired();
+            b.Property(x => x.FilePath).IsRequired();
+            b.ConfigureByConvention(); 
         });
     }
 }
