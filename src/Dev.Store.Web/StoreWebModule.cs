@@ -11,11 +11,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
+using System;
 using System.Globalization;
 using System.IO;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
@@ -86,6 +88,11 @@ public class StoreWebModule : AbpModule
             {
                 container.UseDatabase();
             });
+        });
+        Configure<AbpAntiForgeryOptions>(options =>
+        {
+            options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+            options.AutoValidateIgnoredHttpMethods.Remove("GET");
         });
     }
 
