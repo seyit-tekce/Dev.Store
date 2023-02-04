@@ -7,6 +7,7 @@
     "@abp/virtual-file-explorer": "~7.0.1",
     "jquery-slugify": "1.2.5",
     "speakingurl": "14.0.1",
-    "@fortawesome/fontawesome-free": "6.2.1"
+    "@fortawesome/fontawesome-free": "6.2.1",
+    "@uppy/core": "3.0.5"
   }
 }

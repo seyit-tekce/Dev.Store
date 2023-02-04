@@ -10,10 +10,7 @@ namespace Dev.Store.FileUploaders
     public interface IFileUploader
     {
         Task UploadFileAsync(IFormFile file);
-        void UploadFile(IFormFile file);
-
         Task DeleteFileAsync(UploadFileDto file);
-        void DeleteFile(UploadFileDto file); 
         
     }
 }

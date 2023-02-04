@@ -32,22 +32,7 @@ namespace Dev.Store.FileUploaders
             Cloudinary = new Cloudinary(Account);
         }
 
-        public void UploadFile(IFormFile file)
-        {
-            Load().Wait();
-            using var stream = file.OpenReadStream();
-            var uploadParams = new ImageUploadParams
-            {
-                File = new FileDescription(file.FileName, stream)
-            };
-            var uploadResult = Cloudinary.Upload(uploadParams);
-            uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
-            {
-                FileName = file.FileName,
-                FilePath = uploadResult.Url.ToString(),
-                PublicId = uploadResult.PublicId
-            }).Wait();
-        }
+     
         public async Task UploadFileAsync(IFormFile file)
         {
             await Load();
@@ -69,12 +54,6 @@ namespace Dev.Store.FileUploaders
         {
             await Load();
             await Cloudinary.DeleteResourcesAsync(new string[] { file.PublicId });
-        }
-
-        public void DeleteFile(UploadFileDto file)
-        {
-            Load().Wait();
-            Cloudinary.DeleteResources(new string[] { file.PublicId });
         }
     }
 }

@@ -89,11 +89,6 @@ public class StoreWebModule : AbpModule
                 container.UseDatabase();
             });
         });
-        Configure<AbpAntiForgeryOptions>(options =>
-        {
-            options.TokenCookie.Expiration = TimeSpan.FromDays(365);
-            options.AutoValidateIgnoredHttpMethods.Remove("GET");
-        });
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -111,6 +106,15 @@ public class StoreWebModule : AbpModule
         ConfigureSwaggerServices(context.Services);
         ConfigureKendo(context);
         ConfigureSerializers(context);
+
+        context.Services.AddResponseCompression(c =>
+        {
+            c.EnableForHttps = true;
+        });
+        Configure<AbpAntiForgeryOptions>(options =>
+        {
+            options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
