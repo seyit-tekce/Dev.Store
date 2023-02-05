@@ -1,5 +1,10 @@
+using CloudinaryDotNet.Actions;
+using Dev.Store.FileUploaders;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
@@ -32,5 +37,8 @@ public class CreateEditCategoryViewModel
     [Display(Name = "CategoryPid")]
     [HiddenInput]
     public Guid? CategoryParentId { get; set; }
+
+
+    public IFormCollection Files { get; set; }
 
 }

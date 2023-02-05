@@ -7,8 +7,9 @@
 @{
     Layout = null;
 }
-
-<abp-script src="/custom/js/uppy.custom.js"/>
+<link href="~/custom-libs/uppy/uppy.min.css" rel="stylesheet" />
+<abp-script src="/custom-libs/uppy/uppy.min.js" />
+<abp-script src="/pages/categories/CreateModal.js" />
 <form data-ajaxForm="true" asp-page="/Categories/CreateModal" autocomplete="off" id="categoryForm">
     <abp-modal>
         <abp-modal-header title="@L["CreateCategory"].Value"></abp-modal-header>
@@ -18,7 +19,8 @@
             <abp-input asp-for="ViewModel.Link"></abp-input>
             <abp-input asp-for="ViewModel.Description"></abp-input>
             <abp-input asp-for="ViewModel.IsVisible"></abp-input>
-            <input id="select-files" />
+            <input id="files" type="hidden" name="files" />
+            <div id="drag-drop-area"></div>
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
