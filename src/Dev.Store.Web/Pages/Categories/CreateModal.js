@@ -1,46 +1,41 @@
-﻿const COMPANION_URL = "http://companion.uppy.io"
-const COMPANION_ALLOWED_HOSTS = ['https://tekce.net.tr']
-var createModal = {
+﻿var createModal = {
     defines: {
-
     },
     functions: {
         uppy: function () {
             var uppy = new Uppy.Uppy({
                 debug: true,
                 autoProceed: false,
-                locale: Uppy.locales.ru_RU
+                locale: Uppy.locales.tr_TR,
+                allowMultipleUploadBatches: false,
+                restrictions: {
+                    maxNumberOfFiles: 1,
+                    minNumberOfFiles: 1,
+                    allowedFileTypes: ["image/*"],
+                    requiredMetaFields: [],
+                }
             });
             uppy.use(Uppy.Dashboard, {
                 inline: true,
+                locale: Uppy.locales.tr_TR,
                 target: '#drag-drop-area',
                 showProgressDetails: true,
-                note: '@T["input-library-file-uppy-note"]',
-                height: 470,
-                //metaFields: [
-                //  { id: 'Title', name: 'Title', placeholder: 'file Title' },
-                //  { id: 'description', name: 'description', placeholder: 'describe what the image is about' }
-                //  { id: 'sourceInfo', name: 'sourceInfo', placeholder: 'sourceInfo' }
-                //  { id: 'comments', name: 'comments', placeholder: 'comments' }
-                //  { id: 'author', name: 'author', placeholder: 'author' }
-                //  { id: 'language', name: 'language', placeholder: 'language' }
-                //],
                 browserBackButtonClose: false,
-                hideUploadButton: true
+                hideUploadButton: true,
+                metaFields: [
+                    { id: 'name', name: 'Name', placeholder: 'file name' },
+                    { id: 'caption', name: 'Caption', placeholder: 'add description' },
+                ],
             }).use(Uppy.XHRUpload, {
+                locale: Uppy.locales.tr_TR,
                 endpoint: '/Categories/CreateModal/',
                 formData: true,
                 fieldName: 'files[]',
             }).use(Uppy.ImageEditor, { target: Uppy.Dashboard })
                 .use(Uppy.DropTarget, { target: document.body })
                 .use(Uppy.Compressor)
-                .use(Uppy.RemoteSources, {
-                    // You can manually specify `sources` here, by default all available are included. 
-                    // See docs: https://uppy.io/docs/remote-sources/#sources.
-                    companionUrl: COMPANION_URL,
-                    companionAllowedHosts: COMPANION_ALLOWED_HOSTS,
-                })
             uppy.use(Uppy.Form, {
+                locale: Uppy.locales.tr_TR,
                 target: '#categoryForm',
                 resultName: 'files',
                 getMetaFromForm: true,
@@ -48,24 +43,16 @@ var createModal = {
                 submitOnSuccess: false,
                 triggerUploadOnSubmit: true,
             });
+            uppy.use(Uppy.Url, {
+                // Options
+            });
 
             window.uppy = uppy;
         }
     },
     init: function () {
-
-
-
         createModal.functions.uppy();
 
     }
-
-
-
 }
-
-
-
-
-
 createModal.init();

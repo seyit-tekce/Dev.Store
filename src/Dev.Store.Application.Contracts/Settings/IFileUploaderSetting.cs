@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Dev.Store.FileUploaders
+namespace Dev.Store.Settings
 {
-    public interface ILocalFileUploader
+    internal interface IFileUploaderSetting
     {
     }
 }

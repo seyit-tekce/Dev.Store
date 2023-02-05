@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.DbMigrator", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Web.Public", "src\Dev.Store.Web.Public\Dev.Store.Web.Public.csproj", "{36941A13-BDD7-429B-9C98-EA2C8C0186EA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{A850067D-9061-4F1D-8783-2C626D3E66DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
