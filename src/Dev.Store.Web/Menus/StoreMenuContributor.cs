@@ -24,7 +24,6 @@ public class StoreMenuContributor : IMenuContributor
         var administration = context.Menu.GetAdministration();
         administration.Order = int.MaxValue;
         var l = context.GetLocalizer<StoreResource>();
-
         context.Menu.Items.Insert(
             0,
             new ApplicationMenuItem(
@@ -35,7 +34,6 @@ public class StoreMenuContributor : IMenuContributor
                 order: 0
             )
         );
-
         if (MultiTenancyConsts.IsEnabled)
         {
             administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 49);
@@ -44,8 +42,6 @@ public class StoreMenuContributor : IMenuContributor
         {
             administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
         }
-
-
         if (await context.IsGrantedAsync(StorePermissions.Brand.Default))
         {
             context.Menu.AddItem(
@@ -55,11 +51,11 @@ public class StoreMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(StorePermissions.Category.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Categories", "fa fa-th",1)
+                new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Categories", "fa fa-th", 1)
             );
         }
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName,1);
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName,2);
+        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
+        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 2);
         if (await context.IsGrantedAsync(StorePermissions.Location.Default))
         {
             context.Menu.AddItem(
@@ -72,6 +68,5 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-key")
             );
         }
-       
     }
 }
