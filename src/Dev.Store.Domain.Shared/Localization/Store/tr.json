@@ -67,23 +67,18 @@
     "MoveDown": "Aşağıya Taşı",
     "MoveUpCategory": "Üst Kategoriye Taşı",
     "MoveDownCategory": "Alt Kategoriye Taşı",
-    "Permission:CloudinarySetting": "CloudinarySetting",
-    "Menu:CloudinarySetting": "MenuCloudinarySetting",
-    "CloudinarySetting": "CloudinarySetting",
-    "CloudinarySettingCloudName": "CloudinarySettingCloudName",
-    "CloudinarySettingApiKey": "CloudinarySettingApiKey",
-    "CloudinarySettingApiSecret": "CloudinarySettingApiSecret",
-    "CloudinarySettingIsEnabled": "CloudinarySettingIsEnabled",
-    "CreateCloudinarySetting": "CreateCloudinarySetting",
-    "EditCloudinarySetting": "EditCloudinarySetting",
-    "CloudinarySettingDeletionConfirmationMessage": "Are you sure to delete the cloudinarySetting {0}?",
-    "Permission:UploadFile": "UploadFile",
-    "Menu:UploadFile": "MenuUploadFile",
-    "UploadFile": "UploadFile",
-    "UploadFileFileName": "UploadFileFileName",
-    "UploadFileFilePath": "UploadFileFilePath",
-    "CreateUploadFile": "CreateUploadFile",
-    "EditUploadFile": "EditUploadFile",
-    "UploadFileDeletionConfirmationMessage": "Are you sure to delete the uploadFile {0}?"
+    "FileSettingCloudinaryEnabled": "Cloudinary Etkinleştir",
+    "FileSettingCloudinaryCloudName": "Bulut Adı",
+    "FileSettingCloudinaryApiKey": "Api Key",
+    "FileSettingCloudinarApiSecret": "Api Secret",
+    "FileSettingCompressionEnabled": "Sıkıştırmayı Etkinleştir",
+    "FileSettingCompressionRate": "Sıkıştırma Oranı",
+    "FileSettingBigImageScale": "Büyük Resim Sıkıştırma Oranı",
+    "FileSettingMediumImageScale": "Orta Resim Sıkıştırma Oranı",
+    "FileSettingSmallImageScale": "Küçük Resim Sıkıştırma Oranı",
+    "FileSettingMobileImageScale": "Mobil Resim Sıkıştırma Oranı",
+    "FileUploaderSetting": "Dosya Yükleme Yönetimi"
+
+
   }
 }

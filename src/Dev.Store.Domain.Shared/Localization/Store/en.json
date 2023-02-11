@@ -61,23 +61,18 @@
     "MoveDown": "Move Don",
     "MoveUpCategory": "Move to Higher Category",
     "MoveDownCategory": "Move to Lower Category",
-    "Permission:CloudinarySetting": "CloudinarySetting",
-    "Menu:CloudinarySetting": "MenuCloudinarySetting",
-    "CloudinarySetting": "CloudinarySetting",
-    "CloudinarySettingCloudName": "CloudinarySettingCloudName",
-    "CloudinarySettingApiKey": "CloudinarySettingApiKey",
-    "CloudinarySettingApiSecret": "CloudinarySettingApiSecret",
-    "CloudinarySettingIsEnabled": "CloudinarySettingIsEnabled",
-    "CreateCloudinarySetting": "CreateCloudinarySetting",
-    "EditCloudinarySetting": "EditCloudinarySetting",
-    "CloudinarySettingDeletionConfirmationMessage": "Are you sure to delete the cloudinarySetting {0}?",
-    "Permission:UploadFile": "UploadFile",
-    "Menu:UploadFile": "MenuUploadFile",
-    "UploadFile": "UploadFile",
-    "UploadFileFileName": "UploadFileFileName",
-    "UploadFileFilePath": "UploadFileFilePath",
-    "CreateUploadFile": "CreateUploadFile",
-    "EditUploadFile": "EditUploadFile",
-    "UploadFileDeletionConfirmationMessage": "Are you sure to delete the uploadFile {0}?"
+    "FileSettingCloudinaryEnabled": "Is Cloudinary Enabled?",
+    "FileSettingCloudinaryCloudName": "Cloud Name",
+    "FileSettingCloudinaryApiKey": "Api Key",
+    "FileSettingCloudinarApiSecret": "Api Secret",
+    "FileSettingCompressionEnabled": "Is Compression Enabled?",
+    "FileSettingCompressionRate": "Compression Rate",
+    "FileSettingBigImageScale": "Big Image Scale",
+    "FileSettingMediumImageScale": "Medium Image Scale",
+    "FileSettingSmallImageScale": "Small Image Scale",
+    "FileSettingMobileImageScale": "Mobile Image Scale",
+    "FileUploaderSetting": "File Upload Management"
+
+
   }
 }

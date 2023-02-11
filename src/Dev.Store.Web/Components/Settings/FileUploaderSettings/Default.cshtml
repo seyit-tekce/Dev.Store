@@ -1,0 +1,36 @@
+﻿@using Dev.Store.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@model Dev.Store.Settings.FileUploaderSettingDto
+@inject IHtmlLocalizer<StoreResource> L
+
+@{
+    Layout = null;
+}
+<abp-script src="/components/settings/fileuploadersettings/defult.js" />
+<form id="FileSettingForm" method="post">
+    <div>
+        <abp-input asp-for="FileSettingCloudinaryEnabled" />
+        <div data-cascade="#FileSettingCloudinaryEnabled" data-show="1">
+            <abp-input asp-for="FileSettingCloudinaryCloudName" />
+            <abp-input asp-for="FileSettingCloudinaryApiKey" />
+            <abp-input asp-for="FileSettingCloudinarApiSecret" />
+
+        </div>
+        <hr />
+        <abp-input asp-for="FileSettingCompressionEnabled" />
+        <div data-cascade="#FileSettingCompressionEnabled" data-show="1">
+            <abp-input asp-for="FileSettingCompressionRate" />
+            <abp-input asp-for="FileSettingBigImageScale" />
+            <abp-input asp-for="FileSettingMediumImageScale" />
+            <abp-input asp-for="FileSettingSmallImageScale" />
+            <abp-input asp-for="FileSettingMobileImageScale" />
+
+        </div>
+    </div>
+    <hr class="my-4" />
+    <div>
+        <abp-button button-type="Primary" type="submit">
+            <i class="fa fa-save"></i> @L["Save"]
+        </abp-button>
+    </div>
+</form>

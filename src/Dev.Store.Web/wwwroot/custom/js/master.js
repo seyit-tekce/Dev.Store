@@ -203,7 +203,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         }
     });
 });
-
 $(document).livequery('[data-text="long"]', function (e) {
     var $elem = $(this);
     var toolTipPlacement = $elem.data("placement") ?? "top";
@@ -221,10 +220,6 @@ $(document).livequery('[data-text="long"]', function (e) {
     $elem.attr("title", text);
     $elem.tooltip();
 });
-
-
-
-
 $(document).on("keyup", '[data-toggle="slugify"]', function (e) {
     debugger
     var target = $(this).data("target");
@@ -246,7 +241,34 @@ $(document).on("keyup", '[data-toggle="slugify"]', function (e) {
     };
     slugit();
 });
-
+$('[data-cascade]').livequery('*',function (e) {
+    var $this = $(this);
+    var cascadeElem = $($this.attr('data-cascade'));
+    var values = ($this.attr('data-show') || "").split(",");
+    if (cascadeElem.length == 0) {
+        return;
+    }
+    $this.find('input[required], textarea[required], select[required]').attr('data-required', 'required');
+    $this.find('input[disabled], textarea[disabled], select[disabled]').attr('data-disabled', 'disabled');
+    function toggle(elem) {
+        var value = ($(elem).attr("type") == "checkbox" ? ($(elem).is(":checked") ? 1 : 0) : $(elem).val()).toString();
+        if (values.indexOf(value) > -1) {
+            $this.show();
+            $this.find('input[data-required], textarea[data-required], select[data-required]').attr('required', 'required');
+            $this.find('input:not([data-disabled]), textarea:not([data-disabled]), select:not([data-disabled])').removeAttr('disabled');
+        }
+        else {
+            $this.hide();
+            $this.find('input[data-required], textarea[data-required]').removeAttr('required');
+            $this.find('input:not([data-disabled]), textarea:not([data-disabled]), select:not([data-disabled])').attr('disabled', 'disabled');
+        }
+    }
+    cascadeElem
+        .on('change', function (e) {
+            toggle($(this));
+        });
+    toggle(cascadeElem);
+})
 $(document).livequery('[data-toggle="slugifyUpper"]', function (e) {
     function getSlug(text) {
         var separator = /[^a-z0-9]+/ig;
@@ -277,9 +299,6 @@ $(document).livequery('[data-toggle="slugifyUpper"]', function (e) {
     $(this).on("focus", slugit);
     $(this).on("blur", slugit);
 });
-
-
-
 $('.lp-footer').remove();
 Date.prototype.addDays = function (days) {
     this.setDate(this.getDate() + days);
@@ -347,7 +366,6 @@ Array.prototype.groupBy = function (field) {
     });
     return groupedArr;
 }
-
 class Loading {
     constructor(target) {
         this.target = $(target);
@@ -373,5 +391,4 @@ class Loading {
         kendo.ui.progress(this.target, false)
         delete this;
     }
-
 }

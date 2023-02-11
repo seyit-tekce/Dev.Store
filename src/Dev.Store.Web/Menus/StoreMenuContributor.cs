@@ -22,6 +22,7 @@ public class StoreMenuContributor : IMenuContributor
     private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
+        administration.Order = int.MaxValue;
         var l = context.GetLocalizer<StoreResource>();
 
         context.Menu.Items.Insert(
@@ -57,8 +58,8 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Category, l["Menu:Category"], "/Categories", "fa fa-th",1)
             );
         }
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 50);
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 51);
+        administration.SetSubItemOrder(IdentityMenuNames.GroupName,1);
+        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName,2);
         if (await context.IsGrantedAsync(StorePermissions.Location.Default))
         {
             context.Menu.AddItem(
@@ -71,17 +72,6 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-key")
             );
         }
-        if (await context.IsGrantedAsync(StorePermissions.CloudinarySetting.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.CloudinarySetting, l["Menu:CloudinarySetting"], "/CloudinarySettings","fa fa-image")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.UploadFile.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.UploadFile, l["Menu:UploadFile"], "/UploadFiles/UploadFile")
-            );
-        }
+       
     }
 }
