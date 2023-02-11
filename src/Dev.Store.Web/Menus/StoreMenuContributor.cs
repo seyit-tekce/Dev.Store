@@ -68,5 +68,11 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-key")
             );
         }
+        if (await context.IsGrantedAsync(StorePermissions.UploadFile.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.UploadFile, l["Menu:UploadFile"], "/UploadFiles/UploadFile")
+            );
+        }
     }
 }

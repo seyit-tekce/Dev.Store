@@ -77,8 +77,16 @@
     "FileSettingMediumImageScale": "Orta Resim Sıkıştırma Oranı",
     "FileSettingSmallImageScale": "Küçük Resim Sıkıştırma Oranı",
     "FileSettingMobileImageScale": "Mobil Resim Sıkıştırma Oranı",
-    "FileUploaderSetting": "Dosya Yükleme Yönetimi"
-
-
+    "FileUploaderSetting": "Dosya Yükleme Yönetimi",
+    "Permission:UploadFile": "UploadFile",
+    "Menu:UploadFile": "MenuUploadFile",
+    "UploadFile": "UploadFile",
+    "UploadFileFileName": "UploadFileFileName",
+    "UploadFileFilePath": "UploadFileFilePath",
+    "UploadFilePublicId": "UploadFilePublicId",
+    "UploadFileDescription": "UploadFileDescription",
+    "CreateUploadFile": "CreateUploadFile",
+    "EditUploadFile": "EditUploadFile",
+    "UploadFileDeletionConfirmationMessage": "Are you sure to delete the uploadFile {0}?"
   }
 }

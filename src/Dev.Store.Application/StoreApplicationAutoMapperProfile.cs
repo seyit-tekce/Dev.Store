@@ -6,6 +6,8 @@ using Dev.Store.Categories.Dtos;
 using Dev.Store.Keywords;
 using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations;
+using Dev.Store.UploadFiles;
+using Dev.Store.UploadFiles.Dtos;
 using Dev.Store.Locations.Dtos;
 
 namespace Dev.Store;
@@ -32,5 +34,7 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateKeywordDto, Keyword>(MemberList.Source);
 
 
+        CreateMap<UploadFile, UploadFileDto>();
+        CreateMap<CreateUpdateUploadFileDto, UploadFile>(MemberList.Source);
     }
 }

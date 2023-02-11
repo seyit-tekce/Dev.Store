@@ -18,6 +18,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Dev.Store.UploadFiles;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -62,6 +63,7 @@ public class StoreDbContext :
     public DbSet<Location> Locations { get; set; }
     public DbSet<Keyword> Keywords { get; set; }
    
+    public DbSet<UploadFile> UploadFiles { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -148,5 +150,15 @@ public class StoreDbContext :
 
 
 
+
+
+        builder.Entity<UploadFile>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "UploadFiles", StoreConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
     }
 }

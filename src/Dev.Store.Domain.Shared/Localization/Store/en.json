@@ -71,8 +71,16 @@
     "FileSettingMediumImageScale": "Medium Image Scale",
     "FileSettingSmallImageScale": "Small Image Scale",
     "FileSettingMobileImageScale": "Mobile Image Scale",
-    "FileUploaderSetting": "File Upload Management"
-
-
+    "FileUploaderSetting": "File Upload Management",
+    "Permission:UploadFile": "UploadFile",
+    "Menu:UploadFile": "MenuUploadFile",
+    "UploadFile": "UploadFile",
+    "UploadFileFileName": "UploadFileFileName",
+    "UploadFileFilePath": "UploadFileFilePath",
+    "UploadFilePublicId": "UploadFilePublicId",
+    "UploadFileDescription": "UploadFileDescription",
+    "CreateUploadFile": "CreateUploadFile",
+    "EditUploadFile": "EditUploadFile",
+    "UploadFileDeletionConfirmationMessage": "Are you sure to delete the uploadFile {0}?"
   }
 }

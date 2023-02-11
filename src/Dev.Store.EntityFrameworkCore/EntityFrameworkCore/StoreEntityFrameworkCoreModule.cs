@@ -1,3 +1,4 @@
+using Dev.Store.UploadFiles;
 using Dev.Store.Brands;
 using Dev.Store.Categories;
 using Dev.Store.Keywords;
@@ -53,6 +54,7 @@ public class StoreEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Category, CategoryRepository>();
             options.AddRepository<Location, LocationRepository>();
             options.AddRepository<Keyword, KeywordRepository>();
+            options.AddRepository<UploadFile, UploadFileRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>
