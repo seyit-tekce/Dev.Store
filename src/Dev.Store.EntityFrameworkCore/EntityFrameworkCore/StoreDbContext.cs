@@ -155,9 +155,11 @@ public class StoreDbContext :
         builder.Entity<UploadFile>(b =>
         {
             b.ToTable(StoreConsts.DbTablePrefix + "UploadFiles", StoreConsts.DbSchema);
+            b.Property(x => x.FileName).IsRequired();
+            b.Property(x => x.FilePath).IsRequired();
+            b.Property(x => x.Description);
+            b.HasIndex(x => x.PublicId);
             b.ConfigureByConvention(); 
-            
-
             /* Configure more properties here */
         });
     }
