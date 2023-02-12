@@ -6,10 +6,12 @@
     "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~2.0.1",
     "@abp/virtual-file-explorer": "~7.0.1",
     "jquery-slugify": "1.2.5",
+    "slugify": "1.6.5",
     "speakingurl": "14.0.1",
     "@fortawesome/fontawesome-free": "6.2.1",
     "@uppy/core": "3.0.5",
     "@uppy/xhr-upload": "3.0.4",
-    "@uppy/dashboard": "3.2.1"
+    "@uppy/dashboard": "3.2.1",
+    "tui-editor": "1.4.10"
   }
 }

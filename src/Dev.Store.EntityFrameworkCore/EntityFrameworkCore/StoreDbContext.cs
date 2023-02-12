@@ -18,6 +18,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Volo.CmsKit.EntityFrameworkCore;
 using Dev.Store.UploadFiles;
 
 namespace Dev.Store.EntityFrameworkCore;
@@ -62,7 +63,7 @@ public class StoreDbContext :
     public DbSet<Category> Categories { get; set; }
     public DbSet<Location> Locations { get; set; }
     public DbSet<Keyword> Keywords { get; set; }
-   
+
     public DbSet<UploadFile> UploadFiles { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
@@ -116,6 +117,7 @@ public class StoreDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             b.Property(x => x.Link).IsRequired().HasMaxLength(256);
             b.HasMany(c => c.CategoryChildren).WithOne(a => a.CategoryParent).HasForeignKey(g => g.CategoryParentId);
+            b.HasOne(x => x.File).WithOne(x => x.Category);
             b.ConfigureByConvention();
 
 
@@ -159,8 +161,9 @@ public class StoreDbContext :
             b.Property(x => x.FilePath).IsRequired();
             b.Property(x => x.Description);
             b.HasIndex(x => x.PublicId);
-            b.ConfigureByConvention(); 
+            b.ConfigureByConvention();
             /* Configure more properties here */
         });
+        builder.ConfigureCmsKit();
     }
 }

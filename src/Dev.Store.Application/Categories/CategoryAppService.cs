@@ -1,5 +1,6 @@
 using Dev.Store.Categories.Dtos;
 using Dev.Store.Permissions;
+using Dev.Store.UploadFiles;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
@@ -23,11 +24,13 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     protected override string UpdatePolicyName { get; set; } = StorePermissions.Category.Update;
     protected override string DeletePolicyName { get; set; } = StorePermissions.Category.Delete;
     private readonly ICategoryRepository _repository;
+    private readonly IUploadFileAppService uploadFileAppService;
 
 
-    public CategoryAppService(ICategoryRepository repository) : base(repository)
+    public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService) : base(repository)
     {
         _repository = repository;
+        this.uploadFileAppService = uploadFileAppService;
     }
 
     [HttpGet]
@@ -38,7 +41,7 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     }
     public override async Task<CategoryDto> GetAsync(Guid id)
     {
-        return  ObjectMapper.Map<Category,CategoryDto>( (await _repository.WithDetailsAsync()).Where(a => a.Id == id).FirstOrDefault());
+        return  ObjectMapper.Map<Category,CategoryDto>( (await _repository.WithDetailsAsync(x=>x.CategoryChildren,x=>x.CategoryParent,x=>x.File)).Where(a => a.Id == id).FirstOrDefault());
     }
 
     public override async Task<CategoryDto> CreateAsync(CreateUpdateCategoryDto input)
@@ -53,6 +56,13 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         {
             input.Order = 1;
         }
+        
+        var fileResult = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
+        {
+            Description= input.Description,
+            File = input.Files[0],
+        });
+        input.FileId = fileResult.Id;
         return await base.CreateAsync(input);
     }
 

@@ -1,3 +1,4 @@
+using Dev.Store.UploadFiles;
 using System;
 using System.Collections.Generic;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -12,8 +13,11 @@ namespace Dev.Store.Categories
         public bool IsVisible { get; set; }
         public int Order { get; set; }
         public virtual Guid? CategoryParentId { get; set; }
+        public virtual Guid? FileId { get; set; }
         public Category CategoryParent { get; set; }
         public List<Category> CategoryChildren { get; set; }
+        public UploadFile File { get; set; }
+
         protected Category()
         {
         }
@@ -25,13 +29,15 @@ namespace Dev.Store.Categories
             string description,
             Guid? categoryParentId,
             bool isVisible
-        ) : base(id)
+,
+            Guid? fileId) : base(id)
         {
             Name = name;
             Link = link;
             Description = description;
             CategoryParentId = categoryParentId;
             IsVisible = isVisible;
+            FileId = fileId;
         }
     }
 }

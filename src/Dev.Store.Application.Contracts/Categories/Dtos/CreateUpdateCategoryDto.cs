@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace Dev.Store.Categories.Dtos;
@@ -13,4 +14,6 @@ public class CreateUpdateCategoryDto
     public Guid? CategoryParentId { get; set; }
     public bool isVisible { get; set; }
     public int Order { get; set; }
+    public IFormFileCollection Files { get; set; }
+    public Guid FileId { get; set; }
 }

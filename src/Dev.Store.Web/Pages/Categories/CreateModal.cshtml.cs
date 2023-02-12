@@ -29,6 +29,7 @@ public class CreateModalModel : StorePageModel
     public virtual async Task<IActionResult> OnPostAsync()
     {
         var dto = ObjectMapper.Map<CreateEditCategoryViewModel, CreateUpdateCategoryDto>(ViewModel);
+        dto.Files = Request.Form.Files;
         await _service.CreateAsync(dto);
         return NoContent();
     }

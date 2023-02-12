@@ -3,6 +3,7 @@ using System;
 using Dev.Store.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Volo.Abp.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Dev.Store.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230212092340_cmskit")]
+    partial class cmskit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,9 +109,6 @@ namespace Dev.Store.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("FileId")
-                        .HasColumnType("uuid");
-
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -142,9 +142,6 @@ namespace Dev.Store.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryParentId");
-
-                    b.HasIndex("FileId")
-                        .IsUnique();
 
                     b.HasIndex("Link");
 
@@ -2770,13 +2767,7 @@ namespace Dev.Store.Migrations
                         .WithMany("CategoryChildren")
                         .HasForeignKey("CategoryParentId");
 
-                    b.HasOne("Dev.Store.UploadFiles.UploadFile", "File")
-                        .WithOne("Category")
-                        .HasForeignKey("Dev.Store.Categories.Category", "FileId");
-
                     b.Navigation("CategoryParent");
-
-                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("Dev.Store.Locations.Location", b =>
@@ -2958,11 +2949,6 @@ namespace Dev.Store.Migrations
             modelBuilder.Entity("Dev.Store.Locations.Location", b =>
                 {
                     b.Navigation("LocationChildren");
-                });
-
-            modelBuilder.Entity("Dev.Store.UploadFiles.UploadFile", b =>
-                {
-                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

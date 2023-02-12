@@ -1,3 +1,4 @@
+using Dev.Store.UploadFiles.Dtos;
 using System;
 using Volo.Abp.Application.Dtos;
 
@@ -18,6 +19,8 @@ public class CategoryDto : AuditedEntityDto<Guid>
 
     public System.Collections.Generic.List<CategoryDto> Categories { get; set; }
     public CategoryDto CategoryParent { get; set; }
+    public Guid FileId { get; set; }
+    public UploadFileDto File { get; set; }
 }
 
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace Dev.Store.UploadFiles.Dtos;
@@ -5,11 +6,6 @@ namespace Dev.Store.UploadFiles.Dtos;
 [Serializable]
 public class CreateUpdateUploadFileDto
 {
-    public string FileName { get; set; }
-
-    public string FilePath { get; set; }
-
-    public string PublicId { get; set; }
-
+    public IFormFile File { get; set; }
     public string Description { get; set; }
 }

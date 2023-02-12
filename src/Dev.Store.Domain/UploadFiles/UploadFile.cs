@@ -1,3 +1,4 @@
+using Dev.Store.Categories;
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
@@ -9,8 +10,9 @@ namespace Dev.Store.UploadFiles
         public string FilePath { get; set; }
         public string PublicId { get; set; }
         public string Description { get; set; }
+        public Category Category { get; set; }
 
-    protected UploadFile()
+    public UploadFile()
     {
     }
 

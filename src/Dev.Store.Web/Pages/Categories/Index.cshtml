@@ -32,6 +32,8 @@
     {
     <abp-style src="/Pages/Categories/index.css" />
 }
+
+
 <abp-card>
     <abp-card-header>
         <abp-row>
@@ -43,11 +45,12 @@
                 {
                     <abp-button text="@L["CreateCategory"].Value" icon="plus" onclick="categories.functions.create(this)" button-type="Primary" />
                 }
+                <abp-button text="@L["EditCategory"].Value" icon="edit" onclick="categories.functions.edit(null,'@Model.Category.Id')" button-type="Info" />
+                <abp-button text="@L["ShowImage"].Value" icon="image" onclick="categories.functions.image('@Model.Category.File.FilePath')" button-type="Secondary" />
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-
         @(
             Html.Kendo().Grid<CategoryDto>()
             .Name("categories")
@@ -102,7 +105,7 @@
                 model.Id(p => p.Id);
             })
             .Read(read => read.Url("/api/app/Category/data-source")).Filter(a => a.Add(b => b.CategoryParentId).IsEqualTo(Model.Id))
-            .Sort(a=>a.Add(b=>b.Order))
+            .Sort(a => a.Add(b => b.Order))
             ).Deferred()
             )
     </abp-card-body>

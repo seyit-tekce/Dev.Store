@@ -21,23 +21,19 @@
                 target: '#drag-drop-area',
                 showProgressDetails: true,
                 browserBackButtonClose: false,
-                hideUploadButton: true,
-                metaFields: [
-                    { id: 'name', name: 'Name', placeholder: 'file name' },
-                    { id: 'caption', name: 'Caption', placeholder: 'add description' },
-                ],
+                hideUploadButton: true
             }).use(Uppy.XHRUpload, {
                 locale: Uppy.locales.tr_TR,
                 endpoint: '/Categories/CreateModal/',
                 formData: true,
-                fieldName: 'files[]',
+                fieldName: 'Files',
             }).use(Uppy.ImageEditor, { target: Uppy.Dashboard })
                 .use(Uppy.DropTarget, { target: document.body })
                 .use(Uppy.Compressor)
             uppy.use(Uppy.Form, {
                 locale: Uppy.locales.tr_TR,
                 target: '#categoryForm',
-                resultName: 'files',
+                resultName: 'Files',
                 getMetaFromForm: true,
                 addResultToForm: true,
                 submitOnSuccess: false,

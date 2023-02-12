@@ -7,4 +7,7 @@ namespace Dev.Store.Web;
 public class StoreBrandingProvider : DefaultBrandingProvider
 {
     public override string AppName => "Yönetim Paneli";
+    public override string LogoUrl => base.LogoUrl;
+    public override string LogoReverseUrl => base.LogoReverseUrl;
+
 }

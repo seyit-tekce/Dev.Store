@@ -18,10 +18,10 @@ var categories = {
                 categories.defines.grid().dataSource.read();
             });
         },
-        edit: function (e) {
+        edit: function (e,i) {
             categories.defines.editModal.onOpen(function () {
             });
-            categories.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
+            categories.defines.editModal.open({ id: e?.currentTarget?.dataset["id"]??i });
             categories.defines.editModal.onResult(function () {
                 abp.notify.success(l("SuccessfullyEdited"));
                 categories.defines.grid().dataSource.read();
@@ -60,7 +60,9 @@ var categories = {
                 abp.notify.success(l("SuccessfullyUpdated"));
                 categories.defines.grid().dataSource.read();
             });
-
+        },
+        image: function (path) {
+            window.open(path);
         }
     },
     init: function () {
