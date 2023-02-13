@@ -7,6 +7,7 @@ using Dev.StoreAbp.Web.Bundling.Kendo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ using Volo.Abp.BlobStoring.Database;
 using Volo.Abp.Data;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
+using Volo.Abp.OpenIddict;
 using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
 using Volo.Abp.Swashbuckle;
@@ -97,6 +99,7 @@ public class StoreWebModule : AbpModule
         });
     }
 
+
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
@@ -121,7 +124,10 @@ public class StoreWebModule : AbpModule
         Configure<AbpAntiForgeryOptions>(options =>
         {
             options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+            options.TokenCookie.SameSite = SameSiteMode.None;
+            options.TokenCookie.SecurePolicy= CookieSecurePolicy.Always;
         });
+        context.Services.AddSameSiteCookiePolicy(); // cookie policy to deal with temporary browser incompatibilities
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -292,13 +298,12 @@ public class StoreWebModule : AbpModule
         {
             app.UseErrorPage();
         }
-
         app.UseCorrelationId();
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
         app.UseAbpOpenIddictValidation();
-
+        app.UseCookiePolicy();
         if (MultiTenancyConsts.IsEnabled)
         {
             app.UseMultiTenancy();
