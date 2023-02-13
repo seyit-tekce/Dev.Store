@@ -30,14 +30,14 @@
     <abp-script-bundle name="@typeof(IndexModel).FullName">
         <abp-script src="/client-proxies/identity-proxy.js" />
         <abp-script src="/Pages/AbpPermissionManagement/permission-management-modal.js" />
-        <abp-script src="/Pages/identity/users/index.js" />
+        <abp-script src="/Pages/Identity/Users/index.js" />
     </abp-script-bundle>
 }
 <abp-card>
     <abp-card-header>
         <abp-row>
             <abp-column size-md="_6">
-                <abp-card-title>@L["Roles"]</abp-card-title>
+                <abp-card-title>@L["Users"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
                 @if (createPermission)

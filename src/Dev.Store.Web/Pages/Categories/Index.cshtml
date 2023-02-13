@@ -45,11 +45,18 @@
                 {
                     <abp-button text="@L["CreateCategory"].Value" icon="plus" onclick="categories.functions.create(this)" button-type="Primary" />
                 }
-                <abp-button text="@L["EditCategory"].Value" icon="edit" onclick="categories.functions.edit(null,'@Model.Category.Id')" button-type="Info" />
-                @if (Model.Category.File != null)
+
+                @if (Model.Category != null)
                 {
-                    <abp-button text="@L["ShowImage"].Value" icon="image" onclick="categories.functions.image('@Model.Category.File.FilePath')" button-type="Secondary" />
+
+                    <abp-button text="@L["EditCategory"].Value" icon="edit" onclick="categories.functions.edit(null,'@Model.Category?.Id')" button-type="Info" />
+                    @if (Model.Category?.File != null)
+                    {
+                        <abp-button text="@L["ShowImage"].Value" icon="image" onclick="categories.functions.image('@Model.Category.File.FilePath')" button-type="Secondary" />
+                    }
                 }
+
+
             </abp-column>
         </abp-row>
     </abp-card-header>
