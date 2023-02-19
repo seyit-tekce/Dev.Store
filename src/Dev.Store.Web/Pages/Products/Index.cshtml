@@ -1,0 +1,93 @@
+@page
+@using Dev.Store.Permissions
+@using Dev.Store.Products.Dtos;
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Dev.Store.Web.Pages.Products.Product
+@using Dev.Store.Localization
+@using Dev.Store.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<StoreResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Product"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Product"].Value);
+    PageLayout.Content.MenuItemName = StoreMenus.Product;
+    var _default = await Authorization.IsGrantedAsync(StorePermissions.Product.Default);
+    var create = await Authorization.IsGrantedAsync(StorePermissions.Product.Create);
+    var delete = await Authorization.IsGrantedAsync(StorePermissions.Product.Delete);
+    var update = await Authorization.IsGrantedAsync(StorePermissions.Product.Update);
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Products/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/Products/index.css"/>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Product"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (create)
+                {
+                    <abp-button text="@L["CreateProduct"].Value" icon="plus" onclick="products.functions.create(this)" button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        @(
+            Html.Kendo().Grid<ProductListDto>()
+            .Name("products")
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
+                    if (update) command.Custom(L["Edit"].Value).Click("products.functions.edit");
+                    if (delete) command.Custom(L["Delete"].Value).Click("products.functions.delete");
+                });
+                columns.Bound(p => p.Name).Title(L["ProductName"].Value);
+                columns.Bound(p => p.Code).Title(L["ProductCode"].Value);
+                columns.Bound(p => p.Category.Name).Title(L["CategoryName"].Value);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
+            })
+            .ToolBar(tools =>
+            {
+                tools.Search().Text(" ");
+                tools.Excel().Text(" ");
+                tools.Pdf().Text(" ");
+            })
+            .Height(650)
+            .Scrollable(x => x.Height(650))
+            .Sortable()
+            .Selectable()
+            .Pageable(x => x.Refresh(true))
+            .Filterable()
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+            .Read(read => read.Url("/api/app/products/data-source"))
+            ).Deferred()
+            )
+
+
+
+    </abp-card-body>
+</abp-card>

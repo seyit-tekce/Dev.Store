@@ -8,6 +8,14 @@ using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations;
 using Dev.Store.UploadFiles;
 using Dev.Store.UploadFiles.Dtos;
+using Dev.Store.Products;
+using Dev.Store.Products.Dtos;
+using Dev.Store.ProductSets;
+using Dev.Store.ProductSets.Dtos;
+using Dev.Store.ProductSizes;
+using Dev.Store.ProductSizes.Dtos;
+using Dev.Store.SeoSettings;
+using Dev.Store.SeoSettings.Dtos;
 using Dev.Store.Locations.Dtos;
 
 namespace Dev.Store;
@@ -36,5 +44,14 @@ public class StoreApplicationAutoMapperProfile : Profile
 
         CreateMap<UploadFile, UploadFileDto>();
         CreateMap<CreateUpdateUploadFileDto, UploadFile>(MemberList.Source);
+        CreateMap<Product, ProductDto>();
+        CreateMap<Product, ProductListDto>();
+        CreateMap<CreateUpdateProductDto, Product>(MemberList.Source);
+        CreateMap<ProductSet, ProductSetDto>();
+        CreateMap<CreateUpdateProductSetDto, ProductSet>(MemberList.Source);
+        CreateMap<ProductSize, ProductSizeDto>();
+        CreateMap<CreateUpdateProductSizeDto, ProductSize>(MemberList.Source);
+        CreateMap<SeoSetting, SeoSettingDto>();
+        CreateMap<CreateUpdateSeoSettingDto, SeoSetting>(MemberList.Source);
     }
 }

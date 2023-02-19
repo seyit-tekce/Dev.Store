@@ -1,3 +1,4 @@
+using Dev.Store.Products;
 using Dev.Store.UploadFiles;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Dev.Store.Categories
         public Category CategoryParent { get; set; }
         public List<Category> CategoryChildren { get; set; }
         public UploadFile File { get; set; }
-
+        public ICollection<Product> Products { get; set; }
         protected Category()
         {
         }

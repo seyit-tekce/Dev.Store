@@ -20,6 +20,10 @@ using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
 using Dev.Store.UploadFiles;
+using Dev.Store.Products;
+using Dev.Store.ProductSets;
+using Dev.Store.ProductSizes;
+using Dev.Store.SeoSettings;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -65,6 +69,10 @@ public class StoreDbContext :
     public DbSet<Keyword> Keywords { get; set; }
 
     public DbSet<UploadFile> UploadFiles { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ProductSet> ProductSets { get; set; }
+    public DbSet<ProductSize> ProductSizes { get; set; }
+    public DbSet<SeoSetting> SeoSettings { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -165,5 +173,76 @@ public class StoreDbContext :
             /* Configure more properties here */
         });
         builder.ConfigureCmsKit();
+
+
+        builder.Entity<Product>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "Products", StoreConsts.DbSchema);
+            b.Property(X => X.Name).IsRequired();
+            b.Property(x => x.Code).IsRequired();
+            b.Property(x => x.Description).IsRequired();
+            b.Property(x => x.CategoryId).IsRequired();
+            b.Property(x => x.BrandId);
+            b.HasIndex(x => x.Code);
+            b.HasOne(x => x.Category).WithMany(x => x.Products).HasForeignKey(x => x.CategoryId);
+            b.HasOne(x => x.Brand).WithMany(x => x.Products).HasForeignKey(x => x.BrandId);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<ProductSet>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "ProductSets", StoreConsts.DbSchema);
+            b.Property(x => x.ProductId).IsRequired();
+            b.Property(x => x.Code).IsRequired();
+            b.Property(x => x.Price).IsRequired();
+            b.Property(x => x.Amount).IsRequired().HasDefaultValue(1);
+            b.Property(x => x.IsOptional).IsRequired();
+
+            b.HasIndex(x => x.Code);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductSets).HasForeignKey(x => x.ProductId);
+
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<ProductSize>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "ProductSizes", StoreConsts.DbSchema);
+            b.Property(x => x.ProductId).IsRequired();
+            b.Property(x => x.Code).IsRequired();
+            b.Property(x => x.Price).IsRequired();
+            b.Property(x => x.Width).IsRequired();
+            b.Property(x => x.Height).IsRequired();
+            b.Property(x => x.Depth).IsRequired(false);
+            b.HasIndex(x => x.Code);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductSizes).HasForeignKey(x => x.ProductId);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<SeoSetting>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "SeoSettings", StoreConsts.DbSchema);
+            b.Property(x => x.ProductId).IsRequired();
+            b.Property(x => x.Title).IsRequired();
+            b.Property(x => x.Keywords).IsRequired();
+            b.Property(x => x.Description).IsRequired();
+
+            b.HasOne(x => x.Product).WithOne(x => x.SeoSetting);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
     }
 }

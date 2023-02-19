@@ -42,6 +42,26 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         uploadFilePermission.AddChild(StorePermissions.UploadFile.Create, L("Permission:Create"));
         uploadFilePermission.AddChild(StorePermissions.UploadFile.Update, L("Permission:Update"));
         uploadFilePermission.AddChild(StorePermissions.UploadFile.Delete, L("Permission:Delete"));
+
+        var productPermission = myGroup.AddPermission(StorePermissions.Product.Default, L("Permission:Product"));
+        productPermission.AddChild(StorePermissions.Product.Create, L("Permission:Create"));
+        productPermission.AddChild(StorePermissions.Product.Update, L("Permission:Update"));
+        productPermission.AddChild(StorePermissions.Product.Delete, L("Permission:Delete"));
+
+        var productSetPermission = myGroup.AddPermission(StorePermissions.ProductSet.Default, L("Permission:ProductSet"));
+        productSetPermission.AddChild(StorePermissions.ProductSet.Create, L("Permission:Create"));
+        productSetPermission.AddChild(StorePermissions.ProductSet.Update, L("Permission:Update"));
+        productSetPermission.AddChild(StorePermissions.ProductSet.Delete, L("Permission:Delete"));
+
+        var productSizePermission = myGroup.AddPermission(StorePermissions.ProductSize.Default, L("Permission:ProductSize"));
+        productSizePermission.AddChild(StorePermissions.ProductSize.Create, L("Permission:Create"));
+        productSizePermission.AddChild(StorePermissions.ProductSize.Update, L("Permission:Update"));
+        productSizePermission.AddChild(StorePermissions.ProductSize.Delete, L("Permission:Delete"));
+
+        var seoSettingPermission = myGroup.AddPermission(StorePermissions.SeoSetting.Default, L("Permission:SeoSetting"));
+        seoSettingPermission.AddChild(StorePermissions.SeoSetting.Create, L("Permission:Create"));
+        seoSettingPermission.AddChild(StorePermissions.SeoSetting.Update, L("Permission:Update"));
+        seoSettingPermission.AddChild(StorePermissions.SeoSetting.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

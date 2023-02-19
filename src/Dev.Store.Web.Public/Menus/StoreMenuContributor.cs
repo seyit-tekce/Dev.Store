@@ -64,5 +64,29 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.UploadFile, l["Menu:UploadFile"], "/UploadFiles/UploadFile")
             );
         }
+        if (await context.IsGrantedAsync(StorePermissions.Product.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.Product, l["Menu:Product"], "/Products/Product")
+            );
+        }
+        if (await context.IsGrantedAsync(StorePermissions.ProductSet.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.ProductSet, l["Menu:ProductSet"], "/ProductSets/ProductSet")
+            );
+        }
+        if (await context.IsGrantedAsync(StorePermissions.ProductSize.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.ProductSize, l["Menu:ProductSize"], "/ProductSizes/ProductSize")
+            );
+        }
+        if (await context.IsGrantedAsync(StorePermissions.SeoSetting.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.SeoSetting, l["Menu:SeoSetting"], "/SeoSettings/SeoSetting")
+            );
+        }
     }
 }

@@ -1,14 +1,36 @@
-﻿using System;
+using Dev.Store.Products;
+using System;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Dev.Store.SeoSettings
 {
     public class SeoSetting : FullAuditedEntity<Guid>
     {
-        public string SiteTitle { get; set; }
-        public string SiteDescription { get; set; }
-        public string KeyWords { get; set; }
-        public int ProductId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Keywords { get; set; }
+        public Guid ProductId { get; set; }
+        public Product Product { get; set; }
 
+
+    protected SeoSetting()
+    {
+    }
+
+    public SeoSetting(
+        Guid id,
+        string title,
+        string description,
+        string keywords,
+        Guid productId,
+        Product product
+    ) : base(id)
+    {
+        Title = title;
+        Description = description;
+        Keywords = keywords;
+        ProductId = productId;
+        Product = product;
+    }
     }
 }

@@ -1,3 +1,7 @@
+using Dev.Store.SeoSettings;
+using Dev.Store.ProductSizes;
+using Dev.Store.ProductSets;
+using Dev.Store.Products;
 using Dev.Store.UploadFiles;
 using Dev.Store.Brands;
 using Dev.Store.Categories;
@@ -57,6 +61,10 @@ public class StoreEntityFrameworkCoreModule : AbpModule
             options.AddRepository<Location, LocationRepository>();
             options.AddRepository<Keyword, KeywordRepository>();
             options.AddRepository<UploadFile, UploadFileRepository>();
+            options.AddRepository<Product, ProductRepository>();
+            options.AddRepository<ProductSet, ProductSetRepository>();
+            options.AddRepository<ProductSize, ProductSizeRepository>();
+            options.AddRepository<SeoSetting, SeoSettingRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

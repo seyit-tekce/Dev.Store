@@ -53,4 +53,36 @@ public static class StorePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+
+    public class Product
+    {
+        public const string Default = GroupName + ".Product";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public class ProductSet
+    {
+        public const string Default = GroupName + ".ProductSet";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public class ProductSize
+    {
+        public const string Default = GroupName + ".ProductSize";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+
+    public class SeoSetting
+    {
+        public const string Default = GroupName + ".SeoSetting";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }
