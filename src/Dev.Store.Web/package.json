@@ -12,6 +12,6 @@
     "@uppy/core": "3.0.5",
     "@uppy/xhr-upload": "3.0.4",
     "@uppy/dashboard": "3.2.1",
-    "tui-editor": "1.4.10"
+    "@abp/cms-kit": "7.1.0-rc.1"
   }
 }

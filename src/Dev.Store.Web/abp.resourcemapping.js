@@ -4,7 +4,7 @@ module.exports = {
         "@libs": "./wwwroot/libs"
     },
     clean: [
-
+        "@libs"
     ],
     mappings: {
         "@node_modules/jquery-slugify/dist/**/*": "@libs/jquery-slugify",
