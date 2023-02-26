@@ -121,13 +121,14 @@
     "ProductSize": "Ürün Boyutu",
     "ProductSizeProductId": "Ürün",
     "ProductSizeProduct": "Ürün",
+    "ProductSizeCode": "Kodu",
     "ProductSizeHeight": "Boy",
     "ProductSizeWidth": "En",
-    "ProductSizeDepth": "Genişlik",
+    "ProductSizeDepth": "Derinlik",
     "ProductSizePrice": "Boyut Fiyatı",
     "ProductSizeIsDefault": "Boyut Varsayılan Mı?",
     "CreateProductSize": "Ürün Boyutu Oluştur",
-    "EditProductSize": "Ürün Boyutu Düzenles",
+    "EditProductSize": "Ürün Boyutu Düzenle",
     "ProductSizeDeletionConfirmationMessage": "Silmek istediğinize emin misin {0}?",
     "Permission:SeoSetting": "SEO Ayarları",
     "Menu:SeoSetting": "SEO Ayarları",
@@ -139,6 +140,7 @@
     "SeoSettingProduct": "Ürün",
     "CreateSeoSetting": "Seo Ayarları Oluştur",
     "EditSeoSetting": "Seo Ayarları Düzenle",
-    "SeoSettingDeletionConfirmationMessage": "Silmek istediğinize emin misiniz {0}?"
+    "SeoSettingDeletionConfirmationMessage": "Silmek istediğinize emin misiniz {0}?",
+    "PleaseChoose": "Lütfen Seçim Yapınız"
   }
 }

@@ -15,7 +15,7 @@ public class CreateUpdateProductDto
 
     public Guid CategoryId { get; set; }
 
-    public Guid BrandId { get; set; }
+    public Guid? BrandId { get; set; }
 
     public bool IsEnabled { get; set; }
 }

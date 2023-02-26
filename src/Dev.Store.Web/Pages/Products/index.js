@@ -20,6 +20,12 @@ var products = {
 
             });
         },
+        detail: function (e) {
+            var recordId = e.currentTarget.dataset["id"];
+            location.href = "/Products/Detail?id=" + recordId;
+
+
+        },
         edit: function (e) {
             var load = new Loading($(e.target));
             load.Start();

@@ -132,6 +132,9 @@
     "SeoSettingProduct": "SeoSettingProduct",
     "CreateSeoSetting": "CreateSeoSetting",
     "EditSeoSetting": "EditSeoSetting",
-    "SeoSettingDeletionConfirmationMessage": "Are you sure to delete the seoSetting {0}?"
+    "SeoSettingDeletionConfirmationMessage": "Are you sure to delete the seoSetting {0}?",
+    "PleaseChoose": "Please Choose",
+    "ProductSizeCode": "Code"
+
   }
 }

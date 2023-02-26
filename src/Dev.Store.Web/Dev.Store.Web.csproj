@@ -73,6 +73,7 @@
 
 	<ItemGroup>
 	  <None Remove="Pages\Categories\CreateModal.js" />
+	  <None Remove="Pages\Categories\EditModal.js" />
 	</ItemGroup>
 
 	<ItemGroup>

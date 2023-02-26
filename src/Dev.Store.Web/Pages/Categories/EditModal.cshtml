@@ -7,13 +7,22 @@
 @{
     Layout = null;
 }
-<abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="EditModal">
-    <abp-modal>
-        <abp-modal-header title="@L["EditCategory"].Value"></abp-modal-header>
+<link href="~/custom-libs/uppy/uppy.min.css" rel="stylesheet" />
+<abp-script src="/custom-libs/uppy/uppy.min.js" />
+<abp-script src="/custom-libs/uppy/tr_tr.min.js" />
+<abp-script src="/pages/categories/CreateModal.js" />
+<form data-ajaxForm="true" asp-page="/Categories/EditModal" autocomplete="off" id="categoryForm">
+    <abp-modal size="Large">
+        <abp-modal-header title="@Model.ViewModel.Name"></abp-modal-header>
         <abp-modal-body>
-            <abp-input asp-for="Id" />
-            <abp-form-content />
+            <abp-input asp-for="ViewModel.CategoryParentId"></abp-input>
+            <abp-input data-toggle="slugify" data-target="#ViewModel_Link" asp-for="ViewModel.Name"></abp-input>
+            <abp-input asp-for="ViewModel.Link"></abp-input>
+            <abp-input asp-for="ViewModel.Description"></abp-input>
+            <abp-input asp-for="ViewModel.IsVisible"></abp-input>
+            <input id="files" type="hidden" name="Files" />
+            <div id="drag-drop-area"></div>
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
-</abp-dynamic-form>
+</form>

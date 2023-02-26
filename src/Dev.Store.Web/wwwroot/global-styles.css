@@ -155,3 +155,6 @@ form .k-dropdown, .k-multiselect {
 .k-button-icon {
     margin-right: 5px;
 }
+.list-group-item {
+    border-radius: 0px !important;
+}

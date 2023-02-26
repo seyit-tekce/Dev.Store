@@ -34,6 +34,11 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     [Authorize(StorePermissions.Product.Default)]
     public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
     {
-        return (await _repository.WithDetailsAsync(x=>x.Brand,x=>x.Category)).ToDataSourceResult(request,x=> ObjectMapper.Map<Product, ProductListDto>(x));
+        return (await _repository.WithDetailsAsync(x => x.Brand, x => x.Category)).ToDataSourceResult(request, x => ObjectMapper.Map<Product, ProductListDto>(x));
+    }
+    public override async Task<ProductDto> GetAsync(Guid id)
+    {
+        var q = await _repository.WithDetailsAsync(x => x.Category, x => x.Brand);
+        return ObjectMapper.Map<Product, ProductDto>(q.FirstOrDefault(a => a.Id == id));
     }
 }

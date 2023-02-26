@@ -47,13 +47,14 @@
     <abp-card-body>
         @(
             Html.Kendo().Grid<ProductListDto>()
-            .Name("products")
-            .Columns(columns =>
-            {
-                columns.Command(command =>
-                {
-                    if (update) command.Custom(L["Edit"].Value).Click("products.functions.edit");
-                    if (delete) command.Custom(L["Delete"].Value).Click("products.functions.delete");
+                    .Name("products")
+                    .Columns(columns =>
+                    {
+                        columns.Command(command =>
+                        {
+                    if (delete) command.Custom(L["Detail"].Value).IconClass("fa fa-eye").Click("products.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+                            if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("products.functions.edit");
+                    if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("products.functions.delete");
                 });
                 columns.Bound(p => p.Name).Title(L["ProductName"].Value);
                 columns.Bound(p => p.Code).Title(L["ProductCode"].Value);

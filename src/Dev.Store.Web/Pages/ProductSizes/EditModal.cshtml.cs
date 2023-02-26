@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dev.Store.ProductSizes;
 using Dev.Store.ProductSizes.Dtos;
-using Dev.Store.Web.Pages.ProductSizes.ProductSize.ViewModels;
+using Dev.Store.Web.Pages.ProductSizes.ViewModels;
 
-namespace Dev.Store.Web.Pages.ProductSizes.ProductSize;
+namespace Dev.Store.Web.Pages.ProductSizes;
 
 public class EditModalModel : StorePageModel
 {

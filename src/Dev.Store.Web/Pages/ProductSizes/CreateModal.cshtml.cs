@@ -2,20 +2,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dev.Store.ProductSizes;
 using Dev.Store.ProductSizes.Dtos;
-using Dev.Store.Web.Pages.ProductSizes.ProductSize.ViewModels;
+using Dev.Store.Web.Pages.ProductSizes.ViewModels;
+using System;
 
-namespace Dev.Store.Web.Pages.ProductSizes.ProductSize;
+namespace Dev.Store.Web.Pages.ProductSizes;
 
 public class CreateModalModel : StorePageModel
 {
     [BindProperty]
     public CreateEditProductSizeViewModel ViewModel { get; set; }
 
+    [HiddenInput]
+    [BindProperty(SupportsGet = true)]
+    public Guid ProductId { get; set; }
+
     private readonly IProductSizeAppService _service;
 
     public CreateModalModel(IProductSizeAppService service)
     {
         _service = service;
+    }
+    public async Task OnGetAsync()
+    {
+        this.ViewModel = new CreateEditProductSizeViewModel()
+        {
+            ProductId = this.ProductId
+        };
+        await Task.CompletedTask;
+
     }
 
     public virtual async Task<IActionResult> OnPostAsync()

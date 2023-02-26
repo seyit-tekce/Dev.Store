@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
-@using Dev.Store.Web.Pages.ProductSizes.ProductSize
+@using Dev.Store.Web.Pages.ProductSizes
 @using Dev.Store.Localization
 @using Dev.Store.Web.Menus
 @model IndexModel
@@ -17,12 +17,12 @@
 }
 
 @section scripts
-{
+    {
     <abp-script src="/Pages/ProductSizes/ProductSize/index.js" />
 }
 @section styles
-{
-    <abp-style src="/Pages/ProductSizes/ProductSize/index.css"/>
+    {
+    <abp-style src="/Pages/ProductSizes/ProductSize/index.css" />
 }
 
 <abp-card>
@@ -32,9 +32,9 @@
                 <abp-card-title>@L["ProductSize"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-			    @if (await Authorization.IsGrantedAsync(StorePermissions.ProductSize.Create))
+                @if (await Authorization.IsGrantedAsync(StorePermissions.ProductSize.Create))
                 {
-                <abp-button id="NewProductSizeButton"
+                    <abp-button id="NewProductSizeButton"
                             text="@L["CreateProductSize"].Value"
                             icon="plus"
                             button-type="Primary" />
@@ -47,9 +47,9 @@
             <a abp-collapse-id="ProductSizeCollapse" class="text-secondary">@L["TableFilter"] </a>
         </abp-row>
         <abp-collapse-body id="ProductSizeCollapse">
-            <abp-dynamic-form abp-model="ProductSizeFilter" id="ProductSizeFilter" required-symbols="false"/>
+            <abp-dynamic-form abp-model="ProductSizeFilter" id="ProductSizeFilter" required-symbols="false" />
             <hr />
         </abp-collapse-body>
-        <abp-table striped-rows="true" id="ProductSizeTable" class="nowrap"/>
+        <abp-table striped-rows="true" id="ProductSizeTable" class="nowrap" />
     </abp-card-body>
 </abp-card>

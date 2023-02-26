@@ -16,7 +16,7 @@ namespace Dev.Store.Products
         public string Description { get; set; }
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
-        public Guid BrandId { get; set; }
+        public Guid? BrandId { get; set; }
         public Brand Brand { get; set; }
         public bool IsEnabled { get; set; }
 

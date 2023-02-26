@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
-namespace Dev.Store.Web.Pages.ProductSizes.ProductSize;
+namespace Dev.Store.Web.Pages.ProductSizes;
 
 public class IndexModel : StorePageModel
 {
     public ProductSizeFilterInput ProductSizeFilter { get; set; }
-    
+
     public virtual async Task OnGetAsync()
     {
         await Task.CompletedTask;
@@ -21,7 +21,7 @@ public class ProductSizeFilterInput
     [Display(Name = "ProductSizeProductId")]
     public Guid? ProductId { get; set; }
 
- 
+
 
     [FormControlSize(AbpFormControlSize.Small)]
     [Display(Name = "ProductSizeHeight")]
