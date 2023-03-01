@@ -117,6 +117,7 @@
 
 	<ItemGroup>
 		<Folder Include="Bundling\Kendo\Components\" />
+		<Folder Include="Pages\ProductSets\ProductSet\" />
 	</ItemGroup>
 
 </Project>
