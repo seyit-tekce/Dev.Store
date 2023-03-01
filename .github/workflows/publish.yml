@@ -43,16 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: ${{ steps.docker_meta.outputs.tags }} 
-          file: ./Dockerfile
-          
-      - name: Monitor image for vulnerabilities with Snyk
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK }}
-        with:
-          command: monitor
-          image: "ghcr.io/seyittekce/devstoreweb:main"
-          args: --file=Dockerfile --project-name=devstoreweb 
+          file: ./Dockerfile 
           
       - name: Push image
         uses: docker/build-push-action@v2
