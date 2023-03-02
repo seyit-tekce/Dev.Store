@@ -6,8 +6,10 @@ namespace Dev.Store.ProductSets.Dtos;
 [Serializable]
 public class ProductSetDto : FullAuditedEntityDto<Guid>
 {
-    public int ProductId { get; set; }
+    public Guid ProductId { get; set; }
+    public string SetName { get; set; }
 
+    public string Code { get; set; }
 
     public double Price { get; set; }
 

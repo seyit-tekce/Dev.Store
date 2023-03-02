@@ -52,14 +52,14 @@
                     {
                         columns.Command(command =>
                         {
-                    if (delete) command.Custom(L["Detail"].Value).IconClass("fa fa-eye").Click("products.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+                    if (delete) command.Custom(L["Detail"].Value).IconClass("fa fa-eye").Click("products.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
                             if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("products.functions.edit");
                     if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("products.functions.delete");
                 });
                 columns.Bound(p => p.Name).Title(L["ProductName"].Value);
                 columns.Bound(p => p.Code).Title(L["ProductCode"].Value);
                 columns.Bound(p => p.Category.Name).Title(L["CategoryName"].Value);
-                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.Extensions.DateTimeShortFormat);
             })
             .ToolBar(tools =>
             {

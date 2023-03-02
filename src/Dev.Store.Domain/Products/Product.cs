@@ -1,5 +1,6 @@
 using Dev.Store.Brands;
 using Dev.Store.Categories;
+using Dev.Store.ProductImages;
 using Dev.Store.ProductSets;
 using Dev.Store.ProductSizes;
 using Dev.Store.SeoSettings;
@@ -23,6 +24,7 @@ namespace Dev.Store.Products
 
         public ICollection<ProductSet> ProductSets { get; set; }
         public ICollection<ProductSize> ProductSizes { get; set; }
+        public ICollection<ProductImage> ProductImages { get; set; }
         public virtual SeoSetting SeoSetting { get; set; }
 
 

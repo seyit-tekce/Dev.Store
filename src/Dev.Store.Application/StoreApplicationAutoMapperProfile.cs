@@ -16,6 +16,8 @@ using Dev.Store.ProductSizes;
 using Dev.Store.ProductSizes.Dtos;
 using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
+using Dev.Store.ProductImages;
+using Dev.Store.ProductImages.Dtos;
 using Dev.Store.Locations.Dtos;
 
 namespace Dev.Store;
@@ -53,5 +55,7 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateProductSizeDto, ProductSize>(MemberList.Source);
         CreateMap<SeoSetting, SeoSettingDto>();
         CreateMap<CreateUpdateSeoSettingDto, SeoSetting>(MemberList.Source);
+        CreateMap<ProductImage, ProductImageDto>();
+        CreateMap<CreateUpdateProductImageDto, ProductImage>(MemberList.Source);
     }
 }

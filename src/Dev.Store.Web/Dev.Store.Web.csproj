@@ -31,7 +31,9 @@
 		<None Include="wwwroot\custom-libs\linq\linq-vsdoc.js" />
 		<None Include="wwwroot\custom-libs\linq\linq.js" />
 		<None Include="wwwroot\custom-libs\linq\linq.min.js" />
-		<None Include="wwwroot\custom-libs\uppy\tr_TR.min.js" />
+		<None Include="wwwroot\custom-libs\uppy\tr_TR.min.js">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Include="wwwroot\custom-libs\uppy\uppy.min.js" />
 		<None Include="wwwroot\custom\js\kendo-grid.js" />
 		<None Include="wwwroot\custom\js\master.js" />

@@ -64,7 +64,7 @@
                 });
                 columns.Bound(c => c.Name).Title(L["Name"].Value);
                 columns.Bound(c => c.Surname).Title(L["Surname"].Value);
-                columns.Bound(c => c.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
+                columns.Bound(c => c.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.Extensions.DateTimeShortFormat);
                 columns.Bound(c => c.UserName).Title(L["UserName"].Value);
                 columns.Bound(c => c.Email).Width(200).Title(L["Email"].Value);
                 columns.Bound(c => c.PhoneNumber).Width(130).Title(L["PhoneNumber"].Value);

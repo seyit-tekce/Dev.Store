@@ -38,9 +38,8 @@
                 addResultToForm: true,
                 submitOnSuccess: false,
                 triggerUploadOnSubmit: true,
-            });
-            uppy.use(Uppy.Url, {
-                // Options
+            }).on('upload-success', function () {
+                categories.defines.createModal.setResult();
             });
 
             window.uppy = uppy;

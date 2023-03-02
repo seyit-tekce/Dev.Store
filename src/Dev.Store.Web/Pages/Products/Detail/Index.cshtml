@@ -1,7 +1,9 @@
 ﻿@page
 @using Dev.Store.Permissions
+@using Dev.Store.ProductSets.Dtos;
 @using Dev.Store.ProductSizes.Dtos;
 @using Dev.Store.Products.Dtos;
+@using Dev.Store;
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
@@ -26,6 +28,12 @@
     var createProductSize = await Authorization.IsGrantedAsync(StorePermissions.ProductSize.Create);
     var deleteProductSize = await Authorization.IsGrantedAsync(StorePermissions.ProductSize.Delete);
     var updateProductSize = await Authorization.IsGrantedAsync(StorePermissions.ProductSize.Update);
+
+
+    var _defaultProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Default);
+    var createProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Create);
+    var deleteProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Delete);
+    var updateProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Update);
 }
 @section scripts
     {
@@ -51,18 +59,38 @@
                 </div>
             </abp-card-body>
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action " id="parameter-list" data-toggle="tab" href="#parameters" role="tab" aria-controls="property">@L["ProductImages"].Value</a>
-                <a class="list-group-item list-group-item-action active" id="productsize-list" data-toggle="tab" href="#productsize" role="tab" aria-controls="property">@L["ProductSize"].Value</a>
-                <a class="list-group-item list-group-item-action " id="parameter-list" data-toggle="tab" href="#parameters" role="tab" aria-controls="property">@L["ProductSet"].Value</a>
-                <a class="list-group-item list-group-item-action " id="parameter-list" data-toggle="tab" href="#parameters" role="tab" aria-controls="property">@L["SeoSettings"].Value</a>
+                <a class="list-group-item list-group-item-action active" id="productImage-list" data-bs-toggle="tab" data-bs-target="#productImages" role="tab" aria-controls="property">@L["ProductImage"].Value</a>
+                <a class="list-group-item list-group-item-action " id="productsize-list" data-bs-toggle="tab" data-bs-target="#productsize" role="tab" aria-controls="property">@L["ProductSize"].Value</a>
+                <a class="list-group-item list-group-item-action " id="productsets-list" data-bs-toggle="tab" data-bs-target="#productsets" role="tab" aria-controls="property">@L["ProductSet"].Value</a>
+                <a class="list-group-item list-group-item-action " id="parameter-list" data-bs-toggle="tab" data-bs-target="#parameters" role="tab" aria-controls="property">@L["SeoSettings"].Value</a>
             </div>
         </abp-card>
-
     </abp-container>
     <abp-container class="col-sm-12 col-md-12 col-lg-12 col-xl-10">
-
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="productsize" role="tabpanel" aria-labelledby="productsize-list">
+            <div class="tab-pane fade show active" id="productImages" role="tabpanel" aria-labelledby="productImage-list">
+                <abp-card>
+                    <abp-card style="box-shadow:none">
+                        <abp-card-header>
+                            <div class="row">
+                                <div class="col">
+                                    <h2 class="card-title float-start">
+                                        @L["ProductImage"].Value
+                                    </h2>
+                                    @if (createProductSize)
+                                    {
+                                        <abp-button text="@L["CreateProductImage"].Value" icon="plus" class="float-end ml-3" onclick="productImages.functions.create(this,'@Model.Product.Id')" button-type="Secondary" />
+                                    }
+                                </div>
+                            </div>
+                        </abp-card-header>
+                        <abp-card-body>
+
+                        </abp-card-body>
+                    </abp-card>
+                </abp-card>
+            </div>
+            <div class="tab-pane fade " id="productsize" role="tabpanel" aria-labelledby="productsize-list">
                 <abp-card>
                     <abp-card style="box-shadow:none">
                         <abp-card-header>
@@ -79,7 +107,9 @@
                             </div>
                         </abp-card-header>
                         <abp-card-body>
-                            @(Html.Kendo().Grid<ProductSizeDto>()
+
+                            @(
+                                Html.Kendo().Grid<ProductSizeDto>()
                                 .Name("ProductSizeGrid")
                                 .Columns(columns =>
                                 {
@@ -98,7 +128,7 @@
                                     columns.Bound(a => a.Height).Title(L["ProductSizeHeight"].Value);
                                     columns.Bound(a => a.Width).Title(L["ProductSizeWidth"].Value);
                                     columns.Bound(a => a.Depth).Title(L["ProductSizeDepth"].Value);
-                                    columns.Bound(a => a.Price).Title(L["ProductSizePrice"].Value);
+                                    columns.Bound(a => a.Price).Title(L["ProductSizePrice"].Value).Format(Extensions.MoneyFormat("₺"));
                                     columns.Bound(a => a.IsDefault).Title(L["ProductSizeIsDefault"].Value).ClientTemplate("#:IsDefault?'Evet':'Hayır'#");
 
                                 })
@@ -128,12 +158,82 @@
                                 .Model(model => { model.Id(a => a.Id); })
                                 .Read(read => read.Url("/api/app/product-size/data-source"))
                                 .Filter(a => a.Add(b => b.ProductId).IsEqualTo(Model.Id))
+                                ).Deferred()
+                                )
+                        </abp-card-body>
+                    </abp-card>
+                </abp-card>
+            </div>
+            <div class="tab-pane fade " id="productsets" role="tabpanel" aria-labelledby="productsets-list">
+                <abp-card>
+                    <abp-card style="box-shadow:none">
+                        <abp-card-header>
+                            <div class="row">
+                                <div class="col">
+                                    <h2 class="card-title float-start">
+                                        @L["ProductSet"].Value
+                                    </h2>
+                                    @if (createProductSet)
+                                    {
+                                        <abp-button text="@L["CreateProductSize"].Value" icon="plus" class="float-end ml-3" onclick="productsizes.functions.create(this,'@Model.Product.Id')" button-type="Secondary" />
+                                    }
+                                </div>
+                            </div>
+                        </abp-card-header>
+                        <abp-card-body>
+                            @(Html.Kendo().Grid<ProductSetDto>()
+                                .Name("ProductSetGrid")
+                                .Columns(columns =>
+                                {
+                                    columns.Command(command =>
+                                    {
+                                        if (updateProductSet)
+                                        {
+                                            command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("productsizes.functions.edit");
+                                        }
+                                        if (updateProductSet)
+                                        {
+                                            command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("productsizes.functions.delete");
+                                        }
+                                    }).Title(L["Actions"].Value).Width(200);
+                                    columns.Bound(a => a.Code).Title(L["ProductSetCode"].Value);
+                                    columns.Bound(a => a.SetName).Title(L["ProductSetSetName"].Value);
+                                    columns.Bound(a => a.Price).Title(L["ProductSetPrice"].Value).Format(Extensions.MoneyFormat("₺"));
+                                    columns.Bound(a => a.Amount).Title(L["ProductSetAmount"].Value);
+                                    columns.Bound(a => a.IsOptional).Title(L["ProductSetIsOptional"].Value).ClientTemplate("#:IsOptional?'Evet':'Hayır'#");
+
+                                })
+                                .ToolBar(tools =>
+                                {
+                                    tools.Excel().Text(" ");
+                                    tools.Pdf().Text(" ");
+                                    tools.Search().Text(L["Search"].Value);
+                                })
+                                .Mobile()
+                                .Search(c => { c.Field(c => c.Code); c.Field(c => c.SetName); c.Field(c => c.Amount); c.Field(c => c.Price); })
+                                .Sortable(a => a.AllowUnsort(true).SortMode(GridSortMode.MultipleColumn))
+                                .Resizable(a => a.Columns(true))
+                                .Filterable(a => a.Enabled(true))
+                                .Scrollable(x => x.Height(520))
+                                .Pageable(x => x.PageSizes(new[] { 25, 50, 100 }).Refresh(true))
+                                .Filterable(a => a.Enabled(true))
+                                .Excel(a => a.AllPages(true).FileName(string.Format("{0} {1:dd-MM-yyyy-hh-mm-ss}.xlsx", L["Profiles"].Value, DateTime.Now)).Filterable(true))
+                                .Pdf(a => a.AllPages(true).FileName(string.Format("{0} {1:dd-MM-yyyy-hh-mm-ss}.pdf", L["Profiles"].Value, DateTime.Now)))
+                                .Events(a => a.DataBound("kendoGrid.events.databound")
+                                .Edit("kendoGrid.events.edit")
+                                .Cancel("kendoGrid.events.cancel")
+                                .CellClose("kendoGrid.events.cellClose")
+                                .Change("kendoGrid.events.change"))
+                                .DataSource(dataSource =>
+                                dataSource.WebApi()
+                                .Model(model => { model.Id(a => a.Id); })
+                                .Read(read => read.Url("/api/app/product-set/data-source"))
+                                .Filter(a => a.Add(b => b.ProductId).IsEqualTo(Model.Id))
                                 ).Deferred())
                         </abp-card-body>
                     </abp-card>
                 </abp-card>
             </div>
-
         </div>
 
 

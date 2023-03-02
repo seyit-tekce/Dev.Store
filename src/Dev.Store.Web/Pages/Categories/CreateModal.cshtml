@@ -12,6 +12,8 @@
 <abp-script src="/custom-libs/uppy/tr_tr.min.js"/>
 <abp-script src="/pages/categories/CreateModal.js" />
 <form data-ajaxForm="true" asp-page="/Categories/CreateModal" autocomplete="off" id="categoryForm">
+            <input  type="hidden" name="Files" />
+
     <abp-modal size="Large">
         <abp-modal-header title="@L["CreateCategory"].Value"></abp-modal-header>
         <abp-modal-body>
@@ -20,11 +22,8 @@
             <abp-input asp-for="ViewModel.Link"></abp-input>
             <abp-input asp-for="ViewModel.Description"></abp-input>
             <abp-input asp-for="ViewModel.IsVisible"></abp-input>
-            <input id="files" type="hidden" name="Files" />
             <div id="drag-drop-area"></div>
         </abp-modal-body>
-
-
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
 </form>

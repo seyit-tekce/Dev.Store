@@ -88,5 +88,11 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.SeoSetting, l["Menu:SeoSetting"], "/SeoSettings/SeoSetting")
             );
         }
+        if (await context.IsGrantedAsync(StorePermissions.ProductImage.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.ProductImage, l["Menu:ProductImage"], "/ProductImages/ProductImage")
+            );
+        }
     }
 }
