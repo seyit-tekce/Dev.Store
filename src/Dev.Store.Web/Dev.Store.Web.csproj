@@ -34,7 +34,9 @@
 		<None Include="wwwroot\custom-libs\uppy\tr_TR.min.js">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Include="wwwroot\custom-libs\uppy\uppy.min.js" />
+		<None Include="wwwroot\custom-libs\uppy\uppy.min.js">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Include="wwwroot\custom\js\kendo-grid.js" />
 		<None Include="wwwroot\custom\js\master.js" />
 		<None Include="wwwroot\kendo\js\cultures\kendo.culture.en-EN.min.js" />
@@ -119,6 +121,18 @@
 	<ItemGroup>
 		<Folder Include="Bundling\Kendo\Components\" />
 		<Folder Include="Pages\ProductSets\ProductSet\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="wwwroot\custom-libs\uppy\uppy.min.css">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Pages\Products\Detail\ProductImageComponent\ProductImageComponent.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>
