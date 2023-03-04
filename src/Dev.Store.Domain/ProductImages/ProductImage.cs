@@ -14,7 +14,7 @@ namespace Dev.Store.ProductImages
         public Product Product { get; set; }
         public UploadFile UploadFile { get; set; }
 
-    protected ProductImage()
+    public ProductImage()
     {
     }
 

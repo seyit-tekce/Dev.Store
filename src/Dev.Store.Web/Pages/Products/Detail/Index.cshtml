@@ -34,10 +34,15 @@
     var createProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Create);
     var deleteProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Delete);
     var updateProductSet = await Authorization.IsGrantedAsync(StorePermissions.ProductSet.Update);
+
+    var _defaultProductImage = await Authorization.IsGrantedAnyAsync(StorePermissions.ProductImage.Default);
 }
 @section scripts
     {
     <abp-script src="/Pages/ProductSizes/index.js" />
+    <abp-script src="/custom-libs/uppy/uppy.min.js"></abp-script>
+    <abp-script src="/custom-libs/uppy/tr_tr.min.js"></abp-script>
+    <abp-script src="/pages/products/detail/productimagecomponent/productimagecomponent.js"></abp-script>
 }
 @section styles
     {
@@ -59,7 +64,11 @@
                 </div>
             </abp-card-body>
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="productImage-list" data-bs-toggle="tab" data-bs-target="#productImages" role="tab" aria-controls="property">@L["ProductImage"].Value</a>
+                @if (_defaultProductImage)
+                {
+                    <a class="list-group-item list-group-item-action active" id="productImage-list" data-bs-toggle="tab" data-bs-target="#productImages" role="tab" aria-controls="property">@L["ProductImage"].Value</a>
+
+                }
                 <a class="list-group-item list-group-item-action " id="productsize-list" data-bs-toggle="tab" data-bs-target="#productsize" role="tab" aria-controls="property">@L["ProductSize"].Value</a>
                 <a class="list-group-item list-group-item-action " id="productsets-list" data-bs-toggle="tab" data-bs-target="#productsets" role="tab" aria-controls="property">@L["ProductSet"].Value</a>
                 <a class="list-group-item list-group-item-action " id="parameter-list" data-bs-toggle="tab" data-bs-target="#parameters" role="tab" aria-controls="property">@L["SeoSettings"].Value</a>
@@ -68,28 +77,12 @@
     </abp-container>
     <abp-container class="col-sm-12 col-md-12 col-lg-12 col-xl-10">
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="productImages" role="tabpanel" aria-labelledby="productImage-list">
-                <abp-card>
-                    <abp-card style="box-shadow:none">
-                        <abp-card-header>
-                            <div class="row">
-                                <div class="col">
-                                    <h2 class="card-title float-start">
-                                        @L["ProductImage"].Value
-                                    </h2>
-                                    @if (createProductSize)
-                                    {
-                                        <abp-button text="@L["CreateProductImage"].Value" icon="plus" class="float-end ml-3" onclick="productImages.functions.create(this,'@Model.Product.Id')" button-type="Secondary" />
-                                    }
-                                </div>
-                            </div>
-                        </abp-card-header>
-                        <abp-card-body>
-
-                        </abp-card-body>
-                    </abp-card>
-                </abp-card>
-            </div>
+            @if (_defaultProductImage)
+            {
+                <div class="tab-pane fade show active" id="productImages" role="tabpanel" aria-labelledby="productImage-list">
+                    @await Component.InvokeAsync(typeof(Dev.Store.Web.Pages.Products.Detail.ProductImageComponent.ProductImageComponent), Model.Id)
+                </div>
+            }
             <div class="tab-pane fade " id="productsize" role="tabpanel" aria-labelledby="productsize-list">
                 <abp-card>
                     <abp-card style="box-shadow:none">

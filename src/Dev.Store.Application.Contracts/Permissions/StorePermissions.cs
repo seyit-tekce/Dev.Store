@@ -93,4 +93,8 @@ public static class StorePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    public class FileSettings
+    {
+        public const string Default = GroupName + ".FileSettings";
+    }
 }

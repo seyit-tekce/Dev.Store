@@ -235,7 +235,7 @@ public class StoreDbContext :
             b.Property(x => x.UploadFileId).IsRequired();
             b.HasOne(x => x.Product).WithMany(x => x.ProductImages).HasForeignKey(x => x.ProductId);
             b.HasOne(x => x.UploadFile).WithMany(x => x.ProductImages).HasForeignKey(x => x.UploadFileId);
-            b.HasKey(x => new { x.ProductId, x.IsMain });
+            b.HasIndex(x => x.ProductId);
 
             b.ConfigureByConvention();
 
