@@ -74,11 +74,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Pages\Categories\CreateModal.js" />
-	  <None Remove="Pages\Categories\EditModal.js" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

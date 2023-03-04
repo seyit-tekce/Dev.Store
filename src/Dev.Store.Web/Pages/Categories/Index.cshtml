@@ -12,9 +12,8 @@
 @inject IHtmlLocalizer<StoreResource> L
 @inject IAuthorizationService Authorization
 @{
-    var breadCrumb = Model.Category == null ? L["Menu:Category"].Value : Model.Category.Name;
-    PageLayout.Content.Title = L["Category"].Value;
-    PageLayout.Content.BreadCrumb.Add(breadCrumb);
+    PageLayout.Content.Title= Model.Category == null ? L["Menu:Category"].Value : Model.Category.Name;
+    PageLayout.Content.BreadCrumb.Items.AddRange(Model.BreadCrumb.Items);
     PageLayout.Content.MenuItemName = StoreMenus.Category;
     var _default = await Authorization.IsGrantedAsync(StorePermissions.Category.Default);
     var create = await Authorization.IsGrantedAsync(StorePermissions.Category.Create);
@@ -23,8 +22,6 @@
 }
 @section scripts
     {
-    <abp-script src="/libs/speakingurl/speakingurl.min.js" />
-    <abp-script src="/libs/jquery-slugify/slugify.min.js" />
     <script>var _id = "@Model.Id"</script>
     <abp-script src="/Pages/Categories/index.js" />
 }
@@ -52,7 +49,7 @@
                     <abp-button text="@L["EditCategory"].Value" icon="edit" onclick="categories.functions.edit(null,'@Model.Category?.Id')" button-type="Info" />
                     @if (Model.Category?.File != null)
                     {
-                        <abp-button text="@L["ShowImage"].Value" icon="image" onclick="categories.functions.image('@Model.Category.File.FilePath')" button-type="Secondary" />
+                        <abp-button text="@L["CoverPhoto"].Value" icon="image" onclick="categories.functions.image('@Model.Category.File.FilePath')" button-type="Secondary" />
                     }
                 }
 
@@ -68,18 +65,8 @@
             {
                 columns.Command(command =>
                 {
-                    if (_default) command.Custom(L["MoveUp"].Value).IconClass("fa fa-arrow-up").Click("categories.functions.moveUp").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
-                    if (_default) command.Custom(L["MoveDown"].Value).IconClass("fa fa-arrow-down").Click("categories.functions.moveDown").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
-                    //if (Model.Id.HasValue)
-                    //{
-                    //    if (_default) command.Custom(L["MoveUpCategory"].Value).IconClass("fa-solid fa-arrow-up-right-dots").Click("categories.functions.moveUp").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
-
-                    //}
-                    //else
-                    //{
-                    //    if (_default) command.Custom(L["MoveDownCategory"].Value).IconClass("fa-solid fa-arrow-up-right-dots").Click("categories.functions.moveDown").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
-
-                    //}
+                    if (_default) command.Custom(L["MoveUp"].Value).IconClass("fa fa-arrow-up").Click("categories.functions.moveUp").HtmlAttributes(new Dictionary<string, object> {});
+                    if (_default) command.Custom(L["MoveDown"].Value).IconClass("fa fa-arrow-down").Click("categories.functions.moveDown").HtmlAttributes(new Dictionary<string, object> { });
                     if (_default) command.Custom(L["Detail"].Value).IconClass("fa fa-info-circle").Click("categories.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
                     if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("categories.functions.edit");
                     if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("categories.functions.delete");

@@ -4,6 +4,7 @@ using Dev.Store.Web.Pages.Entities.Category.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Volo.Abp;
 
 namespace Dev.Store.Web.Pages.Entities.Category;
 
@@ -28,6 +29,10 @@ public class CreateModalModel : StorePageModel
 
     public virtual async Task<IActionResult> OnPostAsync()
     {
+        if (Request.Form.Files.Count==0)
+        {
+            throw new UserFriendlyException(L["CoverPhotoNotBeEmpty"]);
+        }
         var dto = ObjectMapper.Map<CreateEditCategoryViewModel, CreateUpdateCategoryDto>(ViewModel);
         dto.Files = Request.Form.Files;
         await _service.CreateAsync(dto);

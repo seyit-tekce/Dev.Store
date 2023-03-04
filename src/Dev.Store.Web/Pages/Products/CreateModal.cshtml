@@ -7,23 +7,31 @@
 @{
     Layout = null;
 }
+
 <form data-ajaxForm="true" asp-page="/Products/CreateModal" autocomplete="off" id="categoryForm">
     <abp-modal size="ExtraLarge">
         <abp-modal-header title="@L["CreateProduct"].Value"></abp-modal-header>
         <abp-modal-body>
+            <abp-input asp-for="ViewModel.IsEnabled" checked></abp-input>
             <abp-input asp-for="ViewModel.Name"></abp-input>
             <abp-input asp-for="ViewModel.Code"></abp-input>
             <div class="mb-3">
                 <label class="form-label" for="ViewModel_CategoryId">@L["ProductCategoryId"].Value *</label>
                 @(
-                    Html.Kendo().DropDownListFor(x => x.ViewModel.CategoryId)
-                    .OptionLabel(L["PleaseChoose"].Value)
-                    .DataTextField("Name")
-                    .DataValueField("Id")
-                    .DataSource(source =>
+                    Html.Kendo().DropDownTreeFor(x => x.ViewModel.CategoryId)
+                    .Placeholder(L["PleaseChoose"].Value)
+                    .Items(dropdown =>
                     {
-                        source.Custom().Transport(c => c.Read(g => g.Url("/api/app/category/data-source").Type(HttpVerbs.Get))).Schema(g => g.Data("Data").Total("Total"))
-                        .ServerFiltering(true).ServerSorting(true).ServerPaging(true).Page(1).PageSize(100).Type("aspnetmvc-ajax");
+                        foreach (var category in Model.Categories.Where(x => !x.CategoryParentId.HasValue))
+                        {
+                            dropdown.Add().Text(category.Name).Value(category.Id.ToString()).Items(items =>
+                            {
+                                foreach (var item in Model.Categories.Where(a => a.CategoryParentId == category.Id))
+                                {
+                                    items.Add().Text(item.Name).Value(item.Id.ToString());
+                                }
+                            });
+                        }
                     })
                     )
 
@@ -44,10 +52,9 @@
                     })
                     )
             </div>
-            <abp-input asp-for="ViewModel.IsEnabled" checked></abp-input>
             <div class="mb-3">
-                @(Html.Kendo().EditorFor(x=>x.ViewModel.Description)
-                .HtmlAttributes(new { style = "width: 100%; height:540px" }))
+                @(Html.Kendo().EditorFor(x => x.ViewModel.Description)
+                    .HtmlAttributes(new { style = "width: 100%; height:540px" }))
             </div>
 
 
@@ -55,3 +62,6 @@
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
 </form>
+<script>
+    $(document).off('focusin.modal')
+</script>

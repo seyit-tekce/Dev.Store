@@ -7,22 +7,26 @@
 @{
     Layout = null;
 }
-<link href="~/custom-libs/uppy/uppy.min.css" rel="stylesheet" />
-<abp-script src="/custom-libs/uppy/uppy.min.js" />
-<abp-script src="/custom-libs/uppy/tr_tr.min.js"/>
-<abp-script src="/pages/categories/CreateModal.js" />
-<form data-ajaxForm="true" asp-page="/Categories/CreateModal" autocomplete="off" id="categoryForm">
-            <input  type="hidden" name="Files" />
 
+<form data-ajaxForm="true" asp-page="/Categories/CreateModal" autocomplete="off" id="categoryForm">
     <abp-modal size="Large">
         <abp-modal-header title="@L["CreateCategory"].Value"></abp-modal-header>
         <abp-modal-body>
+            <abp-input asp-for="ViewModel.IsVisible" checked></abp-input>
             <abp-input asp-for="ViewModel.CategoryParentId"></abp-input>
             <abp-input data-toggle="slugify" data-target="#ViewModel_Link" asp-for="ViewModel.Name"></abp-input>
             <abp-input asp-for="ViewModel.Link"></abp-input>
             <abp-input asp-for="ViewModel.Description"></abp-input>
-            <abp-input asp-for="ViewModel.IsVisible"></abp-input>
-            <div id="drag-drop-area"></div>
+
+            <div class="mb-3">
+                <label class="form-label" for="Files">@L["CoverPhoto"].Value</label><span> * </span>
+                @Html.Kendo().Upload().Name("Files").Multiple(false).Validation(x=>{
+                x.AllowedExtensions("png","jpg","jpeg","webp","gif");
+                }).HtmlAttributes(new Dictionary<string,object>{{"required",""}})
+                <span class="text-danger field-validation-valid" data-valmsg-for="Files" data-valmsg-replace="true"></span>
+            </div>
+
+
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>

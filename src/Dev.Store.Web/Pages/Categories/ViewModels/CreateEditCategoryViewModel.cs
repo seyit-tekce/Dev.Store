@@ -34,4 +34,6 @@ public class CreateEditCategoryViewModel
     [HiddenInput]
     public Guid? CategoryParentId { get; set; }
 
+    [HiddenInput]
+    public int Order { get; set; }
 }

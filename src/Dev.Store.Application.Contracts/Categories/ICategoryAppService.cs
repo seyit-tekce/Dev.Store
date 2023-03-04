@@ -19,4 +19,5 @@ public interface ICategoryAppService :
 
     Task MoveUp(Guid id);
     Task MoveDown(Guid id);
+
 }

@@ -152,6 +152,11 @@
     "ProductImageUploadFile": "ProductImageUploadFile",
     "CreateProductImage": "CreateProductImage",
     "EditProductImage": "EditProductImage",
-    "ProductImageDeletionConfirmationMessage": "Are you sure to delete the productImage {0}?"
+    "ProductImageDeletionConfirmationMessage": "Are you sure to delete the productImage {0}?",
+    "CoverPhoto": "Kapak Fotoğrafı",
+    "CoverPhotoNotBeEmpty": "KapakFotoğrafı Boş Olamaz",
+    "DeletionConfirmationMessage": "Silmek İstediğinize Emin Misiniz?",
+    "SuccessfullyCreated": "Başarıyla oluşturuldu",
+    "CategorySameLink": "Aynı kategori linki daha önce kullanılmıştır."
   }
 }

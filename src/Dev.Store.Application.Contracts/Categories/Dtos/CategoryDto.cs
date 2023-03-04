@@ -21,6 +21,7 @@ public class CategoryDto : AuditedEntityDto<Guid>
     public CategoryDto CategoryParent { get; set; }
     public Guid FileId { get; set; }
     public UploadFileDto File { get; set; }
+
 }
 
 
