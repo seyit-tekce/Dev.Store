@@ -1,6 +1,8 @@
 ﻿using Dev.Store.Localization;
+using Dev.Store.Permissions;
 using Dev.Store.Settings;
 using Dev.Store.Web.Components.Settings.FileUploaderSettings;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
 using Volo.Abp.Localization;
@@ -10,9 +12,10 @@ namespace Dev.Store.Web.Settings
 {
     public class DevStoreSettingPageContributor : ISettingPageContributor
     {
-        public Task<bool> CheckPermissionsAsync(SettingPageCreationContext context)
+        public async Task<bool> CheckPermissionsAsync(SettingPageCreationContext context)
         {
-            return Task.FromResult(true);
+            var authorizationService = (IAuthorizationService)context.ServiceProvider.GetService(typeof(IAuthorizationService));
+            return await authorizationService.IsGrantedAsync(StorePermissions.FileSettings.Default);
         }
 
         public Task ConfigureAsync(SettingPageCreationContext context)

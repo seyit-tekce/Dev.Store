@@ -14,13 +14,10 @@ var products = {
                 load.Done();
             });
             products.defines.createModal.open();
-
         },
         detail: function (e) {
             var recordId = e.currentTarget.dataset["id"];
             location.href = "/Products/Detail?id=" + recordId;
-
-
         },
         edit: function (e) {
             var load = new Loading($(e.target));
@@ -29,7 +26,6 @@ var products = {
                 load.Done();
             });
             products.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
-
         },
         delete: function (e) {
             e.preventDefault();
@@ -41,30 +37,20 @@ var products = {
                             .then(function () {
                                 abp.notify.success(l("SuccessfullyDeleted"));
                                 products.defines.grid().dataSource.read();
-
                             });
                     }
                 });
-
-
         }
-
-
     },
     init: function () {
         products.defines.createModal.onResult(function (e, a) {
             products.defines.grid().dataSource.read();
             abp.notify.success(l("SuccessfullyAdded"));
-
         });
         products.defines.editModal.onResult(function () {
             products.defines.grid().dataSource.read();
             abp.notify.success(l("SuccessfullyUpdated"));
-
         });
-
     }
-
-
 }
 products.init();

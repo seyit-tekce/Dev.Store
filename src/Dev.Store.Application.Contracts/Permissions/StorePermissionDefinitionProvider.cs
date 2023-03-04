@@ -1,6 +1,7 @@
 using Dev.Store.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
+using Volo.Abp.MultiTenancy;
 
 namespace Dev.Store.Permissions;
 
@@ -67,6 +68,10 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         productImagePermission.AddChild(StorePermissions.ProductImage.Create, L("Permission:Create"));
         productImagePermission.AddChild(StorePermissions.ProductImage.Update, L("Permission:Update"));
         productImagePermission.AddChild(StorePermissions.ProductImage.Delete, L("Permission:Delete"));
+
+
+        var management = context.AddGroup("Management", L("Permission:Administration"));
+        management.AddPermission(StorePermissions.FileSettings.Default, L("Permission:FileSettings"));
     }
 
     private static LocalizableString L(string name)

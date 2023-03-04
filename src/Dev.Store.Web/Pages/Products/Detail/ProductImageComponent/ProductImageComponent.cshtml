@@ -1,0 +1,97 @@
+﻿@using Dev.Store.Localization;
+@using Dev.Store.Permissions;
+@using Dev.Store.ProductImages.Dtos;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IAuthorizationService Authorization
+@inject IHtmlLocalizer<StoreResource> L
+@model Guid
+@{
+    Layout = null;
+
+    var _defaultProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Default);
+    var createProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Create);
+    var deleteProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Delete);
+    var updateProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Update);
+}
+<script>
+
+    var productId = '@Model'
+
+</script>
+<style>
+
+    .product-image {
+        width: 350px;
+    }
+
+</style>
+<link href="~/custom-libs/uppy/uppy.min.css" rel="stylesheet" />
+@section scripts
+    {
+  
+   
+    }
+
+<abp-card>
+    <abp-card style="box-shadow:none">
+        <abp-card-header>
+            <div class="row">
+                <div class="col">
+                    <h2 class="card-title float-start">
+                        @L["ProductImage"].Value
+                    </h2>
+                    @if (createProductImage)
+                    {
+                        <abp-button text="@L["CreateProductImage"].Value" icon="plus" class="float-end ml-3" onclick="productImage.functions.create()" button-type="Secondary" />
+                    }
+                </div>
+            </div>
+        </abp-card-header>
+        <abp-card-body>
+
+            @(
+                Html.Kendo().Grid<ProductImageDto>()
+                .Name("ProductImageGrid")
+                .Columns(columns =>
+                {
+                    columns.Command(command =>
+                    {
+                        if (deleteProductImage)
+                        {
+                            command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("productImage.functions.delete");
+                        }
+                    }).Title(L["Actions"].Value).Width(200);
+                    columns.Bound(a => a.UploadFileId).ClientTemplate($"<img class='product-image' src='#:UploadFile.FilePath#'/>").Title(L["ProductSizeCode"].Value).Width(550);
+                })
+                .ToolBar(tools =>
+                {
+                 
+                })
+                .Mobile()
+                .Sortable(a => a.AllowUnsort(true).SortMode(GridSortMode.MultipleColumn))
+                .Resizable(a => a.Columns(true))
+                .Filterable(a => a.Enabled(true))
+                .Scrollable(x => x.Height(520).Endless(true))
+                
+                .Pageable(x => x.PageSizes(new[] { 25, 50, 100 }).Refresh(true))
+                .Filterable(a => a.Enabled(true))
+                .Events(a => a.DataBound("kendoGrid.events.databound")
+                .Edit("kendoGrid.events.edit")
+                .Cancel("kendoGrid.events.cancel")
+                .CellClose("kendoGrid.events.cellClose")
+                .Change("kendoGrid.events.change"))
+                .DataSource(dataSource =>
+                dataSource.WebApi()
+                .Model(model => { model.Id(a => a.Id); })
+                .Read(read => read.Url("/api/app/product-image/data-source"))
+                .PageSize(25)
+                .Filter(a => a.Add(b => b.ProductId).IsEqualTo(Model))
+                ).Deferred()
+                )
+
+
+
+        </abp-card-body>
+    </abp-card>
+</abp-card>

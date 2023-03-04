@@ -1,3 +1,4 @@
+using Dev.Store.UploadFiles.Dtos;
 using System;
 using Volo.Abp.Application.Dtos;
 
@@ -11,5 +12,6 @@ public class ProductImageDto : FullAuditedEntityDto<Guid>
     public Guid UploadFileId { get; set; }
 
     public bool IsMain { get; set; }
+    public UploadFileDto UploadFile { get; set; }
 
 }

@@ -47,7 +47,7 @@ namespace Dev.Store.UploadFiles.Providers
 
         public async Task DeleteAsync(string path)
         {
-            await _cloudinary.DeleteResourcesAsync(path);
+            var res = await _cloudinary.DeleteResourcesAsync(path);
         }
 
         public Task<UploadFileDto> GetFileAsync(string path)

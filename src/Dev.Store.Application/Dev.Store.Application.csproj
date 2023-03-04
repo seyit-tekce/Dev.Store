@@ -16,6 +16,7 @@
     <PackageReference Include="CloudinaryDotNet" Version="1.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="Volo.Abp.Account.Application" Version="7.0.1" />
     <PackageReference Include="Volo.Abp.Identity.Application" Version="7.0.1" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Application" Version="7.0.1" />
