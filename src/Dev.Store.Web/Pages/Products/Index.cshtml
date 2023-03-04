@@ -59,7 +59,7 @@
                 columns.Bound(p => p.Name).Title(L["ProductName"].Value);
                 columns.Bound(p => p.Code).Title(L["ProductCode"].Value);
                 columns.Bound(p => p.Category.Name).Title(L["CategoryName"].Value);
-                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.Extensions.DateTimeShortFormat);
             })
             .ToolBar(tools =>
             {

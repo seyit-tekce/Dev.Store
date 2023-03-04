@@ -134,7 +134,17 @@
     "EditSeoSetting": "EditSeoSetting",
     "SeoSettingDeletionConfirmationMessage": "Are you sure to delete the seoSetting {0}?",
     "PleaseChoose": "Please Choose",
-    "ProductSizeCode": "Code"
-
+    "ProductSizeCode": "Code",
+    "Permission:ProductImage": "ProductImage",
+    "Menu:ProductImage": "MenuProductImage",
+    "ProductImage": "ProductImage",
+    "ProductImageProductId": "ProductImageProductId",
+    "ProductImageUploadFileId": "ProductImageUploadFileId",
+    "ProductImageIsMain": "ProductImageIsMain",
+    "ProductImageProduct": "ProductImageProduct",
+    "ProductImageUploadFile": "ProductImageUploadFile",
+    "CreateProductImage": "CreateProductImage",
+    "EditProductImage": "EditProductImage",
+    "ProductImageDeletionConfirmationMessage": "Are you sure to delete the productImage {0}?"
   }
 }

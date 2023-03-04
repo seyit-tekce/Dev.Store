@@ -141,6 +141,22 @@
     "CreateSeoSetting": "Seo Ayarları Oluştur",
     "EditSeoSetting": "Seo Ayarları Düzenle",
     "SeoSettingDeletionConfirmationMessage": "Silmek istediğinize emin misiniz {0}?",
-    "PleaseChoose": "Lütfen Seçim Yapınız"
+    "PleaseChoose": "Lütfen Seçim Yapınız",
+    "Permission:ProductImage": "ProductImage",
+    "Menu:ProductImage": "MenuProductImage",
+    "ProductImage": "ProductImage",
+    "ProductImageProductId": "ProductImageProductId",
+    "ProductImageUploadFileId": "ProductImageUploadFileId",
+    "ProductImageIsMain": "ProductImageIsMain",
+    "ProductImageProduct": "ProductImageProduct",
+    "ProductImageUploadFile": "ProductImageUploadFile",
+    "CreateProductImage": "CreateProductImage",
+    "EditProductImage": "EditProductImage",
+    "ProductImageDeletionConfirmationMessage": "Are you sure to delete the productImage {0}?",
+    "CoverPhoto": "Kapak Fotoğrafı",
+    "CoverPhotoNotBeEmpty": "KapakFotoğrafı Boş Olamaz",
+    "DeletionConfirmationMessage": "Silmek İstediğinize Emin Misiniz?",
+    "SuccessfullyCreated": "Başarıyla oluşturuldu",
+    "CategorySameLink": "Aynı kategori linki daha önce kullanılmıştır."
   }
 }

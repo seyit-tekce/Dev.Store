@@ -85,4 +85,12 @@ public static class StorePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+
+    public class ProductImage
+    {
+        public const string Default = GroupName + ".ProductImage";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

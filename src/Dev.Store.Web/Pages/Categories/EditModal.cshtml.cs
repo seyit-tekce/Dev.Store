@@ -15,7 +15,7 @@ public class EditModalModel : StorePageModel
 
     [BindProperty]
     public CreateEditCategoryViewModel ViewModel { get; set; }
-
+    public CategoryDto Category { get; set; }
     private readonly ICategoryAppService _service;
 
     public EditModalModel(ICategoryAppService service)
@@ -26,12 +26,14 @@ public class EditModalModel : StorePageModel
     public virtual async Task OnGetAsync()
     {
         var dto = await _service.GetAsync(Id);
+        Category = dto;
         ViewModel = ObjectMapper.Map<CategoryDto, CreateEditCategoryViewModel>(dto);
     }
 
     public virtual async Task<IActionResult> OnPostAsync()
     {
         var dto = ObjectMapper.Map<CreateEditCategoryViewModel, CreateUpdateCategoryDto>(ViewModel);
+        dto.Files = Request.Form.Files;
         await _service.UpdateAsync(Id, dto);
         return NoContent();
     }

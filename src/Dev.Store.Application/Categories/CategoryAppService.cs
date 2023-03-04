@@ -7,11 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-using Volo.Abp.ObjectMapping;
 
 namespace Dev.Store.Categories;
 
@@ -26,7 +25,6 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     private readonly ICategoryRepository _repository;
     private readonly IUploadFileAppService uploadFileAppService;
 
-
     public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService) : base(repository)
     {
         _repository = repository;
@@ -39,15 +37,24 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     {
         return (await _repository.GetQueryableAsync()).ToDataSourceResult(request, x => ObjectMapper.Map<Category, CategoryDto>(x));
     }
+
+    [Authorize(StorePermissions.Category.Default)]
     public override async Task<CategoryDto> GetAsync(Guid id)
     {
-        return  ObjectMapper.Map<Category,CategoryDto>( (await _repository.WithDetailsAsync(x=>x.CategoryChildren,x=>x.CategoryParent,x=>x.File)).Where(a => a.Id == id).FirstOrDefault());
+        return ObjectMapper.Map<Category, CategoryDto>((await _repository.WithDetailsAsync(x => x.CategoryChildren, x => x.CategoryParent, x => x.File)).Where(a => a.Id == id).FirstOrDefault());
     }
 
+    [Authorize(StorePermissions.Category.Create)]
     public override async Task<CategoryDto> CreateAsync(CreateUpdateCategoryDto input)
     {
-        var currentOrder = (await _repository.GetQueryableAsync());
-        var lastAdded = currentOrder.Where(x => x.CategoryParentId == input.CategoryParentId).OrderByDescending(x => x.Order).FirstOrDefault();
+        var queryable = (await _repository.GetQueryableAsync());
+
+        var linkExist = queryable.Any(x => x.Link == input.Link);
+        if (linkExist)
+        {
+            throw new UserFriendlyException(L["CategorySameLink"].Value);
+        }
+        var lastAdded = queryable.Where(x => x.CategoryParentId == input.CategoryParentId).OrderByDescending(x => x.Order).FirstOrDefault();
         if (lastAdded != null)
         {
             input.Order = lastAdded.Order + 1;
@@ -56,71 +63,66 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         {
             input.Order = 1;
         }
-        
         var fileResult = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
         {
-            Description= input.Description,
+            Description = input.Description,
             File = input.Files[0],
         });
         input.FileId = fileResult.Id;
         return await base.CreateAsync(input);
     }
 
+    [Authorize(StorePermissions.Category.Update)]
+    public override async Task<CategoryDto> UpdateAsync(Guid id, CreateUpdateCategoryDto input)
+    {
+        var findCategory = await Repository.GetAsync(id);
+        var queryable = (await _repository.GetQueryableAsync());
+        var linkExist = queryable.Any(x => x.Link == input.Link);
+        if (linkExist)
+        {
+            throw new UserFriendlyException(L["CategorySameLink"].Value);
+        }
+        input.FileId = findCategory.FileId.Value;
+        if (input.Files.Count() > 0)
+        {
+            var fileResult = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
+            {
+                Description = input.Description,
+                File = input.Files[0],
+            });
+            input.FileId = fileResult.Id;
+        }
+        return await base.UpdateAsync(id, input);
+    }
+
+    [Authorize(StorePermissions.Category.Update)]
     public async Task MoveUp(Guid id)
     {
         var find = await _repository.GetAsync(id);
         find.Order = find.Order - 1;
-        var currentOrder = await _repository.FindAsync(x => x.Order == find.Order);
+        var currentOrder = await _repository.FindAsync(x => x.Order == find.Order && x.CategoryParentId == find.CategoryParentId);
         if (currentOrder != null)
         {
             currentOrder.Order = find.Order + 1;
-            await this.UpdateAsync(currentOrder.Id, new CreateUpdateCategoryDto
-            {
-                CategoryParentId = currentOrder.CategoryParentId,
-                Description = currentOrder.Description,
-                isVisible = currentOrder.IsVisible,
-                Link = currentOrder.Link,
-                Name = currentOrder.Name,
-                Order = currentOrder.Order
-            });
+            await Repository.UpdateAsync(currentOrder);
         }
-        await this.UpdateAsync(find.Id, new CreateUpdateCategoryDto
-        {
-            CategoryParentId = find.CategoryParentId,
-            Description = find.Description,
-            isVisible = find.IsVisible,
-            Link = find.Link,
-            Name = find.Name,
-            Order = find.Order
-        });
+        await Repository.UpdateAsync(find);
     }
 
+    [Authorize(StorePermissions.Category.Update)]
     public async Task MoveDown(Guid id)
     {
         var find = await _repository.GetAsync(id);
         find.Order = find.Order + 1;
-        var currentOrder = await _repository.FindAsync(x => x.Order == find.Order);
+        var currentOrder = await _repository.FindAsync(x => x.Order == find.Order && x.CategoryParentId == find.CategoryParentId);
         if (currentOrder != null)
         {
             currentOrder.Order = find.Order - 1;
-            await this.UpdateAsync(currentOrder.Id, new CreateUpdateCategoryDto
-            {
-                CategoryParentId = currentOrder.CategoryParentId,
-                Description = currentOrder.Description,
-                isVisible = currentOrder.IsVisible,
-                Link = currentOrder.Link,
-                Name = currentOrder.Name,
-                Order = currentOrder.Order
-            });
+            await Repository.UpdateAsync(currentOrder);
         }
-        await this.UpdateAsync(find.Id, new CreateUpdateCategoryDto
-        {
-            CategoryParentId = find.CategoryParentId,
-            Description = find.Description,
-            isVisible = find.IsVisible,
-            Link = find.Link,
-            Name = find.Name,
-            Order = find.Order
-        });
+        await Repository.UpdateAsync(find);
     }
+
+    
+
 }

@@ -62,6 +62,11 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         seoSettingPermission.AddChild(StorePermissions.SeoSetting.Create, L("Permission:Create"));
         seoSettingPermission.AddChild(StorePermissions.SeoSetting.Update, L("Permission:Update"));
         seoSettingPermission.AddChild(StorePermissions.SeoSetting.Delete, L("Permission:Delete"));
+
+        var productImagePermission = myGroup.AddPermission(StorePermissions.ProductImage.Default, L("Permission:ProductImage"));
+        productImagePermission.AddChild(StorePermissions.ProductImage.Create, L("Permission:Create"));
+        productImagePermission.AddChild(StorePermissions.ProductImage.Update, L("Permission:Update"));
+        productImagePermission.AddChild(StorePermissions.ProductImage.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

@@ -220,8 +220,9 @@ $(document).livequery('[data-text="long"]', function (e) {
     $elem.attr("title", text);
     $elem.tooltip();
 });
-$(document).on("keyup", '[data-toggle="slugify"]', function (e) {
-    debugger
+
+// Harflerin Hepsinin Küçük Olması İstenilen slugify için kullanılır
+$(document).livequery('[data-toggle="slugify"]', function (e) {
     var target = $(this).data("target");
     var thisVal = $(this);
     var slugit = function (c) {
@@ -229,18 +230,56 @@ $(document).on("keyup", '[data-toggle="slugify"]', function (e) {
             target.split(',').forEach(function (item, index) {
                 $(item).val(getSlug($(thisVal).val(), {
                     lang: 'en',
-                    separator: "_"
+                    separator: "-"
                 }));
             });
         }
         else {
-            $(target).slugify(thisVal, {
-                separator: '-'
-            });
+            $(target).val(getSlug($(this).val(), {
+                lang: 'en',
+                separator: "-"
+            }));
         }
     };
-    slugit();
+    $(this).on("keyup", slugit);
+    $(this).on("focus", slugit);
+    $(this).on("blur", slugit);
 });
+
+
+// Yazıldığı Gibi Olması İstenilen slugify için kullanılır
+$(document).livequery('[data-toggle="slugifyUpper"]', function (e) {
+    function getSlug(text) {
+        var separator = /[^a-z0-9]+/ig;
+        var drop = /^-|-$/g;
+        return text
+            .replace(separator, '_')
+            .replace(drop, '')
+            .replace(/\s/g, '')
+            .replace(/^[0-9]/, '')
+    }
+
+    var target = $(this).data("target");
+    var thisVal = $(this);
+    var slugit = function (c) {
+        if (target.split(',').length > 1) {
+            target.split(',').forEach(function (item, index) {
+                $(item).val(getSlug($(thisVal).val(), {
+                    lang: 'en',
+                }));
+            });
+        }
+        else {
+            $(target).val(getSlug($(this).val(), {
+                lang: 'en',
+            }));
+        }
+    };
+    $(this).on("keyup", slugit);
+    $(this).on("focus", slugit);
+    $(this).on("blur", slugit);
+});
+
 $('[data-cascade]').livequery('*',function (e) {
     var $this = $(this);
     var cascadeElem = $($this.attr('data-cascade'));

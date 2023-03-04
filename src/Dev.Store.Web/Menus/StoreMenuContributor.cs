@@ -76,5 +76,11 @@ public class StoreMenuContributor : IMenuContributor
             );
         }
  
+        if (await context.IsGrantedAsync(StorePermissions.ProductImage.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.ProductImage, l["Menu:ProductImage"], "/ProductImages/ProductImage")
+            );
+        }
     }
 }

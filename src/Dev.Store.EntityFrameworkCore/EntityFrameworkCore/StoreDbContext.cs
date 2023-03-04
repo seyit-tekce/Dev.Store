@@ -2,6 +2,12 @@ using Dev.Store.Brands;
 using Dev.Store.Categories;
 using Dev.Store.Keywords;
 using Dev.Store.Locations;
+using Dev.Store.ProductImages;
+using Dev.Store.Products;
+using Dev.Store.ProductSets;
+using Dev.Store.ProductSizes;
+using Dev.Store.SeoSettings;
+using Dev.Store.UploadFiles;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -19,11 +25,6 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
-using Dev.Store.UploadFiles;
-using Dev.Store.Products;
-using Dev.Store.ProductSets;
-using Dev.Store.ProductSizes;
-using Dev.Store.SeoSettings;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -52,6 +53,7 @@ public class StoreDbContext :
 
     //Identity
     public DbSet<IdentityUser> Users { get; set; }
+
     public DbSet<IdentityRole> Roles { get; set; }
     public DbSet<IdentityClaimType> ClaimTypes { get; set; }
     public DbSet<OrganizationUnit> OrganizationUnits { get; set; }
@@ -60,9 +62,11 @@ public class StoreDbContext :
 
     // Tenant Management
     public DbSet<Tenant> Tenants { get; set; }
+
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
-    #endregion
+    #endregion Entities from the modules
+
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Location> Locations { get; set; }
@@ -73,11 +77,11 @@ public class StoreDbContext :
     public DbSet<ProductSet> ProductSets { get; set; }
     public DbSet<ProductSize> ProductSizes { get; set; }
     public DbSet<SeoSetting> SeoSettings { get; set; }
+    public DbSet<ProductImage> ProductImages { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -103,7 +107,6 @@ public class StoreDbContext :
         //    //...
         //});
 
-
         builder.Entity<Brand>(b =>
         {
             b.ToTable(StoreConsts.DbTablePrefix + "Brands", StoreConsts.DbSchema);
@@ -112,11 +115,7 @@ public class StoreDbContext :
             b.Property(t => t.Code).IsRequired().HasMaxLength(12);
 
             b.ConfigureByConvention();
-
-
-
         });
-
 
         builder.Entity<Category>(b =>
         {
@@ -127,10 +126,7 @@ public class StoreDbContext :
             b.HasMany(c => c.CategoryChildren).WithOne(a => a.CategoryParent).HasForeignKey(g => g.CategoryParentId);
             b.HasOne(x => x.File).WithOne(x => x.Category);
             b.ConfigureByConvention();
-
-
         });
-
 
         builder.Entity<Location>(b =>
         {
@@ -141,11 +137,9 @@ public class StoreDbContext :
             b.HasMany(c => c.LocationChildren).WithOne(a => a.LocationParent).HasForeignKey(g => g.LocationParentId);
             b.ConfigureByConvention();
 
-
             /* Configure more properties here */
         });
         builder.ConfigureBlobStoring();
-
 
         builder.Entity<Keyword>(b =>
         {
@@ -154,13 +148,8 @@ public class StoreDbContext :
             b.HasIndex(x => x.Name);
             b.ConfigureByConvention();
 
-
             /* Configure more properties here */
         });
-
-
-
-
 
         builder.Entity<UploadFile>(b =>
         {
@@ -173,7 +162,6 @@ public class StoreDbContext :
             /* Configure more properties here */
         });
         builder.ConfigureCmsKit();
-
 
         builder.Entity<Product>(b =>
         {
@@ -188,16 +176,15 @@ public class StoreDbContext :
             b.HasOne(x => x.Brand).WithMany(x => x.Products).HasForeignKey(x => x.BrandId);
             b.ConfigureByConvention();
 
-
             /* Configure more properties here */
         });
-
 
         builder.Entity<ProductSet>(b =>
         {
             b.ToTable(StoreConsts.DbTablePrefix + "ProductSets", StoreConsts.DbSchema);
             b.Property(x => x.ProductId).IsRequired();
             b.Property(x => x.Code).IsRequired();
+            b.Property(x => x.SetName).IsRequired();
             b.Property(x => x.Price).IsRequired();
             b.Property(x => x.Amount).IsRequired().HasDefaultValue(1);
             b.Property(x => x.IsOptional).IsRequired();
@@ -207,10 +194,8 @@ public class StoreDbContext :
 
             b.ConfigureByConvention();
 
-
             /* Configure more properties here */
         });
-
 
         builder.Entity<ProductSize>(b =>
         {
@@ -225,10 +210,8 @@ public class StoreDbContext :
             b.HasOne(x => x.Product).WithMany(x => x.ProductSizes).HasForeignKey(x => x.ProductId);
             b.ConfigureByConvention();
 
-
             /* Configure more properties here */
         });
-
 
         builder.Entity<SeoSetting>(b =>
         {
@@ -241,6 +224,20 @@ public class StoreDbContext :
             b.HasOne(x => x.Product).WithOne(x => x.SeoSetting);
             b.ConfigureByConvention();
 
+            /* Configure more properties here */
+        });
+
+        builder.Entity<ProductImage>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "ProductImages", StoreConsts.DbSchema);
+            b.Property(x => x.ProductId).IsRequired();
+            b.Property(x => x.IsMain).IsRequired();
+            b.Property(x => x.UploadFileId).IsRequired();
+            b.HasOne(x => x.Product).WithMany(x => x.ProductImages).HasForeignKey(x => x.ProductId);
+            b.HasOne(x => x.UploadFile).WithMany(x => x.ProductImages).HasForeignKey(x => x.UploadFileId);
+            b.HasKey(x => new { x.ProductId, x.IsMain });
+
+            b.ConfigureByConvention();
 
             /* Configure more properties here */
         });

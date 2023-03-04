@@ -1,3 +1,4 @@
+using Dev.Store.ProductImages;
 using Dev.Store.SeoSettings;
 using Dev.Store.ProductSizes;
 using Dev.Store.ProductSets;
@@ -65,6 +66,7 @@ public class StoreEntityFrameworkCoreModule : AbpModule
             options.AddRepository<ProductSet, ProductSetRepository>();
             options.AddRepository<ProductSize, ProductSizeRepository>();
             options.AddRepository<SeoSetting, SeoSettingRepository>();
+            options.AddRepository<ProductImage, ProductImageRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

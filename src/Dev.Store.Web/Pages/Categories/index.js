@@ -8,28 +8,18 @@ var categories = {
     },
     functions: {
         create: function (e) {
-            categories.defines.createModal.onOpen(function () {
-            });
             categories.defines.createModal.open({
                 categoryParentId: _id
             });
-            categories.defines.createModal.onResult(function () {
-                abp.notify.success(l("SuccessfullyCreated"));
-                categories.defines.grid().dataSource.read();
-            });
+
         },
-        edit: function (e,i) {
-            categories.defines.editModal.onOpen(function () {
-            });
-            categories.defines.editModal.open({ id: e?.currentTarget?.dataset["id"]??i });
-            categories.defines.editModal.onResult(function () {
-                abp.notify.success(l("SuccessfullyEdited"));
-                categories.defines.grid().dataSource.read();
-            });
+        edit: function (e, i) {
+            categories.defines.editModal.open({ id: e?.currentTarget?.dataset["id"] ?? i });
+
         },
         delete: function (e) {
             e.preventDefault();
-            abp.message.confirm(l("categoryDeletionConfirmationMessage"))
+            abp.message.confirm(l("DeletionConfirmationMessage"))
                 .then(function (confirmed) {
                     if (confirmed) {
                         var recordId = e.currentTarget.dataset["id"];
@@ -66,5 +56,14 @@ var categories = {
         }
     },
     init: function () {
+        categories.defines.createModal.onResult(function () {
+            abp.notify.success(l("SuccessfullyCreated"));
+            categories.defines.grid().dataSource.read();
+        });
+        categories.defines.editModal.onResult(function () {
+            abp.notify.success(l("SuccessfullyEdited"));
+            categories.defines.grid().dataSource.read();
+        });
     }
 }
+categories.init();

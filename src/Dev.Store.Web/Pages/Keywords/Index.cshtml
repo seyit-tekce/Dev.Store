@@ -56,7 +56,7 @@
                     if (delete) command.Custom(L["Delete"].Value).Click("keywords.functions.delete");
                 });
                 columns.Bound(p => p.Name).Title(L["KeywordName"].Value);
-                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.KendoHelper.DateTimeShortFormat);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.Extensions.DateTimeShortFormat);
             })
             .ToolBar(tools =>
             {

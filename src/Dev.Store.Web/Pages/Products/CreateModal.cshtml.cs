@@ -1,8 +1,12 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Dev.Store.Categories;
+using Dev.Store.Categories.Dtos;
 using Dev.Store.Products;
 using Dev.Store.Products.Dtos;
 using Dev.Store.Web.Pages.Products.Product.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Dev.Store.Web.Pages.Products.Product;
 
@@ -12,10 +16,18 @@ public class CreateModalModel : StorePageModel
     public CreateEditProductViewModel ViewModel { get; set; }
 
     private readonly IProductAppService _service;
+    private readonly ICategoryAppService _categoryAppService;
+    public List<CategoryDto> Categories { get; set; }
 
-    public CreateModalModel(IProductAppService service)
+    public CreateModalModel(IProductAppService service, ICategoryAppService categoryAppService)
     {
         _service = service;
+        _categoryAppService = categoryAppService;
+    }
+
+    public virtual async Task OnGetAsync()
+    {
+        Categories = (await _categoryAppService.GetListAsync(new Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto())).Items.ToList();
     }
 
     public virtual async Task<IActionResult> OnPostAsync()

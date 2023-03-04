@@ -14,11 +14,7 @@ var products = {
                 load.Done();
             });
             products.defines.createModal.open();
-            products.defines.createModal.onResult(function (e, a) {
-                products.defines.grid().dataSource.read();
-                abp.notify.success(l("SuccessfullyAdded"));
 
-            });
         },
         detail: function (e) {
             var recordId = e.currentTarget.dataset["id"];
@@ -33,19 +29,15 @@ var products = {
                 load.Done();
             });
             products.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
-            products.defines.editModal.onResult(function () {
-                products.defines.grid().dataSource.read();
-                abp.notify.success(l("SuccessfullyUpdated"));
 
-            });
         },
         delete: function (e) {
             e.preventDefault();
-            abp.message.confirm(l("BrandDeletionConfirmationMessage"))
+            abp.message.confirm(l("DeletionConfirmationMessage"))
                 .then(function (confirmed) {
                     if (confirmed) {
                         var recordId = e.currentTarget.dataset["id"];
-                        dev.store.products.brand.delete(recordId)
+                        dev.store.products.product.delete(recordId)
                             .then(function () {
                                 abp.notify.success(l("SuccessfullyDeleted"));
                                 products.defines.grid().dataSource.read();
@@ -60,11 +52,19 @@ var products = {
 
     },
     init: function () {
+        products.defines.createModal.onResult(function (e, a) {
+            products.defines.grid().dataSource.read();
+            abp.notify.success(l("SuccessfullyAdded"));
 
+        });
+        products.defines.editModal.onResult(function () {
+            products.defines.grid().dataSource.read();
+            abp.notify.success(l("SuccessfullyUpdated"));
 
-
+        });
 
     }
 
 
 }
+products.init();
