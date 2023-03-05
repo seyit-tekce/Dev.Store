@@ -1,11 +1,10 @@
-import remoteFileObjToLocal from '@uppy/utils/lib/remoteFileObjToLocal'
+const remoteFileObjToLocal = require('@uppy/utils/lib/remoteFileObjToLocal')
 
-export default class SharedHandler {
+module.exports = class SharedHandler {
   constructor (plugin) {
     this.plugin = plugin
     this.filterItems = this.filterItems.bind(this)
     this.toggleCheckbox = this.toggleCheckbox.bind(this)
-    this.recordShiftKeyPress = this.recordShiftKeyPress.bind(this)
     this.isChecked = this.isChecked.bind(this)
     this.loaderWrapper = this.loaderWrapper.bind(this)
   }
@@ -18,10 +17,6 @@ export default class SharedHandler {
     return items.filter((folder) => {
       return folder.name.toLowerCase().indexOf(state.filterInput.toLowerCase()) !== -1
     })
-  }
-
-  recordShiftKeyPress (e) {
-    this.isShiftKeyPressed = e.shiftKey
   }
 
   /**
@@ -37,32 +32,33 @@ export default class SharedHandler {
     e.currentTarget.focus()
     const { folders, files } = this.plugin.getPluginState()
     const items = this.filterItems(folders.concat(files))
+
     // Shift-clicking selects a single consecutive list of items
     // starting at the previous click and deselects everything else.
-    if (this.lastCheckbox && this.isShiftKeyPressed) {
+    if (this.lastCheckbox && e.shiftKey) {
+      let currentSelection
       const prevIndex = items.indexOf(this.lastCheckbox)
       const currentIndex = items.indexOf(file)
-      const currentSelection = (prevIndex < currentIndex)
-        ? items.slice(prevIndex, currentIndex + 1)
-        : items.slice(currentIndex, prevIndex + 1)
-      const reducedCurrentSelection = []
-
+      if (prevIndex < currentIndex) {
+        currentSelection = items.slice(prevIndex, currentIndex + 1)
+      } else {
+        currentSelection = items.slice(currentIndex, prevIndex + 1)
+      }
       // Check restrictions on each file in currentSelection,
       // reduce it to only contain files that pass restrictions
-      for (const item of currentSelection) {
-        const { uppy } = this.plugin
-        const restrictionError = uppy.validateRestrictions(
+      currentSelection = currentSelection.reduce((reducedCurrentSelection, item) => {
+        const uppy = this.plugin.uppy
+        const validatedRestrictions = uppy.validateRestrictions(
           remoteFileObjToLocal(item),
-          [...uppy.getFiles(), ...reducedCurrentSelection],
+          [...uppy.getFiles(), ...reducedCurrentSelection]
         )
-
-        if (!restrictionError) {
-          reducedCurrentSelection.push(item)
-        } else {
-          uppy.info({ message: restrictionError.message }, 'error', uppy.opts.infoTimeout)
+        if (!validatedRestrictions.result) {
+          uppy.info({ message: validatedRestrictions.reason }, 'error', uppy.opts.infoTimeout)
+          return reducedCurrentSelection
         }
-      }
-      this.plugin.setPluginState({ currentSelection: reducedCurrentSelection })
+        return [...reducedCurrentSelection, item]
+      })
+      this.plugin.setPluginState({ currentSelection })
       return
     }
 

@@ -2,35 +2,6 @@
 
 ## [Unreleased]
 
-## [7.1.3]
-
-### Fixed
-- `UrlFetcher` in Node.js can now handle redirects.
-- added missing `multiSegment` in .d.ts file.
-
-## [7.1.2]
-
-### Fixed
-- Issue #67 -> improved IPTC parsing performance.
-
-## [7.1.0]
-
-### Added
-- Sidecar support through `exifr.sidecar()`.
-- Support for url query strings and headers in Node.js polyfill of UrlFetcher.
-
-## [7.0.0]
-
-### Added
-- `UrlFetcher` now works in Node.js too. i.e. You can use `string` URL as `file` argument in Node.js (previously only available in browser). Exifr now implements polyfill for `window.fetch()`. But it's only available in `full` bundle.
-
-### Fixed
-- Issue #59 regarding `mwg-rs:Regions`.
-- Problems with parsing absolute paths in Electron, NW.JS and other Node/browser hybrid environments. (*Node's `fs` now takes precedence over brower's `fetch` when parsing absolute path argument*)
-
-### Breaking changes
-- Slight changes to XMP parsing logic. Only affects obscure cases with lists and nested `rdf:Description`. Won't affect most of the basic use cases.
-
 ## [6.3.0]
 
 ### Added
@@ -289,11 +260,7 @@ Quality-Of-Life release. Improves compatibility and ease of use with various too
 ### Added
 - initial implementation
 
-[Unreleased]: https://github.com/MikeKovarik/exifr/compare/7.1.3...HEAD
-[7.1.3]: https://github.com/MikeKovarik/exifr/compare/v7.1.2...v7.1.3
-[7.1.2]: https://github.com/MikeKovarik/exifr/compare/v7.1.0...v7.1.2
-[7.1.0]: https://github.com/MikeKovarik/exifr/compare/v7.0.0...v7.1.0
-[7.0.0]: https://github.com/MikeKovarik/exifr/compare/v6.3.0...v7.0.0
+[Unreleased]: https://github.com/MikeKovarik/exifr/compare/v6.3.0...HEAD
 [6.3.0]: https://github.com/MikeKovarik/exifr/compare/v6.2.0...v6.3.0
 [6.2.0]: https://github.com/MikeKovarik/exifr/compare/v6.1.1...v6.2.0
 [6.1.1]: https://github.com/MikeKovarik/exifr/compare/v6.1.0...v6.1.1

@@ -68,3 +68,19 @@
 productImage.defines.createModal.onOpen(function () {
     productImage.functions.uppy();
 });
+
+function isMain(data) {
+    var aa =` 
+        <div data-role="switchbox" class=" p-2" style="cursor:pointer;text-align: center;position: relative;">
+            <div class="">
+         <span>${l("Passive")}</span>
+                <div class="custom-control custom-switch d-inline-block">
+                    <input switchtype="parameter" type="checkbox" class="custom-control-input" onchange="thingParameters.actions.changeStatus('${data.Id}')"  id="${data.Id}" value="${data.Id}"  ${data.IsMain ? "checked" : ""}>
+                        <label class="custom-control-label" for="${data.Id}"></label>
+                </div>
+                 <span>${l("Active")}</span>
+            </div>
+    </div>`
+
+    return aa;
+}

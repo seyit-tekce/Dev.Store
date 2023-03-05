@@ -1,5 +1,3 @@
-import type { Uppy } from '@uppy/core'
-
 /**
  * Async storage interface, similar to `localStorage`. This can be used to
  * implement custom storages for authentication tokens.
@@ -10,40 +8,21 @@ export interface TokenStorage {
   removeItem: (key: string) => Promise<void>
 }
 
-type CompanionHeaders = Record<string, string>
-
 export interface RequestClientOptions {
   companionUrl: string
-  companionHeaders?: CompanionHeaders
+  companionHeaders?: object
   companionCookiesRule?: RequestCredentials
-}
-
-type RequestOptions = {
-  skipPostResponse?: boolean,
-  signal?: AbortSignal,
+  /**
+   * Deprecated, use `companionHeaders` instead.
+   */
+  serverHeaders?: object
 }
 
 export class RequestClient {
-  constructor (uppy: Uppy, opts: RequestClientOptions)
-
-  readonly hostname: string
-
-  setCompanionHeaders(headers: CompanionHeaders): void
-
-  get<T = unknown> (path: string, options?: RequestOptions): Promise<T>
-
-  /** @deprecated use option bag instead */
-  get<T = unknown> (path: string, skipPostResponse: boolean): Promise<T>
-
-  post<T = unknown> (path: string, data: Record<string, unknown>, options?: RequestOptions): Promise<T>
-
-  /** @deprecated use option bag instead */
-  post<T = unknown> (path: string, data: Record<string, unknown>, skipPostResponse: boolean): Promise<T>
-
-  delete<T = unknown> (path: string, data?: Record<string, unknown>, options?: RequestOptions): Promise<T>
-
-  /** @deprecated use option bag instead */
-  delete<T = unknown> (path: string, data: Record<string, unknown>, skipPostResponse: boolean): Promise<T>
+  constructor (uppy: any, opts: RequestClientOptions)
+  get (path: string): Promise<any>
+  post (path: string, data: object): Promise<any>
+  delete (path: string, data: object): Promise<any>
 }
 
 /**
@@ -64,19 +43,13 @@ export interface ProviderOptions extends PublicProviderOptions {
 }
 
 export class Provider extends RequestClient {
-  constructor (uppy: Uppy, opts: ProviderOptions)
-
+  constructor (uppy: any, opts: ProviderOptions)
   checkAuth (): Promise<boolean>
-
   authUrl (): string
-
   fileUrl (id: string): string
-
   list (directory: string): Promise<any>
-
   logout (redirect?: string): Promise<any>
-
-  static initPlugin (plugin: unknown, opts: Record<string, unknown>, defaultOpts?: Record<string, unknown>): void
+  static initPlugin (plugin: any, opts: object, defaultOpts?: object): void
 }
 
 export interface SocketOptions {
@@ -85,19 +58,13 @@ export interface SocketOptions {
 }
 
 export class Socket {
-  readonly isOpen: boolean
+  isOpen: boolean
 
   constructor (opts: SocketOptions)
-
   open (): void
-
   close (): void
-
-  send (action: string, payload: unknown): void
-
+  send (action: string, payload: any): void
   on (action: string, handler: (param: any) => void): void
-
   once (action: string, handler: (param: any) => void): void
-
   emit (action: string, payload: (param: any) => void): void
 }

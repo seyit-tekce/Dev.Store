@@ -63,6 +63,8 @@
                         }
                     }).Title(L["Actions"].Value).Width(200);
                     columns.Bound(a => a.UploadFileId).ClientTemplate($"<img class='product-image' src='#:UploadFile.FilePath#'/>").Title(L["ProductSizeCode"].Value).Width(550);
+                    columns.Bound(a => a.IsMain).Width(100).ClientTemplate("#=isMain(data)#");;
+                    columns.Bound(a => a.CreationTime).Width(100).Format(Dev.Store.Extensions.DateTimeLongFormat);
                 })
                 .ToolBar(tools =>
                 {

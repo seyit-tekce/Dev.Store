@@ -1,4 +1,5 @@
-import dataURItoBlob from './dataURItoBlob.js';
-export default function dataURItoFile(dataURI, opts) {
+var dataURItoBlob = require('./dataURItoBlob');
+
+module.exports = function dataURItoFile(dataURI, opts) {
   return dataURItoBlob(dataURI, opts, true);
-}
+};

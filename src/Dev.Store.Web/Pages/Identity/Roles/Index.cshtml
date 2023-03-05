@@ -30,8 +30,8 @@
     <abp-script-bundle name="@typeof(IndexModel).FullName">
         <abp-script src="/client-proxies/identity-proxy.js" />
         <abp-script src="/Pages/AbpPermissionManagement/permission-management-modal.js" />
+        <abp-script src="/Pages/Identity/Roles/index.js" />
     </abp-script-bundle>
-    <abp-script src="/Pages/Identity/Roles/index.js" />
 }
 <abp-card>
     <abp-card-header>
@@ -42,7 +42,7 @@
             <abp-column size-md="_6" class="text-end">
                 @if (createPermission)
                 {
-                          <abp-button text="@L["NewRole"].Value" icon="plus" onclick="roles.actions.create()" button-type="Primary" />
+                    <abp-button text="@L["NewRole"].Value" icon="plus" onclick="roles.actions.create()" button-type="Primary" />
 
                 }
             </abp-column>

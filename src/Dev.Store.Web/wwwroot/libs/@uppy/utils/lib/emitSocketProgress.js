@@ -1,23 +1,21 @@
-import throttle from 'lodash.throttle';
+var throttle = require('lodash.throttle');
 
-function emitSocketProgress(uploader, progressData, file) {
-  const {
-    progress,
-    bytesUploaded,
-    bytesTotal
-  } = progressData;
+function _emitSocketProgress(uploader, progressData, file) {
+  var progress = progressData.progress,
+      bytesUploaded = progressData.bytesUploaded,
+      bytesTotal = progressData.bytesTotal;
 
   if (progress) {
-    uploader.uppy.log(`Upload progress: ${progress}`);
+    uploader.uppy.log("Upload progress: " + progress);
     uploader.uppy.emit('upload-progress', file, {
-      uploader,
-      bytesUploaded,
-      bytesTotal
+      uploader: uploader,
+      bytesUploaded: bytesUploaded,
+      bytesTotal: bytesTotal
     });
   }
 }
 
-export default throttle(emitSocketProgress, 300, {
+module.exports = throttle(_emitSocketProgress, 300, {
   leading: true,
   trailing: true
 });

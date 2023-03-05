@@ -1,8 +1,8 @@
-import type { UIPlugin } from '@uppy/core'
-import type { Provider } from '@uppy/companion-client'
+import CompanionClient = require('@uppy/companion-client')
+import Uppy = require('@uppy/core')
 
 interface ProviderViewOptions {
-    provider: Provider
+    provider: CompanionClient.Provider
     viewType?: 'list' | 'grid'
     showTitles?: boolean
     showFilter?: boolean
@@ -13,9 +13,10 @@ interface OnFirstRenderer {
     onFirstRender: () => any
 }
 
+
 declare class ProviderView {
-  constructor (plugin: UIPlugin & OnFirstRenderer, opts: ProviderViewOptions)
-  // @todo add other provider view methods
+    constructor (plugin: Uppy.Plugin & OnFirstRenderer, opts: ProviderViewOptions)
+    // @todo add other provider view methods
 }
 
-export default ProviderView
+export = ProviderView

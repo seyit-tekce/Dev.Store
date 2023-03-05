@@ -3,7 +3,17 @@
  * Manages communications with Companion
  */
 
-export { default as RequestClient } from './RequestClient.js';
-export { default as Provider } from './Provider.js';
-export { default as SearchProvider } from './SearchProvider.js';
-export { default as Socket } from './Socket.js';
+var RequestClient = require('./RequestClient');
+
+var Provider = require('./Provider');
+
+var SearchProvider = require('./SearchProvider');
+
+var Socket = require('./Socket');
+
+module.exports = {
+  RequestClient: RequestClient,
+  Provider: Provider,
+  SearchProvider: SearchProvider,
+  Socket: Socket
+};

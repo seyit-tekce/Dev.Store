@@ -1,13 +1,20 @@
-import hasOwnProperty from './hasProperty.js'
 /**
  * Little AbortController proxy module so we can swap out the implementation easily later.
  */
-export const { AbortController } = globalThis
-export const { AbortSignal } = globalThis
-export const createAbortError = (message = 'Aborted', options) => {
-  const err = new DOMException(message, 'AbortError')
-  if (options != null && hasOwnProperty(options, 'cause')) {
-    Object.defineProperty(err, 'cause', { __proto__: null, configurable: true, writable: true, value: options.cause })
+
+const { AbortController, AbortSignal } = require('abortcontroller-polyfill/dist/abortcontroller')
+
+function createAbortError (message = 'Aborted') {
+  try {
+    return new DOMException(message, 'AbortError')
+  } catch {
+    // For Internet Explorer
+    const error = new Error(message)
+    error.name = 'AbortError'
+    return error
   }
-  return err
 }
+
+exports.AbortController = AbortController
+exports.AbortSignal = AbortSignal
+exports.createAbortError = createAbortError

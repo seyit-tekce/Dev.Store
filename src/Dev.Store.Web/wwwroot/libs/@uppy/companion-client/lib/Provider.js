@@ -1,130 +1,141 @@
 'use strict';
 
-import RequestClient from './RequestClient.js';
-import * as tokenStorage from './tokenStorage.js';
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-const getName = id => {
-  return id.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var qsStringify = require('qs-stringify');
+
+var URL = require('url-parse');
+
+var RequestClient = require('./RequestClient');
+
+var tokenStorage = require('./tokenStorage');
+
+var _getName = function _getName(id) {
+  return id.split('-').map(function (s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }).join(' ');
 };
 
-export default class Provider extends RequestClient {
-  constructor(uppy, opts) {
-    super(uppy, opts);
-    this.provider = opts.provider;
-    this.id = this.provider;
-    this.name = this.opts.name || getName(this.id);
-    this.pluginId = this.opts.pluginId;
-    this.tokenKey = `companion-${this.pluginId}-auth-token`;
-    this.companionKeysParams = this.opts.companionKeysParams;
-    this.preAuthToken = null;
+module.exports = /*#__PURE__*/function (_RequestClient) {
+  _inheritsLoose(Provider, _RequestClient);
+
+  function Provider(uppy, opts) {
+    var _this;
+
+    _this = _RequestClient.call(this, uppy, opts) || this;
+    _this.provider = opts.provider;
+    _this.id = _this.provider;
+    _this.name = _this.opts.name || _getName(_this.id);
+    _this.pluginId = _this.opts.pluginId;
+    _this.tokenKey = "companion-" + _this.pluginId + "-auth-token";
+    _this.companionKeysParams = _this.opts.companionKeysParams;
+    _this.preAuthToken = null;
+    return _this;
   }
 
-  async headers() {
-    const [headers, token] = await Promise.all([super.headers(), this.getAuthToken()]);
-    const authHeaders = {};
+  var _proto = Provider.prototype;
 
-    if (token) {
-      authHeaders['uppy-auth-token'] = token;
-    }
+  _proto.headers = function headers() {
+    var _this2 = this;
 
-    if (this.companionKeysParams) {
-      authHeaders['uppy-credentials-params'] = btoa(JSON.stringify({
-        params: this.companionKeysParams
-      }));
-    }
+    return Promise.all([_RequestClient.prototype.headers.call(this), this.getAuthToken()]).then(function (_ref) {
+      var headers = _ref[0],
+          token = _ref[1];
+      var authHeaders = {};
 
-    return { ...headers,
-      ...authHeaders
-    };
-  }
+      if (token) {
+        authHeaders['uppy-auth-token'] = token;
+      }
 
-  onReceiveResponse(response) {
-    super.onReceiveResponse(response);
-    const plugin = this.uppy.getPlugin(this.pluginId);
-    const oldAuthenticated = plugin.getPluginState().authenticated;
-    const authenticated = oldAuthenticated ? response.status !== 401 : response.status < 400;
+      if (_this2.companionKeysParams) {
+        authHeaders['uppy-credentials-params'] = btoa(JSON.stringify({
+          params: _this2.companionKeysParams
+        }));
+      }
+
+      return _extends({}, headers, authHeaders);
+    });
+  };
+
+  _proto.onReceiveResponse = function onReceiveResponse(response) {
+    response = _RequestClient.prototype.onReceiveResponse.call(this, response);
+    var plugin = this.uppy.getPlugin(this.pluginId);
+    var oldAuthenticated = plugin.getPluginState().authenticated;
+    var authenticated = oldAuthenticated ? response.status !== 401 : response.status < 400;
     plugin.setPluginState({
-      authenticated
+      authenticated: authenticated
     });
     return response;
-  }
+  } // @todo(i.olarewaju) consider whether or not this method should be exposed
+  ;
 
-  setAuthToken(token) {
+  _proto.setAuthToken = function setAuthToken(token) {
     return this.uppy.getPlugin(this.pluginId).storage.setItem(this.tokenKey, token);
-  }
+  };
 
-  getAuthToken() {
+  _proto.getAuthToken = function getAuthToken() {
     return this.uppy.getPlugin(this.pluginId).storage.getItem(this.tokenKey);
-  }
-  /**
-   * Ensure we have a preauth token if necessary. Attempts to fetch one if we don't,
-   * or rejects if loading one fails.
-   */
+  };
 
-
-  async ensurePreAuth() {
-    if (this.companionKeysParams && !this.preAuthToken) {
-      await this.fetchPreAuthToken();
-
-      if (!this.preAuthToken) {
-        throw new Error('Could not load authentication data required for third-party login. Please try again later.');
-      }
-    }
-  }
-
-  authUrl(queries) {
+  _proto.authUrl = function authUrl(queries) {
     if (queries === void 0) {
       queries = {};
     }
 
-    const params = new URLSearchParams(queries);
-
     if (this.preAuthToken) {
-      params.set('uppyPreAuthToken', this.preAuthToken);
+      queries.uppyPreAuthToken = this.preAuthToken;
     }
 
-    return `${this.hostname}/${this.id}/connect?${params}`;
-  }
+    var strigifiedQueries = qsStringify(queries);
+    strigifiedQueries = strigifiedQueries ? "?" + strigifiedQueries : strigifiedQueries;
+    return this.hostname + "/" + this.id + "/connect" + strigifiedQueries;
+  };
 
-  fileUrl(id) {
-    return `${this.hostname}/${this.id}/get/${id}`;
-  }
+  _proto.fileUrl = function fileUrl(id) {
+    return this.hostname + "/" + this.id + "/get/" + id;
+  };
 
-  async fetchPreAuthToken() {
+  _proto.fetchPreAuthToken = function fetchPreAuthToken() {
+    var _this3 = this;
+
     if (!this.companionKeysParams) {
-      return;
+      return Promise.resolve();
     }
 
-    try {
-      const res = await this.post(`${this.id}/preauth/`, {
-        params: this.companionKeysParams
-      });
-      this.preAuthToken = res.token;
-    } catch (err) {
-      this.uppy.log(`[CompanionClient] unable to fetch preAuthToken ${err}`, 'warning');
-    }
-  }
+    return this.post(this.id + "/preauth/", {
+      params: this.companionKeysParams
+    }).then(function (res) {
+      _this3.preAuthToken = res.token;
+    }).catch(function (err) {
+      _this3.uppy.log("[CompanionClient] unable to fetch preAuthToken " + err, 'warning');
+    });
+  };
 
-  list(directory) {
-    return this.get(`${this.id}/list/${directory || ''}`);
-  }
+  _proto.list = function list(directory) {
+    return this.get(this.id + "/list/" + (directory || ''));
+  };
 
-  logout() {
-    return this.get(`${this.id}/logout`).then(response => Promise.all([response, this.uppy.getPlugin(this.pluginId).storage.removeItem(this.tokenKey)])).then(_ref => {
-      let [response] = _ref;
+  _proto.logout = function logout() {
+    var _this4 = this;
+
+    return this.get(this.id + "/logout").then(function (response) {
+      return Promise.all([response, _this4.uppy.getPlugin(_this4.pluginId).storage.removeItem(_this4.tokenKey)]);
+    }).then(function (_ref2) {
+      var response = _ref2[0];
       return response;
     });
-  }
+  };
 
-  static initPlugin(plugin, opts, defaultOpts) {
-    /* eslint-disable no-param-reassign */
+  Provider.initPlugin = function initPlugin(plugin, opts, defaultOpts) {
     plugin.type = 'acquirer';
     plugin.files = [];
 
     if (defaultOpts) {
-      plugin.opts = { ...defaultOpts,
-        ...opts
-      };
+      plugin.opts = _extends({}, defaultOpts, opts);
     }
 
     if (opts.serverUrl || opts.serverPattern) {
@@ -132,22 +143,24 @@ export default class Provider extends RequestClient {
     }
 
     if (opts.companionAllowedHosts) {
-      const pattern = opts.companionAllowedHosts; // validate companionAllowedHosts param
+      var pattern = opts.companionAllowedHosts; // validate companionAllowedHosts param
 
       if (typeof pattern !== 'string' && !Array.isArray(pattern) && !(pattern instanceof RegExp)) {
-        throw new TypeError(`${plugin.id}: the option "companionAllowedHosts" must be one of string, Array, RegExp`);
+        throw new TypeError(plugin.id + ": the option \"companionAllowedHosts\" must be one of string, Array, RegExp");
       }
 
       plugin.opts.companionAllowedHosts = pattern;
-    } else if (/^(?!https?:\/\/).*$/i.test(opts.companionUrl)) {
-      // does not start with https://
-      plugin.opts.companionAllowedHosts = `https://${opts.companionUrl.replace(/^\/\//, '')}`;
     } else {
-      plugin.opts.companionAllowedHosts = new URL(opts.companionUrl).origin;
+      // does not start with https://
+      if (/^(?!https?:\/\/).*$/i.test(opts.companionUrl)) {
+        plugin.opts.companionAllowedHosts = "https://" + opts.companionUrl.replace(/^\/\//, '');
+      } else {
+        plugin.opts.companionAllowedHosts = new URL(opts.companionUrl).origin;
+      }
     }
 
     plugin.storage = plugin.opts.storage || tokenStorage;
-    /* eslint-enable no-param-reassign */
-  }
+  };
 
-}
+  return Provider;
+}(RequestClient);

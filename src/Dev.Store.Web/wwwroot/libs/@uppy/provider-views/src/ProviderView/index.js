@@ -1,1 +1,1 @@
-export { default } from './ProviderView.jsx'
+module.exports = require('./ProviderView')

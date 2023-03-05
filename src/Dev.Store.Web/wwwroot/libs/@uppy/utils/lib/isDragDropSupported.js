@@ -3,8 +3,8 @@
  *
  * @returns {boolean}
  */
-export default function isDragDropSupported() {
-  const div = document.body;
+module.exports = function isDragDropSupported() {
+  var div = document.createElement('div');
 
   if (!('draggable' in div) || !('ondragstart' in div && 'ondrop' in div)) {
     return false;
@@ -19,4 +19,4 @@ export default function isDragDropSupported() {
   }
 
   return true;
-}
+};

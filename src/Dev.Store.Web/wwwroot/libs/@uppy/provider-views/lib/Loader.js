@@ -1,9 +1,8 @@
-import { h } from 'preact';
-export default (_ref => {
-  let {
-    i18n
-  } = _ref;
+var _require = require('preact'),
+    h = _require.h;
+
+module.exports = function (props) {
   return h("div", {
     className: "uppy-Provider-loading"
-  }, h("span", null, i18n('loading')));
-});
+  }, h("span", null, props.i18n('loading')));
+};

@@ -1,20 +1,23 @@
-import type { PluginOptions, UIPlugin, PluginTarget } from '@uppy/core'
-import GeneratedLocale from './generatedLocale'
+import Uppy = require('@uppy/core')
+import GeneratedLocale = require('./generatedLocale')
 
-export type StatusBarLocale = GeneratedLocale
+declare module StatusBar {
+  export type StatusBarLocale = GeneratedLocale
 
-export interface StatusBarOptions extends PluginOptions {
-  target?: PluginTarget
-  showProgressDetails?: boolean
-  hideUploadButton?: boolean
-  hideAfterFinish?: boolean
-  hideRetryButton?: boolean,
-  hidePauseResumeButton?: boolean,
-  hideCancelButton?: boolean,
-  doneButtonHandler?: () => void,
-  locale?: StatusBarLocale
+  export interface StatusBarOptions extends Uppy.PluginOptions {
+    replaceTargetContent?: boolean
+    target?: Uppy.PluginTarget
+    showProgressDetails?: boolean
+    hideUploadButton?: boolean
+    hideAfterFinish?: boolean
+    hideRetryButton?: boolean,
+    hidePauseResumeButton?: boolean,
+    hideCancelButton?: boolean,
+    doneButtonHandler?: () => void,
+    locale?: StatusBarLocale
+  }
 }
 
-declare class StatusBar extends UIPlugin<StatusBarOptions> {}
+declare class StatusBar extends Uppy.Plugin<StatusBar.StatusBarOptions> {}
 
-export default StatusBar
+export = StatusBar

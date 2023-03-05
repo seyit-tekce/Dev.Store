@@ -1,13 +1,11 @@
-import { Component, toChildArray } from 'preact'
+const { Component } = require('preact')
 
-export default class CloseWrapper extends Component {
+module.exports = class CloseWrapper extends Component {
   componentWillUnmount () {
-    const { onUnmount } = this.props
-    onUnmount()
+    this.props.onUnmount()
   }
 
   render () {
-    const { children } = this.props
-    return toChildArray(children)[0]
+    return this.props.children[0]
   }
 }

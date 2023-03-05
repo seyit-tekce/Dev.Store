@@ -1,26 +1,41 @@
 'use strict';
 
-import RequestClient from './RequestClient.js';
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 
-const getName = id => {
-  return id.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var RequestClient = require('./RequestClient');
+
+var _getName = function _getName(id) {
+  return id.split('-').map(function (s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }).join(' ');
 };
 
-export default class SearchProvider extends RequestClient {
-  constructor(uppy, opts) {
-    super(uppy, opts);
-    this.provider = opts.provider;
-    this.id = this.provider;
-    this.name = this.opts.name || getName(this.id);
-    this.pluginId = this.opts.pluginId;
+module.exports = /*#__PURE__*/function (_RequestClient) {
+  _inheritsLoose(SearchProvider, _RequestClient);
+
+  function SearchProvider(uppy, opts) {
+    var _this;
+
+    _this = _RequestClient.call(this, uppy, opts) || this;
+    _this.provider = opts.provider;
+    _this.id = _this.provider;
+    _this.name = _this.opts.name || _getName(_this.id);
+    _this.pluginId = _this.opts.pluginId;
+    return _this;
   }
 
-  fileUrl(id) {
-    return `${this.hostname}/search/${this.id}/get/${id}`;
-  }
+  var _proto = SearchProvider.prototype;
 
-  search(text, queries) {
-    return this.get(`search/${this.id}/list?q=${encodeURIComponent(text)}${queries ? `&${queries}` : ''}`);
-  }
+  _proto.fileUrl = function fileUrl(id) {
+    return this.hostname + "/search/" + this.id + "/get/" + id;
+  };
 
-}
+  _proto.search = function search(text, queries) {
+    queries = queries ? "&" + queries : '';
+    return this.get("search/" + this.id + "/list?q=" + encodeURIComponent(text) + queries);
+  };
+
+  return SearchProvider;
+}(RequestClient);
