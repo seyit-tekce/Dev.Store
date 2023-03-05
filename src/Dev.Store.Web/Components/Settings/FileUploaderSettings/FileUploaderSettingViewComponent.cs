@@ -6,7 +6,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Widgets;
 
 namespace Dev.Store.Web.Components.Settings.FileUploaderSettings
 {
-    [Widget(ScriptFiles = new[] { "/Components/Settings/FileUploaderSettings/defult.js" })]
+    //[Widget(ScriptFiles = new[] { "/Components/Settings/FileUploaderSettings/defult.js" })]
     public class FileUploaderSettingViewComponent : AbpViewComponent
     {
         private readonly IFileUploaderSettingAppService fileUploaderSetting;

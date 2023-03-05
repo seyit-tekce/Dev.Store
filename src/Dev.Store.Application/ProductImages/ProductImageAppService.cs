@@ -68,5 +68,18 @@ public class ProductImageAppService : CrudAppService<ProductImage, ProductImageD
         await base.DeleteAsync(id);
     }
 
+    public async Task SetMain(Guid imageId, Guid productId)
+    {
+        var mainImage = await _repository.FindAsync(x => x.ProductId == productId && x.IsMain);
+        var currentImage = await _repository.GetAsync(x => x.ProductId == productId && x.Id == imageId);
 
+        if (mainImage != null)
+        {
+            mainImage.IsMain = false;
+            await _repository.UpdateAsync(mainImage);
+        }
+        currentImage.IsMain = true;
+        await _repository.UpdateAsync(currentImage);
+
+    }
 }

@@ -195,6 +195,7 @@ public class StoreWebModule : AbpModule
                     bundle =>
                     {
                         bundle.AddFiles("/global-styles.css");
+                        bundle.AddFiles("/libs/bootstrap5-toggle/css/bootstrap5-toggle.css");
                     }
                 )
                 .Get(StandardBundles.Styles.Global)
@@ -208,6 +209,7 @@ public class StoreWebModule : AbpModule
                 bundle.AddFiles("/kendo/js/jszip.min.js");
                 bundle.AddFiles("/libs/speakingurl/speakingurl.min.js");
                 bundle.AddFiles("/libs/jquery-slugify/slugify.min.js");
+                bundle.AddFiles("/libs/bootstrap5-toggle/js/bootstrap5-toggle.jquery.js");
                 bundle.AddFiles($"/kendo/js/cultures/kendo.culture.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
                 bundle.AddFiles($"/kendo/js/messages/kendo.messages.{CultureInfo.CurrentCulture.Name}-{CultureInfo.CurrentCulture.Name.ToUpper()}.min.js");
                 bundle.AddFiles("/custom/js/master.js");

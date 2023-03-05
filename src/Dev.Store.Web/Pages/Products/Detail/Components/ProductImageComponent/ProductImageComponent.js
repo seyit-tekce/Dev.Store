@@ -35,52 +35,65 @@
 
                 }).on('complete', (result) => {
                     productImage.defines.createModal.close();
-                    productImage.defines.grid().dataSource.read();
+                    productImage.functions.createImages();
                     abp.notify.success(l("SuccessfullyCreated"));
 
                 })
             window.uppy = uppy;
         },
-        delete: function (e) {
-            e.preventDefault();
+        delete: function (id) {
             abp.message.confirm(l("DeletionConfirmationMessage"))
                 .then(function (confirmed) {
                     if (confirmed) {
-                        var recordId = e.currentTarget.dataset["id"];
+                        var recordId = id;
                         dev.store.productImages.productImage.delete(recordId)
                             .then(function () {
                                 abp.notify.success(l("SuccessfullyDeleted"));
-                                productImage.defines.grid().dataSource.read();
+                                productImage.functions.createImages();
                             });
                     }
                 });
         },
+        createImages: function () {
+            $("#imageGrid").html(null);
+            return dev.store.productImages.productImage.dataSource({ pageSize: 99999, filter: "productId~eq~'" + productId + "'" }).then(x => {
+                debugger
+
+                if (x.Data.length == 0) {
+                    $("#imageGrid").html('<b class="text-center">Lütfen Resim Eklemek İçin Sağ Üstteki Butonu Kullanın</b>');
+                    return;
+                }
+                var template = $("#imageTemplate").html();
+                $.each(x.Data, function (i, item) {
+                    var _template = template.replaceAll("{{src}}", item.UploadFile.FilePath)
+                    _template = _template.replaceAll("{Id}", item.Id)
+                    _template = _template.replaceAll("{i}", i)
+                    _template = _template.replaceAll("{{checked}}", item.IsMain?"checked":"")
+                    $("#imageGrid").append(_template);
+                });
+
+
+            });
+        },
         create: function () {
             productImage.defines.createModal.open();
-         
-
+        },
+        setMain: function (id) {
+            var recordId = id;
+            dev.store.productImages.productImage.setMain(recordId, productId).then(x => {
+                abp.notify.success(l("SuccessfullyUpdated"));
+                productImage.functions.createImages();
+            })
         }
     },
     init: function () {
-        
+        productImage.functions.createImages();
+
     }
 }
 productImage.defines.createModal.onOpen(function () {
     productImage.functions.uppy();
+
 });
 
-function isMain(data) {
-    var aa =` 
-        <div data-role="switchbox" class=" p-2" style="cursor:pointer;text-align: center;position: relative;">
-            <div class="">
-         <span>${l("Passive")}</span>
-                <div class="custom-control custom-switch d-inline-block">
-                    <input switchtype="parameter" type="checkbox" class="custom-control-input" onchange="thingParameters.actions.changeStatus('${data.Id}')"  id="${data.Id}" value="${data.Id}"  ${data.IsMain ? "checked" : ""}>
-                        <label class="custom-control-label" for="${data.Id}"></label>
-                </div>
-                 <span>${l("Active")}</span>
-            </div>
-    </div>`
-
-    return aa;
-}
+productImage.init();

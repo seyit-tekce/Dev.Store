@@ -1,0 +1,61 @@
+﻿@using Dev.Store.Localization;
+@using Dev.Store.Permissions;
+@using Dev.Store.ProductImages.Dtos;
+@using Dev.Store.Web.Pages.SeoSettings.SeoSetting.ViewModels;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@inject IAuthorizationService Authorization
+@inject IHtmlLocalizer<StoreResource> L
+@model CreateEditSeoSettingViewModel
+@{
+    Layout = null;
+
+    var _defaultProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Default);
+
+}
+<script>
+
+    var productId = '@Model'
+
+</script>
+<style>
+
+    .product-image {
+        width: 350px;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .form-switch .form-check-input {
+        margin-left: -1px !important;
+    }
+
+</style>
+@section scripts
+    {
+
+    }
+
+<abp-card>
+    <abp-card style="box-shadow:none">
+        <abp-card-header>
+            <div class="row">
+                <div class="col">
+                    <h2 class="card-title float-start">
+                        @L["SeoSettings"].Value
+                    </h2>
+                </div>
+            </div>
+        </abp-card-header>
+        <abp-card-body>
+           
+            TO DO: Yapılacak 
+
+        </abp-card-body>
+    </abp-card>
+</abp-card>
+

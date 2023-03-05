@@ -1,0 +1,22 @@
+﻿@using Dev.Store.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@model Dev.Store.Settings.SiteSettingDto
+@inject IHtmlLocalizer<StoreResource> L
+
+@{
+    Layout = null;
+}
+<abp-script src="/Components/Settings/SiteSettings/defult.js" />
+<form id="SiteSetting" method="post">
+    <div>
+            <abp-input asp-for="SiteSettingTitle" />
+            <abp-input asp-for="SiteSettingLogo" />
+            <abp-input asp-for="SiteSettingLogoReverse" />
+    </div>
+    <hr class="my-4" />
+    <div>
+        <abp-button button-type="Primary" type="submit">
+            <i class="fa fa-save"></i> @L["Save"]
+        </abp-button>
+    </div>
+</form>

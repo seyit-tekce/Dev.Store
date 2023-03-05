@@ -9,6 +9,7 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
     public override void Define(ISettingDefinitionContext context)
     {
         DefineFileSettings(context);
+        DefineSiteSettings(context);
     }
 
     private void DefineFileSettings(ISettingDefinitionContext context)
@@ -23,6 +24,14 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
         context.Add(new SettingDefinition(StoreSettings.FileSettingMediumImageScale, "75", new LocalizableString(typeof(StoreResource), StoreSettings.FileSettingMediumImageScale), isEncrypted: false));
         context.Add(new SettingDefinition(StoreSettings.FileSettingSmallImageScale, "50", new LocalizableString(typeof(StoreResource), StoreSettings.FileSettingSmallImageScale), isEncrypted: false));
         context.Add(new SettingDefinition(StoreSettings.FileSettingMobileImageScale, "25", new LocalizableString(typeof(StoreResource), StoreSettings.FileSettingMobileImageScale), isEncrypted: false));
+
+    }
+    private void DefineSiteSettings(ISettingDefinitionContext context)
+    {
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingLogo, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogo)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingLogoReverse,"", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogoReverse)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingTitle, "Yönetim Paneli", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingTitle)));
+
 
     }
 }

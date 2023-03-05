@@ -2,6 +2,7 @@
 using Dev.Store.Permissions;
 using Dev.Store.Settings;
 using Dev.Store.Web.Components.Settings.FileUploaderSettings;
+using Dev.Store.Web.Components.Settings.SiteSettings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
@@ -26,6 +27,13 @@ namespace Dev.Store.Web.Settings
                 "Dev.Store.FileUploaderSetting",
                 new LocalizableString(typeof(StoreResource), "FileUploaderSetting").Localize(stringLocalizerFactory),
                 typeof(FileUploaderSettingViewComponent)
+            )
+        );
+            context.Groups.Add(
+            new SettingPageGroup(
+                "Dev.Store.SiteSetting",
+                new LocalizableString(typeof(StoreResource), "SiteSetting").Localize(stringLocalizerFactory),
+                typeof(SiteSettingViewComponent)
             )
         );
             return Task.CompletedTask;

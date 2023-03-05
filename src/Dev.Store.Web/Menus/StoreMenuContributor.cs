@@ -75,12 +75,5 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Product, l["Menu:Product"], "/Products","fa-solid fa-couch")
             );
         }
- 
-        if (await context.IsGrantedAsync(StorePermissions.ProductImage.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.ProductImage, l["Menu:ProductImage"], "/ProductImages/ProductImage")
-            );
-        }
-    }
+     }
 }

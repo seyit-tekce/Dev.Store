@@ -13,7 +13,7 @@ namespace Dev.Store.SeoSettings
         public Product Product { get; set; }
 
 
-    protected SeoSetting()
+    public SeoSetting()
     {
     }
 

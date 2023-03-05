@@ -12,7 +12,7 @@
     <abp-modal size="ExtraLarge">
         <abp-modal-header title="@L["CreateProduct"].Value"></abp-modal-header>
         <abp-modal-body>
-            <abp-input asp-for="ViewModel.IsEnabled" checked></abp-input>
+            <abp-input asp-for="ViewModel.IsEnabled"   checked></abp-input>
             <abp-input asp-for="ViewModel.Name"></abp-input>
             <abp-input asp-for="ViewModel.Code"></abp-input>
             <div class="mb-3">
@@ -62,6 +62,3 @@
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
 </form>
-<script>
-    $(document).off('focusin.modal')
-</script>

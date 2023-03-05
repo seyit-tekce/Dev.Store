@@ -110,6 +110,8 @@
     "ProductSet": "Ürün Setleri",
     "ProductSetProductId": "Ürün",
     "ProductSetProduct": "Ürün",
+    "ProductSetCode": "Set Kodu",
+    "ProductSetSetName": "Set Adı",
     "ProductSetPrice": "Set Fiyatı",
     "ProductSetAmount": "Set Miktarı",
     "ProductSetIsOptional": "Set Opsiyonel Mi?",
@@ -132,7 +134,7 @@
     "ProductSizeDeletionConfirmationMessage": "Silmek istediğinize emin misin {0}?",
     "Permission:SeoSetting": "SEO Ayarları",
     "Menu:SeoSetting": "SEO Ayarları",
-    "SeoSetting": "SEO Ayarları",
+    "SeoSettings": "SEO Ayarları",
     "SeoSettingTitle": "Site Başlığı",
     "SeoSettingDescription": "Site Açıklaması",
     "SeoSettingKeywords": "Anahtar Kelimeler",
@@ -156,6 +158,8 @@
     "CoverPhotoNotBeEmpty": "KapakFotoğrafı Boş Olamaz",
     "DeletionConfirmationMessage": "Silmek İstediğinize Emin Misiniz?",
     "SuccessfullyCreated": "Başarıyla oluşturuldu",
-    "CategorySameLink": "Aynı kategori linki daha önce kullanılmıştır."
+    "CategorySameLink": "Aynı kategori linki daha önce kullanılmıştır.",
+    "IsMain": "Ana Resim",
+    "Detail": "Detay"
   }
 }
