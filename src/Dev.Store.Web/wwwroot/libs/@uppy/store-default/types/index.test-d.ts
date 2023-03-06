@@ -1,6 +1,6 @@
-import DefaultStore from '..'
+import DefaultStore = require('../')
 
-const store = new DefaultStore()
+const store = DefaultStore()
 
 store.setState({ a: 'b' })
 store.getState()

@@ -1,268 +1,219 @@
 'use strict';
 
-let _Symbol$for;
+var _class, _temp;
 
-function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var id = 0;
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-import fetchWithNetworkError from '@uppy/utils/lib/fetchWithNetworkError';
-import ErrorWithCause from '@uppy/utils/lib/ErrorWithCause';
-import AuthError from './AuthError.js';
-const packageJson = {
-  "version": "3.1.1"
-}; // Remove the trailing slash so we can always safely append /xyz.
+var AuthError = require('./AuthError');
+
+var fetchWithNetworkError = require('@uppy/utils/lib/fetchWithNetworkError'); // Remove the trailing slash so we can always safely append /xyz.
+
 
 function stripSlash(url) {
   return url.replace(/\/$/, '');
 }
 
-async function handleJSONResponse(res) {
-  if (res.status === 401) {
-    throw new AuthError();
-  }
-
-  const jsonPromise = res.json();
-
-  if (res.ok) {
-    return jsonPromise;
-  }
-
-  let errMsg = `Failed request with status: ${res.status}. ${res.statusText}`;
-
-  try {
-    const errData = await jsonPromise;
-    errMsg = errData.message ? `${errMsg} message: ${errData.message}` : errMsg;
-    errMsg = errData.requestId ? `${errMsg} request-Id: ${errData.requestId}` : errMsg;
-  } catch {
-    /* if the response contains invalid JSON, let's ignore the error */
-  }
-
-  throw new Error(errMsg);
-} // todo pull out into core instead?
-
-
-const allowedHeadersCache = new Map();
-
-var _companionHeaders = /*#__PURE__*/_classPrivateFieldLooseKey("companionHeaders");
-
-var _getUrl = /*#__PURE__*/_classPrivateFieldLooseKey("getUrl");
-
-var _request = /*#__PURE__*/_classPrivateFieldLooseKey("request");
-
-_Symbol$for = Symbol.for('uppy test: getCompanionHeaders');
-export default class RequestClient {
-  constructor(uppy, opts) {
-    Object.defineProperty(this, _request, {
-      value: _request2
-    });
-    Object.defineProperty(this, _getUrl, {
-      value: _getUrl2
-    });
-    Object.defineProperty(this, _companionHeaders, {
-      writable: true,
-      value: void 0
-    });
+module.exports = (_temp = _class = /*#__PURE__*/function () {
+  function RequestClient(uppy, opts) {
     this.uppy = uppy;
     this.opts = opts;
     this.onReceiveResponse = this.onReceiveResponse.bind(this);
-    _classPrivateFieldLooseBase(this, _companionHeaders)[_companionHeaders] = opts == null ? void 0 : opts.companionHeaders;
+    this.allowedHeaders = ['accept', 'content-type', 'uppy-auth-token'];
+    this.preflightDone = false;
   }
 
-  setCompanionHeaders(headers) {
-    _classPrivateFieldLooseBase(this, _companionHeaders)[_companionHeaders] = headers;
-  }
+  var _proto = RequestClient.prototype;
 
-  [_Symbol$for]() {
-    return _classPrivateFieldLooseBase(this, _companionHeaders)[_companionHeaders];
-  }
+  _proto.headers = function headers() {
+    var userHeaders = this.opts.companionHeaders || this.opts.serverHeaders || {};
+    return Promise.resolve(_extends({}, this.defaultHeaders, userHeaders));
+  };
 
-  get hostname() {
-    const {
-      companion
-    } = this.uppy.getState();
-    const host = this.opts.companionUrl;
-    return stripSlash(companion && companion[host] ? companion[host] : host);
-  }
+  _proto._getPostResponseFunc = function _getPostResponseFunc(skip) {
+    var _this = this;
 
-  async headers() {
-    const defaultHeaders = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Uppy-Versions': `@uppy/companion-client=${RequestClient.VERSION}`
+    return function (response) {
+      if (!skip) {
+        return _this.onReceiveResponse(response);
+      }
+
+      return response;
     };
-    return { ...defaultHeaders,
-      ..._classPrivateFieldLooseBase(this, _companionHeaders)[_companionHeaders]
-    };
-  }
+  };
 
-  onReceiveResponse(_ref) {
-    let {
-      headers
-    } = _ref;
-    const state = this.uppy.getState();
-    const companion = state.companion || {};
-    const host = this.opts.companionUrl; // Store the self-identified domain name for the Companion instance we just hit.
+  _proto.onReceiveResponse = function onReceiveResponse(response) {
+    var state = this.uppy.getState();
+    var companion = state.companion || {};
+    var host = this.opts.companionUrl;
+    var headers = response.headers; // Store the self-identified domain name for the Companion instance we just hit.
 
     if (headers.has('i-am') && headers.get('i-am') !== companion[host]) {
+      var _extends2;
+
       this.uppy.setState({
-        companion: { ...companion,
-          [host]: headers.get('i-am')
-        }
+        companion: _extends({}, companion, (_extends2 = {}, _extends2[host] = headers.get('i-am'), _extends2))
       });
     }
-  }
 
-  /*
-    Preflight was added to avoid breaking change between older Companion-client versions and
-    newer Companion versions and vice-versa. Usually the break will manifest via CORS errors because a
-    version of companion-client could be sending certain headers to a version of Companion server that
-    does not support those headers. In which case, the default preflight would lead to CORS.
-    So to avoid those errors, we do preflight ourselves, to see what headers the Companion server
-    we are communicating with allows. And based on that, companion-client knows what headers to
-    send and what headers to not send.
-     The preflight only happens once throughout the life-cycle of a certain
-    Companion-client <-> Companion-server pair (allowedHeadersCache).
-    Subsequent requests use the cached result of the preflight.
-    However if there is an error retrieving the allowed headers, we will try again next time
-  */
-  async preflight(path) {
-    const allowedHeadersCached = allowedHeadersCache.get(this.hostname);
-    if (allowedHeadersCached != null) return allowedHeadersCached;
-    const fallbackAllowedHeaders = ['accept', 'content-type', 'uppy-auth-token'];
+    return response;
+  };
 
-    const promise = (async () => {
-      try {
-        const response = await fetch(_classPrivateFieldLooseBase(this, _getUrl)[_getUrl](path), {
-          method: 'OPTIONS'
+  _proto._getUrl = function _getUrl(url) {
+    if (/^(https?:|)\/\//.test(url)) {
+      return url;
+    }
+
+    return this.hostname + "/" + url;
+  };
+
+  _proto._json = function _json(res) {
+    if (res.status === 401) {
+      throw new AuthError();
+    }
+
+    if (res.status < 200 || res.status > 300) {
+      var errMsg = "Failed request with status: " + res.status + ". " + res.statusText;
+      return res.json().then(function (errData) {
+        errMsg = errData.message ? errMsg + " message: " + errData.message : errMsg;
+        errMsg = errData.requestId ? errMsg + " request-Id: " + errData.requestId : errMsg;
+        throw new Error(errMsg);
+      }).catch(function () {
+        throw new Error(errMsg);
+      });
+    }
+
+    return res.json();
+  };
+
+  _proto.preflight = function preflight(path) {
+    var _this2 = this;
+
+    if (this.preflightDone) {
+      return Promise.resolve(this.allowedHeaders.slice());
+    }
+
+    return fetch(this._getUrl(path), {
+      method: 'OPTIONS'
+    }).then(function (response) {
+      if (response.headers.has('access-control-allow-headers')) {
+        _this2.allowedHeaders = response.headers.get('access-control-allow-headers').split(',').map(function (headerName) {
+          return headerName.trim().toLowerCase();
         });
-        const header = response.headers.get('access-control-allow-headers');
+      }
 
-        if (header == null || header === '*') {
-          allowedHeadersCache.set(this.hostname, fallbackAllowedHeaders);
-          return fallbackAllowedHeaders;
+      _this2.preflightDone = true;
+      return _this2.allowedHeaders.slice();
+    }).catch(function (err) {
+      _this2.uppy.log("[CompanionClient] unable to make preflight request " + err, 'warning');
+
+      _this2.preflightDone = true;
+      return _this2.allowedHeaders.slice();
+    });
+  };
+
+  _proto.preflightAndHeaders = function preflightAndHeaders(path) {
+    var _this3 = this;
+
+    return Promise.all([this.preflight(path), this.headers()]).then(function (_ref) {
+      var allowedHeaders = _ref[0],
+          headers = _ref[1];
+      // filter to keep only allowed Headers
+      Object.keys(headers).forEach(function (header) {
+        if (allowedHeaders.indexOf(header.toLowerCase()) === -1) {
+          _this3.uppy.log("[CompanionClient] excluding unallowed header " + header);
+
+          delete headers[header];
         }
+      });
+      return headers;
+    });
+  };
 
-        this.uppy.log(`[CompanionClient] adding allowed preflight headers to companion cache: ${this.hostname} ${header}`);
-        const allowedHeaders = header.split(',').map(headerName => headerName.trim().toLowerCase());
-        allowedHeadersCache.set(this.hostname, allowedHeaders);
-        return allowedHeaders;
-      } catch (err) {
-        this.uppy.log(`[CompanionClient] unable to make preflight request ${err}`, 'warning'); // If the user gets a network error or similar, we should try preflight
-        // again next time, or else we might get incorrect behaviour.
+  _proto.get = function get(path, skipPostResponse) {
+    var _this4 = this;
 
-        allowedHeadersCache.delete(this.hostname); // re-fetch next time
-
-        return fallbackAllowedHeaders;
-      }
-    })();
-
-    allowedHeadersCache.set(this.hostname, promise);
-    return promise;
-  }
-
-  async preflightAndHeaders(path) {
-    const [allowedHeaders, headers] = await Promise.all([this.preflight(path), this.headers()]); // filter to keep only allowed Headers
-
-    return Object.fromEntries(Object.entries(headers).filter(_ref2 => {
-      let [header] = _ref2;
-
-      if (!allowedHeaders.includes(header.toLowerCase())) {
-        this.uppy.log(`[CompanionClient] excluding disallowed header ${header}`);
-        return false;
+    return this.preflightAndHeaders(path).then(function (headers) {
+      return fetchWithNetworkError(_this4._getUrl(path), {
+        method: 'get',
+        headers: headers,
+        credentials: _this4.opts.companionCookiesRule || 'same-origin'
+      });
+    }).then(this._getPostResponseFunc(skipPostResponse)).then(function (res) {
+      return _this4._json(res);
+    }).catch(function (err) {
+      if (!err.isAuthError) {
+        err.message = "Could not get " + _this4._getUrl(path) + ". " + err.message;
       }
 
-      return true;
-    }));
-  }
+      return Promise.reject(err);
+    });
+  };
 
-  async get(path, options) {
-    if (options === void 0) {
-      options = undefined;
+  _proto.post = function post(path, data, skipPostResponse) {
+    var _this5 = this;
+
+    return this.preflightAndHeaders(path).then(function (headers) {
+      return fetchWithNetworkError(_this5._getUrl(path), {
+        method: 'post',
+        headers: headers,
+        credentials: _this5.opts.companionCookiesRule || 'same-origin',
+        body: JSON.stringify(data)
+      });
+    }).then(this._getPostResponseFunc(skipPostResponse)).then(function (res) {
+      return _this5._json(res);
+    }).catch(function (err) {
+      if (!err.isAuthError) {
+        err.message = "Could not post " + _this5._getUrl(path) + ". " + err.message;
+      }
+
+      return Promise.reject(err);
+    });
+  };
+
+  _proto.delete = function _delete(path, data, skipPostResponse) {
+    var _this6 = this;
+
+    return this.preflightAndHeaders(path).then(function (headers) {
+      return fetchWithNetworkError(_this6.hostname + "/" + path, {
+        method: 'delete',
+        headers: headers,
+        credentials: _this6.opts.companionCookiesRule || 'same-origin',
+        body: data ? JSON.stringify(data) : null
+      });
+    }).then(this._getPostResponseFunc(skipPostResponse)).then(function (res) {
+      return _this6._json(res);
+    }).catch(function (err) {
+      if (!err.isAuthError) {
+        err.message = "Could not delete " + _this6._getUrl(path) + ". " + err.message;
+      }
+
+      return Promise.reject(err);
+    });
+  };
+
+  _createClass(RequestClient, [{
+    key: "hostname",
+    get: function get() {
+      var _this$uppy$getState = this.uppy.getState(),
+          companion = _this$uppy$getState.companion;
+
+      var host = this.opts.companionUrl;
+      return stripSlash(companion && companion[host] ? companion[host] : host);
     }
-
-    // TODO: remove boolean support for options that was added for backward compatibility.
-    // eslint-disable-next-line no-param-reassign
-    if (typeof options === 'boolean') options = {
-      skipPostResponse: options
-    };
-    return _classPrivateFieldLooseBase(this, _request)[_request]({ ...options,
-      path
-    });
-  }
-
-  async post(path, data, options) {
-    if (options === void 0) {
-      options = undefined;
+  }, {
+    key: "defaultHeaders",
+    get: function get() {
+      return {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Uppy-Versions': "@uppy/companion-client=" + RequestClient.VERSION
+      };
     }
+  }]);
 
-    // TODO: remove boolean support for options that was added for backward compatibility.
-    // eslint-disable-next-line no-param-reassign
-    if (typeof options === 'boolean') options = {
-      skipPostResponse: options
-    };
-    return _classPrivateFieldLooseBase(this, _request)[_request]({ ...options,
-      path,
-      method: 'POST',
-      data
-    });
-  }
-
-  async delete(path, data, options) {
-    if (data === void 0) {
-      data = undefined;
-    }
-
-    // TODO: remove boolean support for options that was added for backward compatibility.
-    // eslint-disable-next-line no-param-reassign
-    if (typeof options === 'boolean') options = {
-      skipPostResponse: options
-    };
-    return _classPrivateFieldLooseBase(this, _request)[_request]({ ...options,
-      path,
-      method: 'DELETE',
-      data
-    });
-  }
-
-}
-
-function _getUrl2(url) {
-  if (/^(https?:|)\/\//.test(url)) {
-    return url;
-  }
-
-  return `${this.hostname}/${url}`;
-}
-
-async function _request2(_ref3) {
-  let {
-    path,
-    method = 'GET',
-    data,
-    skipPostResponse,
-    signal
-  } = _ref3;
-
-  try {
-    const headers = await this.preflightAndHeaders(path);
-    const response = await fetchWithNetworkError(_classPrivateFieldLooseBase(this, _getUrl)[_getUrl](path), {
-      method,
-      signal,
-      headers,
-      credentials: this.opts.companionCookiesRule || 'same-origin',
-      body: data ? JSON.stringify(data) : null
-    });
-    if (!skipPostResponse) this.onReceiveResponse(response);
-    return handleJSONResponse(response);
-  } catch (err) {
-    if (err != null && err.isAuthError) throw err;
-    throw new ErrorWithCause(`Could not ${method} ${_classPrivateFieldLooseBase(this, _getUrl)[_getUrl](path)}`, {
-      cause: err
-    });
-  }
-}
-
-RequestClient.VERSION = packageJson.version;
+  return RequestClient;
+}(), _class.VERSION = "1.10.2", _temp);

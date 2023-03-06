@@ -1,16 +1,21 @@
-import getFileNameAndExtension from './getFileNameAndExtension.js';
-import mimeTypes from './mimeTypes.js';
-export default function getFileType(file) {
-  var _getFileNameAndExtens;
+var getFileNameAndExtension = require('./getFileNameAndExtension');
 
-  if (file.type) return file.type;
-  const fileExtension = file.name ? (_getFileNameAndExtens = getFileNameAndExtension(file.name).extension) == null ? void 0 : _getFileNameAndExtens.toLowerCase() : null;
+var mimeTypes = require('./mimeTypes');
 
-  if (fileExtension && fileExtension in mimeTypes) {
+module.exports = function getFileType(file) {
+  var fileExtension = file.name ? getFileNameAndExtension(file.name).extension : null;
+  fileExtension = fileExtension ? fileExtension.toLowerCase() : null;
+
+  if (file.type) {
+    // if mime type is set in the file object already, use that
+    return file.type;
+  }
+
+  if (fileExtension && mimeTypes[fileExtension]) {
     // else, see if we can map extension to a mime type
     return mimeTypes[fileExtension];
   } // if all fails, fall back to a generic byte stream type
 
 
   return 'application/octet-stream';
-}
+};

@@ -1,0 +1,83 @@
+﻿@using Dev.Store.Localization;
+@using Dev.Store.Permissions;
+@using Dev.Store.ProductImages.Dtos;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IAuthorizationService Authorization
+@inject IHtmlLocalizer<StoreResource> L
+@model Guid
+@{
+    Layout = null;
+
+    var _defaultProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Default);
+    var createProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Create);
+    var deleteProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Delete);
+    var updateProductImage = await Authorization.IsGrantedAsync(StorePermissions.ProductImage.Update);
+}
+<script>
+
+    var productId = '@Model'
+
+</script>
+<style>
+
+    .product-image {
+        width: 350px;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .form-switch .form-check-input {
+        margin-left: -1px !important;
+    }
+
+</style>
+<link href="~/custom-libs/uppy/uppy.min.css" rel="stylesheet" />
+@section scripts
+    {
+
+
+    }
+
+<abp-card>
+    <abp-card style="box-shadow:none">
+        <abp-card-header>
+            <div class="row">
+                <div class="col">
+                    <h2 class="card-title float-start">
+                        @L["ProductImage"].Value
+                    </h2>
+                    @if (createProductImage)
+                    {
+                        <abp-button text="@L["CreateProductImage"].Value" icon="plus" class="float-end ml-3" onclick="productImage.functions.create()" button-type="Secondary" />
+                    }
+                </div>
+            </div>
+        </abp-card-header>
+        <abp-card-body>
+            <div class="row" id="imageGrid">
+            </div>
+        </abp-card-body>
+    </abp-card>
+</abp-card>
+
+<script id="imageTemplate" type="text/template">
+        <div class="col-lg-3 col-sm-12 col-md-12 mr-3 ">
+        <div class="card w-100 border border-secondary" style="height:250px;">
+            <div class="card-header">
+                <button type="button" class="btn btn-danger float-end" onclick="productImage.functions.delete('{Id}')"><i class="fa fa-trash"></i></button>
+                <div class="form-check form-switch">
+                    <input onchange="productImage.functions.setMain('{Id}')" {{checked}} class="form-check-input" type="radio" name="IsMain" id="IsMain{i}">
+                    <label class="form-check-label" for="IsMain{i}">@L["IsMain"].Value</label>
+                </div>
+            </div>
+            <div style="height:220px;padding:15px">
+                <img class="card-img-top" style="object-fit:contain;padding:25px" src="{{src}}" />
+
+            </div>
+        </div>
+    </div>
+</script>

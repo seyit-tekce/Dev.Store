@@ -1,7 +1,9 @@
-import User from "./User.js";
-import Breadcrumbs from "../Breadcrumbs.js";
-export default (props => {
-  const components = [];
+var User = require('./User');
+
+var Breadcrumbs = require('../Breadcrumbs');
+
+module.exports = function (props) {
+  var components = [];
 
   if (props.showBreadcrumbs) {
     components.push(Breadcrumbs({
@@ -18,4 +20,4 @@ export default (props => {
     i18n: props.i18n
   }));
   return components;
-});
+};

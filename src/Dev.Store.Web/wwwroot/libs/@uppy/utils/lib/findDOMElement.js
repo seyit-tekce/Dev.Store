@@ -1,4 +1,4 @@
-import isDOMElement from './isDOMElement.js';
+var isDOMElement = require('./isDOMElement');
 /**
  * Find a DOM element.
  *
@@ -6,7 +6,8 @@ import isDOMElement from './isDOMElement.js';
  * @returns {Node|null}
  */
 
-export default function findDOMElement(element, context) {
+
+module.exports = function findDOMElement(element, context) {
   if (context === void 0) {
     context = document;
   }
@@ -18,6 +19,4 @@ export default function findDOMElement(element, context) {
   if (isDOMElement(element)) {
     return element;
   }
-
-  return null;
-}
+};

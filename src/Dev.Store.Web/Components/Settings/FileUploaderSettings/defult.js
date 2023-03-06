@@ -1,6 +1,5 @@
 ﻿(function ($) {
     $("#FileSettingForm").on('submit', function (event) {
-        debugger
         event.preventDefault();
         if (!$(this).valid()) {
             return;

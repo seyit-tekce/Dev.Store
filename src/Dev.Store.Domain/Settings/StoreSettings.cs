@@ -16,4 +16,9 @@ public static class StoreSettings
     public const string FileSettingSmallImageScale = Prefix + "FileSettingSmallImageScale";
     public const string FileSettingMobileImageScale = Prefix + "FileSettingMobileImageScale";
 
+
+
+    public const string SiteSettingTitle = Prefix + "SiteSettingTitle";
+    public const string SiteSettingLogo = Prefix + "SiteSettingLogo";
+    public const string SiteSettingLogoReverse = Prefix + "SiteSettingLogoReverse";
 }

@@ -1,4 +1,5 @@
-import { h } from 'preact';
+var _require = require('preact'),
+    h = _require.h;
 
 function FileIcon() {
   return h("svg", {
@@ -44,13 +45,10 @@ function VideoIcon() {
   }));
 }
 
-export default (props => {
-  const {
-    itemIconString
-  } = props;
-  if (itemIconString === null) return undefined;
+module.exports = function (props) {
+  if (props.itemIconString === null) return;
 
-  switch (itemIconString) {
+  switch (props.itemIconString) {
     case 'file':
       return h(FileIcon, null);
 
@@ -61,14 +59,8 @@ export default (props => {
       return h(VideoIcon, null);
 
     default:
-      {
-        const {
-          alt
-        } = props;
-        return h("img", {
-          src: itemIconString,
-          alt: alt
-        });
-      }
+      return h("img", {
+        src: props.itemIconString
+      });
   }
-});
+};

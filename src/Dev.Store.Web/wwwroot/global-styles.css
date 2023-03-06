@@ -1,9 +1,6 @@
 ﻿/* Your Global Styles */
 
-:root .lpx-brand-logo {
-    --lpx-logo: url('/images/logo/leptonx/logo-light.png');
-    --lpx-logo-icon: url('/images/logo/leptonx/logo-light-thumbnail.png');
-}
+
 
 /* Your Global Styles */
 .k-grid {
@@ -157,4 +154,15 @@ form .k-dropdown, .k-multiselect {
 }
 .list-group-item {
     border-radius: 0px !important;
+}
+.form-check {
+    display: block;
+    min-height: 1.3125rem;
+    padding-left: 0px;
+    margin-bottom: 0.125rem;
+}
+.toggle.btn {
+    min-width: 6.7rem!important;
+    min-height: 2.7rem!important;
+    margin-right:15px;
 }

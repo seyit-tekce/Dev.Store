@@ -1,33 +1,28 @@
-import { h, Fragment } from 'preact';
+var _require = require('preact'),
+    h = _require.h; // TODO use Fragment when upgrading to preact X
 
-const Breadcrumb = props => {
-  const {
-    getFolder,
-    title,
-    isLast
-  } = props;
-  return h(Fragment, null, h("button", {
+
+var Breadcrumb = function Breadcrumb(props) {
+  return h("span", null, h("button", {
     type: "button",
-    className: "uppy-u-reset uppy-c-btn",
-    onClick: getFolder
-  }, title), !isLast ? ' / ' : '');
+    className: "uppy-u-reset",
+    onClick: props.getFolder
+  }, props.title), !props.isLast ? ' / ' : '');
 };
 
-export default (props => {
-  const {
-    getFolder,
-    title,
-    breadcrumbsIcon,
-    directories
-  } = props;
+module.exports = function (props) {
   return h("div", {
     className: "uppy-Provider-breadcrumbs"
   }, h("div", {
     className: "uppy-Provider-breadcrumbsIcon"
-  }, breadcrumbsIcon), directories.map((directory, i) => h(Breadcrumb, {
-    key: directory.id,
-    getFolder: () => getFolder(directory.id),
-    title: i === 0 ? title : directory.title,
-    isLast: i + 1 === directories.length
-  })));
-});
+  }, props.breadcrumbsIcon), props.directories.map(function (directory, i) {
+    return h(Breadcrumb, {
+      key: directory.id,
+      getFolder: function getFolder() {
+        return props.getFolder(directory.id);
+      },
+      title: i === 0 ? props.title : directory.title,
+      isLast: i + 1 === props.directories.length
+    });
+  }));
+};

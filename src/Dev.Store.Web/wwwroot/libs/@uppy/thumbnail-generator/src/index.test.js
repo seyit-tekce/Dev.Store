@@ -1,7 +1,6 @@
-import { afterEach, beforeEach, describe, it, expect, jest, xit } from '@jest/globals'
-import { UIPlugin } from '@uppy/core'
-import emitter from 'namespace-emitter'
-import ThumbnailGeneratorPlugin from './index.js'
+const ThumbnailGeneratorPlugin = require('./index')
+const { Plugin } = require('@uppy/core')
+const emitter = require('namespace-emitter')
 
 const delay = duration => new Promise(resolve => setTimeout(resolve, duration))
 
@@ -27,7 +26,7 @@ function MockCore () {
 describe('uploader/ThumbnailGeneratorPlugin', () => {
   it('should initialise successfully', () => {
     const plugin = new ThumbnailGeneratorPlugin(new MockCore(), {})
-    expect(plugin instanceof UIPlugin).toEqual(true)
+    expect(plugin instanceof Plugin).toEqual(true)
   })
 
   it('should accept the thumbnailWidth and thumbnailHeight option and override the default', () => {
@@ -52,7 +51,7 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
       plugin.addToQueue = jest.fn()
       plugin.install()
 
-      expect(core.on).toHaveBeenCalledTimes(4)
+      expect(core.on).toHaveBeenCalledTimes(3)
       expect(core.on).toHaveBeenCalledWith('file-added', plugin.onFileAdded)
     })
   })
@@ -68,11 +67,11 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
       plugin.addToQueue = jest.fn()
       plugin.install()
 
-      expect(core.on).toHaveBeenCalledTimes(4)
+      expect(core.on).toHaveBeenCalledTimes(3)
 
       plugin.uninstall()
 
-      expect(core.off).toHaveBeenCalledTimes(4)
+      expect(core.off).toHaveBeenCalledTimes(3)
       expect(core.off).toHaveBeenCalledWith('file-added', plugin.onFileAdded)
     })
   })
@@ -140,9 +139,6 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
       URL.revokeObjectURL = jest.fn(() => null)
 
       try {
-        const file1 = { id: 1, name: 'bar.jpg', type: 'image/jpeg', data: new Blob() }
-        const file2 = { id: 2, name: 'bar2.jpg', type: 'image/jpeg', data: new Blob() }
-
         plugin.createThumbnail = jest.fn(async () => {
           await delay(50)
           return 'blob:http://uppy.io/fake-thumbnail'
@@ -152,6 +148,8 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
           if (id === 2) file2.preview = preview
         })
 
+        const file1 = { id: 1, name: 'bar.jpg', type: 'image/jpeg', data: new Blob() }
+        const file2 = { id: 2, name: 'bar2.jpg', type: 'image/jpeg', data: new Blob() }
         core.mockFile(file1.id, file1)
         core.emit('file-added', file1)
         core.mockFile(file2.id, file2)
@@ -193,8 +191,7 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
           expect(file.id).toBe(expected.shift())
           expect(preview).toBe(`blob:${file.id}.png`)
         } catch (err) {
-          reject(err)
-          return
+          return reject(err)
         }
         if (expected.length === 0) resolve()
       })
@@ -230,7 +227,7 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
         expect(plugin.createThumbnail).toHaveBeenCalledWith(
           file,
           plugin.opts.thumbnailWidth,
-          plugin.opts.thumbnailHeight,
+          plugin.opts.thumbnailHeight
         )
       })
     })
@@ -345,6 +342,20 @@ describe('uploader/ThumbnailGeneratorPlugin', () => {
       const core = new MockCore()
       const plugin = new ThumbnailGeneratorPlugin(core)
       expect(resize(plugin, { width: 200, height: 100 }, 50, 42)).toEqual({ width: 50, height: 25 })
+    })
+  })
+
+  describe('canvasToBlob', () => {
+    it('should use canvas.toBlob if available', () => {
+      const core = new MockCore()
+      const plugin = new ThumbnailGeneratorPlugin(core)
+      const canvas = {
+        toBlob: jest.fn(),
+      }
+      plugin.canvasToBlob(canvas, 'type', 90)
+      expect(canvas.toBlob).toHaveBeenCalledTimes(1)
+      expect(canvas.toBlob.mock.calls[0][1]).toEqual('type')
+      expect(canvas.toBlob.mock.calls[0][2]).toEqual(90)
     })
   })
 

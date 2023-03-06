@@ -1,66 +1,55 @@
-function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var id = 0;
-
-function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
-
-const packageJson = {
-  "version": "3.0.2"
-};
 /**
  * Default store that keeps state in a simple object.
  */
-
-var _callbacks = /*#__PURE__*/_classPrivateFieldLooseKey("callbacks");
-
-var _publish = /*#__PURE__*/_classPrivateFieldLooseKey("publish");
-
-class DefaultStore {
-  constructor() {
-    Object.defineProperty(this, _publish, {
-      value: _publish2
-    });
-    Object.defineProperty(this, _callbacks, {
-      writable: true,
-      value: new Set()
-    });
+var DefaultStore = /*#__PURE__*/function () {
+  function DefaultStore() {
     this.state = {};
+    this.callbacks = [];
   }
 
-  getState() {
+  var _proto = DefaultStore.prototype;
+
+  _proto.getState = function getState() {
     return this.state;
-  }
+  };
 
-  setState(patch) {
-    const prevState = { ...this.state
-    };
-    const nextState = { ...this.state,
-      ...patch
-    };
+  _proto.setState = function setState(patch) {
+    var prevState = _extends({}, this.state);
+
+    var nextState = _extends({}, this.state, patch);
+
     this.state = nextState;
 
-    _classPrivateFieldLooseBase(this, _publish)[_publish](prevState, nextState, patch);
-  }
+    this._publish(prevState, nextState, patch);
+  };
 
-  subscribe(listener) {
-    _classPrivateFieldLooseBase(this, _callbacks)[_callbacks].add(listener);
+  _proto.subscribe = function subscribe(listener) {
+    var _this = this;
 
-    return () => {
-      _classPrivateFieldLooseBase(this, _callbacks)[_callbacks].delete(listener);
+    this.callbacks.push(listener);
+    return function () {
+      // Remove the listener.
+      _this.callbacks.splice(_this.callbacks.indexOf(listener), 1);
     };
-  }
+  };
 
-}
+  _proto._publish = function _publish() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-function _publish2() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
+    this.callbacks.forEach(function (listener) {
+      listener.apply(void 0, args);
+    });
+  };
 
-  _classPrivateFieldLooseBase(this, _callbacks)[_callbacks].forEach(listener => {
-    listener(...args);
-  });
-}
+  return DefaultStore;
+}();
 
-DefaultStore.VERSION = packageJson.version;
-export default DefaultStore;
+DefaultStore.VERSION = "1.2.7";
+
+module.exports = function defaultStore() {
+  return new DefaultStore();
+};

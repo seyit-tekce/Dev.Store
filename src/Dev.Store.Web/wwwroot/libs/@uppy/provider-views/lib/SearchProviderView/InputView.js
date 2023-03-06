@@ -1,20 +1,18 @@
-import { h } from 'preact';
-export default (_ref => {
-  let {
-    i18n,
-    search
-  } = _ref;
-  let input;
+var _require = require('preact'),
+    h = _require.h;
 
-  const validateAndSearch = () => {
-    if (input.value) {
-      search(input.value);
+module.exports = function (props) {
+  var input;
+
+  var handleKeyPress = function handleKeyPress(ev) {
+    if (ev.keyCode === 13) {
+      validateAndSearch();
     }
   };
 
-  const handleKeyPress = ev => {
-    if (ev.keyCode === 13) {
-      validateAndSearch();
+  var validateAndSearch = function validateAndSearch() {
+    if (input.value) {
+      props.search(input.value);
     }
   };
 
@@ -22,11 +20,11 @@ export default (_ref => {
     className: "uppy-SearchProvider"
   }, h("input", {
     className: "uppy-u-reset uppy-c-textInput uppy-SearchProvider-input",
-    type: "search",
-    "aria-label": i18n('enterTextToSearch'),
-    placeholder: i18n('enterTextToSearch'),
+    type: "text",
+    "aria-label": props.i18n('enterTextToSearch'),
+    placeholder: props.i18n('enterTextToSearch'),
     onKeyUp: handleKeyPress,
-    ref: input_ => {
+    ref: function ref(input_) {
       input = input_;
     },
     "data-uppy-super-focusable": true
@@ -34,5 +32,5 @@ export default (_ref => {
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary uppy-SearchProvider-searchButton",
     type: "button",
     onClick: validateAndSearch
-  }, i18n('searchImages')));
-});
+  }, props.i18n('searchImages')));
+};

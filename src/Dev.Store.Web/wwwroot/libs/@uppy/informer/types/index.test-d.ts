@@ -1,2 +1,1 @@
-// import Informer from '..'
-// TODO implement
+import Informer = require('../')

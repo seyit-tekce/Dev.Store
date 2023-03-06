@@ -1,2 +1,7 @@
-export { default as ProviderViews } from './ProviderView/index.js'
-export { default as SearchProviderViews } from './SearchProviderView/index.js'
+const ProviderViews = require('./ProviderView')
+const SearchProviderViews = require('./SearchProviderView')
+
+module.exports = {
+  ProviderViews,
+  SearchProviderViews,
+}

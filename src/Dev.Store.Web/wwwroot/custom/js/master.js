@@ -8,12 +8,14 @@ kendo.culture("tr-TR");
 var kendoGrid = {
     functions: {
         updateCommandButtons: function (e) {
+
             var gridSender = e.sender;
             e.sender.element.find('.k-command-cell').each(function (i, elem) {
                 $(elem).parents("tr").on("dblclick", function () {
                     var dblClickItem = $(this).find('[data-dblclick="true"]');
                     var detailItem = $(this).find(".k-grid-Detay");
                     var updateItem = $(this).find(".k-grid-Düzenle");
+
                     if (dblClickItem.length > 0) {
                         dblClickItem.trigger("click");
                     } else if (detailItem.length > 0) {
@@ -22,6 +24,7 @@ var kendoGrid = {
                         updateItem.trigger("click");
                     }
                 });
+
                 var commandCell = $(this);
                 var data = gridSender.dataSource.getByUid(commandCell.parent("tr").data("uid"));
                 if (commandCell.find(".abp-action-button").length == 0) {
@@ -29,6 +32,7 @@ var kendoGrid = {
                     <ul class="dropdown-menu"></ul>
                     <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog mr-1"></i>İşlemler</button>
                     </div>`);
+
                     commandCell.find(".k-button").each(function (e, i) {
                         var clone = $(this).clone(true, true, true);
                         clone.data("row", JSON.stringify(data));
@@ -47,22 +51,31 @@ var kendoGrid = {
             if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
                 if (e.sender.element.find('.k-command-cell').length > 0) {
                     var grid = $(e.sender.content).parents("[data-role='grid']").data("kendoGrid");
-                    var td = e.sender.element.find('.k-command-cell')[0]
-                    grid.hideColumn($(td).index());
+                    var td = e.sender.element.find('.k-command-cell')[0];
+                    if (grid._group) {
+                        grid.hideColumn(0);
+                    }
+                    else {
+                        grid.hideColumn($(td).index());
+                    }
                     $("[role='grid']").css("width", "");
                 }
                 var gridSender = e.sender;
                 e.sender.element.find('.k-command-cell').each(function (i, elem) {
+
                     $(elem).parents("tr").on("contextmenu", function (e) {
                         $(".k-state-selected").removeClass("k-state-selected");
                         var row = e.currentTarget;
                         var data = gridSender.dataSource.getByUid($(row).data("uid"));
                         $(row).addClass("k-state-selected");
+
                         $("#actionsContextMenu").remove();
                         var contextMenu = $(`<div id="actionsContextMenu" class="dropdown" style="background-color:#fff;position:absolute; display:none;border-radius:5px;z-index:999;">
                                         <ul class="list-group border border-primary p-0" style="border-radius:inherit;"></ul>
                                         </div>`);
                         $(contextMenu).appendTo($(row).parents(".k-grid"));
+
+
                         var buttons = $(e.currentTarget).find(".k-button");
                         buttons.each(function (e, i) {
                             var clone = $(i).clone(true, true, true);
@@ -70,6 +83,7 @@ var kendoGrid = {
                             clone.attr("data-id", data["id"]);
                             clone.removeClass("k-primary");
                             clone.attr("style", "background-color:transparent;text-align:left;font-family: Poppins, sans-serif;font-size:11px;font-weight: 600;border-width:0;box-shadow:none;display:block;");
+
                             $('<li/>')
                                 .hover(
                                     function () {
@@ -82,40 +96,60 @@ var kendoGrid = {
                                 .append(clone)
                                 .appendTo($(contextMenu).find("ul"));
                         });
+
                         var gridEelement = $(row).parents(".k-grid");
                         var gridEelementOffSet = gridEelement.offset();
+
                         var menuLeft = e.pageX - gridEelementOffSet.left;
                         var menuTop = e.pageY - gridEelementOffSet.top;
+
                         var contexMenuHeight = contextMenu.height();
                         var gridPageableArea = $(gridEelement).find(".k-pager-wrap");
                         menuTop = (menuTop + contexMenuHeight + 20 > gridEelement.height() - gridPageableArea.height()) ? (menuTop - contexMenuHeight) : menuTop;
+
                         $(contextMenu).css({
                             display: "block",
                             left: menuLeft,
                             top: menuTop
                         });
+
                         $('html').click(function () {
                             $(row).removeClass("k-state-selected");
                             $(contextMenu).hide();
                         });
+
                         return false;
                     });
                 });
             }
+
         }
     },
     events: {
         databound: function (e) {
             var grid = $(e.sender.element).data("kendoGrid");
-            var heigth = window.innerHeight - 240;
+
+            //set height
+            var heigth = window.innerHeight - 235;
             if (grid != undefined) {
                 $(e.sender.element).height(heigth);
                 grid.resize();
             }
+
+
+            //
+            //var obj = e.sender.element.find('.k-header .k-link');
+
+            //for (var i = 0; i < obj.length; i++) {
+            //    
+            //    obj[i].innerHTML = "p" + obj[i].innerHTML.split(".").join("_");
+            //}
+
             if (grid != undefined && grid.options.toolbar != undefined && grid.options.toolbar?.filter(a => a.name == "Search").length == 1) {
                 var searchInput = $(e.sender.element).find(".k-grid-search input");
                 if (searchInput.length > 0) {
                     $(e.sender.element).find(".k-grid-search").remove();
+
                     var newSerach = $('<input placeholder="' + l("Search") + '" style=" position: absolute;' +
                         'right: 0;' +
                         'width: 50%;' +
@@ -123,16 +157,19 @@ var kendoGrid = {
                         'padding-left: 10px;' +
                         'height: 31px;"' +
                         'class="form-control">');
+
                     $(newSerach).keyup(function (event) {
                         var defaultFilter = grid.options.dataSource.filter;
                         var searchFields = grid.options.search;
                         if (!searchFields) return;
                         var searchValue = event.target.value;
                         var newFilter = {};
+
                         if (searchValue.trim() == "") {
                             grid.dataSource.filter(defaultFilter == undefined ? {} : defaultFilter);
                         } else {
                             var newFilter = { logic: "or", filters: searchFields.fields.map(a => ({ field: a, operator: "contains", value: searchValue })) }
+
                             var filters = defaultFilter != undefined ? [newFilter].concat(defaultFilter) : [newFilter];
                             grid.dataSource.filter({
                                 logic: "and",
@@ -140,9 +177,13 @@ var kendoGrid = {
                             });
                         }
                     });
+
                     $(e.sender.element).find(".k-grid-toolbar").append(newSerach);
+
                 }
             }
+
+
             var _parameterMap = e.sender.dataSource.transport.parameterMap;
             e.sender.dataSource.transport.parameterMap = function (data, type) {
                 if (type == "update" || type == "create") {
@@ -166,9 +207,11 @@ var kendoGrid = {
         },
     },
 }
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    if ($(e.target.attributes["href"].value).find(".tab-content").length > 0) {
-        $(e.target.attributes["href"].value).find(".tab-content").find(".show.active").find(".k-grid").each(function (e) {
+
+$('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+    debugger;
+    if ($(e.target.attributes["data-bs-target"].value).find(".tab-content").length > 0) {
+        $(e.target.attributes["data-bs-target"].value).find(".tab-content").find(".show.active").find(".k-grid").each(function (e) {
             var handler = $(this).data("kendoGrid");
             if (handler) {
                 if (handler.element.find(".k-pager-refresh").attr("data-refresh") != "true" && handler.options.autoBind == false) {
@@ -179,7 +222,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             }
         });
     } else {
-        $(e.target.attributes["href"].value).find(".k-grid").each(function (e) {
+        $(e.target.attributes["data-bs-target"].value).find(".k-grid").each(function (e) {
             var handler = $(this).data("kendoGrid");
             if (handler) {
                 if (handler.element.find(".k-pager-refresh").attr("data-refresh") != "true" && handler.options.autoBind == false) {
@@ -190,13 +233,13 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             }
         });
     }
-    $(e.target.attributes["href"].value).find('[data-role="Harita"]').each(function (e) {
+    $(e.target.attributes["data-bs-target"].value).find('[data-role="Harita"]').each(function (e) {
         var harita = $(this).data("InfolineHarita");
         if (harita) {
             harita.map.updateSize();
         }
     });
-    $(e.target.attributes["href"].value).find('[data-role="chart"]').each(function (e) {
+    $(e.target.attributes["data-bs-target"].value).find('[data-role="chart"]').each(function (e) {
         var chart = $(this).data("kendoChart");
         if (chart) {
             chart.resize();
@@ -220,6 +263,15 @@ $(document).livequery('[data-text="long"]', function (e) {
     $elem.attr("title", text);
     $elem.tooltip();
 });
+$(document).livequery('form input:checkbox', function (e) {
+    $(this).bootstrapToggle({
+        onlabel: l("Yes"),
+        offlabel: l("No"),
+        onstyle: "success",
+        offstyle: "primary"
+    });
+});
+
 
 // Harflerin Hepsinin Küçük Olması İstenilen slugify için kullanılır
 $(document).livequery('[data-toggle="slugify"]', function (e) {
@@ -280,7 +332,7 @@ $(document).livequery('[data-toggle="slugifyUpper"]', function (e) {
     $(this).on("blur", slugit);
 });
 
-$('[data-cascade]').livequery('*',function (e) {
+$('[data-cascade]').livequery('*', function (e) {
     var $this = $(this);
     var cascadeElem = $($this.attr('data-cascade'));
     var values = ($this.attr('data-show') || "").split(",");
@@ -431,3 +483,13 @@ class Loading {
         delete this;
     }
 }
+
+$(document).ready(function () {
+    dev.store.settings.siteSetting.get().then(x => {
+        var root = document.querySelector(':root');
+        var rs = getComputedStyle(root);
+        root.style.setProperty("--lpx-logo", 'url(' + x.siteSettingLogo + ')');
+
+    });
+
+})

@@ -18,9 +18,13 @@
 
 	<ItemGroup>
 		<Compile Remove="Logs\**" />
+		<Compile Remove="wwwroot\libs\indexof\**" />
 		<Content Remove="Logs\**" />
+		<Content Remove="wwwroot\libs\indexof\**" />
 		<EmbeddedResource Remove="Logs\**" />
+		<EmbeddedResource Remove="wwwroot\libs\indexof\**" />
 		<None Remove="Logs\**" />
+		<None Remove="wwwroot\libs\indexof\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -76,10 +80,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Pages\Products\Detail\ProductImageComponent\ProductImageComponent.js" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -120,19 +120,15 @@
 
 	<ItemGroup>
 		<Folder Include="Bundling\Kendo\Components\" />
-		<Folder Include="Pages\ProductSets\ProductSet\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Content Update="Pages\Products\Detail\ProductSeoComponenet.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	  <Content Update="wwwroot\custom-libs\uppy\uppy.min.css">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Pages\Products\Detail\ProductImageComponent\ProductImageComponent.js">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

@@ -1,0 +1,138 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<Import Project="..\..\common.props" />
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<RootNamespace>Dev.Store.Web</RootNamespace>
+		<AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<MvcRazorExcludeRefAssembliesFromPublish>false</MvcRazorExcludeRefAssembliesFromPublish>
+		<PreserveCompilationReferences>true</PreserveCompilationReferences>
+		<UserSecretsId>Dev.Store-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Logs\**" />
+		<Content Remove="Logs\**" />
+		<EmbeddedResource Remove="Logs\**" />
+		<None Remove="Logs\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="wwwroot\custom-libs\jquery.livequery.min.js" />
+		<None Include="wwwroot\custom-libs\linq\jquery.linq-vsdoc.js" />
+		<None Include="wwwroot\custom-libs\linq\jquery.linq.js" />
+		<None Include="wwwroot\custom-libs\linq\jquery.linq.min.js" />
+		<None Include="wwwroot\custom-libs\linq\linq-vsdoc.js" />
+		<None Include="wwwroot\custom-libs\linq\linq.js" />
+		<None Include="wwwroot\custom-libs\linq\linq.min.js" />
+		<None Include="wwwroot\custom-libs\uppy\tr_TR.min.js">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\custom-libs\uppy\uppy.min.js">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Include="wwwroot\custom\js\kendo-grid.js" />
+		<None Include="wwwroot\custom\js\master.js" />
+		<None Include="wwwroot\kendo\js\cultures\kendo.culture.en-EN.min.js" />
+		<None Include="wwwroot\kendo\js\cultures\kendo.culture.en-EN.min.js.map" />
+		<None Include="wwwroot\kendo\js\cultures\kendo.culture.tr-TR.min.js" />
+		<None Include="wwwroot\kendo\js\cultures\kendo.culture.tr-TR.min.js.map" />
+		<None Include="wwwroot\kendo\js\kendo.all.min.js" />
+		<None Include="wwwroot\kendo\js\kendo.all.min.js.map" />
+		<None Include="wwwroot\kendo\js\kendo.aspnetmvc.min.js" />
+		<None Include="wwwroot\kendo\js\kendo.aspnetmvc.min.js.map" />
+		<None Include="wwwroot\kendo\js\messages\kendo.messages.en-EN.min.js" />
+		<None Include="wwwroot\kendo\js\messages\kendo.messages.en-EN.min.js.map" />
+		<None Include="wwwroot\kendo\js\messages\kendo.messages.tr-TR.min.js" />
+		<None Include="wwwroot\kendo\js\messages\kendo.messages.tr-TR.min.js.map" />
+		<None Include="wwwroot\kendo\styles\kendo.bootstrap-main.min.css.map" />
+		<None Include="wwwroot\kendo\styles\kendo.bootstrap-v4.min.css.map" />
+		<None Include="wwwroot\kendo\styles\kendo.bootstrap.min.css.map" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="Pages\**\*.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Pages\**\*.css">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Pages\**\*.js" />
+		<EmbeddedResource Include="Pages\**\*.css" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="Pages\**\*.js" />
+		<Content Remove="Pages\**\*.css" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Pages\Products\Detail\ProductImageComponent\ProductImageComponent.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+		<PackageReference Include="Volo.CmsKit.Web" Version="7.0.2" />
+		<ProjectReference Include="..\..\packages\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
+		<PackageReference Include="Volo.Abp.VirtualFileExplorer.Web" Version="7.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite" Version="2.0.0-*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Dev.Store.Application\Dev.Store.Application.csproj" />
+		<ProjectReference Include="..\Dev.Store.HttpApi\Dev.Store.HttpApi.csproj" />
+		<ProjectReference Include="..\Dev.Store.EntityFrameworkCore\Dev.Store.EntityFrameworkCore.csproj" />
+		<PackageReference Include="Volo.Abp.Autofac" Version="7.0.2" />
+		<PackageReference Include="Volo.Abp.Swashbuckle" Version="7.0.2" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.0.2" />
+		<PackageReference Include="Volo.Abp.Identity.Web" Version="7.0.2" />
+		<PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="7.0.2" />
+		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="7.0.2" />
+		<PackageReference Include="Volo.Abp.SettingManagement.Web" Version="7.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Kendo.Mvc">
+			<HintPath>..\Solution Items\Kendo.Mvc.dll</HintPath>
+		</Reference>
+		<Reference Include="Kendo.Mvc.resources">
+			<HintPath>..\Solution Items\Kendo.Mvc.resources.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Bundling\Kendo\Components\" />
+		<Folder Include="Pages\ProductSets\ProductSet\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="wwwroot\custom-libs\uppy\uppy.min.css">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Pages\Products\Detail\ProductImageComponent\ProductImageComponent.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>
