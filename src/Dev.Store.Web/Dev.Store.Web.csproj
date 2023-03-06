@@ -80,6 +80,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Components\Settings\FileUploaderSettings\defult.js" />
+	  <None Remove="Components\Settings\SiteSettings\defult.js" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Components\Settings\FileUploaderSettings\defult.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Components\Settings\SiteSettings\defult.js">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
