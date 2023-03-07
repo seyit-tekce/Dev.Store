@@ -19,7 +19,7 @@ COPY ["src/Dev.Store.Domain.Shared/Dev.Store.Domain.Shared.csproj", "src/Dev.Sto
 COPY ["src/Dev.Store.Application.Contracts/Dev.Store.Application.Contracts.csproj", "src/Dev.Store.Application.Contracts/"]
 COPY ["src/Dev.Store.HttpApi/Dev.Store.HttpApi.csproj", "src/Dev.Store.HttpApi/"]
 COPY ["src/Dev.Store.EntityFrameworkCore/Dev.Store.EntityFrameworkCore.csproj", "src/Dev.Store.EntityFrameworkCore/"]
-COPY ["src/Dev.Store.Web/Dev.Store.Web/node_modules", "src/Dev.Store.Web/wwwroot/libs"]
+#COPY ["src/Dev.Store.Web/Dev.Store.Web/node_modules", "src/Dev.Store.Web/wwwroot/libs"]
 RUN dotnet restore "src/Dev.Store.Web/Dev.Store.Web.csproj"
 COPY . .
 WORKDIR "/src/src/Dev.Store.Web"
