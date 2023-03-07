@@ -7,10 +7,8 @@ EXPOSE 1881
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-RUN apt-get update -yq && apt-get upgrade -yq && apt-get install -yq curl git nano
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -yq nodejs build-essential
-RUN npm install -g npm
-RUN npm install
+RUN dotnet tool install -g Volo.Abp.Cli
+RUN abp install-libs
 COPY ["NuGet.Config", "."]
 COPY ["src/Dev.Store.Web/Dev.Store.Web.csproj", "src/Dev.Store.Web/"]
 COPY ["src/Dev.Store.Application/Dev.Store.Application.csproj", "src/Dev.Store.Application/"]
@@ -19,7 +17,6 @@ COPY ["src/Dev.Store.Domain.Shared/Dev.Store.Domain.Shared.csproj", "src/Dev.Sto
 COPY ["src/Dev.Store.Application.Contracts/Dev.Store.Application.Contracts.csproj", "src/Dev.Store.Application.Contracts/"]
 COPY ["src/Dev.Store.HttpApi/Dev.Store.HttpApi.csproj", "src/Dev.Store.HttpApi/"]
 COPY ["src/Dev.Store.EntityFrameworkCore/Dev.Store.EntityFrameworkCore.csproj", "src/Dev.Store.EntityFrameworkCore/"]
-COPY ["src/Dev.Store.Web/Dev.Store.Web/node_modules", "src/Dev.Store.Web/wwwroot/libs"]
 RUN dotnet restore "src/Dev.Store.Web/Dev.Store.Web.csproj"
 COPY . .
 WORKDIR "/src/src/Dev.Store.Web"
