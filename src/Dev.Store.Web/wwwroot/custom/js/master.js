@@ -484,12 +484,3 @@ class Loading {
     }
 }
 
-$(document).ready(function () {
-    dev.store.settings.siteSetting.get().then(x => {
-        var root = document.querySelector(':root');
-        var rs = getComputedStyle(root);
-        root.style.setProperty("--lpx-logo", 'url(' + x.siteSettingLogo + ')');
-
-    });
-
-})

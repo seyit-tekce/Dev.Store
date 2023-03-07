@@ -1,0 +1,12 @@
+﻿@using Volo.Abp.Ui.Branding
+@inject IBrandingProvider BrandingProvider
+<style> 
+	:root{
+		--lpx-logo: url(@BrandingProvider.LogoUrl)
+	}
+
+</style>
+	<a href="/">
+		<div class="lpx-brand-logo" ></div>
+	</a>
+	<i class="lpx-icon bi bi-filter-left menu-collapse-icon hidden-in-hover-trigger" aria-hidden="true" data-lpx-toggle="sidebar"></i>
