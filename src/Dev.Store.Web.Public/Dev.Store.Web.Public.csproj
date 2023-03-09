@@ -40,6 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\packages\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
     <ProjectReference Include="..\Dev.Store.Application\Dev.Store.Application.csproj" />
     <ProjectReference Include="..\Dev.Store.HttpApi\Dev.Store.HttpApi.csproj" />
     <ProjectReference Include="..\Dev.Store.EntityFrameworkCore\Dev.Store.EntityFrameworkCore.csproj" />

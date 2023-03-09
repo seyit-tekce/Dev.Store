@@ -1,3 +1,4 @@
+using Dev.Store.Products.Dtos;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,4 +17,7 @@ public class CreateEditSeoSettingViewModel
 
     [Display(Name = "SeoSettingProductId")]
     public Guid ProductId { get; set; }
+
+
+    public ProductDto Product { get; set; }
 }

@@ -1,6 +1,5 @@
 using Dev.Store.Permissions;
 using Dev.Store.ProductImages.Dtos;
-using Dev.Store.Products.Dtos;
 using Dev.Store.UploadFiles;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -8,13 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
 
 namespace Dev.Store.ProductImages;
-
 
 public class ProductImageAppService : CrudAppService<ProductImage, ProductImageDto, Guid, ProductImageGetListInput, CreateUpdateProductImageDto, CreateUpdateProductImageDto>,
     IProductImageAppService
@@ -24,14 +21,15 @@ public class ProductImageAppService : CrudAppService<ProductImage, ProductImageD
     protected override string CreatePolicyName { get; set; } = StorePermissions.ProductImage.Create;
     protected override string UpdatePolicyName { get; set; } = StorePermissions.ProductImage.Update;
     protected override string DeletePolicyName { get; set; } = StorePermissions.ProductImage.Delete;
-
     private readonly IProductImageRepository _repository;
     private readonly IUploadFileAppService _uploadFileAppService;
+
     public ProductImageAppService(IProductImageRepository repository, IUploadFileAppService uploadFileAppService) : base(repository)
     {
         _repository = repository;
         _uploadFileAppService = uploadFileAppService;
     }
+
     [HttpGet]
     [Authorize(StorePermissions.ProductImage.Default)]
     public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
@@ -47,20 +45,18 @@ public class ProductImageAppService : CrudAppService<ProductImage, ProductImageD
         {
             throw new UserFriendlyException(L["FileIsNotImage"]);
         }
-
         var upload = await _uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
         {
             File = file
         });
-
         await _repository.InsertAsync(new ProductImage
         {
             ProductId = productId,
             UploadFileId = upload.Id,
             IsMain = false
         });
-
     }
+
     public override async Task DeleteAsync(Guid id)
     {
         var findRecord = await _repository.GetAsync(id);
@@ -68,11 +64,10 @@ public class ProductImageAppService : CrudAppService<ProductImage, ProductImageD
         await base.DeleteAsync(id);
     }
 
-    public async Task SetMain(Guid imageId, Guid productId)
+    public async Task SetMain(Guid imageId)
     {
-        var mainImage = await _repository.FindAsync(x => x.ProductId == productId && x.IsMain);
-        var currentImage = await _repository.GetAsync(x => x.ProductId == productId && x.Id == imageId);
-
+        var currentImage = await _repository.GetAsync(x => x.Id == imageId);
+        var mainImage = await _repository.FindAsync(x => x.ProductId == currentImage.ProductId && x.IsMain);
         if (mainImage != null)
         {
             mainImage.IsMain = false;
@@ -80,6 +75,5 @@ public class ProductImageAppService : CrudAppService<ProductImage, ProductImageD
         }
         currentImage.IsMain = true;
         await _repository.UpdateAsync(currentImage);
-
     }
 }

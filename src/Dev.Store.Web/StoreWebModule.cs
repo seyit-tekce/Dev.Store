@@ -1,3 +1,4 @@
+using CloudinaryDotNet;
 using Dev.Store.EntityFrameworkCore;
 using Dev.Store.Localization;
 using Dev.Store.MultiTenancy;
@@ -121,6 +122,8 @@ public class StoreWebModule : AbpModule
         {
             c.EnableForHttps = true;
         });
+
+
         Configure<AbpAntiForgeryOptions>(options =>
         {
             options.TokenCookie.Expiration = TimeSpan.FromDays(365);
@@ -312,7 +315,7 @@ public class StoreWebModule : AbpModule
         {
             app.UseMultiTenancy();
         }
-
+        app.UseResponseCompression();
         app.UseUnitOfWork();
         app.UseAuthorization();
         app.UseSwagger();

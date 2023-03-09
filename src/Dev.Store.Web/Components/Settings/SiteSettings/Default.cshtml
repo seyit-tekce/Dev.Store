@@ -1,4 +1,5 @@
 ﻿@using Dev.Store.Localization;
+@using Kendo.Mvc.UI;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @model Dev.Store.Settings.SiteSettingDto
 @inject IHtmlLocalizer<StoreResource> L
@@ -9,9 +10,21 @@
 <abp-script src="/Components/Settings/SiteSettings/defult.js" />
 <form id="SiteSetting" method="post">
     <div>
-            <abp-input asp-for="SiteSettingTitle" />
-            <abp-input asp-for="SiteSettingLogo" />
-            <abp-input asp-for="SiteSettingLogoReverse" />
+        <abp-input asp-for="SiteSettingTitle" />
+        <div class="mb-3">
+            <label class="form-label" for="Files">@L["SiteSettingLogo"].Value</label>
+            @Html.Kendo().Upload().Name("SiteSettingLogo").Multiple(false).Validation(x=>{
+            x.AllowedExtensions("png","jpg","jpeg","webp","gif");
+            })
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="SiteSettingLogoReverse">@L["SiteSettingLogoReverse"].Value</label>
+            @Html.Kendo().Upload().Name("SiteSettingLogoReverse").Multiple(false).Validation(x=>{
+            x.AllowedExtensions("png","jpg","jpeg","webp","gif");
+            })
+        </div>
+
+
     </div>
     <hr class="my-4" />
     <div>

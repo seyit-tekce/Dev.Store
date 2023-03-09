@@ -11,7 +11,5 @@ namespace Dev.Store.Settings
         public string SiteSettingLogo { get; set; }
 
         public string SiteSettingLogoReverse { get; set; }
-
-
     }
 }

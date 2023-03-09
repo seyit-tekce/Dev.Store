@@ -88,6 +88,7 @@
             .Scrollable(x => x.Height(650))
             .Sortable()
             .Selectable()
+            .Search(x=>x.Field(b=>b.Name).Field(b=>b.Link).Field(b=>b.Description))
             .Pageable(x => x.Refresh(true))
             .Filterable()
             .Events(a => a.DataBound("kendoGrid.events.databound")

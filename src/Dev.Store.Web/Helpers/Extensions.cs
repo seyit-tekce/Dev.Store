@@ -16,8 +16,7 @@ namespace Dev.Store
         {
             get
             {
-                var vl = DateTimeFormatInfo.CurrentInfo.LongDatePattern;
-                return "{0:" + vl + "}";
+                return "{0:" + DateTimeFormatInfo.CurrentInfo.ShortDatePattern + " " + DateTimeFormatInfo.CurrentInfo.ShortTimePattern + "}";
             }
         }
         public static string NumericFormat(int n = 2, bool kendoGrid = true)

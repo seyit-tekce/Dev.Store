@@ -30,7 +30,7 @@
                 .use(Uppy.Compressor)
                 .use(Uppy.XHRUpload, {
 
-                    endpoint: '/api/app/product-image/upload/' + productId,
+                    endpoint: '/api/app/product-image/upload/' + ImageProductId,
 
 
                 }).on('complete', (result) => {
@@ -56,7 +56,7 @@
         },
         createImages: function () {
             $("#imageGrid").html(null);
-            return dev.store.productImages.productImage.dataSource({ pageSize: 99999, filter: "productId~eq~'" + productId + "'" }).then(x => {
+            return dev.store.productImages.productImage.dataSource(null, { data: { pageSize: 99999, filter: "productId~eq~'" + ImageProductId + "'" } }) .then(x => {
                 debugger
 
                 if (x.Data.length == 0) {
@@ -80,7 +80,7 @@
         },
         setMain: function (id) {
             var recordId = id;
-            dev.store.productImages.productImage.setMain(recordId, productId).then(x => {
+            dev.store.productImages.productImage.setMain(recordId).then(x => {
                 abp.notify.success(l("SuccessfullyUpdated"));
                 productImage.functions.createImages();
             })

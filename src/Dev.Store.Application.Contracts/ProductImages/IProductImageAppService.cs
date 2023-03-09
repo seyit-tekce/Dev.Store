@@ -15,5 +15,5 @@ public interface IProductImageAppService :
         CreateUpdateProductImageDto>
 {
     Task Upload(IFormFile file, Guid productId);
-    Task SetMain(Guid imageId, Guid productId);
+    Task SetMain(Guid imageId);
 }

@@ -263,7 +263,7 @@ $(document).livequery('[data-text="long"]', function (e) {
     $elem.attr("title", text);
     $elem.tooltip();
 });
-$(document).livequery('form input:checkbox', function (e) {
+$(document).livequery('form input:checkbox:not(#LoginInput_RememberMe)', function (e) {
     $(this).bootstrapToggle({
         onlabel: l("Yes"),
         offlabel: l("No"),

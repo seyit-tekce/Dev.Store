@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Widgets;
-using Volo.Abp.Domain.Repositories;
 
 namespace Dev.Store.Web.Pages.Products.Detail.Components.ProductSeoComponenet
 {
@@ -18,18 +17,19 @@ namespace Dev.Store.Web.Pages.Products.Detail.Components.ProductSeoComponenet
     public class ProductSeoComponenet : AbpViewComponent
     {
         private readonly ISeoSettingRepository seoSettingRepository;
-        private readonly IProductRepository productRepository;
         private readonly IKeywordRepository keywordRepository;
-        public ProductSeoComponenet(ISeoSettingRepository seoSettingRepository, IProductRepository productRepository, IKeywordRepository keywordRepository)
+        private readonly IProductAppService productAppService;
+
+        public ProductSeoComponenet(ISeoSettingRepository seoSettingRepository, IKeywordRepository keywordRepository, IProductAppService productAppService)
         {
             this.seoSettingRepository = seoSettingRepository;
-            this.productRepository = productRepository;
             this.keywordRepository = keywordRepository;
+            this.productAppService = productAppService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(Guid productId)
         {
-            var product = await productRepository.GetAsync(x => x.Id == productId);
+            var product = await productAppService.GetAsync(productId);
             var seo = await seoSettingRepository.FindAsync(x => x.ProductId == productId);
             if (seo == null)
             {
@@ -38,12 +38,13 @@ namespace Dev.Store.Web.Pages.Products.Detail.Components.ProductSeoComponenet
                 {
                     Title = product.Name,
                     Keywords = keywords,
-                    ProductId = productId
+                    ProductId = productId,
+                    Description = product.Name,
                 });
             }
 
             var model = ObjectMapper.Map<SeoSetting, CreateEditSeoSettingViewModel>(seo);
-
+            model.Product = product;
             return View("ProductSeoComponenet.cshtml", model);
         }
     }

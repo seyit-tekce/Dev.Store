@@ -6,7 +6,7 @@ namespace Dev.Store.Settings
     public interface ISiteSettingAppService : IApplicationService
     {
         public Task<SiteSettingDto> GetAsync();
-        public Task<SiteSettingDto> UpdateAsync(SiteSettingDto input);
+        public Task<SiteSettingDto> UpdateAsync(SiteSettingUpdateDto input);
 
     }
 }
