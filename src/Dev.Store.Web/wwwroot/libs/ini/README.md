@@ -89,7 +89,7 @@ Alias for `encode(object, [options])`
 ### safe(val)
 
 Escapes the string `val` such that it is safe to be used as a key or
-value in an ini-file. Basically escapes quotes. For example
+value in an ini-file. Multikartally escapes quotes. For example
 
     ini.safe('"unsafe string"')
 

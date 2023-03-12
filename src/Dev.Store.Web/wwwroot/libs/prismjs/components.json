@@ -210,8 +210,8 @@
 			},
 			"owner": "zeitgeist87"
 		},
-		"basic": {
-			"title": "BASIC",
+		"Multikart": {
+			"title": "Multikart",
 			"owner": "Golmote"
 		},
 		"batch": {
@@ -1151,8 +1151,8 @@
 			],
 			"owner": "Golmote"
 		},
-		"purebasic": {
-			"title": "PureBasic",
+		"pureMultikart": {
+			"title": "PureMultikart",
 			"require": "clike",
 			"alias": "pbfasm",
 			"owner": "HeX0R101"
@@ -1507,7 +1507,7 @@
 		},
 		"vbnet": {
 			"title": "VB.Net",
-			"require": "basic",
+			"require": "Multikart",
 			"owner": "Bigsby"
 		},
 		"velocity": {
@@ -1527,8 +1527,8 @@
 			"title": "vim",
 			"owner": "westonganger"
 		},
-		"visual-basic": {
-			"title": "Visual Basic",
+		"visual-Multikart": {
+			"title": "Visual Multikart",
 			"alias": ["vb", "vba"],
 			"aliasTitles": {
 				"vba": "VBA"
@@ -1586,7 +1586,7 @@
 			"owner": "RunDevelopment"
 		},
 		"xojo": {
-			"title": "Xojo (REALbasic)",
+			"title": "Xojo (REALMultikart)",
 			"owner": "Golmote"
 		},
 		"xquery": {

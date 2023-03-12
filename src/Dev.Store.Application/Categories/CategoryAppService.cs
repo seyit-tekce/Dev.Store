@@ -6,6 +6,7 @@ using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
@@ -123,6 +124,8 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         await Repository.UpdateAsync(find);
     }
 
-    
-
+    public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync(bool includeDisabled = false)
+    {
+        return (await _repository.WithDetailsAsync(x=>x.File)).Select(a=>ObjectMapper.Map<Category,CategoryDto>(a));
+    }
 }

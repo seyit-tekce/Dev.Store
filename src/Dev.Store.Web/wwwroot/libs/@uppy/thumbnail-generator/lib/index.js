@@ -1,138 +1,58 @@
-import { UIPlugin } from '@uppy/core';
-import dataURItoBlob from '@uppy/utils/lib/dataURItoBlob';
-import isObjectURL from '@uppy/utils/lib/isObjectURL';
-import isPreviewSupported from '@uppy/utils/lib/isPreviewSupported';
-import { rotation } from 'exifr/dist/mini.esm.mjs';
-import locale from './locale.js';
-const packageJson = {
-  "version": "3.0.2"
-};
-/**
- * Save a <canvas> element's content to a Blob object.
- *
- * @param {HTMLCanvasElement} canvas
- * @returns {Promise}
- */
+var _class, _temp;
 
-function canvasToBlob(canvas, type, quality) {
-  try {
-    canvas.getContext('2d').getImageData(0, 0, 1, 1);
-  } catch (err) {
-    if (err.code === 18) {
-      return Promise.reject(new Error('cannot read image, probably an svg with external resources'));
-    }
-  }
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-  if (canvas.toBlob) {
-    return new Promise(resolve => {
-      canvas.toBlob(resolve, type, quality);
-    }).then(blob => {
-      if (blob === null) {
-        throw new Error('cannot read image, probably an svg with external resources');
-      }
+function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; _setPrototypeOf(subClass, superClass); }
 
-      return blob;
-    });
-  }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-  return Promise.resolve().then(() => {
-    return dataURItoBlob(canvas.toDataURL(type, quality), {});
-  }).then(blob => {
-    if (blob === null) {
-      throw new Error('could not extract blob, probably an old browser');
-    }
+var _require = require('@uppy/core'),
+    Plugin = _require.Plugin;
 
-    return blob;
-  });
-}
+var Translator = require('@uppy/utils/lib/Translator');
 
-function rotateImage(image, translate) {
-  let w = image.width;
-  let h = image.height;
+var dataURItoBlob = require('@uppy/utils/lib/dataURItoBlob');
 
-  if (translate.deg === 90 || translate.deg === 270) {
-    w = image.height;
-    h = image.width;
-  }
+var isObjectURL = require('@uppy/utils/lib/isObjectURL');
 
-  const canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
-  const context = canvas.getContext('2d');
-  context.translate(w / 2, h / 2);
+var isPreviewSupported = require('@uppy/utils/lib/isPreviewSupported');
 
-  if (translate.canvas) {
-    context.rotate(translate.rad);
-    context.scale(translate.scaleX, translate.scaleY);
-  }
-
-  context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
-  return canvas;
-}
-/**
- * Make sure the image doesn’t exceed browser/device canvas limits.
- * For ios with 256 RAM and ie
- */
+var MathLog2 = require('math-log2'); // Polyfill for IE.
 
 
-function protect(image) {
-  // https://stackoverflow.com/questions/6081483/maximum-size-of-a-canvas-element
-  const ratio = image.width / image.height;
-  const maxSquare = 5000000; // ios max canvas square
-
-  const maxSize = 4096; // ie max canvas dimensions
-
-  let maxW = Math.floor(Math.sqrt(maxSquare * ratio));
-  let maxH = Math.floor(maxSquare / Math.sqrt(maxSquare * ratio));
-
-  if (maxW > maxSize) {
-    maxW = maxSize;
-    maxH = Math.round(maxW / ratio);
-  }
-
-  if (maxH > maxSize) {
-    maxH = maxSize;
-    maxW = Math.round(ratio * maxH);
-  }
-
-  if (image.width > maxW) {
-    const canvas = document.createElement('canvas');
-    canvas.width = maxW;
-    canvas.height = maxH;
-    canvas.getContext('2d').drawImage(image, 0, 0, maxW, maxH);
-    return canvas;
-  }
-
-  return image;
-}
+var exifr = require('exifr/dist/mini.legacy.umd.js');
 /**
  * The Thumbnail Generator plugin
  */
 
 
-export default class ThumbnailGenerator extends UIPlugin {
-  constructor(uppy, opts) {
-    super(uppy, opts);
+module.exports = (_temp = _class = /*#__PURE__*/function (_Plugin) {
+  _inheritsLoose(ThumbnailGenerator, _Plugin);
 
-    this.onFileAdded = file => {
+  function ThumbnailGenerator(uppy, opts) {
+    var _this;
+
+    _this = _Plugin.call(this, uppy, opts) || this;
+
+    _this.onFileAdded = function (file) {
       if (!file.preview && file.data && isPreviewSupported(file.type) && !file.isRemote) {
-        this.addToQueue(file.id);
+        _this.addToQueue(file.id);
       }
     };
 
-    this.onCancelRequest = file => {
-      const index = this.queue.indexOf(file.id);
+    _this.onCancelRequest = function (file) {
+      var index = _this.queue.indexOf(file.id);
 
       if (index !== -1) {
-        this.queue.splice(index, 1);
+        _this.queue.splice(index, 1);
       }
     };
 
-    this.onFileRemoved = file => {
-      const index = this.queue.indexOf(file.id);
+    _this.onFileRemoved = function (file) {
+      var index = _this.queue.indexOf(file.id);
 
       if (index !== -1) {
-        this.queue.splice(index, 1);
+        _this.queue.splice(index, 1);
       } // Clean up object URLs.
 
 
@@ -141,39 +61,40 @@ export default class ThumbnailGenerator extends UIPlugin {
       }
     };
 
-    this.onRestored = () => {
-      const restoredFiles = this.uppy.getFiles().filter(file => file.isRestored);
-      restoredFiles.forEach(file => {
+    _this.onRestored = function () {
+      var restoredFiles = _this.uppy.getFiles().filter(function (file) {
+        return file.isRestored;
+      });
+
+      restoredFiles.forEach(function (file) {
         // Only add blob URLs; they are likely invalid after being restored.
         if (!file.preview || isObjectURL(file.preview)) {
-          this.addToQueue(file.id);
+          _this.addToQueue(file.id);
         }
       });
     };
 
-    this.onAllFilesRemoved = () => {
-      this.queue = [];
-    };
+    _this.waitUntilAllProcessed = function (fileIDs) {
+      fileIDs.forEach(function (fileID) {
+        var file = _this.uppy.getFile(fileID);
 
-    this.waitUntilAllProcessed = fileIDs => {
-      fileIDs.forEach(fileID => {
-        const file = this.uppy.getFile(fileID);
-        this.uppy.emit('preprocess-progress', file, {
+        _this.uppy.emit('preprocess-progress', file, {
           mode: 'indeterminate',
-          message: this.i18n('generatingThumbnails')
+          message: _this.i18n('generatingThumbnails')
         });
       });
 
-      const emitPreprocessCompleteForAll = () => {
-        fileIDs.forEach(fileID => {
-          const file = this.uppy.getFile(fileID);
-          this.uppy.emit('preprocess-complete', file);
+      var emitPreprocessCompleteForAll = function emitPreprocessCompleteForAll() {
+        fileIDs.forEach(function (fileID) {
+          var file = _this.uppy.getFile(fileID);
+
+          _this.uppy.emit('preprocess-complete', file);
         });
       };
 
-      return new Promise(resolve => {
-        if (this.queueProcessing) {
-          this.uppy.once('thumbnail:all-generated', () => {
+      return new Promise(function (resolve, reject) {
+        if (_this.queueProcessing) {
+          _this.uppy.once('thumbnail:all-generated', function () {
             emitPreprocessCompleteForAll();
             resolve();
           });
@@ -184,28 +105,47 @@ export default class ThumbnailGenerator extends UIPlugin {
       });
     };
 
-    this.type = 'modifier';
-    this.id = this.opts.id || 'ThumbnailGenerator';
-    this.title = 'Thumbnail Generator';
-    this.queue = [];
-    this.queueProcessing = false;
-    this.defaultThumbnailDimension = 200;
-    this.thumbnailType = this.opts.thumbnailType || 'image/jpeg';
-    this.defaultLocale = locale;
-    const defaultOptions = {
+    _this.type = 'modifier';
+    _this.id = _this.opts.id || 'ThumbnailGenerator';
+    _this.title = 'Thumbnail Generator';
+    _this.queue = [];
+    _this.queueProcessing = false;
+    _this.defaultThumbnailDimension = 200;
+    _this.thumbnailType = _this.opts.thumbnailType || 'image/jpeg';
+    _this.defaultLocale = {
+      strings: {
+        generatingThumbnails: 'Generating thumbnails...'
+      }
+    };
+    var defaultOptions = {
       thumbnailWidth: null,
       thumbnailHeight: null,
       waitForThumbnailsBeforeUpload: false,
       lazy: false
     };
-    this.opts = { ...defaultOptions,
-      ...opts
-    };
-    this.i18nInit();
+    _this.opts = _extends({}, defaultOptions, opts);
 
-    if (this.opts.lazy && this.opts.waitForThumbnailsBeforeUpload) {
+    if (_this.opts.lazy && _this.opts.waitForThumbnailsBeforeUpload) {
       throw new Error('ThumbnailGenerator: The `lazy` and `waitForThumbnailsBeforeUpload` options are mutually exclusive. Please ensure at most one of them is set to `true`.');
     }
+
+    _this.i18nInit();
+
+    return _this;
+  }
+
+  var _proto = ThumbnailGenerator.prototype;
+
+  _proto.setOptions = function setOptions(newOpts) {
+    _Plugin.prototype.setOptions.call(this, newOpts);
+
+    this.i18nInit();
+  };
+
+  _proto.i18nInit = function i18nInit() {
+    this.translator = new Translator([this.defaultLocale, this.uppy.locale, this.opts.locale]);
+    this.i18n = this.translator.translate.bind(this.translator);
+    this.setPluginState(); // so that UI re-renders and we see the updated locale
   }
   /**
    * Create a thumbnail for the given Uppy file object.
@@ -215,30 +155,47 @@ export default class ThumbnailGenerator extends UIPlugin {
    * @param {number} targetHeight
    * @returns {Promise}
    */
+  ;
 
+  _proto.createThumbnail = function createThumbnail(file, targetWidth, targetHeight) {
+    var _this2 = this;
 
-  createThumbnail(file, targetWidth, targetHeight) {
-    const originalUrl = URL.createObjectURL(file.data);
-    const onload = new Promise((resolve, reject) => {
-      const image = new Image();
+    // bug in the compatibility data
+    // eslint-disable-next-line compat/compat
+    var originalUrl = URL.createObjectURL(file.data);
+    var onload = new Promise(function (resolve, reject) {
+      var image = new Image();
       image.src = originalUrl;
-      image.addEventListener('load', () => {
+      image.addEventListener('load', function () {
+        // bug in the compatibility data
+        // eslint-disable-next-line compat/compat
         URL.revokeObjectURL(originalUrl);
         resolve(image);
       });
-      image.addEventListener('error', event => {
+      image.addEventListener('error', function (event) {
+        // bug in the compatibility data
+        // eslint-disable-next-line compat/compat
         URL.revokeObjectURL(originalUrl);
         reject(event.error || new Error('Could not create thumbnail'));
       });
     });
-    const orientationPromise = rotation(file.data).catch(() => 1);
-    return Promise.all([onload, orientationPromise]).then(_ref => {
-      let [image, orientation] = _ref;
-      const dimensions = this.getProportionalDimensions(image, targetWidth, targetHeight, orientation.deg);
-      const rotatedImage = rotateImage(image, orientation);
-      const resizedImage = this.resizeImage(rotatedImage, dimensions.width, dimensions.height);
-      return canvasToBlob(resizedImage, this.thumbnailType, 80);
-    }).then(blob => {
+    var orientationPromise = exifr.rotation(file.data).catch(function (_err) {
+      return 1;
+    });
+    return Promise.all([onload, orientationPromise]).then(function (_ref) {
+      var image = _ref[0],
+          orientation = _ref[1];
+
+      var dimensions = _this2.getProportionalDimensions(image, targetWidth, targetHeight, orientation.deg);
+
+      var rotatedImage = _this2.rotateImage(image, orientation);
+
+      var resizedImage = _this2.resizeImage(rotatedImage, dimensions.width, dimensions.height);
+
+      return _this2.canvasToBlob(resizedImage, _this2.thumbnailType, 80);
+    }).then(function (blob) {
+      // bug in the compatibility data
+      // eslint-disable-next-line compat/compat
       return URL.createObjectURL(blob);
     });
   }
@@ -248,11 +205,10 @@ export default class ThumbnailGenerator extends UIPlugin {
    * account. If neither width nor height are given, the default dimension
    * is used.
    */
+  ;
 
-
-  getProportionalDimensions(img, width, height, rotation) {
-    // eslint-disable-line no-shadow
-    let aspect = img.width / img.height;
+  _proto.getProportionalDimensions = function getProportionalDimensions(img, width, height, rotation) {
+    var aspect = img.width / img.height;
 
     if (rotation === 90 || rotation === 270) {
       aspect = img.height / img.width;
@@ -260,7 +216,7 @@ export default class ThumbnailGenerator extends UIPlugin {
 
     if (width != null) {
       return {
-        width,
+        width: width,
         height: Math.round(width / aspect)
       };
     }
@@ -268,7 +224,7 @@ export default class ThumbnailGenerator extends UIPlugin {
     if (height != null) {
       return {
         width: Math.round(height * aspect),
-        height
+        height: height
       };
     }
 
@@ -278,98 +234,204 @@ export default class ThumbnailGenerator extends UIPlugin {
     };
   }
   /**
+   * Make sure the image doesn’t exceed browser/device canvas limits.
+   * For ios with 256 RAM and ie
+   */
+  ;
+
+  _proto.protect = function protect(image) {
+    // https://stackoverflow.com/questions/6081483/maximum-size-of-a-canvas-element
+    var ratio = image.width / image.height;
+    var maxSquare = 5000000; // ios max canvas square
+
+    var maxSize = 4096; // ie max canvas dimensions
+
+    var maxW = Math.floor(Math.sqrt(maxSquare * ratio));
+    var maxH = Math.floor(maxSquare / Math.sqrt(maxSquare * ratio));
+
+    if (maxW > maxSize) {
+      maxW = maxSize;
+      maxH = Math.round(maxW / ratio);
+    }
+
+    if (maxH > maxSize) {
+      maxH = maxSize;
+      maxW = Math.round(ratio * maxH);
+    }
+
+    if (image.width > maxW) {
+      var canvas = document.createElement('canvas');
+      canvas.width = maxW;
+      canvas.height = maxH;
+      canvas.getContext('2d').drawImage(image, 0, 0, maxW, maxH);
+      image = canvas;
+    }
+
+    return image;
+  }
+  /**
    * Resize an image to the target `width` and `height`.
    *
    * Returns a Canvas with the resized image on it.
    */
-  // eslint-disable-next-line class-methods-use-this
+  ;
 
-
-  resizeImage(image, targetWidth, targetHeight) {
+  _proto.resizeImage = function resizeImage(image, targetWidth, targetHeight) {
     // Resizing in steps refactored to use a solution from
     // https://blog.uploadcare.com/image-resize-in-browsers-is-broken-e38eed08df01
-    let img = protect(image);
-    let steps = Math.ceil(Math.log2(img.width / targetWidth));
+    image = this.protect(image);
+    var steps = Math.ceil(MathLog2(image.width / targetWidth));
 
     if (steps < 1) {
       steps = 1;
     }
 
-    let sW = targetWidth * 2 ** (steps - 1);
-    let sH = targetHeight * 2 ** (steps - 1);
-    const x = 2;
+    var sW = targetWidth * Math.pow(2, steps - 1);
+    var sH = targetHeight * Math.pow(2, steps - 1);
+    var x = 2;
 
     while (steps--) {
-      const canvas = document.createElement('canvas');
+      var canvas = document.createElement('canvas');
       canvas.width = sW;
       canvas.height = sH;
-      canvas.getContext('2d').drawImage(img, 0, 0, sW, sH);
-      img = canvas;
+      canvas.getContext('2d').drawImage(image, 0, 0, sW, sH);
+      image = canvas;
       sW = Math.round(sW / x);
       sH = Math.round(sH / x);
     }
 
-    return img;
+    return image;
+  };
+
+  _proto.rotateImage = function rotateImage(image, translate) {
+    var w = image.width;
+    var h = image.height;
+
+    if (translate.deg === 90 || translate.deg === 270) {
+      w = image.height;
+      h = image.width;
+    }
+
+    var canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    var context = canvas.getContext('2d');
+    context.translate(w / 2, h / 2);
+
+    if (translate.canvas) {
+      context.rotate(translate.rad);
+      context.scale(translate.scaleX, translate.scaleY);
+    }
+
+    context.drawImage(image, -image.width / 2, -image.height / 2, image.width, image.height);
+    return canvas;
+  }
+  /**
+   * Save a <canvas> element's content to a Blob object.
+   *
+   * @param {HTMLCanvasElement} canvas
+   * @returns {Promise}
+   */
+  ;
+
+  _proto.canvasToBlob = function canvasToBlob(canvas, type, quality) {
+    try {
+      canvas.getContext('2d').getImageData(0, 0, 1, 1);
+    } catch (err) {
+      if (err.code === 18) {
+        return Promise.reject(new Error('cannot read image, probably an svg with external resources'));
+      }
+    }
+
+    if (canvas.toBlob) {
+      return new Promise(function (resolve) {
+        canvas.toBlob(resolve, type, quality);
+      }).then(function (blob) {
+        if (blob === null) {
+          throw new Error('cannot read image, probably an svg with external resources');
+        }
+
+        return blob;
+      });
+    }
+
+    return Promise.resolve().then(function () {
+      return dataURItoBlob(canvas.toDataURL(type, quality), {});
+    }).then(function (blob) {
+      if (blob === null) {
+        throw new Error('could not extract blob, probably an old browser');
+      }
+
+      return blob;
+    });
   }
   /**
    * Set the preview URL for a file.
    */
+  ;
 
-
-  setPreviewURL(fileID, preview) {
+  _proto.setPreviewURL = function setPreviewURL(fileID, preview) {
     this.uppy.setFileState(fileID, {
-      preview
+      preview: preview
     });
-  }
+  };
 
-  addToQueue(item) {
+  _proto.addToQueue = function addToQueue(item) {
     this.queue.push(item);
 
     if (this.queueProcessing === false) {
       this.processQueue();
     }
-  }
+  };
 
-  processQueue() {
+  _proto.processQueue = function processQueue() {
+    var _this3 = this;
+
     this.queueProcessing = true;
 
     if (this.queue.length > 0) {
-      const current = this.uppy.getFile(this.queue.shift());
+      var current = this.uppy.getFile(this.queue.shift());
 
       if (!current) {
         this.uppy.log('[ThumbnailGenerator] file was removed before a thumbnail could be generated, but not removed from the queue. This is probably a bug', 'error');
-        return Promise.resolve();
+        return;
       }
 
-      return this.requestThumbnail(current).catch(() => {}) // eslint-disable-line node/handle-callback-err
-      .then(() => this.processQueue());
+      return this.requestThumbnail(current).catch(function (err) {}) // eslint-disable-line handle-callback-err
+      .then(function () {
+        return _this3.processQueue();
+      });
     }
 
     this.queueProcessing = false;
     this.uppy.log('[ThumbnailGenerator] Emptied thumbnail queue');
     this.uppy.emit('thumbnail:all-generated');
-    return Promise.resolve();
-  }
+  };
 
-  requestThumbnail(file) {
+  _proto.requestThumbnail = function requestThumbnail(file) {
+    var _this4 = this;
+
     if (isPreviewSupported(file.type) && !file.isRemote) {
-      return this.createThumbnail(file, this.opts.thumbnailWidth, this.opts.thumbnailHeight).then(preview => {
-        this.setPreviewURL(file.id, preview);
-        this.uppy.log(`[ThumbnailGenerator] Generated thumbnail for ${file.id}`);
-        this.uppy.emit('thumbnail:generated', this.uppy.getFile(file.id), preview);
-      }).catch(err => {
-        this.uppy.log(`[ThumbnailGenerator] Failed thumbnail for ${file.id}:`, 'warning');
-        this.uppy.log(err, 'warning');
-        this.uppy.emit('thumbnail:error', this.uppy.getFile(file.id), err);
+      return this.createThumbnail(file, this.opts.thumbnailWidth, this.opts.thumbnailHeight).then(function (preview) {
+        _this4.setPreviewURL(file.id, preview);
+
+        _this4.uppy.log("[ThumbnailGenerator] Generated thumbnail for " + file.id);
+
+        _this4.uppy.emit('thumbnail:generated', _this4.uppy.getFile(file.id), preview);
+      }).catch(function (err) {
+        _this4.uppy.log("[ThumbnailGenerator] Failed thumbnail for " + file.id + ":", 'warning');
+
+        _this4.uppy.log(err, 'warning');
+
+        _this4.uppy.emit('thumbnail:error', _this4.uppy.getFile(file.id), err);
       });
     }
 
     return Promise.resolve();
-  }
+  };
 
-  install() {
+  _proto.install = function install() {
     this.uppy.on('file-removed', this.onFileRemoved);
-    this.uppy.on('cancel-all', this.onAllFilesRemoved);
 
     if (this.opts.lazy) {
       this.uppy.on('thumbnail:request', this.onFileAdded);
@@ -382,11 +444,10 @@ export default class ThumbnailGenerator extends UIPlugin {
     if (this.opts.waitForThumbnailsBeforeUpload) {
       this.uppy.addPreProcessor(this.waitUntilAllProcessed);
     }
-  }
+  };
 
-  uninstall() {
+  _proto.uninstall = function uninstall() {
     this.uppy.off('file-removed', this.onFileRemoved);
-    this.uppy.off('cancel-all', this.onAllFilesRemoved);
 
     if (this.opts.lazy) {
       this.uppy.off('thumbnail:request', this.onFileAdded);
@@ -399,7 +460,7 @@ export default class ThumbnailGenerator extends UIPlugin {
     if (this.opts.waitForThumbnailsBeforeUpload) {
       this.uppy.removePreProcessor(this.waitUntilAllProcessed);
     }
-  }
+  };
 
-}
-ThumbnailGenerator.VERSION = packageJson.version;
+  return ThumbnailGenerator;
+}(Plugin), _class.VERSION = "1.7.11", _temp);

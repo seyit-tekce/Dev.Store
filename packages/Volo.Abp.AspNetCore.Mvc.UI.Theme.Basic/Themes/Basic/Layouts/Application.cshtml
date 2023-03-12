@@ -48,32 +48,33 @@
     @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
 
     @await RenderSectionAsync("styles", false)
-
+    <abp-script-bundle name="@BasicThemeBundles.Scripts.Global" />
     @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Application)
 </head>
-<body class="abp-application-layout @rtl">
-    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Application)
+<body class="abp-application-layout home page-template-default page page-id-171 theme-sober woocommerce-js  sidebar-no-sidebar topbar-disabled header-v1 header-transparent header-text-light header-hoverable no-page-header page-header-style-normal page-title-hidden shop-hover-thumbnail product-quickview-enable blog-classic shop-navigation-links wpb-js-composer js-comp-ver-6.7.0 vc_responsive currency-usd">
+    <div class="site" id="page">
+        @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Application)
 
-    @(await Component.InvokeAsync<MainNavbarViewComponent>())
+        @(await Component.InvokeAsync<MainNavbarViewComponent>())
 
-    <div class="@containerClass">
-        @(await Component.InvokeAsync<PageAlertsViewComponent>())
-        <div id="AbpContentToolbar">
-            <div class="row mb-2">
-                @(await Component.InvokeAsync<ContentTitleViewComponent>())
-                <div class="col">
-                    <div class="text-end">
-                        @await RenderSectionAsync("content_toolbar", false)
+        <div class="@containerClass">
+            @(await Component.InvokeAsync<PageAlertsViewComponent>())
+            <div id="AbpContentToolbar">
+                <div class="row mb-2">
+                    @(await Component.InvokeAsync<ContentTitleViewComponent>())
+                    <div class="col">
+                        <div class="text-end">
+                            @await RenderSectionAsync("content_toolbar", false)
+                        </div>
                     </div>
                 </div>
             </div>
+            @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Application)
+            @RenderBody()
+            @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Application)
         </div>
-        @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Application)
-        @RenderBody()
-        @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Application)
     </div>
-
-    <abp-script-bundle name="@BasicThemeBundles.Scripts.Global" />
+   
 
     <script src="~/Abp/ApplicationLocalizationScript?cultureName=@CultureInfo.CurrentUICulture.Name"></script>
     <script src="~/Abp/ApplicationConfigurationScript"></script>

@@ -3,7 +3,7 @@
 var typeOf = require('kind-of');
 
 /**
- * Basic sort algorithm that has similar behavior to `Array.prototype.sort`
+ * Multikart sort algorithm that has similar behavior to `Array.prototype.sort`
  * for null and undefined, but also allows sorting by an object property.
  *
  * @param {Mixed} `a` First value to compare.

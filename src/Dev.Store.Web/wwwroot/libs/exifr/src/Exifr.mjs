@@ -28,6 +28,7 @@ export class Exifr {
 		let {file} = this
 		let marker = file.getUint16(0)
 		for (let [type, FileParser] of fileParsers) {
+			//file.tiff = true
 			if (FileParser.canHandle(file, marker)) {
 				this.fileParser = new FileParser(this.options, this.file, this.parsers)
 				return file[type] = true

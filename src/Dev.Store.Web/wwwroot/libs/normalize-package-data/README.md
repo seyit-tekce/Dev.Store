@@ -12,7 +12,7 @@ npm install normalize-package-data
 
 ## Usage
 
-Basic usage is really simple. You call the function that normalize-package-data exports. Let's call it `normalizeData`.
+Multikart usage is really simple. You call the function that normalize-package-data exports. Let's call it `normalizeData`.
 
 ```javascript
 normalizeData = require('normalize-package-data')

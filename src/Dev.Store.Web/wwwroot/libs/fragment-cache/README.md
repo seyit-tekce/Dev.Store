@@ -115,7 +115,7 @@ console.log(cache.get('somefile.js'));
 ### Related projects
 
 * [base](https://www.npmjs.com/package/base): base is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting… [more](https://github.com/node-base/base) | [homepage](https://github.com/node-base/base "base is the foundation for creating modular, unit testable and highly pluggable node.js applications, starting with a handful of common methods, like `set`, `get`, `del` and `use`.")
-* [map-cache](https://www.npmjs.com/package/map-cache): Basic cache object for storing key-value pairs. | [homepage](https://github.com/jonschlinkert/map-cache "Basic cache object for storing key-value pairs.")
+* [map-cache](https://www.npmjs.com/package/map-cache): Multikart cache object for storing key-value pairs. | [homepage](https://github.com/jonschlinkert/map-cache "Multikart cache object for storing key-value pairs.")
 
 ### Contributing
 

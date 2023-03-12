@@ -256,7 +256,7 @@ const companies = {
 	ZRAN: 'Zoran',
 	Zebr: 'Zebra Technologies',
 	appl: 'Apple Computer',
-	bICC: 'basICColor',
+	bICC: 'MultikartColor',
 	berg: 'bergdesign',
 	ceyd: 'Integrated Color Solutions',
 	clsp: 'MacDermid ColorSpan',

@@ -98,10 +98,9 @@ Exifr does what no other JS lib does. It's **efficient** and **blazing fast**!
 |`exifr.parse(file, {options})`|`object`|Custom settings|
 |`exifr.gps(file)`|`{latitude, longitude}`|Parses only GPS coords|
 |`exifr.orientation(file)`|`number`|Parses only orientation|
-|`exifr.rotation(file)`|`object`|Info how to rotate the photo|
+|`exifr.rotation(file)`|`object`|Returns how to rotate the photo|
 |`exifr.thumbnail(file)`|`Buffer\|Uint8Array` binary|Extracts embedded thumbnail|
 |`exifr.thumbnailUrl(file)`|`string` Object URL|Browser only|
-|`exifr.sidecar(file)`|`object`|Parses sidecar file|
 
 ## Installation
 
@@ -109,7 +108,7 @@ Exifr does what no other JS lib does. It's **efficient** and **blazing fast**!
 npm install exifr
 ```
 
-Exifr comes in three prebuilt bundles. It's a good idea to start development with `full` and then scale down to `lite`, `mini`, or better yet, [build your own](#advanced-apis) around modular core.
+Exifr comes in three prebuilt bundles. It's a good idea to start development with `full` and then scale down to `lite`, `mini`, or better yet, [build your own](#advanced) around modular core.
 
 ```js
 // Modern Node.js can import CommonJS
@@ -137,7 +136,7 @@ var exifr = require('exifr') // => exifr/dist/full.umd.cjs
 
 * **full** - Contains everything. Intended for use in Node.js.
 * **lite** - Reads JPEG and HEIC. Parses TIFF/EXIF and XMP.
-* **mini** - Stripped down to basics. Parses most useful TIFF/EXIF from JPEGs. **Has no tag dictionaries**.
+* **mini** - Stripped down to Multikarts. Parses most useful TIFF/EXIF from JPEGs. **Has no tag dictionaries**.
 
 Of course, you can use the `full` version in browser, or use any other build in Node.js.
 
@@ -153,13 +152,13 @@ Of course, you can use the `full` version in browser, or use any other build in 
 
 |                 | full | lite | mini | core |
 |-----------------|------|------|------|------|
-| chunked<br>file readers | BlobReader<br>UrlFetcher (*+ Node.js*)<br>FsReader<br>Base64Reader | BlobReader<br>UrlFetcher (*Browser only*) | BlobReader | none |
+| chunked<br>file readers | BlobReader<br>UrlFetcher<br>FsReader<br>Base64Reader | BlobReader<br>UrlFetcher | BlobReader | none |
 | file parsers    | `*.jpg`<br>`*.heic`<br>`*.tif`/`*.iiq`<br>`*.png` | `*.jpg`<br>`*.heic` | `*.jpg` | none |
 | segment<br>parsers | TIFF (EXIF)<br>IPTC<br>XMP<br>ICC<br>JFIF<br>IHDR | TIFF (EXIF)<br>XMP | TIFF (EXIF) | none |
 | dictionaries    | TIFF (+ less frequent tags)<br>IPTC<br>ICC<br>JFIF<br>IHDR | only TIFF keys<br>(IFD0, EXIF, GPS) | none | none |
-| size +-         | 73 Kb | 45 Kb | 29 Kb | 15 Kb |
+| size +-         | 60 Kb | 40 Kb | 25 Kb | 15 Kb |
 | gzipped         | 22 Kb | 12 Kb | 8 Kb  | 4 Kb  |
-| file            | `full.esm.js`<br>`full.esm.mjs`<br>`full.umd.js`<br>`full.umd.cjs`<br>`full.legacy.umd.js` | `lite.esm.js`<br>`lite.esm.mjs`<br>`lite.umd.js`<br>`lite.umd.cjs`<br>`lite.legacy.umd.js` | `mini.esm.js`<br>`mini.esm.mjs`<br>`mini.umd.js`<br>`mini.umd.cjs`<br>`mini.legacy.umd.js` | [Learn more](#advanced) |
+| file            | `full.umd.js`<br>`full.esm.js`<br>`full.esm.mjs`<br>`full.legacy.umd.js` | `lite.umd.js`<br>`lite.esm.js`<br>`lite.esm.mjs`<br>`lite.legacy.umd.js` | `mini.umd.js`<br>`mini.esm.js`<br>`mini.esm.mjs`<br>`mini.legacy.umd.js` | [Learn more](#advanced) |
 </details>
 
 #### ESM, .js .mjs .cjs extensions, "main", "module", "type":"module"
@@ -282,12 +281,12 @@ and a lot more in the [examples/](examples/) folder
 ## API
 
 ### `parse(file[, options])`
-Returns: `Promise<object | undefined>`
+Returns: `Promise<object>`
 
 Accepts [file](#file-argument) (in any format), parses it and returns exif object. Optional [options](#options-argument) argument can be specified.
 
 ### `gps(file)`
-Returns: `Promise<object | undefined>`
+Returns: `Promise<object>`
 
 Only extracts GPS coordinates.
 
@@ -296,12 +295,12 @@ Only extracts GPS coordinates.
 Check out [examples/gps.js](examples/gps.js) to learn more.
 
 ### `orientation(file)`
-Returns: `Promise<number | undefined>`
+Returns: `Promise<number>`
 
 Only extracts photo's orientation.
 
 ### `rotation(file)`
-Returns: `Promise<object | undefined>`
+Returns: `Promise<object>`
 
 Only extracts photo's orientation. Returns object with instructions how to rotate the image:
 
@@ -323,7 +322,7 @@ if (r.css) {
 ```
 
 ### `thumbnail(file)`
-Returns: `Promise<Buffer | Uint8Array | undefined>`
+Returns: `Promise<Buffer|Uint8Array>`
 
 Extracts embedded thumbnail from the photo, returns `Uint8Array`.
 
@@ -332,26 +331,11 @@ Extracts embedded thumbnail from the photo, returns `Uint8Array`.
 Check out [examples/thumbnail.html](examples/thumbnail.html) and [examples/thumbnail.js](examples/thumbnail.js) to learn more.
 
 ### `thumbnailUrl(file)`
-Returns: `Promise<string | undefined>`
+Returns: `Promise<string>`
 <br>
 browser only
 
 Exports the thumbnail wrapped in [Object URL](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications#Example_Using_object_URLs_to_display_images). The URL has to be revoked when not needed anymore.
-
-### `sidecar(file[, options[, type]])`
-Returns: `Promise<object | undefined>`
-<br>
-full bundle only
-
-Parses sidecar file, i.e., an external metadata usually accompanied by the image file. Most notably `.xmp` or `.icc`.
-
-Third argument is optional but advised if you know the segment type you're dealing with and want to improve performance. Otherwise exifr tries to infer the type from file extension (if `file` is path or url) and/or randomly tries all parsers at its disposal.
-
-```js
-exifr.sidecar('./img_1234.icc')
-exifr.sidecar('./img_1234.icc', {translateKeys: false})
-exifr.sidecar('./img_1234.colorprofile', {translateKeys: false}, 'icc')
-```
 
 ### `Exifr` class
 
@@ -375,7 +359,7 @@ await exr.file?.close?.()
 * `string`
   * file path
   * URL, [Object URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL)
-  * Base64 or [Base64 URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)
+  * Base64 or [Base64 URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Multikarts_of_HTTP/Data_URIs)
 * `Buffer`
 * `ArrayBuffer`
 * `Uint8Array`
@@ -425,8 +409,7 @@ let defaultOptions = {
   firstChunkSizeNode: 512,
   firstChunkSizeBrowser: 65536, // 64kb
   chunkSize: 65536, // 64kb
-  chunkLimit: 5,
-  httpHeaders: {},
+  chunkLimit: 5
 }
 ```
 
@@ -477,7 +460,7 @@ EXIF became synonymous for all image metadata, but it's actually just one of man
 Jpeg stores various formats of data in APP-Segments. Heic and Tiff file formats use different structures or naming conventions but the idea is the same, so we refer to TIFF, XMP, IPTC, ICC and JFIF as Segments.
 
 * `options.tiff` type `bool|object|Array` default: `true`
-<br>TIFF APP1 Segment - Basic TIFF/EXIF tags, consists of blocks: IFD0 (image), IFD1 (thumbnail), EXIF, GPS, Interop
+<br>TIFF APP1 Segment - Multikart TIFF/EXIF tags, consists of blocks: IFD0 (image), IFD1 (thumbnail), EXIF, GPS, Interop
 * `options.jfif` type `bool` default: `false`
 <br>JFIF APP0 Segment - Additional info
 * `options.xmp` type `bool` default: `false`
@@ -487,14 +470,14 @@ Jpeg stores various formats of data in APP-Segments. Heic and Tiff file formats 
 * `options.icc` type `bool` default: `false`
 <br>ICC APP2 Segment - Color profile
 * `options.ihdr` type `bool` default: `true` (only for PNG)
-<br>PNG Header chunk - Basic file info
+<br>PNG Header chunk - Multikart file info
 
 #### TIFF IFD Blocks
 
 TIFF Segment consists of various IFD's (Image File Directories) aka blocks.
 
 * `options.ifd0` (alias `options.image`) type `bool|object|Array` default: `true`
-<br>IFD0 - Basic info about the image
+<br>IFD0 - Multikart info about the image
 * `options.ifd1` (alias `options.thumbnail`) type `bool|object|Array` default: `false`
 <br>IFD1 - Info about embedded thumbnail
 * `options.exif` type `bool|object|Array` default: `true`
@@ -646,14 +629,6 @@ This limit is bypassed if multi-segment segments ocurs in the file and if [`opti
 
 *If the exif isn't found within N chunks (64\*5 = 320KB) it probably isn't in the file and it's not worth reading anymore.*
 
-#### `options.httpHeaders`
-Type: `object`
-<br>
-Default: {}
-
-Additional HTTP headers to include when fetching chunks from URLs that require
-Authorization or other custom headers.
-
 ### Output format
 
 #### `options.mergeOutput`
@@ -666,8 +641,8 @@ Merges all parsed segments and blocks into a single object.
 **Warning**: `mergeOutput: false` should not be used with `translateKeys: false` or when parsing both `ifd0` (image) and `ifd1` (thumbnail). Tag keys are numeric, sometimes identical and may collide.
 
 <table><tr>
-<td>mergeOutput: true</td>
 <td>mergeOutput: false</td>
+<td>mergeOutput: true</td>
 </tr><tr><td><pre>
 {
   Make: 'Google',
@@ -704,9 +679,7 @@ Type: `bool`
 <br>
 Default: `true`
 
-Suppresses errors that occur during parsing. Messages are stored at `output.errors` instead of throwing and causing promise rejection.
-
-NOTE: Some fundamental error's can still be thrown. Such as wrong arguments or `Unknown file format`.
+Error messages are stored at `output.errors` instead of thrown as `Error` instances and causing promise rejection.
 
 Failing silently enables reading broken files. But only file-structure related errors are caught.
 
@@ -797,7 +770,7 @@ The library's functionality is divided into four categories.
 
 * **(Chunked) File reader** reads different input data structures by chunks.
 <br> `BlobReader` (browser), `UrlFetcher` (browser), `FsReader` (Node.js), `Base64Reader`
-<br>See [`src/file-readers/`](src/file-readers).
+<br>See [`src/file-parsers/`](src/file-readers).
 <br>*NOTE: Everything can read everything out-of-the-box as a whole file. But file readers are needed to enable chunked mode.*
 * **File parser** looks for metadata in different file formats
 <br>`.jpg`, `.tiff`, `.heic`
@@ -976,17 +949,6 @@ for (let file of files) exif.parse(file, {exif: true, iptc: true})
 
 ### Benchmarks
 
-[pigallery2](https://github.com/bpatrik/pigallery2) did [a few](https://github.com/bpatrik/pigallery2/issues/277#issuecomment-836948216) [benchmarks](https://github.com/bpatrik/pigallery2/issues/277#issuecomment-840515653).
-
-```
-2036 photos (in total 22GB):
-lib        | average  | all files
----------------------------------
-exifr      | 2.5ms    | 5s         <--- !!!
-exifreader | 9.5ms    | 19.5s
-exiftool   | 76ms     | 154s
-```
-
 Try the benchmark yourself at [benchmark/chunked-vs-whole.js](https://github.com/MikeKovarik/exifr/blob/master/benchmark/chunked-vs-whole.js)
 
 ```
@@ -1014,9 +976,6 @@ For full changelog visit [`CHANGELOG.md`](CHANGELOG.md).
 
 ### Notable changes
 
-* **7.0.0** `string` URLs as `file` argument are now accepted in Node.js (*`UrlFetcher` uses polyfill for `fetch()` in Node.js*). But only in `full` bundle.
-<br>Breaking change in XMP parsing. *Only affects obscure cases with lists and nested `rdf:Description`, but breaking change nonetheless.*
-* **6.3.0** AVIF support.
 * **6.0.0** & **6.2.0** PNG support.
 * **4.3.0** Package.json's `"main"` now points to UMD bundle for better compatibility.
 * **4.1.0** Started bundling shims and polyfills with `legacy` builds. Suppporting IE10.

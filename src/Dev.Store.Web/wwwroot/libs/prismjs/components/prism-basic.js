@@ -1,4 +1,4 @@
-Prism.languages.basic = {
+Prism.languages.Multikart = {
 	'comment': {
 		pattern: /(?:!|REM\b).+/i,
 		inside: {

@@ -1,8 +1,7 @@
-/* eslint-disable */
-import type { Locale } from '@uppy/core'
+import Uppy = require('@uppy/core')
 
-type ThumbnailGeneratorLocale = Locale<
-    | 'generatingThumbnails'
+type ThumbnailGeneratorLocale = Uppy.Locale<
+  | 'generatingThumbnails'
 >
 
-export default ThumbnailGeneratorLocale
+export = ThumbnailGeneratorLocale

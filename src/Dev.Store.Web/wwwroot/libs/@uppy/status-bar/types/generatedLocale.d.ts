@@ -1,25 +1,23 @@
-/* eslint-disable */
-import type { Locale } from '@uppy/core'
+import Uppy = require('@uppy/core')
 
-type StatusBarLocale = Locale<
-    | 'uploading'
-| 'complete'
-| 'uploadFailed'
-| 'paused'
-| 'retry'
-| 'cancel'
-| 'pause'
-| 'resume'
-| 'done'
-| 'filesUploadedOfTotal'
-| 'dataUploadedOfTotal'
-| 'xTimeLeft'
-| 'uploadXFiles'
-| 'uploadXNewFiles'
-| 'upload'
-| 'retryUpload'
-| 'xMoreFilesAdded'
-| 'showErrorDetails'
+type StatusBarLocale = Uppy.Locale<
+  | 'uploading'
+  | 'upload'
+  | 'complete'
+  | 'uploadFailed'
+  | 'paused'
+  | 'retry'
+  | 'retryUpload'
+  | 'cancel'
+  | 'pause'
+  | 'resume'
+  | 'done'
+  | 'filesUploadedOfTotal'
+  | 'dataUploadedOfTotal'
+  | 'xTimeLeft'
+  | 'uploadXFiles'
+  | 'uploadXNewFiles'
+  | 'xMoreFilesAdded'
 >
 
-export default StatusBarLocale
+export = StatusBarLocale

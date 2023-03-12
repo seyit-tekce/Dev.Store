@@ -1,0 +1,47 @@
+﻿@using Volo.Abp.UI.Navigation
+@model ApplicationMenu
+@foreach (var category in Model.Items)
+{
+    var i = 0;
+    <li class="mega" id="@category.ElementId">
+        <a href="@(category.Items.Count() > 0?"#":category.Url)">@category.DisplayName</a>
+
+        @if (category.Items.Count() > 0)
+        {
+            <ul class="mega-menu full-mega-menu">
+                <li>
+                    <div class="container">
+                        <div class="row">
+                            @if (i== 5)
+                            {
+                                <div class="col mega-box">
+                                <div class="link-section">
+                                    <div class="menu-content">
+                                        <ul>
+                                            @foreach (var subCategory in category.Items)
+                                            {
+                                                <li>
+                                                    <a href="@subCategory.Url">
+                                                        @subCategory.DisplayName
+                                                    </a>
+                                                </li>
+                                                i++;
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            
+
+                            <div class="col">
+                                <img src="@category.CustomData"
+                             class="img-fluid mega-img" style="max-width:150px">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        }
+    </li>
+}

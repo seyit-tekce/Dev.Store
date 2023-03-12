@@ -147,7 +147,7 @@ jQuery.extend( {
 		results = results || [];
 		context = context || document;
 
-		// Same basic safeguard as Sizzle
+		// Same Multikart safeguard as Sizzle
 		if ( !selector || typeof selector !== "string" ) {
 			return results;
 		}

@@ -125,7 +125,7 @@ var hasOwnProperty = objectProto.hasOwnProperty;
  * // => '<li>fred</li><li>barney</li>'
  *
  * // Use the `sourceURL` option to specify a custom sourceURL for the template.
- * var compiled = _.template('hello <%= user %>!', { 'sourceURL': '/basic/greeting.jst' });
+ * var compiled = _.template('hello <%= user %>!', { 'sourceURL': '/Multikart/greeting.jst' });
  * compiled(data);
  * // => Find the source of "greeting.jst" under the Sources tab or Resources panel of the web inspector.
  *

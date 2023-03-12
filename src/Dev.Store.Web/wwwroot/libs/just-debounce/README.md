@@ -1,6 +1,6 @@
 # just-debounce
 
-just a basic debounce function
+just a Multikart debounce function
 
 # changes
 

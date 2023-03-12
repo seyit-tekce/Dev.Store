@@ -1,16 +1,19 @@
+using Dev.Store.Categories;
+using Dev.Store.Categories.Dtos;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
+using Polly;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Dev.Store.Permissions;
-using Dev.Store.Localization;
-using Dev.Store.MultiTenancy;
-using Volo.Abp.Identity.Web.Navigation;
-using Volo.Abp.SettingManagement.Web.Navigation;
-using Volo.Abp.TenantManagement.Web.Navigation;
 using Volo.Abp.UI.Navigation;
 
 namespace Dev.Store.Web.Public.Menus;
 
 public class StoreMenuContributor : IMenuContributor
 {
+    private IEnumerable<CategoryDto> Categories { get; set; }
+
     public async Task ConfigureMenuAsync(MenuConfigurationContext context)
     {
         if (context.Menu.Name == StandardMenus.Main)
@@ -21,78 +24,31 @@ public class StoreMenuContributor : IMenuContributor
 
     private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
-        var administration = context.Menu.GetAdministration();
-        var l = context.GetLocalizer<StoreResource>();
+        var categoryAppService = context.ServiceProvider.GetService<ICategoryAppService>();
+        Categories = await categoryAppService.GetCategoriesAsync();
+        var getMainList = Categories.Where(x => x.CategoryParentId == null).OrderBy(x => x.Order);
 
-        context.Menu.Items.Insert(
-            0,
-            new ApplicationMenuItem(
-                StoreMenus.Home,
-                l["Menu:Home"],
-                "~/",
-                icon: "fas fa-home",
-                order: 0
-            )
-        );
-
-        if (MultiTenancyConsts.IsEnabled)
+        foreach (var category in getMainList)
         {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-        }
-        else
-        {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+            var menu = new ApplicationMenuItem(category.Link, category.Name, "/" + category.Link,customData:category.File?.FilePath);
+            var subCategory = Categories.Where(x => x.CategoryParentId == category.Id).OrderBy(x => x.Order);
+            RecursiveMenu(subCategory, ref menu);
+            context.Menu.AddItem(menu);
         }
 
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
-        if (await context.IsGrantedAsync(StorePermissions.Keyword.Default))
+    }
+
+    private void RecursiveMenu(IEnumerable<CategoryDto> categories, ref ApplicationMenuItem menuItem)
+    {
+        foreach (var category in categories)
         {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords/Keyword")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.CloudinarySetting.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.CloudinarySetting, l["Menu:CloudinarySetting"], "/CloudinarySettings/CloudinarySetting")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.UploadFile.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.UploadFile, l["Menu:UploadFile"], "/UploadFiles/UploadFile")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.Product.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Product, l["Menu:Product"], "/Products/Product")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.ProductSet.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.ProductSet, l["Menu:ProductSet"], "/ProductSets/ProductSet")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.ProductSize.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.ProductSize, l["Menu:ProductSize"], "/ProductSizes/ProductSize")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.SeoSetting.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.SeoSetting, l["Menu:SeoSetting"], "/SeoSettings/SeoSetting")
-            );
-        }
-        if (await context.IsGrantedAsync(StorePermissions.ProductImage.Default))
-        {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.ProductImage, l["Menu:ProductImage"], "/ProductImages/ProductImage")
-            );
+            var menu = new ApplicationMenuItem(category.Link, category.Name, menuItem.Url+"/" + category.Link);
+            var subCategory = Categories.Where(x => x.CategoryParentId == category.Id).OrderBy(x => x.Order);
+            RecursiveMenu(subCategory, ref menu);
+            menuItem.AddItem(menu);
+
         }
     }
+
+
 }

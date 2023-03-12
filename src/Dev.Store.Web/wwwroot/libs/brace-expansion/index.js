@@ -32,7 +32,7 @@ function unescapeBraces(str) {
 }
 
 
-// Basically just str.split(","), but handling cases
+// Multikartally just str.split(","), but handling cases
 // where we have nested braced sections, which should be
 // treated as individual members, like {a,{b,c},d}
 function parseCommaParts(str) {

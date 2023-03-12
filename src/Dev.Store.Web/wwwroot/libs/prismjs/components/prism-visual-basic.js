@@ -1,4 +1,4 @@
-Prism.languages['visual-basic'] = {
+Prism.languages['visual-Multikart'] = {
 	'comment': {
 		pattern: /(?:['‘’]|REM\b)(?:[^\r\n_]|_(?:\r\n?|\n)?)*/i,
 		inside: {
@@ -25,5 +25,5 @@ Prism.languages['visual-basic'] = {
 	'punctuation': /[{}().,:?]/
 };
 
-Prism.languages.vb = Prism.languages['visual-basic'];
-Prism.languages.vba = Prism.languages['visual-basic'];
+Prism.languages.vb = Prism.languages['visual-Multikart'];
+Prism.languages.vba = Prism.languages['visual-Multikart'];

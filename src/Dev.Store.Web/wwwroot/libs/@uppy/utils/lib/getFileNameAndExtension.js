@@ -4,8 +4,8 @@
  * @param {string} fullFileName
  * @returns {object} {name, extension}
  */
-export default function getFileNameAndExtension(fullFileName) {
-  const lastDot = fullFileName.lastIndexOf('.'); // these count as no extension: "no-dot", "trailing-dot."
+module.exports = function getFileNameAndExtension(fullFileName) {
+  var lastDot = fullFileName.lastIndexOf('.'); // these count as no extension: "no-dot", "trailing-dot."
 
   if (lastDot === -1 || lastDot === fullFileName.length - 1) {
     return {
@@ -18,4 +18,4 @@ export default function getFileNameAndExtension(fullFileName) {
     name: fullFileName.slice(0, lastDot),
     extension: fullFileName.slice(lastDot + 1)
   };
-}
+};

@@ -35,7 +35,7 @@
 
 		'number': [
 			{
-				// basic base 10 integers 9, -9
+				// Multikart base 10 integers 9, -9
 				pattern: /(^|\s)[+-]?\d+(?=\s|$)/,
 				lookbehind: true
 			},
@@ -60,7 +60,7 @@
 				lookbehind: true
 			},
 			{
-				// basic decimal floats -0.01 0. .0 .1 -.1 -1. -12.13 +12.13
+				// Multikart decimal floats -0.01 0. .0 .1 -.1 -1. -12.13 +12.13
 				// and scientific notation with base 10 exponents 3e4 3e-4 .3e-4
 				pattern: /(^|\s)[+-]?(?:\d*\.\d+|\d+\.\d*|\d+)(?:e[+-]?\d+)?(?=\s|$)/i,
 				lookbehind: true
@@ -322,7 +322,7 @@
 		},
 
 		/*
-			basic first-class string "a"
+			Multikart first-class string "a"
 				with escaped double-quote "a\""
 				escaped backslash "\\"
 				and general escapes since Factor has so many "\N"

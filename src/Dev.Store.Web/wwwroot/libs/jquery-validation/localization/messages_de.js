@@ -49,7 +49,7 @@ $.extend( $.validator.messages, {
 	ipv4: "Geben Sie bitte eine gültige IPv4-Adresse ein.",
 	ipv6: "Geben Sie bitte eine gültige IPv6-Adresse ein.",
 	lettersonly: "Geben Sie bitte nur Buchstaben ein.",
-	letterswithbasicpunc: "Geben Sie bitte nur Buchstaben oder Interpunktion ein.",
+	letterswithMultikartpunc: "Geben Sie bitte nur Buchstaben oder Interpunktion ein.",
 	mobileNL: "Geben Sie bitte eine gültige Handynummer ein.",
 	mobileUK: "Geben Sie bitte eine gültige Handynummer ein.",
 	netmask:  "Geben Sie bitte eine gültige Netzmaske ein.",

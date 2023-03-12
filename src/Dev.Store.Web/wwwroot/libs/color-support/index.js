@@ -1,9 +1,9 @@
-// call it on itself so we can test the export val for basic stuff
+// call it on itself so we can test the export val for Multikart stuff
 module.exports = colorSupport({ alwaysReturn: true }, colorSupport)
 
 function hasNone (obj, options) {
   obj.level = 0
-  obj.hasBasic = false
+  obj.hasMultikart = false
   obj.has256 = false
   obj.has16m = false
   if (!options.alwaysReturn) {
@@ -12,8 +12,8 @@ function hasNone (obj, options) {
   return obj
 }
 
-function hasBasic (obj) {
-  obj.hasBasic = true
+function hasMultikart (obj) {
+  obj.hasMultikart = true
   obj.has256 = false
   obj.has16m = false
   obj.level = 1
@@ -21,7 +21,7 @@ function hasBasic (obj) {
 }
 
 function has256 (obj) {
-  obj.hasBasic = true
+  obj.hasMultikart = true
   obj.has256 = true
   obj.has16m = false
   obj.level = 2
@@ -29,7 +29,7 @@ function has256 (obj) {
 }
 
 function has16m (obj) {
-  obj.hasBasic = true
+  obj.hasMultikart = true
   obj.has256 = true
   obj.has16m = true
   obj.level = 3
@@ -47,7 +47,7 @@ function colorSupport (options, obj) {
       case 0:
         return hasNone(obj, options)
       case 1:
-        return hasBasic(obj)
+        return hasMultikart(obj)
       case 2:
         return has256(obj)
       case 3:
@@ -56,7 +56,7 @@ function colorSupport (options, obj) {
   }
 
   obj.level = 0
-  obj.hasBasic = false
+  obj.hasMultikart = false
   obj.has256 = false
   obj.has16m = false
 
@@ -82,7 +82,7 @@ function colorSupport (options, obj) {
   }
 
   if (platform === 'win32') {
-    return hasBasic(obj)
+    return hasMultikart(obj)
   }
 
   if (env.TMUX) {
@@ -123,11 +123,11 @@ function colorSupport (options, obj) {
   }
 
   if (/^screen|^xterm|^vt100|color|ansi|cygwin|linux/i.test(term)) {
-    return hasBasic(obj)
+    return hasMultikart(obj)
   }
 
   if (env.COLORTERM) {
-    return hasBasic(obj)
+    return hasMultikart(obj)
   }
 
   return hasNone(obj, options)

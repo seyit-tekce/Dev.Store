@@ -102,7 +102,6 @@
 		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
 		<PackageReference Include="Volo.CmsKit.Web" Version="7.0.1" />
-		<ProjectReference Include="..\..\packages\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj" />
 		<PackageReference Include="Volo.Abp.VirtualFileExplorer.Web" Version="7.0.1" />
 	</ItemGroup>
 

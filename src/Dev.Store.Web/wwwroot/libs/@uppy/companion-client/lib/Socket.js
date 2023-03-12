@@ -1,127 +1,92 @@
-let _Symbol$for, _Symbol$for2;
+var ee = require('namespace-emitter');
 
-function _classPrivateFieldLooseBase(receiver, privateKey) { if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) { throw new TypeError("attempted to use private field on non-instance"); } return receiver; }
-
-var id = 0;
-
-function _classPrivateFieldLooseKey(name) { return "__private_" + id++ + "_" + name; }
-
-import ee from 'namespace-emitter';
-
-var _queued = /*#__PURE__*/_classPrivateFieldLooseKey("queued");
-
-var _emitter = /*#__PURE__*/_classPrivateFieldLooseKey("emitter");
-
-var _isOpen = /*#__PURE__*/_classPrivateFieldLooseKey("isOpen");
-
-var _socket = /*#__PURE__*/_classPrivateFieldLooseKey("socket");
-
-var _handleMessage = /*#__PURE__*/_classPrivateFieldLooseKey("handleMessage");
-
-_Symbol$for = Symbol.for('uppy test: getSocket');
-_Symbol$for2 = Symbol.for('uppy test: getQueued');
-export default class UppySocket {
-  constructor(opts) {
-    Object.defineProperty(this, _queued, {
-      writable: true,
-      value: []
-    });
-    Object.defineProperty(this, _emitter, {
-      writable: true,
-      value: ee()
-    });
-    Object.defineProperty(this, _isOpen, {
-      writable: true,
-      value: false
-    });
-    Object.defineProperty(this, _socket, {
-      writable: true,
-      value: void 0
-    });
-    Object.defineProperty(this, _handleMessage, {
-      writable: true,
-      value: e => {
-        try {
-          const message = JSON.parse(e.data);
-          this.emit(message.action, message.payload);
-        } catch (err) {
-          // TODO: use a more robust error handler.
-          console.log(err); // eslint-disable-line no-console
-        }
-      }
-    });
+module.exports = /*#__PURE__*/function () {
+  function UppySocket(opts) {
     this.opts = opts;
+    this._queued = [];
+    this.isOpen = false;
+    this.emitter = ee();
+    this._handleMessage = this._handleMessage.bind(this);
+    this.close = this.close.bind(this);
+    this.emit = this.emit.bind(this);
+    this.on = this.on.bind(this);
+    this.once = this.once.bind(this);
+    this.send = this.send.bind(this);
 
     if (!opts || opts.autoOpen !== false) {
       this.open();
     }
   }
 
-  get isOpen() {
-    return _classPrivateFieldLooseBase(this, _isOpen)[_isOpen];
-  }
+  var _proto = UppySocket.prototype;
 
-  [_Symbol$for]() {
-    return _classPrivateFieldLooseBase(this, _socket)[_socket];
-  }
+  _proto.open = function open() {
+    var _this = this;
 
-  [_Symbol$for2]() {
-    return _classPrivateFieldLooseBase(this, _queued)[_queued];
-  }
+    this.socket = new WebSocket(this.opts.target);
 
-  open() {
-    _classPrivateFieldLooseBase(this, _socket)[_socket] = new WebSocket(this.opts.target);
+    this.socket.onopen = function (e) {
+      _this.isOpen = true;
 
-    _classPrivateFieldLooseBase(this, _socket)[_socket].onopen = () => {
-      _classPrivateFieldLooseBase(this, _isOpen)[_isOpen] = true;
+      while (_this._queued.length > 0 && _this.isOpen) {
+        var first = _this._queued[0];
 
-      while (_classPrivateFieldLooseBase(this, _queued)[_queued].length > 0 && _classPrivateFieldLooseBase(this, _isOpen)[_isOpen]) {
-        const first = _classPrivateFieldLooseBase(this, _queued)[_queued].shift();
+        _this.send(first.action, first.payload);
 
-        this.send(first.action, first.payload);
+        _this._queued = _this._queued.slice(1);
       }
     };
 
-    _classPrivateFieldLooseBase(this, _socket)[_socket].onclose = () => {
-      _classPrivateFieldLooseBase(this, _isOpen)[_isOpen] = false;
+    this.socket.onclose = function (e) {
+      _this.isOpen = false;
     };
 
-    _classPrivateFieldLooseBase(this, _socket)[_socket].onmessage = _classPrivateFieldLooseBase(this, _handleMessage)[_handleMessage];
-  }
+    this.socket.onmessage = this._handleMessage;
+  };
 
-  close() {
-    var _classPrivateFieldLoo;
+  _proto.close = function close() {
+    if (this.socket) {
+      this.socket.close();
+    }
+  };
 
-    (_classPrivateFieldLoo = _classPrivateFieldLooseBase(this, _socket)[_socket]) == null ? void 0 : _classPrivateFieldLoo.close();
-  }
-
-  send(action, payload) {
+  _proto.send = function send(action, payload) {
     // attach uuid
-    if (!_classPrivateFieldLooseBase(this, _isOpen)[_isOpen]) {
-      _classPrivateFieldLooseBase(this, _queued)[_queued].push({
-        action,
-        payload
+    if (!this.isOpen) {
+      this._queued.push({
+        action: action,
+        payload: payload
       });
 
       return;
     }
 
-    _classPrivateFieldLooseBase(this, _socket)[_socket].send(JSON.stringify({
-      action,
-      payload
+    this.socket.send(JSON.stringify({
+      action: action,
+      payload: payload
     }));
-  }
+  };
 
-  on(action, handler) {
-    _classPrivateFieldLooseBase(this, _emitter)[_emitter].on(action, handler);
-  }
+  _proto.on = function on(action, handler) {
+    this.emitter.on(action, handler);
+  };
 
-  emit(action, payload) {
-    _classPrivateFieldLooseBase(this, _emitter)[_emitter].emit(action, payload);
-  }
+  _proto.emit = function emit(action, payload) {
+    this.emitter.emit(action, payload);
+  };
 
-  once(action, handler) {
-    _classPrivateFieldLooseBase(this, _emitter)[_emitter].once(action, handler);
-  }
+  _proto.once = function once(action, handler) {
+    this.emitter.once(action, handler);
+  };
 
-}
+  _proto._handleMessage = function _handleMessage(e) {
+    try {
+      var message = JSON.parse(e.data);
+      this.emit(message.action, message.payload);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return UppySocket;
+}();

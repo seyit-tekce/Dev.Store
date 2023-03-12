@@ -1365,11 +1365,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return sourceMap.sections != null
 	    ? new IndexedSourceMapConsumer(sourceMap)
-	    : new BasicSourceMapConsumer(sourceMap);
+	    : new MultikartSourceMapConsumer(sourceMap);
 	}
 	
 	SourceMapConsumer.fromSourceMap = function(aSourceMap) {
-	  return BasicSourceMapConsumer.fromSourceMap(aSourceMap);
+	  return MultikartSourceMapConsumer.fromSourceMap(aSourceMap);
 	}
 	
 	/**
@@ -1524,7 +1524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function SourceMapConsumer_allGeneratedPositionsFor(aArgs) {
 	    var line = util.getArg(aArgs, 'line');
 	
-	    // When there is no exact match, BasicSourceMapConsumer.prototype._findMapping
+	    // When there is no exact match, MultikartSourceMapConsumer.prototype._findMapping
 	    // returns the index of the closest mapping less than the needle. By
 	    // setting needle.originalColumn to 0, we thus find the last mapping for
 	    // the given line, provided such a mapping exists.
@@ -1596,7 +1596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.SourceMapConsumer = SourceMapConsumer;
 	
 	/**
-	 * A BasicSourceMapConsumer instance represents a parsed source map which we can
+	 * A MultikartSourceMapConsumer instance represents a parsed source map which we can
 	 * query for information about the original file positions by giving it a file
 	 * position in the generated source.
 	 *
@@ -1625,7 +1625,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *
 	 * [0]: https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?pli=1#
 	 */
-	function BasicSourceMapConsumer(aSourceMap) {
+	function MultikartSourceMapConsumer(aSourceMap) {
 	  var sourceMap = aSourceMap;
 	  if (typeof aSourceMap === 'string') {
 	    sourceMap = JSON.parse(aSourceMap.replace(/^\)\]\}'/, ''));
@@ -1676,19 +1676,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.file = file;
 	}
 	
-	BasicSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
-	BasicSourceMapConsumer.prototype.consumer = SourceMapConsumer;
+	MultikartSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
+	MultikartSourceMapConsumer.prototype.consumer = SourceMapConsumer;
 	
 	/**
-	 * Create a BasicSourceMapConsumer from a SourceMapGenerator.
+	 * Create a MultikartSourceMapConsumer from a SourceMapGenerator.
 	 *
 	 * @param SourceMapGenerator aSourceMap
 	 *        The source map that will be consumed.
-	 * @returns BasicSourceMapConsumer
+	 * @returns MultikartSourceMapConsumer
 	 */
-	BasicSourceMapConsumer.fromSourceMap =
+	MultikartSourceMapConsumer.fromSourceMap =
 	  function SourceMapConsumer_fromSourceMap(aSourceMap) {
-	    var smc = Object.create(BasicSourceMapConsumer.prototype);
+	    var smc = Object.create(MultikartSourceMapConsumer.prototype);
 	
 	    var names = smc._names = ArraySet.fromArray(aSourceMap._names.toArray(), true);
 	    var sources = smc._sources = ArraySet.fromArray(aSourceMap._sources.toArray(), true);
@@ -1735,12 +1735,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * The version of the source mapping spec that we are consuming.
 	 */
-	BasicSourceMapConsumer.prototype._version = 3;
+	MultikartSourceMapConsumer.prototype._version = 3;
 	
 	/**
 	 * The list of original sources.
 	 */
-	Object.defineProperty(BasicSourceMapConsumer.prototype, 'sources', {
+	Object.defineProperty(MultikartSourceMapConsumer.prototype, 'sources', {
 	  get: function () {
 	    return this._sources.toArray().map(function (s) {
 	      return this.sourceRoot != null ? util.join(this.sourceRoot, s) : s;
@@ -1765,7 +1765,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * query (the ordered arrays in the `this.__generatedMappings` and
 	 * `this.__originalMappings` properties).
 	 */
-	BasicSourceMapConsumer.prototype._parseMappings =
+	MultikartSourceMapConsumer.prototype._parseMappings =
 	  function SourceMapConsumer_parseMappings(aStr, aSourceRoot) {
 	    var generatedLine = 1;
 	    var previousGeneratedColumn = 0;
@@ -1873,7 +1873,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Find the mapping that best matches the hypothetical "needle" mapping that
 	 * we are searching for in the given "haystack" of mappings.
 	 */
-	BasicSourceMapConsumer.prototype._findMapping =
+	MultikartSourceMapConsumer.prototype._findMapping =
 	  function SourceMapConsumer_findMapping(aNeedle, aMappings, aLineName,
 	                                         aColumnName, aComparator, aBias) {
 	    // To return the position we are searching for, we must first find the
@@ -1897,7 +1897,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Compute the last column for each generated mapping. The last column is
 	 * inclusive.
 	 */
-	BasicSourceMapConsumer.prototype.computeColumnSpans =
+	MultikartSourceMapConsumer.prototype.computeColumnSpans =
 	  function SourceMapConsumer_computeColumnSpans() {
 	    for (var index = 0; index < this._generatedMappings.length; ++index) {
 	      var mapping = this._generatedMappings[index];
@@ -1940,7 +1940,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *   - column: The column number in the original source, or null.
 	 *   - name: The original identifier, or null.
 	 */
-	BasicSourceMapConsumer.prototype.originalPositionFor =
+	MultikartSourceMapConsumer.prototype.originalPositionFor =
 	  function SourceMapConsumer_originalPositionFor(aArgs) {
 	    var needle = {
 	      generatedLine: util.getArg(aArgs, 'line'),
@@ -1992,8 +1992,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Return true if we have the source content for every source in the source
 	 * map, false otherwise.
 	 */
-	BasicSourceMapConsumer.prototype.hasContentsOfAllSources =
-	  function BasicSourceMapConsumer_hasContentsOfAllSources() {
+	MultikartSourceMapConsumer.prototype.hasContentsOfAllSources =
+	  function MultikartSourceMapConsumer_hasContentsOfAllSources() {
 	    if (!this.sourcesContent) {
 	      return false;
 	    }
@@ -2006,7 +2006,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * original source file. Returns null if no original source content is
 	 * available.
 	 */
-	BasicSourceMapConsumer.prototype.sourceContentFor =
+	MultikartSourceMapConsumer.prototype.sourceContentFor =
 	  function SourceMapConsumer_sourceContentFor(aSource, nullOnMissing) {
 	    if (!this.sourcesContent) {
 	      return null;
@@ -2070,7 +2070,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *   - line: The line number in the generated source, or null.
 	 *   - column: The column number in the generated source, or null.
 	 */
-	BasicSourceMapConsumer.prototype.generatedPositionFor =
+	MultikartSourceMapConsumer.prototype.generatedPositionFor =
 	  function SourceMapConsumer_generatedPositionFor(aArgs) {
 	    var source = util.getArg(aArgs, 'source');
 	    if (this.sourceRoot != null) {
@@ -2119,11 +2119,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  };
 	
-	exports.BasicSourceMapConsumer = BasicSourceMapConsumer;
+	exports.MultikartSourceMapConsumer = MultikartSourceMapConsumer;
 	
 	/**
 	 * An IndexedSourceMapConsumer instance represents a parsed source map which
-	 * we can query for information. It differs from BasicSourceMapConsumer in
+	 * we can query for information. It differs from MultikartSourceMapConsumer in
 	 * that it takes "indexed" source maps (i.e. ones with a "sections" field) as
 	 * input.
 	 *

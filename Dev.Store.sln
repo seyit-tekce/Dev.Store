@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Domain", "src\Dev.Store.Domain\Dev.Store.Domain.csproj", "{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic", "packages\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic\Volo.Abp.AspNetCore.Mvc.UI.Theme.Basic.csproj", "{0E50D5E2-D19E-4800-B540-66D734347487}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9E38AFE0-D4C1-4DBC-BC69-E2042FFE02E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Application", "src\Dev.Store.Application\Dev.Store.Application.csproj", "{1A94A50E-06DC-43C1-80B5-B662820EC3EB}"
@@ -27,6 +25,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.DbMigrator", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Web.Public", "src\Dev.Store.Web.Public\Dev.Store.Web.Public.csproj", "{36941A13-BDD7-429B-9C98-EA2C8C0186EA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{9F481B6D-1196-4A22-B6A4-3D1ABB87C199}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Themes", "Themes", "{4AEA972A-BAE0-4495-8703-94CDFA3E8D2A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart", "src\modules\Volo.BasicTheme\src\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.csproj", "{0B432347-9C9C-423C-9398-0468E5ADC944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +41,6 @@ Global
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{554AD327-6DBA-4F8F-96F8-81CE7A0C863F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E50D5E2-D19E-4800-B540-66D734347487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E50D5E2-D19E-4800-B540-66D734347487}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E50D5E2-D19E-4800-B540-66D734347487}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E50D5E2-D19E-4800-B540-66D734347487}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A94A50E-06DC-43C1-80B5-B662820EC3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,9 +77,17 @@ Global
 		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B432347-9C9C-423C-9398-0468E5ADC944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B432347-9C9C-423C-9398-0468E5ADC944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B432347-9C9C-423C-9398-0468E5ADC944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B432347-9C9C-423C-9398-0468E5ADC944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4AEA972A-BAE0-4495-8703-94CDFA3E8D2A} = {9F481B6D-1196-4A22-B6A4-3D1ABB87C199}
+		{0B432347-9C9C-423C-9398-0468E5ADC944} = {4AEA972A-BAE0-4495-8703-94CDFA3E8D2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

@@ -506,12 +506,12 @@ export default class Duration {
    * @param {boolean} [opts.suppressMilliseconds=false] - exclude milliseconds from the format if they're 0
    * @param {boolean} [opts.suppressSeconds=false] - exclude seconds from the format if they're 0
    * @param {boolean} [opts.includePrefix=false] - include the `T` prefix
-   * @param {string} [opts.format='extended'] - choose between the basic and extended format
+   * @param {string} [opts.format='extended'] - choose between the Multikart and extended format
    * @example Duration.fromObject({ hours: 11 }).toISOTime() //=> '11:00:00.000'
    * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressMilliseconds: true }) //=> '11:00:00'
    * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressSeconds: true }) //=> '11:00'
    * @example Duration.fromObject({ hours: 11 }).toISOTime({ includePrefix: true }) //=> 'T11:00:00.000'
-   * @example Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
+   * @example Duration.fromObject({ hours: 11 }).toISOTime({ format: 'Multikart' }) //=> '110000.000'
    * @return {string}
    */
   toISOTime(opts = {}) {
@@ -530,10 +530,10 @@ export default class Duration {
 
     const value = this.shiftTo("hours", "minutes", "seconds", "milliseconds");
 
-    let fmt = opts.format === "basic" ? "hhmm" : "hh:mm";
+    let fmt = opts.format === "Multikart" ? "hhmm" : "hh:mm";
 
     if (!opts.suppressSeconds || value.seconds !== 0 || value.milliseconds !== 0) {
-      fmt += opts.format === "basic" ? "ss" : ":ss";
+      fmt += opts.format === "Multikart" ? "ss" : ":ss";
       if (!opts.suppressMilliseconds || value.milliseconds !== 0) {
         fmt += ".SSS";
       }

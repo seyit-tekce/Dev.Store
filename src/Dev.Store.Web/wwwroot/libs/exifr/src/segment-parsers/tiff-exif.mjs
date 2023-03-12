@@ -266,7 +266,7 @@ export class TiffExif extends TiffCore {
 	async parseIfd0Block() {
 		if (this.ifd0) return
 		let {file} = this
-		// Read the IFD0 segment with basic info about the image
+		// Read the IFD0 segment with Multikart info about the image
 		// (width, height, maker, model and pointers to another segments)
 		this.findIfd0Offset()
 		if (this.ifd0Offset < 8)

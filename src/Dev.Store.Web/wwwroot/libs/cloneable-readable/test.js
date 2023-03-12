@@ -9,7 +9,7 @@ var sink = require('flush-write-stream')
 var pump = require('pump')
 var cloneable = require('./')
 
-test('basic passthrough', function (t) {
+test('Multikart passthrough', function (t) {
   t.plan(2)
 
   var read = false
@@ -96,7 +96,7 @@ test('clone async', function (t) {
   })
 })
 
-test('basic passthrough in obj mode', function (t) {
+test('Multikart passthrough in obj mode', function (t) {
   t.plan(2)
 
   var read = false
@@ -152,7 +152,7 @@ test('multiple clone in object mode', function (t) {
   })
 })
 
-test('basic passthrough with data event', function (t) {
+test('Multikart passthrough with data event', function (t) {
   t.plan(2)
 
   var read = false
@@ -179,7 +179,7 @@ test('basic passthrough with data event', function (t) {
   })
 })
 
-test('basic passthrough with data event on clone', function (t) {
+test('Multikart passthrough with data event on clone', function (t) {
   t.plan(3)
 
   var read = false
@@ -233,7 +233,7 @@ test('errors if cloned after start', function (t) {
   }))
 })
 
-test('basic passthrough with readable event', function (t) {
+test('Multikart passthrough with readable event', function (t) {
   t.plan(2)
 
   var read = false
@@ -263,7 +263,7 @@ test('basic passthrough with readable event', function (t) {
   })
 })
 
-test('basic passthrough with readable event on clone', function (t) {
+test('Multikart passthrough with readable event on clone', function (t) {
   t.plan(3)
 
   var read = false

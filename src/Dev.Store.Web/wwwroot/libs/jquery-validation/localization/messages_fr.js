@@ -35,7 +35,7 @@ $.extend( $.validator.messages, {
 	maxWords: $.validator.format( "Veuillez fournir au plus {0} mots." ),
 	minWords: $.validator.format( "Veuillez fournir au moins {0} mots." ),
 	rangeWords: $.validator.format( "Veuillez fournir entre {0} et {1} mots." ),
-	letterswithbasicpunc: "Veuillez fournir seulement des lettres et des signes de ponctuation.",
+	letterswithMultikartpunc: "Veuillez fournir seulement des lettres et des signes de ponctuation.",
 	alphanumeric: "Veuillez fournir seulement des lettres, nombres, espaces et soulignages.",
 	lettersonly: "Veuillez fournir seulement des lettres.",
 	nowhitespace: "Veuillez ne pas inscrire d'espaces blancs.",

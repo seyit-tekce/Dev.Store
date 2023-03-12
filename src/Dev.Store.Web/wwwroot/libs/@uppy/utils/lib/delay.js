@@ -1,4 +1,5 @@
-import { createAbortError } from './AbortController.js';
+var _require = require('./AbortController'),
+    createAbortError = _require.createAbortError;
 /**
  * Return a Promise that resolves after `ms` milliseconds.
  *
@@ -7,35 +8,32 @@ import { createAbortError } from './AbortController.js';
  * @returns {Promise<void>} A Promise that resolves after the given amount of `ms`.
  */
 
-export default function delay(ms, opts) {
-  return new Promise((resolve, reject) => {
-    var _opts$signal, _opts$signal2;
 
-    if (opts != null && (_opts$signal = opts.signal) != null && _opts$signal.aborted) {
+module.exports = function delay(ms, opts) {
+  return new Promise(function (resolve, reject) {
+    if (opts && opts.signal && opts.signal.aborted) {
       return reject(createAbortError());
     }
 
-    const timeout = setTimeout(() => {
-      cleanup(); // eslint-disable-line no-use-before-define
-
-      resolve();
-    }, ms);
-
     function onabort() {
       clearTimeout(timeout);
-      cleanup(); // eslint-disable-line no-use-before-define
-
+      cleanup();
       reject(createAbortError());
     }
 
-    opts == null ? void 0 : (_opts$signal2 = opts.signal) == null ? void 0 : _opts$signal2.addEventListener('abort', onabort);
+    var timeout = setTimeout(function () {
+      cleanup();
+      resolve();
+    }, ms);
 
-    function cleanup() {
-      var _opts$signal3;
-
-      opts == null ? void 0 : (_opts$signal3 = opts.signal) == null ? void 0 : _opts$signal3.removeEventListener('abort', onabort);
+    if (opts && opts.signal) {
+      opts.signal.addEventListener('abort', onabort);
     }
 
-    return undefined;
+    function cleanup() {
+      if (opts && opts.signal) {
+        opts.signal.removeEventListener('abort', onabort);
+      }
+    }
   });
-}
+};

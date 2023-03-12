@@ -1,6 +1,6 @@
 # default-compare [![NPM version](https://img.shields.io/npm/v/default-compare.svg?style=flat)](https://www.npmjs.com/package/default-compare) [![NPM monthly downloads](https://img.shields.io/npm/dm/default-compare.svg?style=flat)](https://npmjs.org/package/default-compare)  [![NPM total downloads](https://img.shields.io/npm/dt/default-compare.svg?style=flat)](https://npmjs.org/package/default-compare) [![Linux Build Status](https://img.shields.io/travis/doowb/default-compare.svg?style=flat&label=Travis)](https://travis-ci.org/doowb/default-compare) [![Windows Build Status](https://img.shields.io/appveyor/ci/doowb/default-compare.svg?style=flat&label=AppVeyor)](https://ci.appveyor.com/project/doowb/default-compare)
 
-> Basic sort algorithm that has similar behavior to Array.prototype.sort for null and undefined, but also allows sorting by an object property.
+> Multikart sort algorithm that has similar behavior to Array.prototype.sort for null and undefined, but also allows sorting by an object property.
 
 ## Install
 
@@ -22,7 +22,7 @@ $ yarn add default-compare
 var defaultCompare = require('default-compare');
 ```
 
-**basic array**
+**Multikart array**
 
 ```js
 var arr = ['c', 'a', undefined, 'b', 'd', null, 'e'];
@@ -63,7 +63,7 @@ console.log(arr);
 
 ### [defaultCompare](index.js#L16)
 
-Basic sort algorithm that has similar behavior to `Array.prototype.sort`
+Multikart sort algorithm that has similar behavior to `Array.prototype.sort`
 for null and undefined, but also allows sorting by an object property.
 
 **Params**

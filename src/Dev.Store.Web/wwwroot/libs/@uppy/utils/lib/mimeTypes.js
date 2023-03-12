@@ -2,7 +2,7 @@
 //    It's 19.7kB gzipped, and we only need mime types for well-known extensions (for file previews).
 // ___Where to take new extensions from?
 //    https://github.com/jshttp/mime-db/blob/master/db.json
-export default {
+module.exports = {
   md: 'text/markdown',
   markdown: 'text/markdown',
   mp4: 'video/mp4',
@@ -10,7 +10,6 @@ export default {
   svg: 'image/svg+xml',
   jpg: 'image/jpeg',
   png: 'image/png',
-  webp: 'image/webp',
   gif: 'image/gif',
   heic: 'image/heic',
   heif: 'image/heif',
@@ -23,7 +22,6 @@ export default {
   mks: 'video/x-matroska',
   mkv: 'video/x-matroska',
   mov: 'video/quicktime',
-  dicom: 'application/dicom',
   doc: 'application/msword',
   docm: 'application/vnd.ms-word.document.macroenabled.12',
   docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',

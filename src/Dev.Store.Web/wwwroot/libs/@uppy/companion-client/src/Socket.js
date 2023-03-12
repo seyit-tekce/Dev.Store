@@ -1,84 +1,83 @@
-import ee from 'namespace-emitter'
+const ee = require('namespace-emitter')
 
-export default class UppySocket {
-  #queued = []
-
-  #emitter = ee()
-
-  #isOpen = false
-
-  #socket
-
+module.exports = class UppySocket {
   constructor (opts) {
     this.opts = opts
+    this._queued = []
+    this.isOpen = false
+    this.emitter = ee()
+
+    this._handleMessage = this._handleMessage.bind(this)
+
+    this.close = this.close.bind(this)
+    this.emit = this.emit.bind(this)
+    this.on = this.on.bind(this)
+    this.once = this.once.bind(this)
+    this.send = this.send.bind(this)
 
     if (!opts || opts.autoOpen !== false) {
       this.open()
     }
   }
 
-  get isOpen () { return this.#isOpen }
-
-  [Symbol.for('uppy test: getSocket')] () { return this.#socket }
-
-  [Symbol.for('uppy test: getQueued')] () { return this.#queued }
-
   open () {
-    this.#socket = new WebSocket(this.opts.target)
+    this.socket = new WebSocket(this.opts.target)
 
-    this.#socket.onopen = () => {
-      this.#isOpen = true
+    this.socket.onopen = (e) => {
+      this.isOpen = true
 
-      while (this.#queued.length > 0 && this.#isOpen) {
-        const first = this.#queued.shift()
+      while (this._queued.length > 0 && this.isOpen) {
+        const first = this._queued[0]
         this.send(first.action, first.payload)
+        this._queued = this._queued.slice(1)
       }
     }
 
-    this.#socket.onclose = () => {
-      this.#isOpen = false
+    this.socket.onclose = (e) => {
+      this.isOpen = false
     }
 
-    this.#socket.onmessage = this.#handleMessage
+    this.socket.onmessage = this._handleMessage
   }
 
   close () {
-    this.#socket?.close()
+    if (this.socket) {
+      this.socket.close()
+    }
   }
 
   send (action, payload) {
     // attach uuid
 
-    if (!this.#isOpen) {
-      this.#queued.push({ action, payload })
+    if (!this.isOpen) {
+      this._queued.push({ action, payload })
       return
     }
 
-    this.#socket.send(JSON.stringify({
+    this.socket.send(JSON.stringify({
       action,
       payload,
     }))
   }
 
   on (action, handler) {
-    this.#emitter.on(action, handler)
+    this.emitter.on(action, handler)
   }
 
   emit (action, payload) {
-    this.#emitter.emit(action, payload)
+    this.emitter.emit(action, payload)
   }
 
   once (action, handler) {
-    this.#emitter.once(action, handler)
+    this.emitter.once(action, handler)
   }
 
-  #handleMessage = (e) => {
+  _handleMessage (e) {
     try {
       const message = JSON.parse(e.data)
       this.emit(message.action, message.payload)
     } catch (err) {
-      // TODO: use a more robust error handler.
-      console.log(err) // eslint-disable-line no-console
+      console.log(err)
     }
   }
 }

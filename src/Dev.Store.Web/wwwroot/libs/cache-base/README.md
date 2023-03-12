@@ -1,6 +1,6 @@
 # cache-base [![NPM version](https://img.shields.io/npm/v/cache-base.svg?style=flat)](https://www.npmjs.com/package/cache-base) [![NPM monthly downloads](https://img.shields.io/npm/dm/cache-base.svg?style=flat)](https://npmjs.org/package/cache-base) [![NPM total downloads](https://img.shields.io/npm/dt/cache-base.svg?style=flat)](https://npmjs.org/package/cache-base) [![Linux Build Status](https://img.shields.io/travis/jonschlinkert/cache-base.svg?style=flat&label=Travis)](https://travis-ci.org/jonschlinkert/cache-base)
 
-> Basic object cache with `get`, `set`, `del`, and `has` methods for node.js/javascript projects.
+> Multikart object cache with `get`, `set`, `del`, and `has` methods for node.js/javascript projects.
 
 ## Install
 

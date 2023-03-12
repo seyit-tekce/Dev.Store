@@ -1,6 +1,6 @@
 var basePropertyOf = require('./_basePropertyOf');
 
-/** Used to map Latin Unicode letters to basic Latin letters. */
+/** Used to map Latin Unicode letters to Multikart Latin letters. */
 var deburredLetters = {
   // Latin-1 Supplement block.
   '\xc0': 'A',  '\xc1': 'A', '\xc2': 'A', '\xc3': 'A', '\xc4': 'A', '\xc5': 'A',
@@ -60,7 +60,7 @@ var deburredLetters = {
 
 /**
  * Used by `_.deburr` to convert Latin-1 Supplement and Latin Extended-A
- * letters to basic Latin letters.
+ * letters to Multikart Latin letters.
  *
  * @private
  * @param {string} letter The matched letter to deburr.

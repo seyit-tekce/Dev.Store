@@ -1,11 +1,10 @@
 {
   "name": "@uppy/companion-client",
   "description": "Client library for communication with Companion. Intended for use in Uppy plugins.",
-  "version": "3.1.1",
+  "version": "1.10.2",
   "license": "MIT",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
-  "type": "module",
   "keywords": [
     "file uploader",
     "uppy",
@@ -22,10 +21,10 @@
     "url": "git+https://github.com/transloadit/uppy.git"
   },
   "dependencies": {
-    "@uppy/utils": "^5.1.1",
-    "namespace-emitter": "^2.0.1"
+    "@uppy/utils": "^3.6.2",
+    "namespace-emitter": "^2.0.1",
+    "qs-stringify": "^1.1.0",
+    "url-parse": "^1.4.7"
   },
-  "devDependencies": {
-    "@jest/globals": "^29.0.0"
-  }
+  "gitHead": "4b782ffbbb443672843d7b4096956bed3b11d612"
 }

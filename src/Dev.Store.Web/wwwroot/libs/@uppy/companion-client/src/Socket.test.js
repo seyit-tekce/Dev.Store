@@ -1,5 +1,4 @@
-import { afterEach, beforeEach, jest, describe, it, expect } from '@jest/globals'
-import UppySocket from './Socket.js'
+const UppySocket = require('./Socket')
 
 describe('Socket', () => {
   let webSocketConstructorSpy
@@ -11,17 +10,15 @@ describe('Socket', () => {
     webSocketCloseSpy = jest.fn()
     webSocketSendSpy = jest.fn()
 
-    globalThis.WebSocket = class WebSocket {
+    global.WebSocket = class WebSocket {
       constructor (target) {
         webSocketConstructorSpy(target)
       }
 
-      // eslint-disable-next-line class-methods-use-this
       close (args) {
         webSocketCloseSpy(args)
       }
 
-      // eslint-disable-next-line class-methods-use-this
       send (json) {
         webSocketSendSpy(json)
       }
@@ -36,7 +33,7 @@ describe('Socket', () => {
     }
   })
   afterEach(() => {
-    globalThis.WebSocket = undefined
+    global.WebSocket = undefined
   })
 
   it('should expose a class', () => {
@@ -44,7 +41,7 @@ describe('Socket', () => {
     expect(
       new UppySocket({
         target: 'foo',
-      }) instanceof UppySocket,
+      }) instanceof UppySocket
     )
   })
 
@@ -55,7 +52,7 @@ describe('Socket', () => {
 
   it('should send a message via the websocket if the connection is open', () => {
     const uppySocket = new UppySocket({ target: 'foo' })
-    const webSocketInstance = uppySocket[Symbol.for('uppy test: getSocket')]()
+    const webSocketInstance = uppySocket.socket
     webSocketInstance.triggerOpen()
 
     uppySocket.send('bar', 'boo')
@@ -69,17 +66,17 @@ describe('Socket', () => {
     const uppySocket = new UppySocket({ target: 'foo' })
 
     uppySocket.send('bar', 'boo')
-    expect(uppySocket[Symbol.for('uppy test: getQueued')]()).toEqual([{ action: 'bar', payload: 'boo' }])
+    expect(uppySocket._queued).toEqual([{ action: 'bar', payload: 'boo' }])
     expect(webSocketSendSpy.mock.calls.length).toEqual(0)
   })
 
   it('should queue any messages for the websocket if the connection is not open, then send them when the connection is open', () => {
     const uppySocket = new UppySocket({ target: 'foo' })
-    const webSocketInstance = uppySocket[Symbol.for('uppy test: getSocket')]()
+    const webSocketInstance = uppySocket.socket
 
     uppySocket.send('bar', 'boo')
     uppySocket.send('moo', 'baa')
-    expect(uppySocket[Symbol.for('uppy test: getQueued')]()).toEqual([
+    expect(uppySocket._queued).toEqual([
       { action: 'bar', payload: 'boo' },
       { action: 'moo', payload: 'baa' },
     ])
@@ -87,7 +84,7 @@ describe('Socket', () => {
 
     webSocketInstance.triggerOpen()
 
-    expect(uppySocket[Symbol.for('uppy test: getQueued')]()).toEqual([])
+    expect(uppySocket._queued).toEqual([])
     expect(webSocketSendSpy.mock.calls.length).toEqual(2)
     expect(webSocketSendSpy.mock.calls[0]).toEqual([
       JSON.stringify({ action: 'bar', payload: 'boo' }),
@@ -99,19 +96,19 @@ describe('Socket', () => {
 
   it('should start queuing any messages when the websocket connection is closed', () => {
     const uppySocket = new UppySocket({ target: 'foo' })
-    const webSocketInstance = uppySocket[Symbol.for('uppy test: getSocket')]()
+    const webSocketInstance = uppySocket.socket
     webSocketInstance.triggerOpen()
     uppySocket.send('bar', 'boo')
-    expect(uppySocket[Symbol.for('uppy test: getQueued')]()).toEqual([])
+    expect(uppySocket._queued).toEqual([])
 
     webSocketInstance.triggerClose()
     uppySocket.send('bar', 'boo')
-    expect(uppySocket[Symbol.for('uppy test: getQueued')]()).toEqual([{ action: 'bar', payload: 'boo' }])
+    expect(uppySocket._queued).toEqual([{ action: 'bar', payload: 'boo' }])
   })
 
   it('should close the websocket when it is force closed', () => {
     const uppySocket = new UppySocket({ target: 'foo' })
-    const webSocketInstance = uppySocket[Symbol.for('uppy test: getSocket')]()
+    const webSocketInstance = uppySocket.socket
     webSocketInstance.triggerOpen()
 
     uppySocket.close()
@@ -120,7 +117,7 @@ describe('Socket', () => {
 
   it('should be able to subscribe to messages received on the websocket', () => {
     const uppySocket = new UppySocket({ target: 'foo' })
-    const webSocketInstance = uppySocket[Symbol.for('uppy test: getSocket')]()
+    const webSocketInstance = uppySocket.socket
 
     const emitterListenerMock = jest.fn()
     uppySocket.on('hi', emitterListenerMock)

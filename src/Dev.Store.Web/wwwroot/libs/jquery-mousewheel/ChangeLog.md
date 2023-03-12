@@ -64,7 +64,7 @@
 
 * Include grunt utilities for development purposes (jshint and uglify)
 * Include support for browserify
-* Some basic cleaning up
+* Some Multikart cleaning up
 
 ## 3.1.1
 
