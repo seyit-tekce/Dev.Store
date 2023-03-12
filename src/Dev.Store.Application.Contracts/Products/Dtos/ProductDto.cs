@@ -13,24 +13,26 @@ namespace Dev.Store.Products.Dtos;
 public class ProductDto : FullAuditedEntityDto<Guid>
 {
     public string Name { get; set; }
-
     public string Code { get; set; }
-
     public string Description { get; set; }
-
     public Guid CategoryId { get; set; }
-
     public CategoryDto Category { get; set; }
-
     public Guid BrandId { get; set; }
-
     public BrandDto Brand { get; set; }
-
     public bool IsEnabled { get; set; }
-
     public ICollection<ProductSetDto> ProductSets { get; set; }
-
     public ICollection<ProductSizeDto> ProductSizes { get; set; }
-
     public SeoSettingDto SeoSetting { get; set; }
+}
+
+public class ProductGridListDto
+{
+    public string Name { get; set; }
+    public string Code { get; set; }
+    public Guid CategoryId { get; set; }
+    public string CategoryName { get; set; }
+    public Guid BrandId { get; set; }
+    public string BrandName { get; set; }
+    public string MainImagePath { get; set; }
+    public List<ProductSizeDto> Sizes { get; set; }
 }

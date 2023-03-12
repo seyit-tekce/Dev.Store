@@ -77,8 +77,8 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     public override async Task<CategoryDto> UpdateAsync(Guid id, CreateUpdateCategoryDto input)
     {
         var findCategory = await Repository.GetAsync(id);
-        var queryable = (await _repository.GetQueryableAsync());
-        var linkExist = queryable.Any(x => x.Link == input.Link);
+        var queryable = (await _repository.GetQueryableAsync() );
+        var linkExist = queryable.Any(x => x.Link == input.Link && x.Id!=id);
         if (linkExist)
         {
             throw new UserFriendlyException(L["CategorySameLink"].Value);
@@ -126,6 +126,14 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
 
     public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync(bool includeDisabled = false)
     {
-        return (await _repository.WithDetailsAsync(x=>x.File)).Select(a=>ObjectMapper.Map<Category,CategoryDto>(a));
+        return (await _repository.WithDetailsAsync(x => x.File)).Select(a => ObjectMapper.Map<Category, CategoryDto>(a));
+    }
+
+    [AllowAnonymous]
+    public async Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory)
+    {
+        var main = await _repository.GetAsync(x => x.Link == mainCategory);
+        var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory,main.Id);
+        return ObjectMapper.Map<Category, CategoryDto>(sub);
     }
 }

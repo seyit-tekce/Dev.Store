@@ -11,11 +11,17 @@ var productsizes = {
             var load = new Loading($(e));
             load.Start();
             productsizes.defines.createModal.open({ productId: id });
+            productsizes.defines.createModal.onOpen(function () {
+                load.Done();
+            });
         },
         edit: function (e) {
             var load = new Loading($(e.target));
             load.Start();
             productsizes.defines.editModal.open({ id: e.currentTarget.dataset["id"] });
+            productsizes.defines.editModal.onOpen(function () {
+                load.Done();
+            });
         },
         delete: function (e) {
             e.preventDefault();
@@ -37,12 +43,8 @@ var productsizes = {
             productsizes.defines.grid().dataSource.read();
             abp.notify.success(l("SuccessfullyAdded"));
         });
-        productsizes.defines.createModal.onOpen(function () {
-            load.Done();
-        });
-        productsizes.defines.editModal.onOpen(function () {
-            load.Done();
-        });
+      
+      
         productsizes.defines.editModal.onResult(function () {
             productsizes.defines.grid().dataSource.read();
             abp.notify.success(l("SuccessfullyUpdated"));

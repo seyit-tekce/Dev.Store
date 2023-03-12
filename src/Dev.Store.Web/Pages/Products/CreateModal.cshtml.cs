@@ -17,7 +17,7 @@ public class CreateModalModel : StorePageModel
 
     private readonly IProductAppService _service;
     private readonly ICategoryAppService _categoryAppService;
-    public List<CategoryDto> Categories { get; set; }
+    public IEnumerable<CategoryDto> Categories { get; set; }
 
     public CreateModalModel(IProductAppService service, ICategoryAppService categoryAppService)
     {
@@ -27,7 +27,7 @@ public class CreateModalModel : StorePageModel
 
     public virtual async Task OnGetAsync()
     {
-        Categories = (await _categoryAppService.GetListAsync(new Volo.Abp.Application.Dtos.PagedAndSortedResultRequestDto())).Items.ToList();
+        Categories = await _categoryAppService.GetCategoriesAsync();
     }
 
     public virtual async Task<IActionResult> OnPostAsync()
