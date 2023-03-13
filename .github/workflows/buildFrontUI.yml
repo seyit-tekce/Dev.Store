@@ -2,7 +2,7 @@ name: Build Front UI
 
 on:
   push:
-    branches: [ publish-frontui ]
+    branches: [ publish-fronui ]
   release:
     types:
       - published
