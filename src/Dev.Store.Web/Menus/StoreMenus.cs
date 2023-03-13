@@ -17,4 +17,5 @@ public class StoreMenus
     public const string ProductSize = Prefix + ".ProductSize";
     public const string SeoSetting = Prefix + ".SeoSetting";
     public const string ProductImage = Prefix + ".ProductImage";
+    
 }
