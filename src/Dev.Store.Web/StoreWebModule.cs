@@ -301,6 +301,7 @@ public class StoreWebModule : AbpModule
 
         app.UseAbpRequestLocalization();
 
+
         if (!env.IsDevelopment())
         {
             app.UseErrorPage();
