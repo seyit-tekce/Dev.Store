@@ -23,4 +23,6 @@ public interface ICategoryAppService :
 
     Task<IEnumerable<CategoryDto>> GetCategoriesAsync(bool includeDisabled=false);
 
+    Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory);
+  
 }

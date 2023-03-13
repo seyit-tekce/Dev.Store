@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dev.Store.Locations.Dtos;
@@ -41,6 +42,17 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     {
         return (await _repository.WithDetailsAsync(x => x.Brand, x => x.Category)).ToDataSourceResult(request, x => ObjectMapper.Map<Product, ProductListDto>(x));
     }
+
+
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<DataSourceResult> DataSourceGrid([DataSourceRequest] DataSourceRequest request)
+    {
+        return (await _repository.WithDetailsAsync(x => x.Brand, x => x.Category, x => x.ProductImages,x=>x.ProductSizes)).ToDataSourceResult(request, x => ObjectMapper.Map<Product, ProductListDto>(x));
+    }
+
+
+
     public override async Task<ProductDto> GetAsync(Guid id)
     {
         var q = await _repository.WithDetailsAsync(x => x.Category, x => x.Brand);
@@ -66,5 +78,10 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
 
         });
         return create;
+    }
+
+    public async Task<IEnumerable<ProductDto>> GetFirst25ByCategoryId(Guid categoryId)
+    {
+        return (await _repository.WithDetailsAsync(x => x.Brand, x => x.Category,x=>x.ProductImages.Where(x=>x.IsMain))).OrderByDescending(x => x.CreationTime).Skip(0).Take(25).Select(a=>ObjectMapper.Map<Product,ProductDto>(a));
     }
 }

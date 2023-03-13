@@ -128,7 +128,7 @@ public class StoreWebModule : AbpModule
         {
             options.TokenCookie.Expiration = TimeSpan.FromDays(365);
             options.TokenCookie.SameSite = SameSiteMode.None;
-            options.TokenCookie.SecurePolicy= CookieSecurePolicy.Always;
+            options.TokenCookie.SecurePolicy = CookieSecurePolicy.Always;
         });
         context.Services.AddSameSiteCookiePolicy(); // cookie policy to deal with temporary browser incompatibilities
     }
@@ -319,10 +319,14 @@ public class StoreWebModule : AbpModule
         app.UseUnitOfWork();
         app.UseAuthorization();
         app.UseSwagger();
-        app.UseAbpSwaggerUI(options =>
+        if (env.IsDevelopment())
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Store API");
-        });
+            app.UseAbpSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Store API");
+            });
+        }
+
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();

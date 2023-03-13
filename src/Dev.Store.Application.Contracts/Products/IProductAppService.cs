@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Dev.Store.Products.Dtos;
 using Volo.Abp.Application.Services;
 
@@ -12,5 +15,5 @@ public interface IProductAppService :
         CreateUpdateProductDto,
         CreateUpdateProductDto>
 {
-
+    public Task<IEnumerable<ProductDto>> GetFirst25ByCategoryId(Guid categoryId);
 }
