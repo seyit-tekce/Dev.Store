@@ -1,8 +1,8 @@
-name: Build Admin UI
+name: Build Front UI
 
 on:
   push:
-    branches: [ publish ]
+    branches: [ publish-frontui ]
   release:
     types:
       - published
@@ -21,7 +21,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: ghcr.io/seyit-tekce/devstoreweb
+          images: ghcr.io/seyit-tekce/devstorewebfronui
           tag-sha: true
           tag-edge: false
           tag-latest: true
@@ -43,13 +43,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: ${{ steps.docker_meta.outputs.tags }} 
-          file: ./Dockerfile 
+          file: ./FrontDockerUI 
           
       - name: Push image
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
-          file: ./Dockerfile
+          file: ./FrontDockerUI
 
         
