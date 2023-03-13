@@ -22,7 +22,7 @@ WORKDIR "/src/src/Dev.Store.Web"
 RUN dotnet build "Dev.Store.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Dev.Store.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Dev.Store.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false — launch-profile Dev.Store.Web.Production
 
 FROM base AS final
 WORKDIR /app
