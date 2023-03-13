@@ -7,11 +7,19 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Dev.Store.Web": {
+    "Dev.Store.Web.Development": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:44397/"
+    },
+    "Dev.Store.Web.Production": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "applicationUrl": "https://localhost:44397/"
     },
@@ -20,6 +28,9 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "publishAllPorts": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
       "useSSL": true
     }
   },
