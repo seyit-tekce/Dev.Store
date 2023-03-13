@@ -2,7 +2,7 @@ name: Build Admin UI
 
 on:
   push:
-    branches: [ publish ]
+    branches: [ deploy-adminui ]
   release:
     types:
       - published
