@@ -27,4 +27,4 @@ RUN dotnet publish "Dev.Store.Web.csproj" -c Release -o /app/publish /p:UseAppHo
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Dev.Store.Web.dll"]
+ENTRYPOINT ["dotnet", "Dev.Store.Web.dll","--launch-profile Dev.Store.Web.Production"]

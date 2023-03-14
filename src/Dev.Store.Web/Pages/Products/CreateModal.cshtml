@@ -20,6 +20,7 @@
                 @(
                     Html.Kendo().DropDownTreeFor(x => x.ViewModel.CategoryId)
                     .Placeholder(L["PleaseChoose"].Value)
+                    .Filter(FilterType.Contains)
                     .Items(dropdown =>
                     {
                         foreach (var category in Model.Categories.Where(x => !x.CategoryParentId.HasValue))

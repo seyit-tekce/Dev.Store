@@ -30,7 +30,7 @@ public class StoreMenuContributor : IMenuContributor
 
         foreach (var category in getMainList)
         {
-            var menu = new ApplicationMenuItem(category.Link, category.Name, "/" + category.Link,customData:category.File?.FilePath);
+            var menu = new ApplicationMenuItem(category.Link, category.Name, "/Categories/" + category.Link,customData:category.File?.FilePath);
             var subCategory = Categories.Where(x => x.CategoryParentId == category.Id).OrderBy(x => x.Order);
             RecursiveMenu(subCategory, ref menu);
             context.Menu.AddItem(menu);

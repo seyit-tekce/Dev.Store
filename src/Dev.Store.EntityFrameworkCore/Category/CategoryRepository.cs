@@ -15,6 +15,11 @@ public class CategoryRepository : EfCoreRepository<StoreDbContext, Category, Gui
     {
     }
 
+    public async Task<Category> GetCategoryWithFileByLinkAndParentId(string name, Guid? parentId)
+    {
+        return await (await GetQueryableAsync()).Include(x => x.File).Where(x => x.Link == name && x.CategoryParentId == parentId).FirstOrDefaultAsync();
+    }
+
     public override async Task<IQueryable<Category>> WithDetailsAsync()
     {
         return (await GetQueryableAsync()).Include(x => x.CategoryChildren).Include(a => a.CategoryParent);
