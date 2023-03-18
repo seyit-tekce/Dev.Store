@@ -10,15 +10,8 @@
                 <div class="collection-content col">
                     <div class="page-main-content">
                         <div class="top-banner-wrapper">
-                            <a href="#" style="display:flex;">
-                                <img src="@Model.Category?.File?.FilePath"
-                                     class="img-fluid blur-up lazyload" style="max-width:385px;margin:auto" alt="">
-                            </a>
                             <div class="top-banner-content small-section">
                                 <h4>@Model.Category.Name</h4>
-                                <p>
-                                    @Model.Category.Description
-                                </p>
                             </div>
                         </div>
                         <div class="collection-product-wrapper">
@@ -77,51 +70,32 @@
                                 <div class="row margin-res">
                                     @foreach (var product in Model.Products)
                                     {
-                                        @*        var mainPic = product.*@
-                                        var productPrice = "0.00 ₺";
-                                        if (product.ProductSizes != null && product.ProductSizes.Count() > 0)
-                                        {
-                                            var defaultPrice = product.ProductSizes.FirstOrDefault(x => x.IsDefault);
-                                            if (defaultPrice != null)
-                                            {
-                                                productPrice = defaultPrice.Price.ToString("n2") + " ₺";
-                                            }
-                                            else
-                                            {
-                                                productPrice = product.ProductSizes.FirstOrDefault().Price.ToString("n2") + " ₺";
-                                            }
 
-                                        }
-                                        <div class="col-lg-4 col-6 col-grid-box">
+                                        <div class="col-lg-3 col-3 col-sm-6 col-md-6 col-grid-box">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
                                                         <a href="#">
-                                                            <img src="../assets/images/pro3/35.jpg"
-                                                             class="img-fluid blur-up lazyload bg-img" alt="">
+                                                            <img src="@product.MainImagePath"
+                                                                 class="img-fluid blur-up lazyload bg-img" alt="">
                                                         </a>
                                                     </div>
-                                                    <div class="back">
-                                                        <a href="#">
-                                                            <img src="../assets/images/pro3/36.jpg"
-                                                             class="img-fluid blur-up lazyload bg-img" alt="">
-                                                        </a>
-                                                    </div>
+
                                                     <div class="cart-info cart-wrap">
                                                         <button data-bs-toggle="modal" data-bs-target="#addtocart"
-                                                            title="Add to cart">
+                                                                title="Add to cart">
                                                             <i class="ti-shopping-cart"></i>
                                                         </button> <a href="javascript:void(0)" title="Add to Wishlist">
                                                             <i class="ti-heart" aria-hidden="true"></i>
                                                         </a> <a href="#"
-                                                            data-bs-toggle="modal" data-bs-target="#quick-view"
-                                                            title="Quick View">
+                                                                data-bs-toggle="modal" data-bs-target="#quick-view"
+                                                                title="Quick View">
                                                             <i class="ti-search"
-                                                           aria-hidden="true"></i>
+                                                               aria-hidden="true"></i>
                                                         </a> <a href="compare.html"
-                                                            title="Compare">
+                                                                title="Compare">
                                                             <i class="ti-reload"
-                                                           aria-hidden="true"></i>
+                                                               aria-hidden="true"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -131,7 +105,7 @@
                                                             <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                                                         </div>
                                                         <a href="product-page(no-sidebar).html">
-                                                            <h6>Slim Fit Cotton Shirt</h6>
+                                                            <h6>@product.Name</h6>
                                                         </a>
                                                         <p>
                                                             Lorem Ipsum is simply dummy text of the printing and
@@ -140,7 +114,7 @@
                                                             printer took a galley of type
                                                             and scrambled it to make a type specimen book
                                                         </p>
-                                                        <h4>$500.00</h4>
+                                                        <h4>@product.Price.ToString("n2") ₺</h4>
                                                         <ul class="color-variant">
                                                             <li class="bg-light0"></li>
                                                             <li class="bg-light1"></li>

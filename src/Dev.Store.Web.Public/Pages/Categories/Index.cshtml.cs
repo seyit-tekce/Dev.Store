@@ -2,8 +2,8 @@ using Dev.Store.Categories;
 using Dev.Store.Categories.Dtos;
 using Dev.Store.Products;
 using Dev.Store.Products.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,8 +13,15 @@ namespace Dev.Store.Web.Public.Pages.Categories
     {
         public string MainCategory { get; set; }
         public string SubCategory { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int Skip { get; set; } = 0;
+        [BindProperty(SupportsGet = true)]
+        public int Take { get; set; } = 25;
         public CategoryDto Category { get; set; }
-        public IEnumerable<ProductDto> Products { get; set; }
+        public IEnumerable<ProductGridListDto> Products { get; set; }
+
+        public int ProductCount { get; set; }
 
         private readonly ICategoryAppService categoryAppService;
         private readonly IProductAppService productAppService;
@@ -27,8 +34,13 @@ namespace Dev.Store.Web.Public.Pages.Categories
 
         public async Task OnGet(string mainCategory, string subCategory)
         {
-            this.Category = await categoryAppService.GetCategoryByMainAndSubName(mainCategory, subCategory);
-            Products = await productAppService.GetFirst25ByCategoryId(Category.Id);
+            var getCategory = await categoryAppService.GetCategoryByMainAndSubName(mainCategory, subCategory);
+            var getProduct = await productAppService.GetProductByCategoryIdPaging(getCategory.Id, Skip, Take);
+            var getProductCount = await productAppService.GetProductCount(getCategory.Id);
+
+            this.Category = getCategory;
+            this.Products = getProduct;
+            this.ProductCount = getProductCount;
         }
     }
 }

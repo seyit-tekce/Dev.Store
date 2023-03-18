@@ -1,7 +1,7 @@
 /*
   This is just a junk drawer, containing anything used across multiple classes.
   Because Luxon is small(ish), this should stay small and we won't worry about splitting
-  it up into, say, parsingUtil.js and MultikartUtil.js and so on. But they are divided up by feature area.
+  it up into, say, parsingUtil.js and basicUtil.js and so on. But they are divided up by feature area.
 */
 
 import { InvalidArgumentError } from "../errors.js";
@@ -129,7 +129,7 @@ export function roundTo(number, digits, towardZero = false) {
   return rounder(number * factor) / factor;
 }
 
-// DATE MultikartS
+// DATE BASICS
 
 export function isLeapYear(year) {
   return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);

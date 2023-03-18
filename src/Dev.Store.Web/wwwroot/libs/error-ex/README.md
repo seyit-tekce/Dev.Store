@@ -62,7 +62,7 @@ constructor.
 ```javascript
 var errorEx = require('error-ex');
 
-var MultikartError = errorEx();
+var BasicError = errorEx();
 
 var NamedError = errorEx('NamedError');
 

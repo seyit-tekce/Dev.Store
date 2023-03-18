@@ -1,7 +1,8 @@
+using Dev.Store.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dev.Store.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -11,6 +12,12 @@ public class ProductSizeRepository : EfCoreRepository<StoreDbContext, ProductSiz
 {
     public ProductSizeRepository(IDbContextProvider<StoreDbContext> dbContextProvider) : base(dbContextProvider)
     {
+    }
+
+    public async Task<IEnumerable<ProductSize>> GetAllByProductIdAsync(IEnumerable<Guid> productIds)
+    {
+        var queryable = await GetQueryableAsync();
+        return queryable.Where(x =>productIds.Any(a => a == x.ProductId));
     }
 
     public override async Task<IQueryable<ProductSize>> WithDetailsAsync()

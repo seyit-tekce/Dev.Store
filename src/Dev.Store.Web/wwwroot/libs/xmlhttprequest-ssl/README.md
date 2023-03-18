@@ -60,4 +60,4 @@ page](https://github.com/driverdan/node-XMLHttpRequest/issues).
 * getRequestHeader is case-sensitive
 * Cookies aren't persisted between requests
 * Missing XML support
-* Missing Multikart auth
+* Missing basic auth

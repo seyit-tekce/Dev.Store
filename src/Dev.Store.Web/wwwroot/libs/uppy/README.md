@@ -147,7 +147,7 @@ The ⓒ mark means that [`@uppy/companion`](https://uppy.io/docs/companion), a s
 ## React
 
 - [React](https://uppy.io/docs/react/) — components to integrate Uppy UI plugins with React apps
-- [React Native](https://uppy.io//docs/react/native/) — Multikart Uppy component for React Native with Expo
+- [React Native](https://uppy.io//docs/react/native/) — basic Uppy component for React Native with Expo
 
 ## Browser Support
 

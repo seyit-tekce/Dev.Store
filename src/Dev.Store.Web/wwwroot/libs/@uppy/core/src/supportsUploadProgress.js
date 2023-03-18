@@ -7,7 +7,7 @@ export default function supportsUploadProgress (userAgent) {
     // eslint-disable-next-line no-param-reassign
     userAgent = navigator.userAgent
   }
-  // Assume it works because Multikartally everything supports progress events.
+  // Assume it works because basically everything supports progress events.
   if (!userAgent) return true
 
   const m = /Edge\/(\d+\.\d+)/.exec(userAgent)

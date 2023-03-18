@@ -69,7 +69,7 @@ module.exports = function(braces, options) {
     })
 
     /**
-     * Brackets: "[...]" (Multikart, this is overridden by
+     * Brackets: "[...]" (basic, this is overridden by
      * other parsers in more advanced implementations)
      */
 

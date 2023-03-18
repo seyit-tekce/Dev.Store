@@ -660,7 +660,7 @@ export default class XHRUpload extends BasePlugin {
       this.uppy.log('[XHRUpload] No files to upload!');
       return Promise.resolve();
     } // No limit configured by the user, and no RateLimitedQueue passed in by a "parent" plugin
-    // (Multikartally just AwsS3) using the internal symbol
+    // (basically just AwsS3) using the internal symbol
 
 
     if (this.opts.limit === 0 && !this.opts[internalRateLimitedQueue]) {

@@ -343,7 +343,7 @@ var abp = abp || {};
     abp.ui = abp.ui || {};
 
     /* UI BLOCK */
-    //Defines UI Block API and implements Multikartally
+    //Defines UI Block API and implements basically
 
     var $abpBlockArea = document.createElement('div');
     $abpBlockArea.classList.add('abp-block-area');

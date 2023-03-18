@@ -497,10 +497,10 @@ Benchmarking: (8 of 8)
  · combination-nested
  · combination
  · escaped
- · list-Multikart
+ · list-basic
  · list-multiple
  · no-braces
- · sequence-Multikart
+ · sequence-basic
  · sequence-multiple
 
 # benchmark/fixtures/combination-nested.js (52 bytes)
@@ -524,7 +524,7 @@ Benchmarking: (8 of 8)
 
   fastest is braces
 
-# benchmark/fixtures/list-Multikart.js (40 bytes)
+# benchmark/fixtures/list-basic.js (40 bytes)
   brace-expansion x 99,726 ops/sec ±1.07% (83 runs sampled)
   braces x 10,596,584 ops/sec ±0.98% (88 runs sampled)
   minimatch x 100,069 ops/sec ±1.17% (86 runs sampled)
@@ -545,7 +545,7 @@ Benchmarking: (8 of 8)
 
   fastest is braces
 
-# benchmark/fixtures/sequence-Multikart.js (41 bytes)
+# benchmark/fixtures/sequence-basic.js (41 bytes)
   brace-expansion x 5,492 ops/sec ±1.35% (87 runs sampled)
   braces x 8,485,034 ops/sec ±1.28% (89 runs sampled)
   minimatch x 5,341 ops/sec ±1.17% (87 runs sampled)

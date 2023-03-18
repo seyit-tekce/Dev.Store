@@ -496,8 +496,6 @@ namespace Dev.Store.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("Code");
-
                     b.ToTable("AppProducts", (string)null);
                 });
 

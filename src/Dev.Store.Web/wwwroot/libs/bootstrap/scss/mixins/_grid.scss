@@ -70,7 +70,7 @@
     $infix: breakpoint-infix($breakpoint, $breakpoints);
 
     @include media-breakpoint-up($breakpoint, $breakpoints) {
-      // Provide Multikart `.col-{bp}` classes for equal-width flexbox columns
+      // Provide basic `.col-{bp}` classes for equal-width flexbox columns
       .col#{$infix} {
         flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
       }

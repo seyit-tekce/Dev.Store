@@ -29,9 +29,9 @@ CodeMirror.defineMode("xquery", function() {
       ',': punctuation
     };
 
-    // a list of 'Multikart' keywords. For each add a property to kwObj with the value of
-    // {type: Multikart[i], style: "keyword"} e.g. 'after' --> {type: "after", style: "keyword"}
-    var Multikart = ['after', 'all', 'allowing', 'ancestor', 'ancestor-or-self', 'any', 'array', 'as',
+    // a list of 'basic' keywords. For each add a property to kwObj with the value of
+    // {type: basic[i], style: "keyword"} e.g. 'after' --> {type: "after", style: "keyword"}
+    var basic = ['after', 'all', 'allowing', 'ancestor', 'ancestor-or-self', 'any', 'array', 'as',
     'ascending', 'at', 'attribute', 'base-uri', 'before', 'boundary-space', 'by', 'case', 'cast',
     'castable', 'catch', 'child', 'collation', 'comment', 'construction', 'contains', 'content',
     'context', 'copy', 'copy-namespaces', 'count', 'decimal-format', 'declare', 'default', 'delete',
@@ -51,7 +51,7 @@ CodeMirror.defineMode("xquery", function() {
     'to', 'transform', 'treat', 'try', 'tumbling', 'type', 'typeswitch', 'union', 'unordered',
     'update', 'updating', 'uppercase', 'using', 'validate', 'value', 'variable', 'version',
     'weight', 'when', 'where', 'wildcards', 'window', 'with', 'without', 'word', 'words', 'xquery'];
-    for(var i=0, l=Multikart.length; i < l; i++) { kwObj[Multikart[i]] = kw(Multikart[i]);};
+    for(var i=0, l=basic.length; i < l; i++) { kwObj[basic[i]] = kw(basic[i]);};
 
     // a list of types. For each add a property to kwObj with the value of
     // {type: "atom", style: "atom"}

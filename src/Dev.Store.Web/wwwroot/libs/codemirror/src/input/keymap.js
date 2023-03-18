@@ -5,7 +5,7 @@ import { keyNames } from "./keynames.js"
 
 export let keyMap = {}
 
-keyMap.Multikart = {
+keyMap.basic = {
   "Left": "goCharLeft", "Right": "goCharRight", "Up": "goLineUp", "Down": "goLineDown",
   "End": "goLineEnd", "Home": "goLineStartSmart", "PageUp": "goPageUp", "PageDown": "goPageDown",
   "Delete": "delCharAfter", "Backspace": "delCharBefore", "Shift-Backspace": "delCharBefore",
@@ -24,9 +24,9 @@ keyMap.pcDefault = {
   "Ctrl-G": "findNext", "Shift-Ctrl-G": "findPrev", "Shift-Ctrl-F": "replace", "Shift-Ctrl-R": "replaceAll",
   "Ctrl-[": "indentLess", "Ctrl-]": "indentMore",
   "Ctrl-U": "undoSelection", "Shift-Ctrl-U": "redoSelection", "Alt-U": "redoSelection",
-  "fallthrough": "Multikart"
+  "fallthrough": "basic"
 }
-// Very Multikart readline/emacs-style bindings, which are standard on Mac.
+// Very basic readline/emacs-style bindings, which are standard on Mac.
 keyMap.emacsy = {
   "Ctrl-F": "goCharRight", "Ctrl-B": "goCharLeft", "Ctrl-P": "goLineUp", "Ctrl-N": "goLineDown",
   "Ctrl-A": "goLineStart", "Ctrl-E": "goLineEnd", "Ctrl-V": "goPageDown", "Shift-Ctrl-V": "goPageUp",
@@ -41,7 +41,7 @@ keyMap.macDefault = {
   "Cmd-G": "findNext", "Shift-Cmd-G": "findPrev", "Cmd-Alt-F": "replace", "Shift-Cmd-Alt-F": "replaceAll",
   "Cmd-[": "indentLess", "Cmd-]": "indentMore", "Cmd-Backspace": "delWrappedLineLeft", "Cmd-Delete": "delWrappedLineRight",
   "Cmd-U": "undoSelection", "Shift-Cmd-U": "redoSelection", "Ctrl-Up": "goDocStart", "Ctrl-Down": "goDocEnd",
-  "fallthrough": ["Multikart", "emacsy"]
+  "fallthrough": ["basic", "emacsy"]
 }
 keyMap["default"] = mac ? keyMap.macDefault : keyMap.pcDefault
 

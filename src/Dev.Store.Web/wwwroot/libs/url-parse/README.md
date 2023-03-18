@@ -7,7 +7,7 @@
 **`url-parse` was created in 2014 when the WHATWG URL API was not available in
 Node.js and the `URL` interface was supported only in some browsers. Today this
 is no longer true. The `URL` interface is available in all supported Node.js
-release lines and Multikartally all browsers. Consider using it for better security
+release lines and basically all browsers. Consider using it for better security
 and accuracy.**
 
 The `url-parse` method exposes two different API interfaces. The
@@ -84,8 +84,8 @@ The returned `url` instance contains the following properties:
 - `slashes`: A boolean which indicates whether the `protocol` is followed by two
   forward slashes (`//`).
 - `auth`: Authentication information portion (e.g. `username:password`).
-- `username`: Username of Multikart authentication.
-- `password`: Password of Multikart authentication.
+- `username`: Username of basic authentication.
+- `password`: Password of basic authentication.
 - `host`: Host name with port number. The hostname might be invalid.
 - `hostname`: Host name without port number. This might be an invalid hostname.
 - `port`: Optional port number.

@@ -1,5 +1,6 @@
 using Dev.Store.Categories.Dtos;
 using Dev.Store.Permissions;
+using Dev.Store.Products;
 using Dev.Store.UploadFiles;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -25,11 +26,13 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     protected override string DeletePolicyName { get; set; } = StorePermissions.Category.Delete;
     private readonly ICategoryRepository _repository;
     private readonly IUploadFileAppService uploadFileAppService;
+    private readonly IProductRepository _productRepository;
 
-    public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService) : base(repository)
+    public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService, IProductRepository productRepository) : base(repository)
     {
         _repository = repository;
         this.uploadFileAppService = uploadFileAppService;
+        _productRepository = productRepository;
     }
 
     [HttpGet]
@@ -136,4 +139,6 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory,main.Id);
         return ObjectMapper.Map<Category, CategoryDto>(sub);
     }
+
+    
 }

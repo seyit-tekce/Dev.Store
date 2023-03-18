@@ -118,7 +118,7 @@
 * __PHP__
     * Added `never` return type + minor fix of named arguments ([#3421](https://github.com/PrismJS/prism/issues/3421)) [`4ffab525`](https://github.com/PrismJS/prism/commit/4ffab525)
     * Added `readonly` keyword ([#3349](https://github.com/PrismJS/prism/issues/3349)) [`4c3f1969`](https://github.com/PrismJS/prism/commit/4c3f1969)
-* __PureMultikart__
+* __PureBasic__
     * Added support for pointer to string operator ([#3362](https://github.com/PrismJS/prism/issues/3362)) [`499b1fa0`](https://github.com/PrismJS/prism/commit/499b1fa0)
 * __Razor C#__
     * Added support for `@helper` and inline C# inside attribute values ([#3355](https://github.com/PrismJS/prism/issues/3355)) [`31a38d0c`](https://github.com/PrismJS/prism/commit/31a38d0c)
@@ -161,7 +161,7 @@
     * Swap out `header` for `section` ([#3304](https://github.com/PrismJS/prism/issues/3304)) [`deb3a97f`](https://github.com/PrismJS/prism/commit/deb3a97f)
 * __MongoDB__
     * Added v5 support ([#3297](https://github.com/PrismJS/prism/issues/3297)) [`8458c41f`](https://github.com/PrismJS/prism/commit/8458c41f)
-* __PureMultikart__
+* __PureBasic__
     * Added missing keyword and fixed constants ending with `$` ([#3320](https://github.com/PrismJS/prism/issues/3320)) [`d6c53726`](https://github.com/PrismJS/prism/commit/d6c53726)
 * __Scala__
     * Added support for interpolated strings ([#3293](https://github.com/PrismJS/prism/issues/3293)) [`441a1422`](https://github.com/PrismJS/prism/commit/441a1422)
@@ -353,7 +353,7 @@
     * Removed variable token + minor improvements ([#3247](https://github.com/PrismJS/prism/issues/3247)) [`bacf9ae3`](https://github.com/PrismJS/prism/commit/bacf9ae3)
 * __Pug__
     * Improved filter tokenization ([#3258](https://github.com/PrismJS/prism/issues/3258)) [`0390e644`](https://github.com/PrismJS/prism/commit/0390e644)
-* __PureMultikart__
+* __PureBasic__
     * Fixed token order inside `asm` token ([#3123](https://github.com/PrismJS/prism/issues/3123)) [`f3b25786`](https://github.com/PrismJS/prism/commit/f3b25786)
 * __Python__
     * Made `comment` greedy ([#3249](https://github.com/PrismJS/prism/issues/3249)) [`8ecef306`](https://github.com/PrismJS/prism/commit/8ecef306)
@@ -410,11 +410,11 @@
     * Use standard `char` token ([#3260](https://github.com/PrismJS/prism/issues/3260)) [`e4373256`](https://github.com/PrismJS/prism/commit/e4373256)
 * __Verilog__
     * Use standard tokens correctly ([#3261](https://github.com/PrismJS/prism/issues/3261)) [`43124129`](https://github.com/PrismJS/prism/commit/43124129)
-* __Visual Multikart__
+* __Visual Basic__
     * Simplify regexes and use more common aliases ([#3262](https://github.com/PrismJS/prism/issues/3262)) [`aa73d448`](https://github.com/PrismJS/prism/commit/aa73d448)
 * __Wolfram language__
     * Removed unmatchable punctuation variant ([#3133](https://github.com/PrismJS/prism/issues/3133)) [`a28a86ad`](https://github.com/PrismJS/prism/commit/a28a86ad)
-* __Xojo (REALMultikart)__
+* __Xojo (REALbasic)__
     * Proper token name for directives ([#3263](https://github.com/PrismJS/prism/issues/3263)) [`ffd8343f`](https://github.com/PrismJS/prism/commit/ffd8343f)
 * __Zig__
     * Added missing keywords ([#3279](https://github.com/PrismJS/prism/issues/3279)) [`deed35e3`](https://github.com/PrismJS/prism/commit/deed35e3)
@@ -683,7 +683,7 @@
     * Added support for decorators ([#2820](https://github.com/PrismJS/prism/issues/2820)) [`31cc2142`](https://github.com/PrismJS/prism/commit/31cc2142)
 * __VB.Net__
     * Improved strings, comments, and punctuation ([#2782](https://github.com/PrismJS/prism/issues/2782)) [`a68f1fb6`](https://github.com/PrismJS/prism/commit/a68f1fb6)
-* __Xojo (REALMultikart)__
+* __Xojo (REALbasic)__
     * `REM` is no longer highlighted as a keyword in comments ([#2823](https://github.com/PrismJS/prism/issues/2823)) [`ebbbfd47`](https://github.com/PrismJS/prism/commit/ebbbfd47)
     * Added last missing Keyword "Selector" ([#2807](https://github.com/PrismJS/prism/issues/2807)) [`e32e043b`](https://github.com/PrismJS/prism/commit/e32e043b)
     * Added missing keywords ([#2805](https://github.com/PrismJS/prism/issues/2805)) [`459365ec`](https://github.com/PrismJS/prism/commit/459365ec)
@@ -737,7 +737,7 @@
     * Replace `my.cdn` in code sample with Handlebars-like placeholder ([#2906](https://github.com/PrismJS/prism/issues/2906)) [`80471181`](https://github.com/PrismJS/prism/commit/80471181)
     * Set dummy domain for CDN ([#2905](https://github.com/PrismJS/prism/issues/2905)) [`38f1d289`](https://github.com/PrismJS/prism/commit/38f1d289)
     * Added MySQL to "Used by" section ([#2785](https://github.com/PrismJS/prism/issues/2785)) [`9b784ebf`](https://github.com/PrismJS/prism/commit/9b784ebf)
-    * Improved Multikart usage section ([#2777](https://github.com/PrismJS/prism/issues/2777)) [`a1209930`](https://github.com/PrismJS/prism/commit/a1209930)
+    * Improved basic usage section ([#2777](https://github.com/PrismJS/prism/issues/2777)) [`a1209930`](https://github.com/PrismJS/prism/commit/a1209930)
     * Updated URL in Autolinker example ([#2751](https://github.com/PrismJS/prism/issues/2751)) [`ec9767d6`](https://github.com/PrismJS/prism/commit/ec9767d6)
     * Added React native tutorial ([#2683](https://github.com/PrismJS/prism/issues/2683)) [`1506f345`](https://github.com/PrismJS/prism/commit/1506f345)
 
@@ -907,7 +907,7 @@
 * __HLSL__ ([#2318](https://github.com/PrismJS/prism/issues/2318)) [`87a5c7ae`](https://github.com/PrismJS/prism/commit/87a5c7ae)
 * __JS stack trace__ ([#2418](https://github.com/PrismJS/prism/issues/2418)) [`ae0327b3`](https://github.com/PrismJS/prism/commit/ae0327b3)
 * __PeopleCode__ ([#2302](https://github.com/PrismJS/prism/issues/2302)) [`bd4d8165`](https://github.com/PrismJS/prism/commit/bd4d8165)
-* __PureMultikart__ ([#2369](https://github.com/PrismJS/prism/issues/2369)) [`d0c1c70d`](https://github.com/PrismJS/prism/commit/d0c1c70d)
+* __PureBasic__ ([#2369](https://github.com/PrismJS/prism/issues/2369)) [`d0c1c70d`](https://github.com/PrismJS/prism/commit/d0c1c70d)
 * __Racket__ ([#2315](https://github.com/PrismJS/prism/issues/2315)) [`053016ef`](https://github.com/PrismJS/prism/commit/053016ef)
 * __Smali__ ([#2419](https://github.com/PrismJS/prism/issues/2419)) [`22eb5cad`](https://github.com/PrismJS/prism/commit/22eb5cad)
 * __Structured Text (IEC 61131-3)__ ([#2311](https://github.com/PrismJS/prism/issues/2311)) [`8704cdfb`](https://github.com/PrismJS/prism/commit/8704cdfb)
@@ -1027,7 +1027,7 @@
     * Use the correct VB variant ([#2341](https://github.com/PrismJS/prism/issues/2341)) [`b6093339`](https://github.com/PrismJS/prism/commit/b6093339)
 * __TypeScript__
     * Added `asserts` keyword and other improvements ([#2280](https://github.com/PrismJS/prism/issues/2280)) [`a197cfcd`](https://github.com/PrismJS/prism/commit/a197cfcd)
-* __Visual Multikart__
+* __Visual Basic__
     * Added VBA alias ([#2469](https://github.com/PrismJS/prism/issues/2469)) [`78161d60`](https://github.com/PrismJS/prism/commit/78161d60)
     * Added `until` keyword ([#2423](https://github.com/PrismJS/prism/issues/2423)) [`a13ee8d9`](https://github.com/PrismJS/prism/commit/a13ee8d9)
     * Added missing keywords ([#2376](https://github.com/PrismJS/prism/issues/2376)) [`ba5ac1da`](https://github.com/PrismJS/prism/commit/ba5ac1da)
@@ -1141,7 +1141,7 @@
     * Fixed SAS' "peerDependencies" ([#2230](https://github.com/PrismJS/prism/issues/2230)) [`7d8ff7ea`](https://github.com/PrismJS/prism/commit/7d8ff7ea)
 * __Shell session__
     * Improvements ([#2208](https://github.com/PrismJS/prism/issues/2208)) [`bd16bd57`](https://github.com/PrismJS/prism/commit/bd16bd57)
-* __Visual Multikart__
+* __Visual Basic__
     * Added support for comments with line continuations ([#2195](https://github.com/PrismJS/prism/issues/2195)) [`a7d67ca3`](https://github.com/PrismJS/prism/commit/a7d67ca3)
 * __YAML__
     * Improvements ([#2226](https://github.com/PrismJS/prism/issues/2226)) [`5362ba16`](https://github.com/PrismJS/prism/commit/5362ba16)
@@ -1415,7 +1415,7 @@
     * Added support for rational number literals ([#1964](https://github.com/PrismJS/prism/issues/1964)) [`e8811d22`](https://github.com/PrismJS/prism/commit/e8811d22)
 * __TOML__
     * Minor improvements ([#1917](https://github.com/PrismJS/prism/issues/1917)) [`3e181241`](https://github.com/PrismJS/prism/commit/3e181241)
-* __Visual Multikart__
+* __Visual Basic__
     * Added support for interpolation strings ([#1971](https://github.com/PrismJS/prism/issues/1971)) [`4a2c90c1`](https://github.com/PrismJS/prism/commit/4a2c90c1)
 
 ### Updated plugins
@@ -1462,7 +1462,7 @@
     * Added tutorial for using PrismJS with React ([#1979](https://github.com/PrismJS/prism/issues/1979)) [`f1e16c7b`](https://github.com/PrismJS/prism/commit/f1e16c7b)
     * Update footer's GitHub repository URL and capitalisation of "GitHub" ([#1983](https://github.com/PrismJS/prism/issues/1983)) [`bab744a6`](https://github.com/PrismJS/prism/commit/bab744a6)
     * Added known failures page ([#1876](https://github.com/PrismJS/prism/issues/1876)) [`36a5fa0e`](https://github.com/PrismJS/prism/commit/36a5fa0e)
-    * Added Multikart usage for CDNs ([#1924](https://github.com/PrismJS/prism/issues/1924)) [`922ec555`](https://github.com/PrismJS/prism/commit/922ec555)
+    * Added basic usage for CDNs ([#1924](https://github.com/PrismJS/prism/issues/1924)) [`922ec555`](https://github.com/PrismJS/prism/commit/922ec555)
     * New tutorial for Drupal ([#1859](https://github.com/PrismJS/prism/issues/1859)) [`d2089d83`](https://github.com/PrismJS/prism/commit/d2089d83)
     * Updated website page styles to not interfere with themes ([#1952](https://github.com/PrismJS/prism/issues/1952)) [`b6543853`](https://github.com/PrismJS/prism/commit/b6543853)
     * Download page: Improved performance for Chromium-based browsers ([#1907](https://github.com/PrismJS/prism/issues/1907)) [`11f18e36`](https://github.com/PrismJS/prism/commit/11f18e36)
@@ -1802,7 +1802,7 @@
 * __Markup Templating__ ([#1367](https://github.com/PrismJS/prism/issues/1367)) [[`5f9c078`](https://github.com/PrismJS/prism/commit/5f9c078)]
 * __Soy__ ([#1387](https://github.com/PrismJS/prism/issues/1387)) [[`b4509bf`](https://github.com/PrismJS/prism/commit/b4509bf)]
 * __Velocity__ ([#1378](https://github.com/PrismJS/prism/issues/1378)) [[`5a524f7`](https://github.com/PrismJS/prism/commit/5a524f7)]
-* __Visual Multikart__ ([#1382](https://github.com/PrismJS/prism/issues/1382)) [[`c673ec2`](https://github.com/PrismJS/prism/commit/c673ec2)]
+* __Visual Basic__ ([#1382](https://github.com/PrismJS/prism/issues/1382)) [[`c673ec2`](https://github.com/PrismJS/prism/commit/c673ec2)]
 * __WebAssembly__ ([#1386](https://github.com/PrismJS/prism/issues/1386)) [[`c28d8c5`](https://github.com/PrismJS/prism/commit/c28d8c5)]
 
 ### Updated components
@@ -1992,11 +1992,11 @@
 ### New components
 * __6502 Assembly__ ([#1245](https://github.com/PrismJS/prism/issues/1245)) [[`2ece18b`](https://github.com/PrismJS/prism/commit/2ece18b)]
 * __Elm__ ([#1174](https://github.com/PrismJS/prism/issues/1174)) [[`d6da70e`](https://github.com/PrismJS/prism/commit/d6da70e)]
-* __IchigoJam Multikart__ ([#1246](https://github.com/PrismJS/prism/issues/1246)) [[`cf840be`](https://github.com/PrismJS/prism/commit/cf840be)]
+* __IchigoJam BASIC__ ([#1246](https://github.com/PrismJS/prism/issues/1246)) [[`cf840be`](https://github.com/PrismJS/prism/commit/cf840be)]
 * __Io__ ([#1251](https://github.com/PrismJS/prism/issues/1251)) [[`84ed3ed`](https://github.com/PrismJS/prism/commit/84ed3ed)]
 
 ### Updated components
-* __Multikart__:
+* __BASIC__:
 	* Make strings greedy [[`60114d0`](https://github.com/PrismJS/prism/commit/60114d0)]
 * __C++__:
 	* Add C++11 raw string feature ([#1254](https://github.com/PrismJS/prism/issues/1254)) [[`71595be`](https://github.com/PrismJS/prism/commit/71595be)]
@@ -2503,7 +2503,7 @@
 
 * Allow for asynchronous loading of prism.js ([#959](https://github.com/PrismJS/prism/pull/959))
 * Use toLowerCase on language names ([#957](https://github.com/PrismJS/prism/pull/957)) [[`acd9508`](https://github.com/PrismJS/prism/commit/acd9508)]
-* link to index for Multikart usage - fixes [#945](https://github.com/PrismJS/prism/issues/945) ([#946](https://github.com/PrismJS/prism/pull/946)) [[`6c772d8`](https://github.com/PrismJS/prism/commit/6c772d8)]
+* link to index for basic usage - fixes [#945](https://github.com/PrismJS/prism/issues/945) ([#946](https://github.com/PrismJS/prism/pull/946)) [[`6c772d8`](https://github.com/PrismJS/prism/commit/6c772d8)]
 * Fixed monospace typo ([#953](https://github.com/PrismJS/prism/pull/953)) [[`e6c3498`](https://github.com/PrismJS/prism/commit/e6c3498)]
 
 ## 1.5.0 (2016-05-01)
@@ -2673,7 +2673,7 @@
 * __ABAP__ ([#636](https://github.com/PrismJS/prism/issues/636)) [[`75b0328`](https://github.com/PrismJS/prism/commit/75b0328), [`0749129`](https://github.com/PrismJS/prism/commit/0749129)]
 * __APL__ ([#308](https://github.com/PrismJS/prism/issues/308)) [[`1f45942`](https://github.com/PrismJS/prism/commit/1f45942), [`33a295f`](https://github.com/PrismJS/prism/commit/33a295f)]
 * __AutoIt__ ([#771](https://github.com/PrismJS/prism/issues/771)) [[`211a41c`](https://github.com/PrismJS/prism/commit/211a41c)]
-* __Multikart__ ([#620](https://github.com/PrismJS/prism/issues/620)) [[`805a0ce`](https://github.com/PrismJS/prism/commit/805a0ce)]
+* __BASIC__ ([#620](https://github.com/PrismJS/prism/issues/620)) [[`805a0ce`](https://github.com/PrismJS/prism/commit/805a0ce)]
 * __Bison__ ([#764](https://github.com/PrismJS/prism/issues/764)) [[`7feb135`](https://github.com/PrismJS/prism/commit/7feb135)]
 * __Crystal__ ([#780](https://github.com/PrismJS/prism/issues/780)) [[`5b473de`](https://github.com/PrismJS/prism/commit/5b473de), [`414848d`](https://github.com/PrismJS/prism/commit/414848d)]
 * __D__ ([#613](https://github.com/PrismJS/prism/issues/613)) [[`b5e741c`](https://github.com/PrismJS/prism/commit/b5e741c)]
@@ -2882,7 +2882,7 @@
 * Add language counter on homepage [[`889cda5`](https://github.com/PrismJS/prism/commit/889cda5)]
 * Improve performance by doing more work in the worker [[`1316abc`](https://github.com/PrismJS/prism/commit/1316abc)]
 * Replace Typeplate with SitePoint on homepage. Fix [#774](https://github.com/PrismJS/prism/issues/774) [[`0c54308`](https://github.com/PrismJS/prism/commit/0c54308)]
-* Added Multikart `.editorconfig` [[`c48f55d`](https://github.com/PrismJS/prism/commit/c48f55d)]
+* Added basic `.editorconfig` [[`c48f55d`](https://github.com/PrismJS/prism/commit/c48f55d)]
 
 ---
 

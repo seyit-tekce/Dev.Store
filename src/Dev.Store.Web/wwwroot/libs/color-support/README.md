@@ -52,8 +52,8 @@ if (!colorSupport) {
   console.log('\x1b[38;2;102;194;255m16m colors\x1b[0m')
 } else if (colorSupport.has256) {
   console.log('\x1b[38;5;119m256 colors\x1b[0m')
-} else if (colorSupport.hasMultikart) {
-  console.log('\x1b[31mMultikart colors\x1b[0m')
+} else if (colorSupport.hasBasic) {
+  console.log('\x1b[31mbasic colors\x1b[0m')
 } else {
   console.log('this is impossible, but colors are not supported')
 }
@@ -71,8 +71,8 @@ if (colorSupport.has16m) {
   console.log('\x1b[38;2;102;194;255m16m colors\x1b[0m')
 } else if (colorSupport.has256) {
   console.log('\x1b[38;5;119m256 colors\x1b[0m')
-} else if (colorSupport.hasMultikart) {
-  console.log('\x1b[31mMultikart colors\x1b[0m')
+} else if (colorSupport.hasBasic) {
+  console.log('\x1b[31mbasic colors\x1b[0m')
 } else {
   console.log('colors are not supported')
 }
@@ -109,10 +109,10 @@ Otherwise, the return object has the following fields:
 
 * `level` - A number from 0 to 3
     * `0` - No color support
-    * `1` - Multikart (16) color support
+    * `1` - Basic (16) color support
     * `2` - 256 color support
     * `3` - 16 million (true) color support
-* `hasMultikart` - Boolean
+* `hasBasic` - Boolean
 * `has256` - Boolean
 * `has16m` - Boolean
 

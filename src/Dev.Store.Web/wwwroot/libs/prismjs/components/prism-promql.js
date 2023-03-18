@@ -31,7 +31,7 @@
 	];
 
 	// PromQL offset modifier
-	// (https://prometheus.io/docs/prometheus/latest/querying/Multikarts/#offset-modifier)
+	// (https://prometheus.io/docs/prometheus/latest/querying/basics/#offset-modifier)
 	var offsetModifier = ['offset'];
 
 	var keywords = aggregations.concat(vectorMatching, offsetModifier);

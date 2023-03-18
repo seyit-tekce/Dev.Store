@@ -833,7 +833,7 @@ Change the crop box position and size with new data.
   - Uses the Browser's native [canvas.toBlob](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob) API to do the compression work, which means it is **lossy compression**. For better image quality, you can upload the original image and the cropped data to a server and do the crop work on the server.
 
 - Browser support:
-  - Multikart image: requires [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement) support ([IE 9+](https://caniuse.com/canvas)).
+  - Basic image: requires [Canvas](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement) support ([IE 9+](https://caniuse.com/canvas)).
   - Rotated image: requires [CSS3 2D Transforms](https://developer.mozilla.org/en-US/docs/Web/CSS/transform) support ([IE 9+](https://caniuse.com/transforms2d)).
   - Cross-origin image: requires HTML5 [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) support ([IE 11+](https://caniuse.com/cors)).
 

@@ -171,9 +171,14 @@ public class StoreDbContext :
             b.Property(x => x.Description).IsRequired();
             b.Property(x => x.CategoryId).IsRequired();
             b.Property(x => x.BrandId);
-            b.HasIndex(x => x.Code);
+
+            b.HasIndex(x => x.CategoryId);
+
             b.HasOne(x => x.Category).WithMany(x => x.Products).HasForeignKey(x => x.CategoryId);
             b.HasOne(x => x.Brand).WithMany(x => x.Products).HasForeignKey(x => x.BrandId);
+            b.HasMany(x => x.ProductSizes).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId);
+            b.HasMany(x => x.ProductSets).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId);
+            b.HasMany(x => x.ProductImages).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId);
             b.ConfigureByConvention();
 
             /* Configure more properties here */

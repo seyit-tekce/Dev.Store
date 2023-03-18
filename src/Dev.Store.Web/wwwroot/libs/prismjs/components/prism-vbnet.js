@@ -1,4 +1,4 @@
-Prism.languages.vbnet = Prism.languages.extend('Multikart', {
+Prism.languages.vbnet = Prism.languages.extend('basic', {
 	'comment': [
 		{
 			pattern: /(?:!|REM\b).+/i,

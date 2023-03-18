@@ -11,7 +11,7 @@ Prism.languages.julia = {
 		greedy: true
 	},
 	'string': {
-		// https://docs.julialang.org/en/v1/manual/strings/#String-Multikarts-1
+		// https://docs.julialang.org/en/v1/manual/strings/#String-Basics-1
 		// https://docs.julialang.org/en/v1/manual/strings/#non-standard-string-literals-1
 		// https://docs.julialang.org/en/v1/manual/running-external-programs/#Running-External-Programs-1
 		pattern: /"""[\s\S]+?"""|(?:\b\w+)?"(?:\\.|[^"\\\r\n])*"|`(?:[^\\`\r\n]|\\.)*`/,

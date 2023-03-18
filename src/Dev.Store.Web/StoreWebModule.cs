@@ -47,6 +47,7 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileExplorer.Web;
 using Volo.Abp.VirtualFileSystem;
 using Volo.CmsKit.Web;
+using Volo.Abp.Caching.StackExchangeRedis;
 
 namespace Dev.Store.Web;
 
@@ -66,7 +67,8 @@ namespace Dev.Store.Web;
     )]
 [DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
 [DependsOn(typeof(CmsKitWebModule))]
-public class StoreWebModule : AbpModule
+[DependsOn(typeof(AbpCachingStackExchangeRedisModule))]
+    public class StoreWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

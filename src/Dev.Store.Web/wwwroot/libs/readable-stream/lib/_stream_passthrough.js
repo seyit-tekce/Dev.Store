@@ -20,7 +20,7 @@
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // a passthrough stream.
-// Multikartally just the most minimal sort of Transform stream.
+// basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
 
 'use strict';

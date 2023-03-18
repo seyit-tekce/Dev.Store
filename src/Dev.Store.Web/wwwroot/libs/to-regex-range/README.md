@@ -55,7 +55,7 @@ For example, let's say you need a validation regex for matching part of a user-i
 * regex for matching `1` through `555` => `/([1-9]|[1-9][0-9]|[1-4][0-9]{2}|5[0-4][0-9]|55[0-5])/` (maybe not...)
 * regex for matching `0001` through `5555` => `/(0{3}[1-9]|0{2}[1-9][0-9]|0[1-9][0-9]{2}|[1-4][0-9]{3}|5[0-4][0-9]{2}|55[0-4][0-9]|555[0-5])/` (okay, I get the point!)
 
-The numbers are contrived, but they're also really Multikart. In the real world you might need to generate a regex on-the-fly for validation.
+The numbers are contrived, but they're also really basic. In the real world you might need to generate a regex on-the-fly for validation.
 
 **Learn more**
 

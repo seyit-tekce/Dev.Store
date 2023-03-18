@@ -6,8 +6,8 @@ slightly changed to pass all tests
 */
 
 
-// PureMultikart support, steal stuff from ansi-c
-Prism.languages.pureMultikart = Prism.languages.extend('clike', {
+// PureBasic support, steal stuff from ansi-c
+Prism.languages.purebasic = Prism.languages.extend('clike', {
 	'comment': /;.*/,
 	'keyword': /\b(?:align|and|as|break|calldebugger|case|compilercase|compilerdefault|compilerelse|compilerelseif|compilerendif|compilerendselect|compilererror|compilerif|compilerselect|continue|data|datasection|debug|debuglevel|declare|declarec|declarecdll|declaredll|declaremodule|default|define|dim|disableasm|disabledebugger|disableexplicit|else|elseif|enableasm|enabledebugger|enableexplicit|end|enddatasection|enddeclaremodule|endenumeration|endif|endimport|endinterface|endmacro|endmodule|endprocedure|endselect|endstructure|endstructureunion|endwith|enumeration|extends|fakereturn|for|foreach|forever|global|gosub|goto|if|import|importc|includebinary|includefile|includepath|interface|macro|module|newlist|newmap|next|not|or|procedure|procedurec|procedurecdll|proceduredll|procedurereturn|protected|prototype|prototypec|read|redim|repeat|restore|return|runtime|select|shared|static|step|structure|structureunion|swap|threaded|to|until|wend|while|with|xincludefile|xor)\b/i,
 	'function': /\b\w+(?:\.\w+)?\s*(?=\()/,
@@ -15,7 +15,7 @@ Prism.languages.pureMultikart = Prism.languages.extend('clike', {
 	'operator': /(?:@\*?|\?|\*)\w+\$?|-[>-]?|\+\+?|!=?|<<?=?|>>?=?|==?|&&?|\|?\||[~^%?*/@]/
 });
 
-Prism.languages.insertBefore('pureMultikart', 'keyword', {
+Prism.languages.insertBefore('purebasic', 'keyword', {
 	'tag': /#\w+\$?/,
 	'asm': {
 		pattern: /(^[\t ]*)!.*/m,
@@ -64,7 +64,7 @@ Prism.languages.insertBefore('pureMultikart', 'keyword', {
 	}
 });
 
-delete Prism.languages.pureMultikart['class-name'];
-delete Prism.languages.pureMultikart['boolean'];
+delete Prism.languages.purebasic['class-name'];
+delete Prism.languages.purebasic['boolean'];
 
-Prism.languages.pbfasm = Prism.languages['pureMultikart'];
+Prism.languages.pbfasm = Prism.languages['purebasic'];

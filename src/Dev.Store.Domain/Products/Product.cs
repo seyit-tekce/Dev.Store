@@ -12,14 +12,14 @@ namespace Dev.Store.Products
 {
     public class Product : FullAuditedEntity<Guid>
     {
-        public string Name { get; set; }
-        public string Code { get; set; }
-        public string Description { get; set; }
-        public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
-        public Guid? BrandId { get; set; }
-        public Brand Brand { get; set; }
-        public bool IsEnabled { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Code { get; set; }
+        public virtual string Description { get; set; }
+        public virtual Guid CategoryId { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Guid? BrandId { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual bool IsEnabled { get; set; }
 
 
         public ICollection<ProductSet> ProductSets { get; set; }
@@ -29,36 +29,36 @@ namespace Dev.Store.Products
 
 
 
-    protected Product()
-    {
-    }
+        protected Product()
+        {
+        }
 
-    public Product(
-        Guid id,
-        string name,
-        string code,
-        string description,
-        Guid categoryId,
-        Category category,
-        Guid brandId,
-        Brand brand,
-        bool isEnabled,
-        ICollection<ProductSet> productSets,
-        ICollection<ProductSize> productSizes,
-        SeoSetting seoSetting
-    ) : base(id)
-    {
-        Name = name;
-        Code = code;
-        Description = description;
-        CategoryId = categoryId;
-        Category = category;
-        BrandId = brandId;
-        Brand = brand;
-        IsEnabled = isEnabled;
-        ProductSets = productSets;
-        ProductSizes = productSizes;
-        SeoSetting = seoSetting;
-    }
+        public Product(
+            Guid id,
+            string name,
+            string code,
+            string description,
+            Guid categoryId,
+            Category category,
+            Guid brandId,
+            Brand brand,
+            bool isEnabled,
+            ICollection<ProductSet> productSets,
+            ICollection<ProductSize> productSizes,
+            SeoSetting seoSetting
+        ) : base(id)
+        {
+            Name = name;
+            Code = code;
+            Description = description;
+            CategoryId = categoryId;
+            Category = category;
+            BrandId = brandId;
+            Brand = brand;
+            IsEnabled = isEnabled;
+            ProductSets = productSets;
+            ProductSizes = productSizes;
+            SeoSetting = seoSetting;
+        }
     }
 }
