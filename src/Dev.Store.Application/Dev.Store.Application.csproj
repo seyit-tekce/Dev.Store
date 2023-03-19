@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\YatakBazaBurada\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Dev.Store.Domain\Dev.Store.Domain.csproj" />
     <ProjectReference Include="..\Dev.Store.Application.Contracts\Dev.Store.Application.Contracts.csproj" />
   </ItemGroup>
