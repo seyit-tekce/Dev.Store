@@ -6,6 +6,22 @@ namespace Dev.Store.ProductSizes
 {
     public class ProductSize : FullAuditedEntity<Guid>
     {
+        public ProductSize()
+        {
+        }
+
+        public ProductSize(Guid id, string code, Guid productId, double height, double width, double? depth, double price, bool ısDefault)
+        {
+            Id = id;
+            Code = code;
+            ProductId = productId;
+            Height = height;
+            Width = width;
+            Depth = depth;
+            Price = price;
+            IsDefault = ısDefault;
+        }
+
         public virtual string Code { get; set; }
         public virtual Guid ProductId { get; set; }
         public virtual double Height { get; set; }
@@ -14,7 +30,7 @@ namespace Dev.Store.ProductSizes
         public virtual double Price { get; set; }
         public virtual bool IsDefault { get; set; }
 
-        public  Product Product { get; set; }
+        public Product Product { get; set; }
 
     }
 }

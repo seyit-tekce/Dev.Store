@@ -1,4 +1,8 @@
 ﻿@page "{MainCategory}/{SubCategory}"
+@using Dev.Store.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IHtmlLocalizer<StoreResource> L
+
 @model Dev.Store.Web.Public.Pages.Categories.IndexModel
 @{
 
@@ -10,8 +14,8 @@
                 <div class="collection-content col">
                     <div class="page-main-content">
                         <div class="top-banner-wrapper">
-                            <div class="top-banner-content small-section">
-                                <h4>@Model.Category.Name</h4>
+                            <div class="top-banner-content text-center mb-3">
+                                <h2>@Model.Category.Name</h2>
                             </div>
                         </div>
                         <div class="collection-product-wrapper">
@@ -20,7 +24,7 @@
                                     <div class="col-12">
                                         <div class="product-filter-content">
                                             <div class="search-count">
-                                                <h5>Showing Products 1-24 of 10 Result</h5>
+                                                <h5>@L["Total"] 1-24 of @Model.ProductCount Result</h5>
                                             </div>
                                             <div class="collection-view">
                                                 <ul>
@@ -31,19 +35,19 @@
                                             <div class="collection-grid-view">
                                                 <ul>
                                                     <li>
-                                                        <img src="../assets/images/icon/2.png" alt=""
+                                                        <img src="/assets/images/icon/2.png" alt=""
                                                              class="product-2-layout-view">
                                                     </li>
                                                     <li>
-                                                        <img src="../assets/images/icon/3.png" alt=""
+                                                        <img src="/assets/images/icon/3.png" alt=""
                                                              class="product-3-layout-view">
                                                     </li>
                                                     <li>
-                                                        <img src="../assets/images/icon/4.png" alt=""
+                                                        <img src="/assets/images/icon/4.png" alt=""
                                                              class="product-4-layout-view">
                                                     </li>
                                                     <li>
-                                                        <img src="../assets/images/icon/6.png" alt=""
+                                                        <img src="/assets/images/icon/6.png" alt=""
                                                              class="product-6-layout-view">
                                                     </li>
                                                 </ul>
@@ -115,11 +119,6 @@
                                                             and scrambled it to make a type specimen book
                                                         </p>
                                                         <h4>@product.Price.ToString("n2") ₺</h4>
-                                                        <ul class="color-variant">
-                                                            <li class="bg-light0"></li>
-                                                            <li class="bg-light1"></li>
-                                                            <li class="bg-light2"></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>

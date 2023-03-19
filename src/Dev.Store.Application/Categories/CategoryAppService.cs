@@ -13,9 +13,7 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
-
 namespace Dev.Store.Categories;
-
 public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateCategoryDto, CreateUpdateCategoryDto>,
     ICategoryAppService
 {
@@ -27,32 +25,27 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     private readonly ICategoryRepository _repository;
     private readonly IUploadFileAppService uploadFileAppService;
     private readonly IProductRepository _productRepository;
-
     public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService, IProductRepository productRepository) : base(repository)
     {
         _repository = repository;
         this.uploadFileAppService = uploadFileAppService;
         _productRepository = productRepository;
     }
-
     [HttpGet]
     [Authorize(StorePermissions.Category.Default)]
     public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
     {
         return (await _repository.GetQueryableAsync()).ToDataSourceResult(request, x => ObjectMapper.Map<Category, CategoryDto>(x));
     }
-
     [Authorize(StorePermissions.Category.Default)]
     public override async Task<CategoryDto> GetAsync(Guid id)
     {
         return ObjectMapper.Map<Category, CategoryDto>((await _repository.WithDetailsAsync(x => x.CategoryChildren, x => x.CategoryParent, x => x.File)).Where(a => a.Id == id).FirstOrDefault());
     }
-
     [Authorize(StorePermissions.Category.Create)]
     public override async Task<CategoryDto> CreateAsync(CreateUpdateCategoryDto input)
     {
         var queryable = (await _repository.GetQueryableAsync());
-
         var linkExist = queryable.Any(x => x.Link == input.Link);
         if (linkExist)
         {
@@ -67,27 +60,32 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         {
             input.Order = 1;
         }
-        var fileResult = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
+        if (input.Files.Count > 0)
         {
-            Description = input.Description,
-            File = input.Files[0],
-        });
-        input.FileId = fileResult.Id;
+            var fileResult = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
+            {
+                Description = input.Description,
+                File = input.Files[0],
+            });
+            input.FileId = fileResult.Id;
+        }
         return await base.CreateAsync(input);
     }
-
     [Authorize(StorePermissions.Category.Update)]
     public override async Task<CategoryDto> UpdateAsync(Guid id, CreateUpdateCategoryDto input)
     {
         var findCategory = await Repository.GetAsync(id);
-        var queryable = (await _repository.GetQueryableAsync() );
-        var linkExist = queryable.Any(x => x.Link == input.Link && x.Id!=id);
+        var queryable = (await _repository.GetQueryableAsync());
+        var linkExist = queryable.Any(x => x.Link == input.Link && x.Id != id);
         if (linkExist)
         {
             throw new UserFriendlyException(L["CategorySameLink"].Value);
         }
-        input.FileId = findCategory.FileId.Value;
-        if (input.Files.Count() > 0)
+        if (findCategory.FileId.HasValue)
+        {
+            input.FileId = findCategory.FileId.Value;
+        }
+        if (input.Files.Count > 0)
         {
             var fileResult = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
             {
@@ -98,7 +96,6 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         }
         return await base.UpdateAsync(id, input);
     }
-
     [Authorize(StorePermissions.Category.Update)]
     public async Task MoveUp(Guid id)
     {
@@ -112,7 +109,6 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         }
         await Repository.UpdateAsync(find);
     }
-
     [Authorize(StorePermissions.Category.Update)]
     public async Task MoveDown(Guid id)
     {
@@ -126,19 +122,15 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
         }
         await Repository.UpdateAsync(find);
     }
-
     public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync(bool includeDisabled = false)
     {
         return (await _repository.WithDetailsAsync(x => x.File)).Select(a => ObjectMapper.Map<Category, CategoryDto>(a));
     }
-
     [AllowAnonymous]
     public async Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory)
     {
         var main = await _repository.GetAsync(x => x.Link == mainCategory);
-        var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory,main.Id);
+        var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory, main.Id);
         return ObjectMapper.Map<Category, CategoryDto>(sub);
     }
-
-    
 }

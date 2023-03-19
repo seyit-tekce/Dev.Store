@@ -123,6 +123,7 @@ public class StoreDbContext :
             b.HasIndex(x => x.Link);
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
             b.Property(x => x.Link).IsRequired().HasMaxLength(256);
+            b.Property(x => x.FileId).IsRequired(false);
             b.HasMany(c => c.CategoryChildren).WithOne(a => a.CategoryParent).HasForeignKey(g => g.CategoryParentId);
             b.HasOne(x => x.File).WithOne(x => x.Category);
             b.ConfigureByConvention();
@@ -170,15 +171,13 @@ public class StoreDbContext :
             b.Property(x => x.Code).IsRequired();
             b.Property(x => x.Description).IsRequired();
             b.Property(x => x.CategoryId).IsRequired();
+            b.Property(x => x.Price).IsRequired();
             b.Property(x => x.BrandId);
 
             b.HasIndex(x => x.CategoryId);
 
             b.HasOne(x => x.Category).WithMany(x => x.Products).HasForeignKey(x => x.CategoryId);
             b.HasOne(x => x.Brand).WithMany(x => x.Products).HasForeignKey(x => x.BrandId);
-            b.HasMany(x => x.ProductSizes).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId);
-            b.HasMany(x => x.ProductSets).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId);
-            b.HasMany(x => x.ProductImages).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId);
             b.ConfigureByConvention();
 
             /* Configure more properties here */
@@ -212,7 +211,9 @@ public class StoreDbContext :
             b.Property(x => x.Height).IsRequired();
             b.Property(x => x.Depth).IsRequired(false);
             b.HasIndex(x => x.Code);
+
             b.HasOne(x => x.Product).WithMany(x => x.ProductSizes).HasForeignKey(x => x.ProductId);
+
             b.ConfigureByConvention();
 
             /* Configure more properties here */
@@ -226,7 +227,6 @@ public class StoreDbContext :
             b.Property(x => x.Keywords).IsRequired();
             b.Property(x => x.Description).IsRequired();
 
-            b.HasOne(x => x.Product).WithOne(x => x.SeoSetting);
             b.ConfigureByConvention();
 
             /* Configure more properties here */
@@ -238,8 +238,8 @@ public class StoreDbContext :
             b.Property(x => x.ProductId).IsRequired();
             b.Property(x => x.IsMain).IsRequired();
             b.Property(x => x.UploadFileId).IsRequired();
-            b.HasOne(x => x.Product).WithMany(x => x.ProductImages).HasForeignKey(x => x.ProductId);
             b.HasOne(x => x.UploadFile).WithMany(x => x.ProductImages).HasForeignKey(x => x.UploadFileId);
+            b.HasOne(x => x.Product).WithMany(x => x.ProductImages).HasForeignKey(x => x.ProductId);
             b.HasIndex(x => x.ProductId);
 
             b.ConfigureByConvention();

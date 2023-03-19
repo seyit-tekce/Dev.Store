@@ -86,30 +86,10 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
         return await _cache.GetOrAddAsync(categoryId, async () =>
         {
             var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
-            var productImages = await _productImageRepository.GetAllMainByProductIdAsync(result.Select(a => a.Id));
-            var productSizes = await _productSizeRepository.GetAllByProductIdAsync(result.Select(a => a.Id));
             return result.Select(product =>
             {
-                var productImage = productImages.FirstOrDefault(a => a.ProductId == product.Id);
-                if (productImage == null)
-                {
-                    return null;
-                }
-                var imagePath = productImage.UploadFile.FilePath;
-                var productPrice = 0.00;
-                var productSize = productSizes.Where(x => x.ProductId == product.Id);
-                if (productSize != null)
-                {
-                    var defaultPrice = productSize.FirstOrDefault(x => x.IsDefault);
-                    if (defaultPrice != null)
-                    {
-                        productPrice = defaultPrice.Price;
-                    }
-                    else
-                    {
-                        productPrice = productSize.FirstOrDefault().Price;
-                    }
-                }
+                var imagePath = product.ProductImages.FirstOrDefault(x => x.IsMain || true)?.UploadFile.FilePath;
+                var productPrice = product.Price;
                 return new ProductGridListDto
                 {
                     BrandId = product.BrandId,

@@ -6,31 +6,31 @@ namespace Dev.Store.SeoSettings
 {
     public class SeoSetting : FullAuditedEntity<Guid>
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Keywords { get; set; }
-        public Guid ProductId { get; set; }
+        public virtual string Title { get; set; }
+        public virtual string Description { get; set; }
+        public virtual string Keywords { get; set; }
+        public virtual Guid ProductId { get; set; }
         public Product Product { get; set; }
 
 
-    public SeoSetting()
-    {
-    }
+        public SeoSetting()
+        {
+        }
 
-    public SeoSetting(
-        Guid id,
-        string title,
-        string description,
-        string keywords,
-        Guid productId,
-        Product product
-    ) : base(id)
-    {
-        Title = title;
-        Description = description;
-        Keywords = keywords;
-        ProductId = productId;
-        Product = product;
-    }
+        public SeoSetting(
+            Guid id,
+            string title,
+            string description,
+            string keywords,
+            Guid productId,
+            Product product
+        ) : base(id)
+        {
+            Title = title;
+            Description = description;
+            Keywords = keywords;
+            ProductId = productId;
+            Product = product;
+        }
     }
 }

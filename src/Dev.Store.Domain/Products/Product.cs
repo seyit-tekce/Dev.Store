@@ -16,16 +16,17 @@ namespace Dev.Store.Products
         public virtual string Code { get; set; }
         public virtual string Description { get; set; }
         public virtual Guid CategoryId { get; set; }
-        public virtual Category Category { get; set; }
         public virtual Guid? BrandId { get; set; }
-        public virtual Brand Brand { get; set; }
         public virtual bool IsEnabled { get; set; }
+        public virtual double Price { get; set; }
 
+        public Category Category { get; set; }
+        public Brand Brand { get; set; }
 
-        public ICollection<ProductSet> ProductSets { get; set; }
-        public ICollection<ProductSize> ProductSizes { get; set; }
-        public ICollection<ProductImage> ProductImages { get; set; }
-        public virtual SeoSetting SeoSetting { get; set; }
+        public List<ProductSet> ProductSets { get; set; }
+        public List<ProductSize> ProductSizes { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
+        public SeoSetting SeoSetting { get; set; }
 
 
 
@@ -33,31 +34,21 @@ namespace Dev.Store.Products
         {
         }
 
-        public Product(
-            Guid id,
-            string name,
-            string code,
-            string description,
-            Guid categoryId,
-            Category category,
-            Guid brandId,
-            Brand brand,
-            bool isEnabled,
-            ICollection<ProductSet> productSets,
-            ICollection<ProductSize> productSizes,
-            SeoSetting seoSetting
-        ) : base(id)
+        public Product(Guid id, string name, string code, string description, double price, Guid categoryId, Category category, Guid? brandId, Brand brand, bool ýsEnabled, List<ProductSet> productSets, List<ProductSize> productSizes, List<ProductImage> productImages, SeoSetting seoSetting)
         {
+            Id = id;
             Name = name;
             Code = code;
             Description = description;
+            Price = price;
             CategoryId = categoryId;
             Category = category;
             BrandId = brandId;
             Brand = brand;
-            IsEnabled = isEnabled;
+            IsEnabled = ýsEnabled;
             ProductSets = productSets;
             ProductSizes = productSizes;
+            ProductImages = productImages;
             SeoSetting = seoSetting;
         }
     }

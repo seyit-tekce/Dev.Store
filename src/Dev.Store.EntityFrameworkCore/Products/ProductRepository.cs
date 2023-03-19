@@ -24,12 +24,7 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
     public async Task<IEnumerable<Product>> GetProductsByCategoryId(Guid categoryId, int skip = 0, int take = 50)
     {
         var queryable = await GetQueryableAsync();
-        queryable.Include(x => x.Category);
-        queryable.Include(x => x.Brand);
-        queryable.Include(x => x.ProductImages);
-        queryable.Include(x => x.ProductSets);
-        queryable.Include(x => x.ProductSizes);
-        return await queryable.Where(x => x.CategoryId == categoryId).OrderBy(x => x.CreationTime).Skip(skip).Take(take).ToListAsync();
+        return await queryable.Include(x => x.Category).Include(x => x.Brand).Include(x => x.ProductImages).ThenInclude(x => x.UploadFile).Where(x => x.CategoryId == categoryId).OrderBy(x => x.CreationTime).Skip(skip).Take(take).ToListAsync();
     }
 
     public override async Task<IQueryable<Product>> WithDetailsAsync()
