@@ -18,8 +18,8 @@ namespace Dev.Store.Categories
         public Category CategoryParent { get; set; }
         public List<Category> CategoryChildren { get; set; }
         public UploadFile File { get; set; }
-        public ICollection<Product> Products { get; set; }
-        protected Category()
+        public List<Product> Products { get; set; }
+        public Category()
         {
         }
 
@@ -29,7 +29,8 @@ namespace Dev.Store.Categories
             string link,
             string description,
             Guid? categoryParentId,
-            bool isVisible
+            bool isVisible,
+            List<Category> categoryChildren
 ,
             Guid? fileId) : base(id)
         {
@@ -39,6 +40,7 @@ namespace Dev.Store.Categories
             CategoryParentId = categoryParentId;
             IsVisible = isVisible;
             FileId = fileId;
+            CategoryChildren = categoryChildren;
         }
     }
 }

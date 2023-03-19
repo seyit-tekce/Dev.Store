@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@abp/aspnetcore.mvc.ui.theme.basic@^7.0.1":
+"@abp/aspnetcore.mvc.ui.theme.basic@~7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.basic/-/aspnetcore.mvc.ui.theme.basic-7.0.3.tgz#40e4f501f59d859d3616c465bb491cbe0a40d532"
   integrity sha512-Qqo2rR22bHgHkxe+AwBk8yhu3i1+D8RnRKrNu0ZI6VoO0GfaE7ovRCy7lsnb9Ovl1gVeI+JprhEjI2Hgu/KM6A==
@@ -167,7 +167,7 @@
   dependencies:
     moment "^2.9.0"
 
-"@abp/prismjs@^7.0.1":
+"@abp/prismjs@~7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@abp/prismjs/-/prismjs-7.0.3.tgz#690c9b15f02dc6510333e7ad3f1d3493ed9392cd"
   integrity sha512-7SyA6XCMj0mL4YEDWw1CO12EwIb8NJgicgm78ApmTX3SBXiyEh3NPVMk3/ggAyfHQ33xLccmvcUWLkM0iyGLUQ==

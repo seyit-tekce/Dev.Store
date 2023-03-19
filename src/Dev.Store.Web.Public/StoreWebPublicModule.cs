@@ -7,18 +7,20 @@ using Dev.Store.Web.Public.Menus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
+using System;
 using System.IO;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.AntiForgery;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
-using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
@@ -62,7 +64,6 @@ public class StoreWebPublicModule : AbpModule
                 typeof(StoreWebPublicModule).Assembly
             );
         });
-
         PreConfigure<OpenIddictBuilder>(builder =>
         {
             builder.AddValidation(options =>
@@ -72,13 +73,19 @@ public class StoreWebPublicModule : AbpModule
                 options.UseAspNetCore();
             });
         });
+        Configure<AbpAntiForgeryOptions>(options =>
+        {
+            options.TokenCookie.Expiration = TimeSpan.FromDays(365);
+            options.TokenCookie.SameSite = SameSiteMode.None;
+            options.TokenCookie.SecurePolicy = CookieSecurePolicy.Always;
+        });
+        context.Services.AddSameSiteCookiePolicy(); // cookie policy to deal with temporary browser incompatibilities
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
-
         ConfigureAuthentication(context);
         ConfigureUrls(configuration);
         ConfigureBundles();
@@ -171,30 +178,24 @@ public class StoreWebPublicModule : AbpModule
     {
         var app = context.GetApplicationBuilder();
         var env = context.GetEnvironment();
-
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
         }
-
         app.UseAbpRequestLocalization();
-
         if (!env.IsDevelopment())
         {
             app.UseErrorPage();
         }
-
         app.UseCorrelationId();
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
         app.UseAbpOpenIddictValidation();
-
         if (MultiTenancyConsts.IsEnabled)
         {
             app.UseMultiTenancy();
         }
-
         app.UseUnitOfWork();
         app.UseAuthorization();
         app.UseSwagger();

@@ -6659,11 +6659,11 @@ exports.encodeBase64Packet = function(packet, callback) {
   } catch (e) {
     // iPhone Safari doesn't let you apply with typed arrays
     var typed = new Uint8Array(packet.data);
-    var Multikart = new Array(typed.length);
+    var basic = new Array(typed.length);
     for (var i = 0; i < typed.length; i++) {
-      Multikart[i] = typed[i];
+      basic[i] = typed[i];
     }
-    b64data = String.fromCharCode.apply(null, Multikart);
+    b64data = String.fromCharCode.apply(null, basic);
   }
   message += btoa(b64data);
   return callback(message);
@@ -8082,7 +8082,7 @@ function needsNew() {
   itself fulfill.
 
 
-  Multikart Usage:
+  Basic Usage:
   ------------
 
   ```js
@@ -20320,7 +20320,7 @@ module.exports = function supportsUploadProgress(userAgent) {
   // Allow passing in userAgent for tests
   if (userAgent == null) {
     userAgent = typeof navigator !== 'undefined' ? navigator.userAgent : null;
-  } // Assume it works because Multikartally everything supports progress events.
+  } // Assume it works because basically everything supports progress events.
 
 
   if (!userAgent) return true;
@@ -39352,7 +39352,7 @@ var has = require('./hasProperty');
  * Extensible with custom dictionaries and pluralization functions.
  *
  * Borrows heavily from and inspired by Polyglot https://github.com/airbnb/polyglot.js,
- * Multikartally a stripped-down version of it. Differences: pluralization functions are not hardcoded
+ * basically a stripped-down version of it. Differences: pluralization functions are not hardcoded
  * and can be easily added among with dictionaries, nested objects are used for pluralization
  * as opposed to `||||` delimeter
  *
@@ -42010,7 +42010,7 @@ module.exports = (_temp = _class = /*#__PURE__*/function (_Plugin) {
     if (fileIDs.length === 0) {
       this.uppy.log('[XHRUpload] No files to upload!');
       return Promise.resolve();
-    } // no limit configured by the user, and no RateLimitedQueue passed in by a "parent" plugin (Multikartally just AwsS3) using the top secret `__queue` option
+    } // no limit configured by the user, and no RateLimitedQueue passed in by a "parent" plugin (basically just AwsS3) using the top secret `__queue` option
 
 
     if (this.opts.limit === 0 && !this.opts.__queue) {

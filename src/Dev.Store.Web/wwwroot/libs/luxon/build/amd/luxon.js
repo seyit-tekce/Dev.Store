@@ -553,7 +553,7 @@ define(['exports'], (function (exports) { 'use strict';
     var factor = Math.pow(10, digits),
         rounder = towardZero ? Math.trunc : Math.round;
     return rounder(number * factor) / factor;
-  } // DATE MultikartS
+  } // DATE BASICS
 
   function isLeapYear(year) {
     return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
@@ -3585,12 +3585,12 @@ define(['exports'], (function (exports) { 'use strict';
      * @param {boolean} [opts.suppressMilliseconds=false] - exclude milliseconds from the format if they're 0
      * @param {boolean} [opts.suppressSeconds=false] - exclude seconds from the format if they're 0
      * @param {boolean} [opts.includePrefix=false] - include the `T` prefix
-     * @param {string} [opts.format='extended'] - choose between the Multikart and extended format
+     * @param {string} [opts.format='extended'] - choose between the basic and extended format
      * @example Duration.fromObject({ hours: 11 }).toISOTime() //=> '11:00:00.000'
      * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressMilliseconds: true }) //=> '11:00:00'
      * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressSeconds: true }) //=> '11:00'
      * @example Duration.fromObject({ hours: 11 }).toISOTime({ includePrefix: true }) //=> 'T11:00:00.000'
-     * @example Duration.fromObject({ hours: 11 }).toISOTime({ format: 'Multikart' }) //=> '110000.000'
+     * @example Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
      * @return {string}
      */
     ;
@@ -3610,10 +3610,10 @@ define(['exports'], (function (exports) { 'use strict';
         format: "extended"
       }, opts);
       var value = this.shiftTo("hours", "minutes", "seconds", "milliseconds");
-      var fmt = opts.format === "Multikart" ? "hhmm" : "hh:mm";
+      var fmt = opts.format === "basic" ? "hhmm" : "hh:mm";
 
       if (!opts.suppressSeconds || value.seconds !== 0 || value.milliseconds !== 0) {
-        fmt += opts.format === "Multikart" ? "ss" : ":ss";
+        fmt += opts.format === "basic" ? "ss" : ":ss";
 
         if (!opts.suppressMilliseconds || value.milliseconds !== 0) {
           fmt += ".SSS";
@@ -7318,11 +7318,11 @@ define(['exports'], (function (exports) { 'use strict';
      * @param {boolean} [opts.suppressSeconds=false] - exclude seconds from the format if they're 0
      * @param {boolean} [opts.includeOffset=true] - include the offset, such as 'Z' or '-04:00'
      * @param {boolean} [opts.extendedZone=true] - add the time zone format extension
-     * @param {string} [opts.format='extended'] - choose between the Multikart and extended format
+     * @param {string} [opts.format='extended'] - choose between the basic and extended format
      * @example DateTime.utc(1983, 5, 25).toISO() //=> '1982-05-25T00:00:00.000Z'
      * @example DateTime.now().toISO() //=> '2017-04-22T20:47:05.335-04:00'
      * @example DateTime.now().toISO({ includeOffset: false }) //=> '2017-04-22T20:47:05.335'
-     * @example DateTime.now().toISO({ format: 'Multikart' }) //=> '20170422T204705.335-0400'
+     * @example DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
      * @return {string}
      */
     ;
@@ -7355,9 +7355,9 @@ define(['exports'], (function (exports) { 'use strict';
     /**
      * Returns an ISO 8601-compliant string representation of this DateTime's date component
      * @param {Object} opts - options
-     * @param {string} [opts.format='extended'] - choose between the Multikart and extended format
+     * @param {string} [opts.format='extended'] - choose between the basic and extended format
      * @example DateTime.utc(1982, 5, 25).toISODate() //=> '1982-05-25'
-     * @example DateTime.utc(1982, 5, 25).toISODate({ format: 'Multikart' }) //=> '19820525'
+     * @example DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
      * @return {string}
      */
     ;
@@ -7391,10 +7391,10 @@ define(['exports'], (function (exports) { 'use strict';
      * @param {boolean} [opts.includeOffset=true] - include the offset, such as 'Z' or '-04:00'
      * @param {boolean} [opts.extendedZone=true] - add the time zone format extension
      * @param {boolean} [opts.includePrefix=false] - include the `T` prefix
-     * @param {string} [opts.format='extended'] - choose between the Multikart and extended format
+     * @param {string} [opts.format='extended'] - choose between the basic and extended format
      * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime() //=> '07:34:19.361Z'
      * @example DateTime.utc().set({ hour: 7, minute: 34, seconds: 0, milliseconds: 0 }).toISOTime({ suppressSeconds: true }) //=> '07:34Z'
-     * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ format: 'Multikart' }) //=> '073419.361Z'
+     * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ format: 'basic' }) //=> '073419.361Z'
      * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
      * @return {string}
      */

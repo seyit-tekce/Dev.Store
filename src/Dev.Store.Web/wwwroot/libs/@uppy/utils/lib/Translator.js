@@ -6,7 +6,7 @@ var has = require('./hasProperty');
  * Extensible with custom dictionaries and pluralization functions.
  *
  * Borrows heavily from and inspired by Polyglot https://github.com/airbnb/polyglot.js,
- * Multikartally a stripped-down version of it. Differences: pluralization functions are not hardcoded
+ * basically a stripped-down version of it. Differences: pluralization functions are not hardcoded
  * and can be easily added among with dictionaries, nested objects are used for pluralization
  * as opposed to `||||` delimeter
  *

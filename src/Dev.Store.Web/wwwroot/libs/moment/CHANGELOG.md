@@ -424,7 +424,7 @@ And more
   files and default locale file
 * [#2646](https://github.com/moment/moment/pull/2646) Fix [#2645](https://github.com/moment/moment/pull/2645) - invalid dates pre-1970
 
-* [#2641](https://github.com/moment/moment/pull/2641) Implement Multikart format and comma as ms separator in ISO 8601
+* [#2641](https://github.com/moment/moment/pull/2641) Implement basic format and comma as ms separator in ISO 8601
 * [#2665](https://github.com/moment/moment/pull/2665) Implement stricter weekday parsing
 * [#2700](https://github.com/moment/moment/pull/2700) Add [Hh]mm and [Hh]mmss formatting tokens, so you can parse 123 with
   hmm for example

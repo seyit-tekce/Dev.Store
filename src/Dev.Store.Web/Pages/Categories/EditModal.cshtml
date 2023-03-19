@@ -21,7 +21,7 @@
             <div class="mb-3">
                 <label class="form-label" for="Files">@L["CoverPhoto"].Value</label><span> * </span>
                 <br />
-                @Model.Category.File.FileName
+                @Model.Category?.File?.FileName
                 <br />
                 @(Html.Kendo().Upload().Name("Files").Multiple(false)
                     .Validation(x =>

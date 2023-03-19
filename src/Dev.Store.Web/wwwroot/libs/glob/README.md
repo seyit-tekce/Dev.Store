@@ -78,7 +78,7 @@ You can make glob treat dots as normal characters by setting
 If you set `matchBase:true` in the options, and the pattern has no
 slashes in it, then it will seek for any file anywhere in the tree
 with a matching basename.  For example, `*.js` would match
-`test/simple/Multikart.js`.
+`test/simple/basic.js`.
 
 ### Empty Sets
 

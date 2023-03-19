@@ -270,13 +270,13 @@
   }
 
   var nonASCIISingleCaseWordChar = /[\u00df\u0587\u0590-\u05f4\u0600-\u06ff\u3040-\u309f\u30a0-\u30ff\u3400-\u4db5\u4e00-\u9fcc\uac00-\ud7af]/;
-  function isWordCharMultikart(ch) {
+  function isWordCharBasic(ch) {
     return /\w/.test(ch) || ch > "\x80" &&
       (ch.toUpperCase() != ch.toLowerCase() || nonASCIISingleCaseWordChar.test(ch))
   }
   function isWordChar(ch, helper) {
-    if (!helper) { return isWordCharMultikart(ch) }
-    if (helper.source.indexOf("\\w") > -1 && isWordCharMultikart(ch)) { return true }
+    if (!helper) { return isWordCharBasic(ch) }
+    if (helper.source.indexOf("\\w") > -1 && isWordCharBasic(ch)) { return true }
     return helper.test(ch)
   }
 
@@ -6727,7 +6727,7 @@
 
   var keyMap = {};
 
-  keyMap.Multikart = {
+  keyMap.basic = {
     "Left": "goCharLeft", "Right": "goCharRight", "Up": "goLineUp", "Down": "goLineDown",
     "End": "goLineEnd", "Home": "goLineStartSmart", "PageUp": "goPageUp", "PageDown": "goPageDown",
     "Delete": "delCharAfter", "Backspace": "delCharBefore", "Shift-Backspace": "delCharBefore",
@@ -6746,9 +6746,9 @@
     "Ctrl-G": "findNext", "Shift-Ctrl-G": "findPrev", "Shift-Ctrl-F": "replace", "Shift-Ctrl-R": "replaceAll",
     "Ctrl-[": "indentLess", "Ctrl-]": "indentMore",
     "Ctrl-U": "undoSelection", "Shift-Ctrl-U": "redoSelection", "Alt-U": "redoSelection",
-    "fallthrough": "Multikart"
+    "fallthrough": "basic"
   };
-  // Very Multikart readline/emacs-style bindings, which are standard on Mac.
+  // Very basic readline/emacs-style bindings, which are standard on Mac.
   keyMap.emacsy = {
     "Ctrl-F": "goCharRight", "Ctrl-B": "goCharLeft", "Ctrl-P": "goLineUp", "Ctrl-N": "goLineDown",
     "Ctrl-A": "goLineStart", "Ctrl-E": "goLineEnd", "Ctrl-V": "goPageDown", "Shift-Ctrl-V": "goPageUp",
@@ -6763,7 +6763,7 @@
     "Cmd-G": "findNext", "Shift-Cmd-G": "findPrev", "Cmd-Alt-F": "replace", "Shift-Cmd-Alt-F": "replaceAll",
     "Cmd-[": "indentLess", "Cmd-]": "indentMore", "Cmd-Backspace": "delWrappedLineLeft", "Cmd-Delete": "delWrappedLineRight",
     "Cmd-U": "undoSelection", "Shift-Cmd-U": "redoSelection", "Ctrl-Up": "goDocStart", "Ctrl-Down": "goDocEnd",
-    "fallthrough": ["Multikart", "emacsy"]
+    "fallthrough": ["basic", "emacsy"]
   };
   keyMap["default"] = mac ? keyMap.macDefault : keyMap.pcDefault;
 
@@ -9788,7 +9788,7 @@
     CodeMirror.splitLines = splitLinesAuto;
     CodeMirror.countColumn = countColumn;
     CodeMirror.findColumn = findColumn;
-    CodeMirror.isWordChar = isWordCharMultikart;
+    CodeMirror.isWordChar = isWordCharBasic;
     CodeMirror.Pass = Pass;
     CodeMirror.signal = signal;
     CodeMirror.Line = Line;

@@ -15,5 +15,5 @@ public class CreateUpdateCategoryDto
     public bool isVisible { get; set; }
     public int Order { get; set; }
     public IFormFileCollection Files { get; set; }
-    public Guid FileId { get; set; }
+    public Guid? FileId { get; set; }
 }

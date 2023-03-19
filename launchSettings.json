@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "dev.store.web": "StartDebugging",
+        "dev.store.web.public": "StartDebugging"
+      }
+    }
+  }
+}

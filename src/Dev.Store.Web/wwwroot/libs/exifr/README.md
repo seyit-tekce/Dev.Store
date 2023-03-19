@@ -136,7 +136,7 @@ var exifr = require('exifr') // => exifr/dist/full.umd.cjs
 
 * **full** - Contains everything. Intended for use in Node.js.
 * **lite** - Reads JPEG and HEIC. Parses TIFF/EXIF and XMP.
-* **mini** - Stripped down to Multikarts. Parses most useful TIFF/EXIF from JPEGs. **Has no tag dictionaries**.
+* **mini** - Stripped down to basics. Parses most useful TIFF/EXIF from JPEGs. **Has no tag dictionaries**.
 
 Of course, you can use the `full` version in browser, or use any other build in Node.js.
 
@@ -359,7 +359,7 @@ await exr.file?.close?.()
 * `string`
   * file path
   * URL, [Object URL](https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL)
-  * Base64 or [Base64 URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Multikarts_of_HTTP/Data_URIs)
+  * Base64 or [Base64 URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)
 * `Buffer`
 * `ArrayBuffer`
 * `Uint8Array`
@@ -460,7 +460,7 @@ EXIF became synonymous for all image metadata, but it's actually just one of man
 Jpeg stores various formats of data in APP-Segments. Heic and Tiff file formats use different structures or naming conventions but the idea is the same, so we refer to TIFF, XMP, IPTC, ICC and JFIF as Segments.
 
 * `options.tiff` type `bool|object|Array` default: `true`
-<br>TIFF APP1 Segment - Multikart TIFF/EXIF tags, consists of blocks: IFD0 (image), IFD1 (thumbnail), EXIF, GPS, Interop
+<br>TIFF APP1 Segment - Basic TIFF/EXIF tags, consists of blocks: IFD0 (image), IFD1 (thumbnail), EXIF, GPS, Interop
 * `options.jfif` type `bool` default: `false`
 <br>JFIF APP0 Segment - Additional info
 * `options.xmp` type `bool` default: `false`
@@ -470,14 +470,14 @@ Jpeg stores various formats of data in APP-Segments. Heic and Tiff file formats 
 * `options.icc` type `bool` default: `false`
 <br>ICC APP2 Segment - Color profile
 * `options.ihdr` type `bool` default: `true` (only for PNG)
-<br>PNG Header chunk - Multikart file info
+<br>PNG Header chunk - Basic file info
 
 #### TIFF IFD Blocks
 
 TIFF Segment consists of various IFD's (Image File Directories) aka blocks.
 
 * `options.ifd0` (alias `options.image`) type `bool|object|Array` default: `true`
-<br>IFD0 - Multikart info about the image
+<br>IFD0 - Basic info about the image
 * `options.ifd1` (alias `options.thumbnail`) type `bool|object|Array` default: `false`
 <br>IFD1 - Info about embedded thumbnail
 * `options.exif` type `bool|object|Array` default: `true`

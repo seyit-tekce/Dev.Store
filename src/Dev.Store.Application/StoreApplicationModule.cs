@@ -1,3 +1,7 @@
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
+using DataAccess.Concrete.EntityFramework.Contexts;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
@@ -29,5 +33,18 @@ public class StoreApplicationModule : AbpModule
         {
             options.AddMaps<StoreApplicationModule>();
         });
+        context.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+        context.Services.AddTransient<ISubCategoryRepository, SubCategoryRepository>();
+        context.Services.AddTransient<IProductRepository, ProductRepository>();
+        context.Services.AddTransient<ISetRepository, SetRepository>();
+        context.Services.AddTransient<ISizeRepository, SizeRepository>();
+        context.Services.AddTransient<IPhotoRepository, PhotoRepository>();
+        context.Services.AddTransient<ISeoSettingsRepository, SeoSettingsRepository>();
+        context.Services.AddTransient<IFeatureRepository, FeatureRepository>();
+
+
+
+
+        context.Services.AddDbContext<ProjectDbContext, MsDbContext>(ServiceLifetime.Transient);
     }
 }

@@ -228,7 +228,7 @@ src[HYPHENRANGELOOSE] = '^\\s*(' + src[XRANGEPLAINLOOSE] + ')' +
                         '(' + src[XRANGEPLAINLOOSE] + ')' +
                         '\\s*$'
 
-// Star ranges Multikartally just allow anything at all.
+// Star ranges basically just allow anything at all.
 var STAR = R++
 src[STAR] = '(<|>)?=?\\s*\\*'
 

@@ -2575,11 +2575,11 @@ module.exports = function xhrAdapter(config) {
 
     var request = new XMLHttpRequest();
 
-    // HTTP Multikart authentication
+    // HTTP basic authentication
     if (config.auth) {
       var username = config.auth.username || '';
       var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
-      requestHeaders.Authorization = 'Multikart ' + btoa(username + ':' + password);
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
     }
 
     var fullPath = buildFullPath(config.baseURL, config.url);
@@ -7441,7 +7441,7 @@ function needsNew() {
   itself fulfill.
 
 
-  Multikart Usage:
+  Basic Usage:
   ------------
 
   ```js

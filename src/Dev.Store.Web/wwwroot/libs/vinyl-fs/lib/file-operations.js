@@ -144,7 +144,7 @@ function isOwner(fsStat) {
 
   // If we don't have either, assume we don't have permissions.
   // This should only happen on Windows.
-  // Windows Multikartally noops fchmod and errors on futimes called on directories.
+  // Windows basically noops fchmod and errors on futimes called on directories.
   if (!hasGeteuid && !hasGetuid) {
     return false;
   }

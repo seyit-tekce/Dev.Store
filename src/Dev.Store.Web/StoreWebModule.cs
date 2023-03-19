@@ -1,4 +1,3 @@
-using CloudinaryDotNet;
 using Dev.Store.EntityFrameworkCore;
 using Dev.Store.Localization;
 using Dev.Store.MultiTenancy;
@@ -9,7 +8,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,10 +31,9 @@ using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.Database;
-using Volo.Abp.Data;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
-using Volo.Abp.OpenIddict;
 using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
 using Volo.Abp.Swashbuckle;
@@ -66,7 +63,8 @@ namespace Dev.Store.Web;
     )]
 [DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
 [DependsOn(typeof(CmsKitWebModule))]
-public class StoreWebModule : AbpModule
+[DependsOn(typeof(AbpCachingStackExchangeRedisModule))]
+    public class StoreWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -116,7 +114,6 @@ public class StoreWebModule : AbpModule
         ConfigureSwaggerServices(context.Services);
         ConfigureKendo(context);
         ConfigureSerializers(context);
-        ConfigureDatabaseConnections();
         ConfigureSettings();
         context.Services.AddResponseCompression(c =>
         {
@@ -139,39 +136,7 @@ public class StoreWebModule : AbpModule
     }
 
 
-    private void ConfigureDatabaseConnections()
-    {
-        Configure<AbpDbConnectionOptions>(options =>
-        {
-            options.Databases.Configure("SaasService", database =>
-            {
-                database.MappedConnections.Add("Saas");
-                database.IsUsedByTenants = false;
-            });
 
-            options.Databases.Configure("AdministrationService", database =>
-            {
-                database.MappedConnections.Add("AbpAuditLogging");
-                database.MappedConnections.Add("AbpPermissionManagement");
-                database.MappedConnections.Add("AbpSettingManagement");
-                database.MappedConnections.Add("AbpFeatureManagement");
-                database.MappedConnections.Add("AbpLanguageManagement");
-                database.MappedConnections.Add("TextTemplateManagement");
-                database.MappedConnections.Add("AbpBlobStoring");
-            });
-
-            options.Databases.Configure("IdentityService", database =>
-            {
-                database.MappedConnections.Add("AbpIdentity");
-                database.MappedConnections.Add("OpenIddict");
-            });
-
-            options.Databases.Configure("ProductService", database =>
-            {
-                database.MappedConnections.Add("ProductService");
-            });
-        });
-    }
 
     private void ConfigureUrls(IConfiguration configuration)
     {
@@ -316,7 +281,7 @@ public class StoreWebModule : AbpModule
         {
             app.UseMultiTenancy();
         }
-        app.UseResponseCompression();
+        //app.UseResponseCompression();
         app.UseUnitOfWork();
         app.UseAuthorization();
         app.UseSwagger();

@@ -1,8 +1,8 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-EXPOSE 1881
+EXPOSE 1001
 
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
@@ -19,15 +19,11 @@ RUN dotnet restore "src/Dev.Store.Web/Dev.Store.Web.csproj"
 COPY . .
 WORKDIR "/src/src/Dev.Store.Web"
 RUN dotnet build "Dev.Store.Web.csproj" -c Release -o /app/build
-RUN npm install
 
 FROM build AS publish
-
-
 RUN dotnet publish "Dev.Store.Web.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Dev.Store.Web.dll"]
+ENTRYPOINT ["dotnet", "Dev.Store.Web.dll","--launch-profile Dev.Store.Web.Production"]

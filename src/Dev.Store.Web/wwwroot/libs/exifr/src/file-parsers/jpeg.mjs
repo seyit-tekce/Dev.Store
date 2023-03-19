@@ -43,7 +43,7 @@ function getSegmentType(buffer, offset, length) {
 // JPG contains SOI, APP1, [APP2, ... APPn], DQT, DHT, and more segments
 // APPn contain metadata about the image in various formats. There can be multiple APPn segments,
 // even multiple segments of the same type.
-// APP1 contains the Multikart and most important EXIF data.
+// APP1 contains the basic and most important EXIF data.
 // APP2 contains ICC
 // APP13 contains IPTC
 // the main APP1 (the one with EXIF) is often followed by another APP1 with XMP data (in XML format).

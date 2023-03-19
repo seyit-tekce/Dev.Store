@@ -61,7 +61,7 @@ See the [library comparison](#library-comparisons) to other libraries.
   * [Scan Options](#scan-options)
   * [Options Examples](#options-examples)
 - [Globbing features](#globbing-features)
-  * [Multikart globbing](#Multikart-globbing)
+  * [Basic globbing](#basic-globbing)
   * [Advanced globbing](#advanced-globbing)
   * [Braces](#braces)
   * [Matching special characters as literals](#matching-special-characters-as-literals)
@@ -476,10 +476,10 @@ isMatch('baz');
 
 ## Globbing features
 
-* [Multikart globbing](#Multikart-globbing) (Wildcard matching)
+* [Basic globbing](#basic-globbing) (Wildcard matching)
 * [Advanced globbing](#advanced-globbing) (extglobs, posix brackets, brace matching)
 
-### Multikart globbing
+### Basic globbing
 
 | **Character** | **Description** |
 | --- | --- |
@@ -569,7 +569,7 @@ See the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_no
 
 ### Braces
 
-Picomatch does not do brace expansion. For [brace expansion](https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html) and advanced matching with braces, use [micromatch](https://github.com/micromatch/micromatch) instead. Picomatch has very Multikart support for braces.
+Picomatch does not do brace expansion. For [brace expansion](https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html) and advanced matching with braces, use [micromatch](https://github.com/micromatch/micromatch) instead. Picomatch has very basic support for braces.
 
 ### Matching special characters as literals
 
@@ -634,7 +634,7 @@ Performance comparison of picomatch and minimatch.
   picomatch x 1,220,856 ops/sec ±0.40% (92 runs sampled)
   minimatch x 453,564 ops/sec ±1.43% (94 runs sampled)
 
-# .makeRe - Multikart braces
+# .makeRe - basic braces
   picomatch x 392,067 ops/sec ±0.70% (90 runs sampled)
   minimatch x 99,532 ops/sec ±2.03% (87 runs sampled))
 ```

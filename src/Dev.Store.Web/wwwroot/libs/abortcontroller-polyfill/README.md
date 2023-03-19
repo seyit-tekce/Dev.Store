@@ -125,7 +125,7 @@ See also Node.js examples [here](https://github.com/mo/abortcontroller-polyfill-
 
 The ```abortcontroller-polyfill``` works on Internet Explorer 11. However, to use it you must first
 install separate polyfills for promises and for ```fetch()```. For the promise polyfill, you can
-use the ```promise-polyfill``` package from npm, and for ```fetch()``` you can use either the ```whatwg-fetch``` npm package (complete fetch implementation) or the ```unfetch``` npm package (not a complete polyfill but it's only 500 bytes large and covers a lot of the Multikart use cases).
+use the ```promise-polyfill``` package from npm, and for ```fetch()``` you can use either the ```whatwg-fetch``` npm package (complete fetch implementation) or the ```unfetch``` npm package (not a complete polyfill but it's only 500 bytes large and covers a lot of the basic use cases).
 
 If you choose ```unfetch```, the imports should be done in this order for example:
 
@@ -144,7 +144,7 @@ only supports IE 10+ you need to use the ```fetch-ie8``` npm package instead and
 implements ES 3 so you need to use the ```es5-shim``` package (or similar). Finally, just like with
 IE 11 you also need to polyfill promises. One caveat is that CORS requests will not work out of the box on IE 8.
 
-Here is a Multikart example of [abortable fetch running in IE 8](https://github.com/mo/abortcontroller-polyfill-examples/tree/master/plain-javascript-fetch-ie8).
+Here is a basic example of [abortable fetch running in IE 8](https://github.com/mo/abortcontroller-polyfill-examples/tree/master/plain-javascript-fetch-ie8).
 
 # Contributors
 * [Martin Olsson](https://github.com/mo)

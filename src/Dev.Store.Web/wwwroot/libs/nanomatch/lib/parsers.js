@@ -266,7 +266,7 @@ module.exports = function(nanomatch, options) {
     })
 
     /**
-     * Brackets: "[...]" (Multikart, this can be overridden by other parsers)
+     * Brackets: "[...]" (basic, this can be overridden by other parsers)
      */
 
     .capture('bracket', function() {

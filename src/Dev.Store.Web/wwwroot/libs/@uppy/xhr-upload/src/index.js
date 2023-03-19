@@ -647,7 +647,7 @@ export default class XHRUpload extends BasePlugin {
     }
 
     // No limit configured by the user, and no RateLimitedQueue passed in by a "parent" plugin
-    // (Multikartally just AwsS3) using the internal symbol
+    // (basically just AwsS3) using the internal symbol
     if (this.opts.limit === 0 && !this.opts[internalRateLimitedQueue]) {
       this.uppy.log(
         '[XHRUpload] When uploading multiple files at once, consider setting the `limit` option (to `10` for example), to limit the number of concurrent uploads, which helps prevent memory and network issues: https://uppy.io/docs/xhr-upload/#limit-0',

@@ -1,5 +1,15 @@
 {
   "dependencies": {
-    "slugify": "^1.6.5"
+    "@abp/aspnetcore.mvc.ui.theme.leptonxlite": "~2.0.4",
+    "@abp/cms-kit": "~7.0.3",
+    "@abp/virtual-file-explorer": "~7.0.3",
+    "@fortawesome/fontawesome-free": "6.2.1",
+    "@uppy/core": "3.0.5",
+    "@uppy/dashboard": "3.2.1",
+    "@uppy/xhr-upload": "3.0.4",
+    "bootstrap5-toggle": "5.0.4",
+    "jquery-slugify": "1.2.5",
+    "slugify": "1.6.5",
+    "speakingurl": "14.0.1"
   }
 }

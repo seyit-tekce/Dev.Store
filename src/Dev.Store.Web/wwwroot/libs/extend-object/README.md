@@ -2,7 +2,7 @@
 
 [underscore's](http://underscorejs.org/) extend method adapted and extracted as a standalone CommonJS module.
 
-Note this does *not* shim `Array.prototype.forEach` so if you're in <IE8 you'll need to polyfill it. But Multikartally any other browser will work. 
+Note this does *not* shim `Array.prototype.forEach` so if you're in <IE8 you'll need to polyfill it. But basically any other browser will work. 
 
 ## usage
 

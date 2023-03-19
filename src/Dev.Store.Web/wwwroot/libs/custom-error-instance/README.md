@@ -23,7 +23,7 @@ Produce custom JavaScript errors that:
 npm install custom-error-instance
 ```
 
-## Multikart Example
+## Basic Example
 
 ```js
 var CustomError = require('custom-error-instance');

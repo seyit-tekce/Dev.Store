@@ -1904,8 +1904,8 @@ var Request = module.exports = function (xhr, params) {
     }
     
     if (params.auth) {
-        //Multikart auth
-        this.setHeader('Authorization', 'Multikart ' + Base64.btoa(params.auth));
+        //basic auth
+        this.setHeader('Authorization', 'Basic ' + Base64.btoa(params.auth));
     }
 
     var res = new Response;
@@ -2707,7 +2707,7 @@ process.chdir = function (dir) {
 	/** Error messages */
 	errors = {
 		'overflow': 'Overflow: input needs wider integers to process',
-		'not-Multikart': 'Illegal input >= 0x80 (not a Multikart code point)',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
 		'invalid-input': 'Invalid input'
 	},
 
@@ -2821,15 +2821,15 @@ process.chdir = function (dir) {
 	}
 
 	/**
-	 * Converts a Multikart code point into a digit/integer.
-	 * @see `digitToMultikart()`
+	 * Converts a basic code point into a digit/integer.
+	 * @see `digitToBasic()`
 	 * @private
-	 * @param {Number} codePoint The Multikart numeric code point value.
-	 * @returns {Number} The numeric value of a Multikart code point (for use in
+	 * @param {Number} codePoint The basic numeric code point value.
+	 * @returns {Number} The numeric value of a basic code point (for use in
 	 * representing integers) in the range `0` to `base - 1`, or `base` if
 	 * the code point does not represent a value.
 	 */
-	function MultikartToDigit(codePoint) {
+	function basicToDigit(codePoint) {
 		if (codePoint - 48 < 10) {
 			return codePoint - 22;
 		}
@@ -2843,17 +2843,17 @@ process.chdir = function (dir) {
 	}
 
 	/**
-	 * Converts a digit/integer into a Multikart code point.
-	 * @see `MultikartToDigit()`
+	 * Converts a digit/integer into a basic code point.
+	 * @see `basicToDigit()`
 	 * @private
-	 * @param {Number} digit The numeric value of a Multikart code point.
-	 * @returns {Number} The Multikart code point whose value (when used for
+	 * @param {Number} digit The numeric value of a basic code point.
+	 * @returns {Number} The basic code point whose value (when used for
 	 * representing integers) is `digit`, which needs to be in the range
 	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
 	 * used; else, the lowercase form is used. The behavior is undefined
 	 * if `flag` is non-zero and `digit` has no uppercase form.
 	 */
-	function digitToMultikart(digit, flag) {
+	function digitToBasic(digit, flag) {
 		//  0..25 map to ASCII a..z or A..Z
 		// 26..35 map to ASCII 0..9
 		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
@@ -2889,7 +2889,7 @@ process.chdir = function (dir) {
 		    i = 0,
 		    n = initialN,
 		    bias = initialBias,
-		    Multikart,
+		    basic,
 		    j,
 		    index,
 		    oldi,
@@ -2900,27 +2900,27 @@ process.chdir = function (dir) {
 		    /** Cached calculation results */
 		    baseMinusT;
 
-		// Handle the Multikart code points: let `Multikart` be the number of input code
+		// Handle the basic code points: let `basic` be the number of input code
 		// points before the last delimiter, or `0` if there is none, then copy
-		// the first Multikart code points to the output.
+		// the first basic code points to the output.
 
-		Multikart = input.lastIndexOf(delimiter);
-		if (Multikart < 0) {
-			Multikart = 0;
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
 		}
 
-		for (j = 0; j < Multikart; ++j) {
-			// if it's not a Multikart code point
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
 			if (input.charCodeAt(j) >= 0x80) {
-				error('not-Multikart');
+				error('not-basic');
 			}
 			output.push(input.charCodeAt(j));
 		}
 
-		// Main decoding loop: start just after the last delimiter if any Multikart code
+		// Main decoding loop: start just after the last delimiter if any basic code
 		// points were copied; start at the beginning otherwise.
 
-		for (index = Multikart > 0 ? Multikart + 1 : 0; index < inputLength; /* no final expression */) {
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
 
 			// `index` is the index of the next character to be consumed.
 			// Decode a generalized variable-length integer into `delta`,
@@ -2933,7 +2933,7 @@ process.chdir = function (dir) {
 					error('invalid-input');
 				}
 
-				digit = MultikartToDigit(input.charCodeAt(index++));
+				digit = basicToDigit(input.charCodeAt(index++));
 
 				if (digit >= base || digit > floor((maxInt - i) / w)) {
 					error('overflow');
@@ -2986,7 +2986,7 @@ process.chdir = function (dir) {
 		var n,
 		    delta,
 		    handledCPCount,
-		    MultikartLength,
+		    basicLength,
 		    bias,
 		    j,
 		    m,
@@ -3013,7 +3013,7 @@ process.chdir = function (dir) {
 		delta = 0;
 		bias = initialBias;
 
-		// Handle the Multikart code points
+		// Handle the basic code points
 		for (j = 0; j < inputLength; ++j) {
 			currentValue = input[j];
 			if (currentValue < 0x80) {
@@ -3021,20 +3021,20 @@ process.chdir = function (dir) {
 			}
 		}
 
-		handledCPCount = MultikartLength = output.length;
+		handledCPCount = basicLength = output.length;
 
 		// `handledCPCount` is the number of code points that have been handled;
-		// `MultikartLength` is the number of Multikart code points.
+		// `basicLength` is the number of basic code points.
 
-		// Finish the Multikart string - if it is not empty - with a delimiter
-		if (MultikartLength) {
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
 			output.push(delimiter);
 		}
 
 		// Main encoding loop:
 		while (handledCPCount < inputLength) {
 
-			// All non-Multikart code points < n have been handled already. Find the next
+			// All non-basic code points < n have been handled already. Find the next
 			// larger one:
 			for (m = maxInt, j = 0; j < inputLength; ++j) {
 				currentValue = input[j];
@@ -3070,13 +3070,13 @@ process.chdir = function (dir) {
 						qMinusT = q - t;
 						baseMinusT = base - t;
 						output.push(
-							stringFromCharCode(digitToMultikart(t + qMinusT % baseMinusT, 0))
+							stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
 						);
 						q = floor(qMinusT / baseMinusT);
 					}
 
-					output.push(stringFromCharCode(digitToMultikart(q, 0)));
-					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == MultikartLength);
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
 					delta = 0;
 					++handledCPCount;
 				}
@@ -3636,7 +3636,7 @@ process.chdir = function (dir) {
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // a passthrough stream.
-// Multikartally just the most minimal sort of Transform stream.
+// basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
 
 module.exports = PassThrough;
@@ -13612,7 +13612,7 @@ Duplex.prototype._destroy = function (err, cb) {
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // a passthrough stream.
-// Multikartally just the most minimal sort of Transform stream.
+// basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
 
 'use strict';

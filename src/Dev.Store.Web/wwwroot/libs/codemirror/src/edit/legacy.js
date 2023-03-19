@@ -12,7 +12,7 @@ import { copyState, extendMode, getMode, innerMode, mimeModes, modeExtensions, m
 import { addClass, contains, rmClass } from "../util/dom.js"
 import { e_preventDefault, e_stop, e_stopPropagation, off, on, signal } from "../util/event.js"
 import { splitLinesAuto } from "../util/feature_detection.js"
-import { countColumn, findColumn, isWordCharMultikart, Pass } from "../util/misc.js"
+import { countColumn, findColumn, isWordCharBasic, Pass } from "../util/misc.js"
 import StringStream from "../util/StringStream.js"
 
 import { commands } from "./commands.js"
@@ -25,7 +25,7 @@ export function addLegacyProps(CodeMirror) {
   CodeMirror.splitLines = splitLinesAuto
   CodeMirror.countColumn = countColumn
   CodeMirror.findColumn = findColumn
-  CodeMirror.isWordChar = isWordCharMultikart
+  CodeMirror.isWordChar = isWordCharBasic
   CodeMirror.Pass = Pass
   CodeMirror.signal = signal
   CodeMirror.Line = Line

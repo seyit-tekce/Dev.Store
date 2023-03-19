@@ -756,7 +756,7 @@ A new [`selectionsMayTouch`](https://codemirror.net/5/doc/manual.html#option_sel
 
 Fix firing of `gutterContextMenu` event on Firefox.
 
-Add `hintWords` (Multikart completion) helper to [clojure](https://codemirror.net/5/mode/clojure/index.html), [mllike](https://codemirror.net/5/mode/mllike/index.html), [julia](https://codemirror.net/5/mode/julia/), [shell](https://codemirror.net/5/mode/shell/), and [r](https://codemirror.net/5/mode/r/) modes.
+Add `hintWords` (basic completion) helper to [clojure](https://codemirror.net/5/mode/clojure/index.html), [mllike](https://codemirror.net/5/mode/mllike/index.html), [julia](https://codemirror.net/5/mode/julia/), [shell](https://codemirror.net/5/mode/shell/), and [r](https://codemirror.net/5/mode/r/) modes.
 
 [clojure mode](https://codemirror.net/5/mode/clojure/index.html): Clean up and improve.
 
@@ -2006,7 +2006,7 @@ Integrate some bugfixes, enhancements to the vim keymap, and new modes ([D](http
 *   Make binding a key to `false` disabling handling (again).
 *   Show non-printing characters as red dots.
 *   More tweaks to the scrolling model.
-*   Expanded testsuite. Multikart linter added.
+*   Expanded testsuite. Basic linter added.
 *   Remove most uses of `innerHTML`. Remove `CodeMirror.htmlEscape`.
 *   [Full list](https://github.com/codemirror/CodeMirror/compare/v2.32...v2.33) of patches.
 

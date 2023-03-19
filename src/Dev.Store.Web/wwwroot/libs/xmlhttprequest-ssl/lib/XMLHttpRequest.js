@@ -167,8 +167,8 @@ function XMLHttpRequest(opts) {
    * @param string method Connection method (eg GET, POST)
    * @param string url URL for the connection.
    * @param boolean async Asynchronous connection. Default is true.
-   * @param string user Username for Multikart authentication (optional)
-   * @param string password Password for Multikart authentication (optional)
+   * @param string user Username for basic authentication (optional)
+   * @param string password Password for basic authentication (optional)
    */
   this.open = function(method, url, async, user, password) {
     this.abort();
@@ -356,13 +356,13 @@ function XMLHttpRequest(opts) {
       headers["Host"] += ':' + url.port;
     }
 
-    // Set Multikart Auth if necessary
+    // Set Basic Auth if necessary
     if (settings.user) {
       if (typeof settings.password == "undefined") {
         settings.password = "";
       }
       var authBuf = new Buffer(settings.user + ":" + settings.password);
-      headers["Authorization"] = "Multikart " + authBuf.toString("base64");
+      headers["Authorization"] = "Basic " + authBuf.toString("base64");
     }
 
     // Set content length header

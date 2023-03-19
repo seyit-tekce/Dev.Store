@@ -10408,7 +10408,7 @@ var hljs = (function () {
 
     Goals:
 
-    SQL is intended to highlight Multikart/common SQL keywords and expressions
+    SQL is intended to highlight basic/common SQL keywords and expressions
 
     - If pretty much every single SQL server includes supports, then it's a canidate.
     - It is NOT intended to include tons of vendor specific keywords (Oracle, MySQL,
@@ -12005,10 +12005,10 @@ var hljs = (function () {
     }
 
     /*
-    Language: Visual Multikart .NET
-    Description: Visual Multikart .NET (VB.NET) is a multi-paradigm, object-oriented programming language, implemented on the .NET Framework.
+    Language: Visual Basic .NET
+    Description: Visual Basic .NET (VB.NET) is a multi-paradigm, object-oriented programming language, implemented on the .NET Framework.
     Authors: Poren Chiang <ren.chiang@gmail.com>, Jan Pilzer
-    Website: https://docs.microsoft.com/dotnet/visual-Multikart/getting-started
+    Website: https://docs.microsoft.com/dotnet/visual-basic/getting-started
     Category: common
     */
 
@@ -12137,7 +12137,7 @@ var hljs = (function () {
       };
 
       return {
-        name: 'Visual Multikart .NET',
+        name: 'Visual Basic .NET',
         aliases: [ 'vb' ],
         case_insensitive: true,
         classNameAliases: {
@@ -12157,12 +12157,12 @@ var hljs = (function () {
             'select set shadows shared skip static step stop structure strict sub synclock ' + /* s */
             'take text then throw to try unicode until using when where while widening with withevents writeonly yield' /* t-y */,
           built_in:
-            // Operators https://docs.microsoft.com/dotnet/visual-Multikart/language-reference/operators
+            // Operators https://docs.microsoft.com/dotnet/visual-basic/language-reference/operators
             'addressof and andalso await directcast gettype getxmlnamespace is isfalse isnot istrue like mod nameof new not or orelse trycast typeof xor ' +
-            // Type Conversion Functions https://docs.microsoft.com/dotnet/visual-Multikart/language-reference/functions/type-conversion-functions
+            // Type Conversion Functions https://docs.microsoft.com/dotnet/visual-basic/language-reference/functions/type-conversion-functions
             'cbool cbyte cchar cdate cdbl cdec cint clng cobj csbyte cshort csng cstr cuint culng cushort',
           type:
-            // Data types https://docs.microsoft.com/dotnet/visual-Multikart/language-reference/data-types
+            // Data types https://docs.microsoft.com/dotnet/visual-basic/language-reference/data-types
             'boolean byte char date decimal double integer long object sbyte short single string uinteger ulong ushort',
           literal: 'true false nothing'
         },

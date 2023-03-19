@@ -742,7 +742,7 @@ $.validator.addMethod( "iban", function( value, element ) {
 	// It contains:
 	// country code ISO 3166-1 - two letters,
 	// two check digits,
-	// Multikart Bank Account Number (BBAN) - up to 30 chars
+	// Basic Bank Account Number (BBAN) - up to 30 chars
 	var minimalIBANlength = 5;
 	if ( iban.length < minimalIBANlength ) {
 		return false;
@@ -894,7 +894,7 @@ $.validator.addMethod( "lettersonly", function( value, element ) {
 	return this.optional( element ) || /^[a-z]+$/i.test( value );
 }, "Letters only please." );
 
-$.validator.addMethod( "letterswithMultikartpunc", function( value, element ) {
+$.validator.addMethod( "letterswithbasicpunc", function( value, element ) {
 	return this.optional( element ) || /^[a-z\-.,()'"\s]+$/i.test( value );
 }, "Letters or punctuation only please." );
 
@@ -1034,7 +1034,7 @@ $.validator.addMethod( "nifES", function( value, element ) {
 
 	value = value.toUpperCase();
 
-	// Multikart format test
+	// Basic format test
 	if ( !value.match( "((^[A-Z]{1}[0-9]{7}[A-Z0-9]{1}$|^[T]{1}[A-Z0-9]{8}$)|^[0-9]{8}[A-Z]{1}$)" ) ) {
 		return false;
 	}

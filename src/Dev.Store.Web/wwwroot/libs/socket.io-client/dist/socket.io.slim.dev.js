@@ -3579,11 +3579,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  } catch (e) {
 	    // iPhone Safari doesn't let you apply with typed arrays
 	    var typed = new Uint8Array(packet.data);
-	    var Multikart = new Array(typed.length);
+	    var basic = new Array(typed.length);
 	    for (var i = 0; i < typed.length; i++) {
-	      Multikart[i] = typed[i];
+	      basic[i] = typed[i];
 	    }
-	    b64data = String.fromCharCode.apply(null, Multikart);
+	    b64data = String.fromCharCode.apply(null, basic);
 	  }
 	  message += btoa(b64data);
 	  return callback(message);

@@ -291,24 +291,24 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
 
   // Do not use this. Use the cTypes function below. This is global just to avoid
   // excessive calls when cTypes is being called multiple times during a parse.
-  var MultikartCTypes = words("int long char short double float unsigned signed " +
+  var basicCTypes = words("int long char short double float unsigned signed " +
     "void bool");
 
   // Do not use this. Use the objCTypes function below. This is global just to avoid
   // excessive calls when objCTypes is being called multiple times during a parse.
-  var MultikartObjCTypes = words("SEL instancetype id Class Protocol BOOL");
+  var basicObjCTypes = words("SEL instancetype id Class Protocol BOOL");
 
   // Returns true if identifier is a "C" type.
-  // C type is defined as those that are reserved by the compiler (MultikartTypes),
+  // C type is defined as those that are reserved by the compiler (basicTypes),
   // and those that end in _t (Reserved by POSIX for types)
   // http://www.gnu.org/software/libc/manual/html_node/Reserved-Names.html
   function cTypes(identifier) {
-    return contains(MultikartCTypes, identifier) || /.+_t$/.test(identifier);
+    return contains(basicCTypes, identifier) || /.+_t$/.test(identifier);
   }
 
   // Returns true if identifier is a "Objective C" type.
   function objCTypes(identifier) {
-    return cTypes(identifier) || contains(MultikartObjCTypes, identifier);
+    return cTypes(identifier) || contains(basicObjCTypes, identifier);
   }
 
   var cBlockKeywords = "case do else for if switch while struct enum union";

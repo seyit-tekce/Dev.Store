@@ -63,7 +63,7 @@ CodeMirror.defineMode("asterisk", function() {
                   "waitforsilence","waitmusiconhold","waituntil","while","zapateller"
                  ];
 
-  function MultikartToken(stream,state){
+  function basicToken(stream,state){
     var cur = '';
     var ch = stream.next();
     // comment
@@ -203,7 +203,7 @@ CodeMirror.defineMode("asterisk", function() {
           return "def strong";
         }
       } else{
-        return MultikartToken(stream,state);
+        return basicToken(stream,state);
       }
 
       return null;

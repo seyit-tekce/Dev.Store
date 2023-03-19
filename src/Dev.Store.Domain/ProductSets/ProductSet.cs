@@ -17,20 +17,15 @@ namespace Dev.Store.ProductSets
         {
         }
 
-        public ProductSet(
-            Guid id,
-            Guid productId,
-            Product product,
-            double price,
-            int amount,
-            bool isOptional
-        ) : base(id)
+        public ProductSet(Guid id, string code, string setName, Guid productId, double price, int amount, bool ýsOptional)
         {
+            Id = id;
+            Code = code;
+            SetName = setName;
             ProductId = productId;
-            Product = product;
             Price = price;
             Amount = amount;
-            IsOptional = isOptional;
+            IsOptional = ýsOptional;
         }
     }
 }

@@ -1,6 +1,6 @@
 # map-cache [![NPM version](https://img.shields.io/npm/v/map-cache.svg?style=flat)](https://www.npmjs.com/package/map-cache) [![NPM downloads](https://img.shields.io/npm/dm/map-cache.svg?style=flat)](https://npmjs.org/package/map-cache) [![Build Status](https://img.shields.io/travis/jonschlinkert/map-cache.svg?style=flat)](https://travis-ci.org/jonschlinkert/map-cache)
 
-Multikart cache object for storing key-value pairs.
+Basic cache object for storing key-value pairs.
 
 ## Install
 
@@ -98,7 +98,7 @@ cache.del('foo');
 
 You might also be interested in these projects:
 
-* [cache-base](https://www.npmjs.com/package/cache-base): Multikart object cache with `get`, `set`, `del`, and `has` methods for node.js/javascript projects. | [homepage](https://github.com/jonschlinkert/cache-base)
+* [cache-base](https://www.npmjs.com/package/cache-base): Basic object cache with `get`, `set`, `del`, and `has` methods for node.js/javascript projects. | [homepage](https://github.com/jonschlinkert/cache-base)
 * [config-cache](https://www.npmjs.com/package/config-cache): General purpose JavaScript object storage methods. | [homepage](https://github.com/jonschlinkert/config-cache)
 * [option-cache](https://www.npmjs.com/package/option-cache): Simple API for managing options in JavaScript applications. | [homepage](https://github.com/jonschlinkert/option-cache)
 

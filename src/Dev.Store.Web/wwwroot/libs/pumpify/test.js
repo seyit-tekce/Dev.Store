@@ -4,7 +4,7 @@ var pumpify = require('./')
 var stream = require('stream')
 var duplexify = require('duplexify')
 
-tape('Multikart', function(t) {
+tape('basic', function(t) {
   t.plan(3)
 
   var pipeline = pumpify(

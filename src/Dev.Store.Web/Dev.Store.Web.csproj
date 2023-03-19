@@ -14,50 +14,22 @@
 		<UserSecretsId>Dev.Store-4681b4fd-151f-4221-84a4-929d86723e4c</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
+		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="Bundling\Kendo\Components\**" />
 		<Compile Remove="Logs\**" />
 		<Compile Remove="wwwroot\libs\indexof\**" />
+		<Content Remove="Bundling\Kendo\Components\**" />
 		<Content Remove="Logs\**" />
 		<Content Remove="wwwroot\libs\indexof\**" />
+		<EmbeddedResource Remove="Bundling\Kendo\Components\**" />
 		<EmbeddedResource Remove="Logs\**" />
 		<EmbeddedResource Remove="wwwroot\libs\indexof\**" />
+		<None Remove="Bundling\Kendo\Components\**" />
 		<None Remove="Logs\**" />
 		<None Remove="wwwroot\libs\indexof\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="wwwroot\custom-libs\jquery.livequery.min.js" />
-		<None Include="wwwroot\custom-libs\linq\jquery.linq-vsdoc.js" />
-		<None Include="wwwroot\custom-libs\linq\jquery.linq.js" />
-		<None Include="wwwroot\custom-libs\linq\jquery.linq.min.js" />
-		<None Include="wwwroot\custom-libs\linq\linq-vsdoc.js" />
-		<None Include="wwwroot\custom-libs\linq\linq.js" />
-		<None Include="wwwroot\custom-libs\linq\linq.min.js" />
-		<None Include="wwwroot\custom-libs\uppy\tr_TR.min.js">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Include="wwwroot\custom-libs\uppy\uppy.min.js">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Include="wwwroot\custom\js\kendo-grid.js" />
-		<None Include="wwwroot\custom\js\master.js" />
-		<None Include="wwwroot\kendo\js\cultures\kendo.culture.en-EN.min.js" />
-		<None Include="wwwroot\kendo\js\cultures\kendo.culture.en-EN.min.js.map" />
-		<None Include="wwwroot\kendo\js\cultures\kendo.culture.tr-TR.min.js" />
-		<None Include="wwwroot\kendo\js\cultures\kendo.culture.tr-TR.min.js.map" />
-		<None Include="wwwroot\kendo\js\kendo.all.min.js" />
-		<None Include="wwwroot\kendo\js\kendo.all.min.js.map" />
-		<None Include="wwwroot\kendo\js\kendo.aspnetmvc.min.js" />
-		<None Include="wwwroot\kendo\js\kendo.aspnetmvc.min.js.map" />
-		<None Include="wwwroot\kendo\js\messages\kendo.messages.en-EN.min.js" />
-		<None Include="wwwroot\kendo\js\messages\kendo.messages.en-EN.min.js.map" />
-		<None Include="wwwroot\kendo\js\messages\kendo.messages.tr-TR.min.js" />
-		<None Include="wwwroot\kendo\js\messages\kendo.messages.tr-TR.min.js.map" />
-		<None Include="wwwroot\kendo\styles\kendo.bootstrap-main.min.css.map" />
-		<None Include="wwwroot\kendo\styles\kendo.bootstrap-v4.min.css.map" />
-		<None Include="wwwroot\kendo\styles\kendo.bootstrap.min.css.map" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -68,30 +40,15 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
-
 	<ItemGroup>
-		<EmbeddedResource Include="Pages\**\*.js" />
-		<EmbeddedResource Include="Pages\**\*.css" />
+		<None Update="Components\**\*.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="Components\**\*.css">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
-	<ItemGroup>
-		<Content Remove="Pages\**\*.js" />
-		<Content Remove="Pages\**\*.css" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Components\Settings\FileUploaderSettings\defult.js" />
-	  <None Remove="Components\Settings\SiteSettings\defult.js" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Include="Components\Settings\FileUploaderSettings\defult.js">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Components\Settings\SiteSettings\defult.js">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
@@ -101,8 +58,9 @@
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-		<PackageReference Include="Volo.CmsKit.Web" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.VirtualFileExplorer.Web" Version="7.0.1" />
+		<PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="7.0.3" />
+		<PackageReference Include="Volo.CmsKit.Web" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.VirtualFileExplorer.Web" Version="7.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -113,13 +71,13 @@
 		<ProjectReference Include="..\Dev.Store.Application\Dev.Store.Application.csproj" />
 		<ProjectReference Include="..\Dev.Store.HttpApi\Dev.Store.HttpApi.csproj" />
 		<ProjectReference Include="..\Dev.Store.EntityFrameworkCore\Dev.Store.EntityFrameworkCore.csproj" />
-		<PackageReference Include="Volo.Abp.Autofac" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.Swashbuckle" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.Identity.Web" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="7.0.1" />
-		<PackageReference Include="Volo.Abp.SettingManagement.Web" Version="7.0.1" />
+		<PackageReference Include="Volo.Abp.Autofac" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.Swashbuckle" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.Identity.Web" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="7.0.3" />
+		<PackageReference Include="Volo.Abp.SettingManagement.Web" Version="7.0.3" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -130,18 +88,4 @@
 			<HintPath>..\Solution Items\Kendo.Mvc.resources.dll</HintPath>
 		</Reference>
 	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Bundling\Kendo\Components\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="Pages\Products\Detail\ProductSeoComponenet.cshtml">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Update="wwwroot\custom-libs\uppy\uppy.min.css">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
 </Project>
