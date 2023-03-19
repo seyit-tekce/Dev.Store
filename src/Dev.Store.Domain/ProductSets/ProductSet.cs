@@ -13,11 +13,12 @@ namespace Dev.Store.ProductSets
         public virtual int Amount { get; set; }
         public virtual bool IsOptional { get; set; }
         public Product Product { get; set; }
+
         protected ProductSet()
         {
         }
 
-        public ProductSet(Guid id, string code, string setName, Guid productId, double price, int amount, bool ýsOptional)
+        public ProductSet(Guid id, string code, string setName, Guid productId, double price, int amount, bool isOptional)
         {
             Id = id;
             Code = code;
@@ -25,7 +26,7 @@ namespace Dev.Store.ProductSets
             ProductId = productId;
             Price = price;
             Amount = amount;
-            IsOptional = ýsOptional;
+            IsOptional = isOptional;
         }
     }
 }
