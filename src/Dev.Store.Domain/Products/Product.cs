@@ -34,7 +34,7 @@ namespace Dev.Store.Products
         {
         }
 
-        public Product(Guid id, string name, string code, string description, double price, Guid categoryId, Category category, Guid? brandId, Brand brand, bool ýsEnabled, List<ProductSet> productSets, List<ProductSize> productSizes, List<ProductImage> productImages, SeoSetting seoSetting)
+        public Product(Guid id, string name, string code, string description, double price, Guid categoryId, Category category, Guid? brandId, Brand brand, bool isEnabled, List<ProductSet> productSets, List<ProductSize> productSizes, List<ProductImage> productImages, SeoSetting seoSetting)
         {
             Id = id;
             Name = name;
@@ -45,7 +45,7 @@ namespace Dev.Store.Products
             Category = category;
             BrandId = brandId;
             Brand = brand;
-            IsEnabled = ýsEnabled;
+            IsEnabled = isEnabled;
             ProductSets = productSets;
             ProductSizes = productSizes;
             ProductImages = productImages;
