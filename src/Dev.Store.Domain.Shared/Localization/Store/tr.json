@@ -160,6 +160,17 @@
     "SuccessfullyCreated": "Başarıyla oluşturuldu",
     "CategorySameLink": "Aynı kategori linki daha önce kullanılmıştır.",
     "IsMain": "Ana Resim",
-    "Detail": "Detay"
+    "Detail": "Detay",
+    "SiteSetting": "Site Ayarları",
+    "SiteSettingTitle": "Site Başlığı",
+    "SiteSettingLogo": "Logo",     
+    "SiteSettingLogoReverse": "Ters Logo",
+    "CountOfProduct": "Ürün",
+    "Sort": "Sırala",
+    "price_asc": "En Düşük Fiyat",
+    "price_desc": "En Yüksek Fiyat",
+    "newest": "En Yeniler",
+    "rate_desc": "En Yüksek Puan",
+    "rate_count_desc": "En Çok Değerlendirilen"
   }
 }

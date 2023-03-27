@@ -36,5 +36,6 @@ public class ProductGridListDto
     public Guid? BrandId { get; set; }
     public string BrandName { get; set; }
     public string MainImagePath { get; set; }
+    public string SecondImagePath { get; set; }
     public double Price { get; set; }
 }

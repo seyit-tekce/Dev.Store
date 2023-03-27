@@ -1,4 +1,5 @@
 ﻿using Dev.Store.UploadFiles;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.SettingManagement;
@@ -29,7 +30,7 @@ namespace Dev.Store.Settings
         {
             await FeatureChecker.IsEnabledAsync(SettingManagementFeatures.Enable);
         }
-        public async Task<SiteSettingDto> UpdateAsync(SiteSettingUpdateDto input)
+        public async Task<SiteSettingDto> UpdateAsync([FromForm] SiteSettingUpdateDto input)
         {
             await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingTitle, input.SiteSettingTitle.ToString());
             if (input.SiteSettingLogo != null)

@@ -1,3 +1,4 @@
+using Autofac.Core;
 using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart;
 using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Bundling;
 using Dev.Store.EntityFrameworkCore;
@@ -94,6 +95,10 @@ public class StoreWebPublicModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+        context.Services.AddRazorPages().AddRazorPagesOptions(options =>
+                {
+                    options.Conventions.AddPageRoute("/Categories", "{category}/{subcategory}");
+                });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)

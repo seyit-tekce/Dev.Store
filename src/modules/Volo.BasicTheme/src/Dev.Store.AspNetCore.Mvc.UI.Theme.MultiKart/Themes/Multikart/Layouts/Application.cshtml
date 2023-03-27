@@ -2,6 +2,7 @@
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Loader;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.MainNavbar;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.PageAlerts;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.BreadCrumb;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.Footer;
 @using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
@@ -53,7 +54,6 @@
         @(await Component.InvokeAsync<PageAlertsViewComponent>())
         <div id="AbpContentToolbar">
             <div class="row mb-2">
-                @(await Component.InvokeAsync<ContentTitleViewComponent>())
                 <div class="col">
                     <div class="text-end">
                         @await RenderSectionAsync("content_toolbar", false)
@@ -62,6 +62,8 @@
             </div>
         </div>
         @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Application)
+        @(await Component.InvokeAsync<BreadCrumbViewComponent>())
+
         @RenderBody()
        
 

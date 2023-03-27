@@ -11,17 +11,12 @@ namespace Dev.Store.Web.Public.Pages.Categories
 {
     public class IndexModel : PageModel
     {
-        public string MainCategory { get; set; }
-        public string SubCategory { get; set; }
-
-        [BindProperty(SupportsGet = true)]
-        public int Skip { get; set; } = 0;
-        [BindProperty(SupportsGet = true)]
-        public int Take { get; set; } = 25;
         public CategoryDto Category { get; set; }
         public IEnumerable<ProductGridListDto> Products { get; set; }
 
         public int ProductCount { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int Paging { get; set; } = 0;
 
         private readonly ICategoryAppService categoryAppService;
         private readonly IProductAppService productAppService;
@@ -32,10 +27,10 @@ namespace Dev.Store.Web.Public.Pages.Categories
             this.productAppService = productAppService;
         }
 
-        public async Task OnGet(string mainCategory, string subCategory)
+        public async Task OnGet(string category, string subcategory)
         {
-            var getCategory = await categoryAppService.GetCategoryByMainAndSubName(mainCategory, subCategory);
-            var getProduct = await productAppService.GetProductByCategoryIdPaging(getCategory.Id, Skip, Take);
+            var getCategory = await categoryAppService.GetCategoryByMainAndSubName(category, subcategory);
+            var getProduct = await productAppService.GetProductByCategoryIdPaging(getCategory.Id, Paging * 25, 25);
             var getProductCount = await productAppService.GetProductCount(getCategory.Id);
 
             this.Category = getCategory;

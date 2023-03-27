@@ -129,7 +129,7 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     [AllowAnonymous]
     public async Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory)
     {
-        var main = await _repository.GetAsync(x => x.Link == mainCategory);
+        var main = await _repository.GetAsync(x => x.Link == mainCategory && x.CategoryParentId == null);
         var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory, main.Id);
         return ObjectMapper.Map<Category, CategoryDto>(sub);
     }

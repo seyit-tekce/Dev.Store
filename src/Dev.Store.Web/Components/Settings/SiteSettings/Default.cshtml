@@ -14,13 +14,13 @@
         <div class="mb-3">
             <label class="form-label" for="Files">@L["SiteSettingLogo"].Value</label>
             @Html.Kendo().Upload().Name("SiteSettingLogo").Multiple(false).Validation(x=>{
-            x.AllowedExtensions("png","jpg","jpeg","webp","gif");
+            x.AllowedExtensions("png","jpg","jpeg","webp","gif","svg");
             })
         </div>
         <div class="mb-3">
             <label class="form-label" for="SiteSettingLogoReverse">@L["SiteSettingLogoReverse"].Value</label>
             @Html.Kendo().Upload().Name("SiteSettingLogoReverse").Multiple(false).Validation(x=>{
-            x.AllowedExtensions("png","jpg","jpeg","webp","gif");
+            x.AllowedExtensions("png","jpg","jpeg","webp","gif","svg");
             })
         </div>
 

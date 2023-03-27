@@ -11,7 +11,6 @@ using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -30,17 +29,13 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     protected override string DeletePolicyName { get; set; } = StorePermissions.Product.Delete;
     private readonly IProductRepository _repository;
     private readonly SeoSettingAppService seoSettingAppService;
-    private readonly IProductImageRepository _productImageRepository;
-    private readonly IProductSizeRepository _productSizeRepository;
-    private readonly IDistributedCache<IEnumerable<ProductGridListDto>, Guid> _cache;
+    private readonly IDistributedCache<IEnumerable<ProductGridListDto>, string> _cache;
 
-    public ProductAppService(IRepository<Product, Guid> repository, SeoSettingAppService seoSettingAppService, IProductImageRepository productImageRepository, IProductSizeRepository productSizeRepository, IDistributedCache<IEnumerable<ProductGridListDto>, Guid> cache, IProductRepository repo) : base(repository)
+    public ProductAppService(IRepository<Product, Guid> repository, IDistributedCache<IEnumerable<ProductGridListDto>, string> cache, IProductRepository repo, SeoSettingAppService seoSettingAppService) : base(repository)
     {
-        this.seoSettingAppService = seoSettingAppService;
-        _productImageRepository = productImageRepository;
-        _productSizeRepository = productSizeRepository;
         _cache = cache;
         _repository = repo;
+        this.seoSettingAppService = seoSettingAppService;
     }
 
     [HttpGet]
@@ -83,12 +78,13 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
 
     public async Task<IEnumerable<ProductGridListDto>> GetProductByCategoryIdPaging(Guid categoryId, int skip, int take)
     {
-        return await _cache.GetOrAddAsync(categoryId, async () =>
+        return await _cache.GetOrAddAsync(categoryId.ToString() + skip.ToString() + take.ToString(), async () =>
         {
             var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
             return result.Select(product =>
             {
                 var imagePath = product.ProductImages.FirstOrDefault(x => x.IsMain || true)?.UploadFile.FilePath;
+                var secondPath = product.ProductImages.FirstOrDefault(x => !x.IsMain)?.UploadFile.FilePath;
                 var productPrice = product.Price;
                 return new ProductGridListDto
                 {
@@ -98,6 +94,7 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
                     CategoryName = product.Category.Name,
                     Code = product.Code,
                     MainImagePath = imagePath,
+                    SecondImagePath = secondPath,
                     Name = product.Name,
                     Price = productPrice
                 };

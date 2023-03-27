@@ -145,6 +145,10 @@
     "ProductImageUploadFile": "ProductImageUploadFile",
     "CreateProductImage": "CreateProductImage",
     "EditProductImage": "EditProductImage",
-    "ProductImageDeletionConfirmationMessage": "Are you sure to delete the productImage {0}?"
+    "ProductImageDeletionConfirmationMessage": "Are you sure to delete the productImage {0}?",
+    "SiteSetting": "Site Settings",
+    "SiteSettingTitle": "Site Title",
+    "SiteSettingLogo": "Logo",
+    "SiteSettingLogoReverse": "Reverse Logo"
   }
 }
