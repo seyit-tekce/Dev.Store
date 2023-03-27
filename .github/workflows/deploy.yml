@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: ${{ steps.docker_meta.outputs.tags }} 
-          file: ./Dockerfile 
+          file: ./Build/Dev.Store.Web/Dockerfile
           
       - name: Push image
         uses: docker/build-push-action@v2
@@ -86,7 +86,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: ${{ steps.docker_meta.outputs.tags }} 
-          file: ./Dockerfile 
+          file: ./Build/Dev.Store.Web.Public/Dockerfile
           
       - name: Push image
         uses: docker/build-push-action@v2
@@ -129,7 +129,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           tags: ${{ steps.docker_meta.outputs.tags }} 
-          file: ./Dockerfile 
+          file: ./Build/Dev.Store.DbMigrator/DockerFile
           
       - name: Push image
         uses: docker/build-push-action@v2
