@@ -29,7 +29,7 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
     private void DefineSiteSettings(ISettingDefinitionContext context)
     {
         context.Add(new SettingDefinition(StoreSettings.SiteSettingLogo, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogo)));
-        context.Add(new SettingDefinition(StoreSettings.SiteSettingLogoReverse,"", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogoReverse)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingLogoReverse, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogoReverse)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingTitle, "Yönetim Paneli", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingTitle)));
 
 

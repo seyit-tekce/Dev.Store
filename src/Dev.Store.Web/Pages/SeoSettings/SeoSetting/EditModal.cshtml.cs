@@ -1,9 +1,9 @@
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
 using Dev.Store.Web.Pages.SeoSettings.SeoSetting.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Dev.Store.Web.Pages.SeoSettings.SeoSetting;
 

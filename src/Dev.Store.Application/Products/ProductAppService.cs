@@ -1,7 +1,5 @@
 ﻿using Dev.Store.Permissions;
-using Dev.Store.ProductImages;
 using Dev.Store.Products.Dtos;
-using Dev.Store.ProductSizes;
 using Dev.Store.SeoSettings;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;

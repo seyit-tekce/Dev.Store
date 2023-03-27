@@ -3,7 +3,6 @@ using Dev.Store.Categories.Dtos;
 using Dev.Store.ProductImages.Dtos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using Volo.Abp.Application.Dtos;
 
 namespace Dev.Store.Products.Dtos;

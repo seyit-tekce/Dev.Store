@@ -1,6 +1,5 @@
 ﻿using Dev.Store.Localization;
 using Dev.Store.Permissions;
-using Dev.Store.Settings;
 using Dev.Store.Web.Components.Settings.FileUploaderSettings;
 using Dev.Store.Web.Components.Settings.SiteSettings;
 using Microsoft.AspNetCore.Authorization;

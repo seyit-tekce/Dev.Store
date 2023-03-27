@@ -21,12 +21,12 @@ public class IndexModel : StorePageModel
     }
 
     public virtual async Task OnGetAsync()
-    { 
+    {
         this.BreadCrumb.Add(L["Menu:Category"].Value, "/Categories");
         if (this.Id.HasValue)
         {
             this.Category = await categoryAppService.GetAsync(this.Id.Value);
-           
+
             if (this.Category.CategoryParentId.HasValue)
             {
                 await GetBreadCrumbAsync(this.Category.CategoryParentId.Value);

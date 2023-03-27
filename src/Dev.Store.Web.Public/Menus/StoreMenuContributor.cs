@@ -1,8 +1,6 @@
 using Dev.Store.Categories;
 using Dev.Store.Categories.Dtos;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
-using Polly;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +28,7 @@ public class StoreMenuContributor : IMenuContributor
 
         foreach (var category in getMainList)
         {
-            var menu = new ApplicationMenuItem(category.Link, category.Name, "/Categories/" + category.Link,customData:category.File?.FilePath);
+            var menu = new ApplicationMenuItem(category.Link, category.Name, "/Categories/" + category.Link, customData: category.File?.FilePath);
             var subCategory = Categories.Where(x => x.CategoryParentId == category.Id).OrderBy(x => x.Order);
             RecursiveMenu(subCategory, ref menu);
             context.Menu.AddItem(menu);
@@ -42,7 +40,7 @@ public class StoreMenuContributor : IMenuContributor
     {
         foreach (var category in categories)
         {
-            var menu = new ApplicationMenuItem(category.Link, category.Name, menuItem.Url+"/" + category.Link);
+            var menu = new ApplicationMenuItem(category.Link, category.Name, menuItem.Url + "/" + category.Link);
             var subCategory = Categories.Where(x => x.CategoryParentId == category.Id).OrderBy(x => x.Order);
             RecursiveMenu(subCategory, ref menu);
             menuItem.AddItem(menu);

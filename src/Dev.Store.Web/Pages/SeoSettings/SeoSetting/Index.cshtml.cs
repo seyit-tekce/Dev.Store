@@ -1,6 +1,6 @@
 using System;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace Dev.Store.Web.Pages.SeoSettings.SeoSetting;
@@ -8,7 +8,7 @@ namespace Dev.Store.Web.Pages.SeoSettings.SeoSetting;
 public class IndexModel : StorePageModel
 {
     public SeoSettingFilterInput SeoSettingFilter { get; set; }
-    
+
     public virtual async Task OnGetAsync()
     {
         await Task.CompletedTask;
@@ -33,5 +33,5 @@ public class SeoSettingFilterInput
     [Display(Name = "SeoSettingProductId")]
     public Guid? ProductId { get; set; }
 
-  
+
 }

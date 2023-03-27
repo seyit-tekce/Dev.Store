@@ -32,7 +32,7 @@ public class UploadFileAppService : CrudAppService<UploadFile, UploadFileDto, Gu
     public override async Task<UploadFileDto> CreateAsync(CreateUpdateUploadFileDto input)
     {
         var getFileSetting = await _fileUploaderSettingAppService.GetAsync();
-        if (getFileSetting.FileSettingCloudinaryEnabled &&  input.File.ContentType.ToLower().Contains("image"))
+        if (getFileSetting.FileSettingCloudinaryEnabled && input.File.ContentType.ToLower().Contains("image"))
         {
             fileProvider = new CloudinaryFileProvider(_fileUploaderSettingAppService);
         }
@@ -49,7 +49,7 @@ public class UploadFileAppService : CrudAppService<UploadFile, UploadFileDto, Gu
         });
         return ObjectMapper.Map<UploadFile, UploadFileDto>(rResult);
     }
-    public  override async Task DeleteAsync(Guid id)
+    public override async Task DeleteAsync(Guid id)
     {
         var getFileSetting = await _fileUploaderSettingAppService.GetAsync();
         var file = await _repository.GetAsync(id);

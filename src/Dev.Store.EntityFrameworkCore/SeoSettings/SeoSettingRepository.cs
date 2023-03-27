@@ -1,7 +1,7 @@
+using Dev.Store.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Dev.Store.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 

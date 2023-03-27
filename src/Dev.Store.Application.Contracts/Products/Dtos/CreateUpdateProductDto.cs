@@ -1,5 +1,3 @@
-using Dev.Store.Brands.Dtos;
-using Dev.Store.Categories.Dtos;
 using System;
 
 namespace Dev.Store.Products.Dtos;

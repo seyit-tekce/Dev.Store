@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using Volo.Abp.Application.Dtos;
 
 namespace Dev.Store.UploadFiles.Dtos;
@@ -15,7 +14,7 @@ public class UploadFileDto : FullAuditedEntityDto<Guid>
     {
         get
         {
-            return Path.GetExtension(FilePath).Replace(".","");
+            return Path.GetExtension(FilePath).Replace(".", "");
         }
     }
     public string PublicId { get; set; }

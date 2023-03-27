@@ -1,6 +1,6 @@
 using System;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace Dev.Store.Web.Pages.ProductImages.ProductImage;
@@ -8,7 +8,7 @@ namespace Dev.Store.Web.Pages.ProductImages.ProductImage;
 public class IndexModel : StorePageModel
 {
     public ProductImageFilterInput ProductImageFilter { get; set; }
-    
+
     public virtual async Task OnGetAsync()
     {
         await Task.CompletedTask;

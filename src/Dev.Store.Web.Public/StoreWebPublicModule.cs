@@ -1,4 +1,3 @@
-using Autofac.Core;
 using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart;
 using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Bundling;
 using Dev.Store.EntityFrameworkCore;

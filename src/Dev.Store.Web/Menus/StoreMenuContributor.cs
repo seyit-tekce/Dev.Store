@@ -68,12 +68,12 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Keyword, l["Menu:Keyword"], "/Keywords", "fa fa-key")
             );
         }
-        
+
         if (await context.IsGrantedAsync(StorePermissions.Product.Default))
         {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.Product, l["Menu:Product"], "/Products","fa-solid fa-couch")
+                new ApplicationMenuItem(StoreMenus.Product, l["Menu:Product"], "/Products", "fa-solid fa-couch")
             );
         }
-     }
+    }
 }

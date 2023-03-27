@@ -59,7 +59,7 @@ namespace Dev.Store.UploadFiles.Providers
                 Console.WriteLine(e.Message);
                 throw e;
             }
-          
+
             await Task.CompletedTask;
         }
 

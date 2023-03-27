@@ -1,6 +1,5 @@
-using System;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 
 namespace Dev.Store.Web.Pages.UploadFiles.UploadFile;
@@ -8,7 +7,7 @@ namespace Dev.Store.Web.Pages.UploadFiles.UploadFile;
 public class IndexModel : StorePageModel
 {
     public UploadFileFilterInput UploadFileFilter { get; set; }
-    
+
     public virtual async Task OnGetAsync()
     {
         await Task.CompletedTask;

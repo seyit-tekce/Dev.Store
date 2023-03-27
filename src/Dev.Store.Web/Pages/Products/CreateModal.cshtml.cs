@@ -5,7 +5,6 @@ using Dev.Store.Products.Dtos;
 using Dev.Store.Web.Pages.Products.Product.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dev.Store.Web.Pages.Products.Product;

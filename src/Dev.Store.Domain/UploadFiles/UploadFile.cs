@@ -16,21 +16,21 @@ namespace Dev.Store.UploadFiles
         public ICollection<ProductImage> ProductImages { get; set; }
 
         public UploadFile()
-    {
-    }
+        {
+        }
 
-    public UploadFile(
-        Guid id,
-        string fileName,
-        string filePath,
-        string publicId,
-        string description
-    ) : base(id)
-    {
-        FileName = fileName;
-        FilePath = filePath;
-        PublicId = publicId;
-        Description = description;
-    }
+        public UploadFile(
+            Guid id,
+            string fileName,
+            string filePath,
+            string publicId,
+            string description
+        ) : base(id)
+        {
+            FileName = fileName;
+            FilePath = filePath;
+            PublicId = publicId;
+            Description = description;
+        }
     }
 }

@@ -6,8 +6,9 @@ using Dev.Store.Categories.Dtos;
 using Dev.Store.Keywords;
 using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations;
-using Dev.Store.UploadFiles;
-using Dev.Store.UploadFiles.Dtos;
+using Dev.Store.Locations.Dtos;
+using Dev.Store.ProductImages;
+using Dev.Store.ProductImages.Dtos;
 using Dev.Store.Products;
 using Dev.Store.Products.Dtos;
 using Dev.Store.ProductSets;
@@ -16,9 +17,8 @@ using Dev.Store.ProductSizes;
 using Dev.Store.ProductSizes.Dtos;
 using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
-using Dev.Store.ProductImages;
-using Dev.Store.ProductImages.Dtos;
-using Dev.Store.Locations.Dtos;
+using Dev.Store.UploadFiles;
+using Dev.Store.UploadFiles.Dtos;
 
 namespace Dev.Store;
 

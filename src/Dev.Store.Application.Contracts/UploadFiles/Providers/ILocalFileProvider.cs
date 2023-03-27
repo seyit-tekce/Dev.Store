@@ -1,6 +1,6 @@
 ﻿namespace Dev.Store.UploadFiles.Providers
 {
-    public interface ILocalFileProvider:IFileProvider
+    public interface ILocalFileProvider : IFileProvider
     {
 
     }

@@ -14,8 +14,8 @@ public class CreateEditProductSizeViewModel
 
     [Required]
     [Display(Name = "ProductSizeCode")]
-    public string Code{ get; set; }
-    
+    public string Code { get; set; }
+
     [Required]
     [Display(Name = "ProductSizeHeight")]
     public double Height { get; set; }

@@ -21,9 +21,9 @@ public interface ICategoryAppService :
     Task MoveUp(Guid id);
     Task MoveDown(Guid id);
 
-    Task<IEnumerable<CategoryDto>> GetCategoriesAsync(bool includeDisabled=false);
+    Task<IEnumerable<CategoryDto>> GetCategoriesAsync(bool includeDisabled = false);
 
     Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory);
-   
-  
+
+
 }

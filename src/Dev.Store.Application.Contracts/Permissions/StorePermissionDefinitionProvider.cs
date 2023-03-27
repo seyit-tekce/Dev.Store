@@ -1,7 +1,6 @@
 using Dev.Store.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
-using Volo.Abp.MultiTenancy;
 
 namespace Dev.Store.Permissions;
 

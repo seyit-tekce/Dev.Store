@@ -64,7 +64,7 @@ namespace Dev.Store.Web;
 [DependsOn(typeof(AbpVirtualFileExplorerWebModule))]
 [DependsOn(typeof(CmsKitWebModule))]
 [DependsOn(typeof(AbpCachingStackExchangeRedisModule))]
-    public class StoreWebModule : AbpModule
+public class StoreWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
@@ -266,7 +266,7 @@ namespace Dev.Store.Web;
 
         app.UseAbpRequestLocalization();
 
-         
+
         if (!env.IsDevelopment())
         {
             app.UseErrorPage();

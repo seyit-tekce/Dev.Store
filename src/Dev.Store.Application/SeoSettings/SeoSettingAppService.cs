@@ -1,8 +1,6 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Dev.Store.Permissions;
 using Dev.Store.SeoSettings.Dtos;
+using System;
 using Volo.Abp.Application.Services;
 
 namespace Dev.Store.SeoSettings;
@@ -24,5 +22,5 @@ public class SeoSettingAppService : CrudAppService<SeoSetting, SeoSettingDto, Gu
         _repository = repository;
     }
 
-  
+
 }
