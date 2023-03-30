@@ -107,4 +107,9 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     {
         return await _repository.GetCountByCategoryId(categoryId);
     }
+
+    public async Task<ProductDto> GetProductDetail(Guid categoryId, string productLink)
+    {
+        return ObjectMapper.Map<Product, ProductDto>(await _repository.GetProductWithDetailsByCategoryAndCode(categoryId, productLink));
+    }
 }

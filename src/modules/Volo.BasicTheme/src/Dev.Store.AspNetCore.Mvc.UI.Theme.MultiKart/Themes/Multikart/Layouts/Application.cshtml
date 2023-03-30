@@ -46,10 +46,12 @@
     @await RenderSectionAsync("styles", false)
     @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Application)
 </head>
-<body class="abp-application-layout theme-color-5 @rtl">
+<body class="abp-application-layout theme-color-1 @rtl">
     @await Component.InvokeAsync(typeof(LoaderViewComponent))
     @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Application)
     @(await Component.InvokeAsync<MainNavbarViewComponent>())
+    @(await Component.InvokeAsync<BreadCrumbViewComponent>())
+
     <div class="@containerClass">
         @(await Component.InvokeAsync<PageAlertsViewComponent>())
         <div id="AbpContentToolbar">
@@ -62,7 +64,6 @@
             </div>
         </div>
         @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Application)
-        @(await Component.InvokeAsync<BreadCrumbViewComponent>())
 
         @RenderBody()
        

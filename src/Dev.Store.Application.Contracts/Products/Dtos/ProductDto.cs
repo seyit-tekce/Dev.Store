@@ -1,5 +1,6 @@
 using Dev.Store.Brands.Dtos;
 using Dev.Store.Categories.Dtos;
+using Dev.Store.ProductImages.Dtos;
 using Dev.Store.ProductSets.Dtos;
 using Dev.Store.ProductSizes.Dtos;
 using Dev.Store.SeoSettings.Dtos;
@@ -21,8 +22,11 @@ public class ProductDto : FullAuditedEntityDto<Guid>
     public Guid BrandId { get; set; }
     public BrandDto Brand { get; set; }
     public bool IsEnabled { get; set; }
+    public double Price { get; set; }
+
     public ICollection<ProductSetDto> ProductSets { get; set; }
     public ICollection<ProductSizeDto> ProductSizes { get; set; }
+    public ICollection<ProductImageDto> ProductImages { get; set; }
     public SeoSettingDto SeoSetting { get; set; }
 }
 

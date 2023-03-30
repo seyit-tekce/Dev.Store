@@ -1,0 +1,40 @@
+﻿@using System.Linq
+@using System.Collections.Generic
+@using Localization.Resources.AbpUi
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout;
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Views.Error
+@model AbpErrorViewModel
+@inject IHtmlLocalizer<AbpUiResource> L
+@inject IPageLayout PageLayout
+@{
+    var errorMessage = Model.ErrorInfo.Message;
+    var errorDetails = Model.ErrorInfo.Details;
+    if (errorDetails.IsNullOrEmpty())
+    {
+        errorDetails = errorMessage;
+        errorMessage = L["Error"].Value + "!";
+    }
+    PageLayout.Content.Title = Model.HttpStatusCode.ToString();
+    PageLayout.Content.BreadCrumb.Add(L["Home"].Value, "/");
+    PageLayout.Content.BreadCrumb.Add(Model.HttpStatusCode.ToString());
+
+    if (Model.HttpStatusCode == 404)
+    {
+        Model.ErrorInfo.Message = L["404NotFound"].Value;
+    }
+}
+
+<section class="p-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="error-section">
+                    <h1>@Model.HttpStatusCode</h1>
+                    <h2>@Model.ErrorInfo.Message</h2>
+                    <a href="/" class="btn btn-solid">@L["BacktoHome"]</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
