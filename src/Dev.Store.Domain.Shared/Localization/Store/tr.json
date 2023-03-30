@@ -163,7 +163,7 @@
     "Detail": "Detay",
     "SiteSetting": "Site Ayarları",
     "SiteSettingTitle": "Site Başlığı",
-    "SiteSettingLogo": "Logo",     
+    "SiteSettingLogo": "Logo",
     "SiteSettingLogoReverse": "Ters Logo",
     "CountOfProduct": "Ürün",
     "Sort": "Sırala",
@@ -171,6 +171,9 @@
     "price_desc": "En Yüksek Fiyat",
     "newest": "En Yeniler",
     "rate_desc": "En Yüksek Puan",
-    "rate_count_desc": "En Çok Değerlendirilen"
+    "rate_count_desc": "En Çok Değerlendirilen",
+    "Home": "Anasayfa",
+    "ThisProductHasFreeCargo": "Ücretsiz Teslimat!",
+    "AddToChart": "Sepete Ekle"
   }
 }

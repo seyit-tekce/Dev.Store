@@ -149,6 +149,7 @@
     "SiteSetting": "Site Settings",
     "SiteSettingTitle": "Site Title",
     "SiteSettingLogo": "Logo",
-    "SiteSettingLogoReverse": "Reverse Logo"
+    "SiteSettingLogoReverse": "Reverse Logo",
+    "Home": "Home"
   }
 }

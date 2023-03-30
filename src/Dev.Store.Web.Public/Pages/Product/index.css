@@ -1,0 +1,24 @@
+﻿.product-right .size-box ul li {
+    height: auto !important;
+    width: auto !important;
+    border-radius: unset !important;
+    padding: 7px !important;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+    cursor: pointer !important;
+    border: 1px solid #efefef !important;
+}
+
+.btn-solid {
+    background-size: 1000px !important;
+}
+
+.ratio_asos .bg-size:before {
+    padding-top: 65% !important;
+    content: "";
+    display: block;
+}
+
+.full-width {
+    width: 100% !important;
+}

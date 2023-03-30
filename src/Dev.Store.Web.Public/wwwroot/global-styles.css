@@ -1,3 +1,11 @@
 ﻿body {
     font-family: 'Titillium Web', sans-serif !important;
 }
+
+:root {
+    --theme-color: #191EEC !important;
+}
+
+.theme-color-1 {
+    --theme-color: #191EEC;
+}
