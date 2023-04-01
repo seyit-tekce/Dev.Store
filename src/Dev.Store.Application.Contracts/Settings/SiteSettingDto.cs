@@ -17,6 +17,9 @@ namespace Dev.Store.Settings
         public string SiteSettingIcon { get; set; }
 
         public string SiteSettingLogoReverse { get; set; }
+        public string SiteSettingPhoneNumber { get; set; }
+        public string SiteSettingEmail { get; set; }
+        public string SiteSettingAddress { get; set; }
 
     }
 }

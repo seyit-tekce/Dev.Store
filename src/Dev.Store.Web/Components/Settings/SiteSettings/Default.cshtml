@@ -38,21 +38,24 @@
 <form id="SiteSetting" method="post">
     <div>
         <abp-input asp-for="SiteSettingTitle" />
-        <abp-input asp-for="SiteSettingDescription"  />
+        <abp-input asp-for="SiteSettingDescription" />
+        <abp-input asp-for="SiteSettingEmail" />
+        <abp-input asp-for="SiteSettingPhoneNumber" />
+        <abp-input asp-for="SiteSettingAddress" />
         <div class="mb-3">
-            <label class="form-label" for="SiteSettingIcon">@L["SiteSettingIcon"].Value</label><br/>
+            <label class="form-label" for="SiteSettingIcon">@L["SiteSettingIcon"].Value</label><br />
             <input type="file" name="SiteSettingIcon" accept="image/*" />
         </div>
         <div class="mb-3">
             <label class="form-label" for="Files">@L["SiteSettingLogo"].Value</label><br />
             <input type="file" name="SiteSettingLogo" accept="image/*" />
-          
+
         </div>
         <div class="mb-3">
             <label class="form-label" for="SiteSettingLogoReverse">@L["SiteSettingLogoReverse"].Value</label><br />
             <input type="file" name="SiteSettingLogoReverse" accept="image/*" />
         </div>
-     
+
 
 
     </div>

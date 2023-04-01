@@ -1,9 +1,11 @@
 ﻿@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Brand;
+@using Dev.Store.Localization;
+@using Dev.Store.Web.UI.Branding;
 @using Localization.Resources.AbpUi;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using Volo.Abp.Ui.Branding;
-@inject IHtmlLocalizer<AbpUiResource> L
-@inject IBrandingProvider BrandingProvider 
+@inject IHtmlLocalizer<StoreResource> L
+@inject IDevBrandingProvider BrandingProvider
 <!-- loader start -->
 <div class="loader_skeleton">
     <header class="header-2">
@@ -13,19 +15,19 @@
                     <div class="col-lg-6">
                         <div class="header-contact">
                             <ul>
-                                <li>@L["CatchWord"].Value</li>
-                                <li><i class="fa fa-phone" aria-hidden="true"></i>@L["CatchWord"].Value: 123 - 456 - 7890</li>
+                                <li>@BrandingProvider.AppName</li>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>@BrandingProvider.PhoneNumber</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 text-end">
                         <ul class="header-dropdown">
-                            <li class="mobile-wishlist">
+                           @* <li class="mobile-wishlist">
                                 <a href="#">
                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                     @L["WishList"].Value
                                 </a>
-                            </li>
+                            </li>*@
                             <li class="onhover-dropdown mobile-account">
                                 <i class="fa fa-user"
                                    aria-hidden="true"></i>   @L["MyAccount"].Value

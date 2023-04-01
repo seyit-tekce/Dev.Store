@@ -152,6 +152,10 @@
     "SiteSettingLogoReverse": "Reverse Logo",
     "SiteSettingDescription": "Site Description",
     "SiteSettingIcon": "Site Icon",
-    "Home": "Home"
+    "Home": "Home",
+    "MyAccount": "My Account",
+    "Language": "ChooseLanguage",
+    "Details": "Details"
+
   }
 }

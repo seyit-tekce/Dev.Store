@@ -7,6 +7,9 @@ namespace Dev.Store.Web.UI.Branding
     {
         public string SiteIcon { get; }
         public string SiteDescription { get; }
+        public string PhoneNumber { get; }
+        public string Email { get; }
+        public string Address { get; }
 
     }
 }
