@@ -4,6 +4,7 @@
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.PageAlerts;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.BreadCrumb;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.Footer;
+@using Dev.Store.Web.UI.Branding;
 @using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Bundling
@@ -13,7 +14,7 @@
 @using Volo.Abp.Localization
 @using Volo.Abp.Ui.Branding
 @using Volo.Abp.Ui.LayoutHooks
-@inject IBrandingProvider BrandingProvider
+@inject IDevBrandingProvider BrandingProvider
 @inject IPageLayout PageLayout
 @{
     Layout = null;
@@ -37,7 +38,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@pageTitle</title>
-    <link rel="icon" type="image/x-icon" href="@BrandingProvider.LogoReverseUrl">
+    <meta name="description" content="@Html.Raw(BrandingProvider.SiteDescription)" />
+    <link rel="icon" type="image/x-icon" href="@BrandingProvider.SiteIcon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400&display=swap" rel="stylesheet">
@@ -66,7 +68,7 @@
         @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Application)
 
         @RenderBody()
-       
+
 
         @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Application)
     </div>

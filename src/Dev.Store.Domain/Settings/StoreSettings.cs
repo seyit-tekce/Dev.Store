@@ -21,4 +21,6 @@ public static class StoreSettings
     public const string SiteSettingTitle = Prefix + "SiteSettingTitle";
     public const string SiteSettingLogo = Prefix + "SiteSettingLogo";
     public const string SiteSettingLogoReverse = Prefix + "SiteSettingLogoReverse";
+    public const string SiteSettingIcon = Prefix + "SiteSettingIcon";
+    public const string SiteSettingDescription= Prefix + "SiteSettingDescription";
 }

@@ -150,6 +150,8 @@
     "SiteSettingTitle": "Site Title",
     "SiteSettingLogo": "Logo",
     "SiteSettingLogoReverse": "Reverse Logo",
+    "SiteSettingDescription": "Site Description",
+    "SiteSettingIcon": "Site Icon",
     "Home": "Home"
   }
 }

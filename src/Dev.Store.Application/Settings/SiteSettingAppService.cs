@@ -22,7 +22,8 @@ namespace Dev.Store.Settings
                 SiteSettingTitle = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingTitle),
                 SiteSettingLogo = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingLogo),
                 SiteSettingLogoReverse = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingLogoReverse),
-
+                SiteSettingIcon = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingIcon.Replace("http", "https")),
+                SiteSettingDescription = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingDescription),
             };
             return settingsDto;
         }
@@ -33,13 +34,14 @@ namespace Dev.Store.Settings
         public async Task<SiteSettingDto> UpdateAsync([FromForm] SiteSettingUpdateDto input)
         {
             await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingTitle, input.SiteSettingTitle.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingDescription, input.SiteSettingDescription.ToString());
             if (input.SiteSettingLogo != null)
             {
                 var result = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
                 {
                     File = input.SiteSettingLogo,
                 });
-                await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingLogo, result.FilePath);
+                await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingLogo, result.FilePath.Replace("http","https"));
             }
             if (input.SiteSettingLogoReverse != null)
             {
@@ -48,6 +50,14 @@ namespace Dev.Store.Settings
                     File = input.SiteSettingLogoReverse,
                 });
                 await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingLogoReverse, result.FilePath);
+            }
+            if (input.SiteSettingIcon != null)
+            {
+                var result = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
+                {
+                    File = input.SiteSettingIcon,
+                });
+                await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingIcon, result.FilePath);
             }
             return await GetAsync();
         }

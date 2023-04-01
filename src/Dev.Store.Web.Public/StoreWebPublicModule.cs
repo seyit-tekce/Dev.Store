@@ -4,6 +4,7 @@ using Dev.Store.EntityFrameworkCore;
 using Dev.Store.Localization;
 using Dev.Store.MultiTenancy;
 using Dev.Store.Web.Public.Menus;
+using Dev.Store.Web.UI.Branding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -82,6 +83,7 @@ public class StoreWebPublicModule : AbpModule
             options.TokenCookie.SecurePolicy = CookieSecurePolicy.Always;
         });
         context.Services.AddSameSiteCookiePolicy(); // cookie policy to deal with temporary browser incompatibilities
+        context.Services.AddSingleton<IDevBrandingProvider, StoreBrandingProvider>();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)

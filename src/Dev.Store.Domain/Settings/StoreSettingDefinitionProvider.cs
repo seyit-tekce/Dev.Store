@@ -31,6 +31,8 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
         context.Add(new SettingDefinition(StoreSettings.SiteSettingLogo, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogo)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingLogoReverse, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingLogoReverse)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingTitle, "Yönetim Paneli", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingTitle)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingDescription, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingDescription)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingIcon, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingIcon)));
 
 
     }

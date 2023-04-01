@@ -11,5 +11,9 @@ namespace Dev.Store.Settings
         public IFormFile SiteSettingLogo { get; set; }
 
         public IFormFile SiteSettingLogoReverse { get; set; }
+        public IFormFile SiteSettingIcon { get; set; }
+
+        [Required]
+        public string SiteSettingDescription { get; set; }
     }
 }

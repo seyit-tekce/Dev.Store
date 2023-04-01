@@ -57,6 +57,8 @@
 		<ProjectReference Include="..\Dev.Store.Application\Dev.Store.Application.csproj" />
 		<ProjectReference Include="..\Dev.Store.HttpApi\Dev.Store.HttpApi.csproj" />
 		<ProjectReference Include="..\Dev.Store.EntityFrameworkCore\Dev.Store.EntityFrameworkCore.csproj" />
+		<ProjectReference Include="..\Modules\SiteContent\Dev.Store.Web.UI.SiteContent\Dev.Store.Web.UI.csproj" />
+		<ProjectReference Include="..\Modules\Themes\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.csproj" />
 		<PackageReference Include="Volo.Abp.Autofac" Version="7.1.0" />
 		<PackageReference Include="Volo.Abp.Swashbuckle" Version="7.1.0" />
 		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.1.0" />
