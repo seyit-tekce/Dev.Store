@@ -14,15 +14,12 @@
     .product-pagination {
         border: none !important;
     }
-
     .product-top-filter {
         border: none !important;
     }
-
     .search-count {
         border: none !important;
     }
-
     .ratio_asos .bg-size:before {
         padding-top: 60%;
         content: "";
@@ -43,7 +40,6 @@
                                             <div class="search-count">
                                                 <h5>@Model.ProductCount @L["CountOfProduct"]</h5>
                                             </div>
-
                                             <div class="product-page-filter">
                                                 <select>
                                                     <option data-sorting-key="smart" value="smart" selected="">@L["Sort"].Value</option>
@@ -62,40 +58,21 @@
                                 <div class="row margin-res">
                                     @foreach (var product in Model.Products)
                                     {
-
                                         <div class="col-lg-3 col-6 col-sm-6 col-md-6 col-grid-box">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
                                                         <a href="/Product/@Model.Category.CategoryParent.Link/@Model.Category.Link/@product.Code">
-                                                            <img src="@product.MainImagePath"
+                                                            <img src="@Html.Raw(product.MainImagePath)"
                                                                  class="img-fluid blur-up lazyload bg-img" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="back">
                                                         <a href="/Product/@Model.Category.CategoryParent.Link/@Model.Category.Link/@product.Code">
-                                                            <img src="@product.SecondImagePath"
+                                                            <img src="@Html.Raw(product.SecondImagePath)"
                                                                  class="img-fluid blur-up lazyload bg-img" alt="">
                                                         </a>
                                                     </div>
-
-                                                    @*<div class="cart-info cart-wrap">
-                                                <button data-bs-toggle="modal" data-bs-target="#addtocart"
-                                                title="Add to cart">
-                                                <i class="ti-shopping-cart"></i>
-                                                </button> <a href="javascript:void(0)" title="Add to Wishlist">
-                                                <i class="ti-heart" aria-hidden="true"></i>
-                                                </a> <a href="#"
-                                                data-bs-toggle="modal" data-bs-target="#quick-view"
-                                                title="Quick View">
-                                                <i class="ti-search"
-                                                aria-hidden="true"></i>
-                                                </a> <a href="compare.html"
-                                                title="Compare">
-                                                <i class="ti-reload"
-                                                aria-hidden="true"></i>
-                                                </a>
-                                                </div>*@
                                                 </div>
                                                 <div class="product-detail">
                                                     <div>
@@ -110,10 +87,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     }
-
                                 </div>
                             </div>
                             <div class="product-pagination">
@@ -122,8 +96,6 @@
                                         <div class="col-xl-12 col-md-12 col-sm-12">
                                             <nav aria-label="Page navigation">
                                                 <ul class="pagination">
-
-
                                                     @for (int i = 0; i < Math.Ceiling(Model.ProductCount / 25.00); i++)
                                                     {
                                                         var link = i + 1;
@@ -134,7 +106,6 @@
                                                 </ul>
                                             </nav>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

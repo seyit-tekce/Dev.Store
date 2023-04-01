@@ -16,7 +16,7 @@
                                     <div class="link-section">
                                         <div class="menu-content">
                                             <ul>
-                                                @foreach (var subCategory in category.Items.OrderBy(x=>x.Order).Skip(i * 5).Take(5))
+                                                @foreach (var subCategory in category.Items.OrderBy(x => x.Order).Skip(i * 5).Take(5))
                                                 {
                                                     <li>
                                                         <a href="@subCategory.Url">
@@ -30,8 +30,8 @@
                                 </div>
                             }
                             <div class="col">
-                                <img src="@category.CustomData"
-                             class="img-fluid mega-img" style="max-width:150px">
+                                <img src="@category.Icon"
+                                     class="img-fluid mega-img" style="max-width:150px">
                             </div>
                         </div>
                     </div>
