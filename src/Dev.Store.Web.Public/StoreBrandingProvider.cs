@@ -1,23 +1,25 @@
 ﻿using Dev.Store.Settings;
+using Dev.Store.Web.UI.Branding;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Ui.Branding;
 
 namespace Dev.Store.Web.Public;
 
 [Dependency(ReplaceServices = true)]
-public class StoreBrandingProvider : DefaultBrandingProvider
+public class StoreBrandingProvider : IDevBrandingProvider, ITransientDependency
 {
     private readonly ISiteSettingAppService _siteSettingAppService;
+    private SiteSettingDto SiteSettings { get; }
 
     public StoreBrandingProvider(ISiteSettingAppService siteSettingAppService)
     {
         _siteSettingAppService = siteSettingAppService;
+        SiteSettings = _siteSettingAppService.GetAsync().Result;
     }
 
-    public override string AppName => _siteSettingAppService.GetAsync().Result.SiteSettingTitle;
-    public override string LogoUrl => _siteSettingAppService.GetAsync().Result.SiteSettingLogo;
-    public override string LogoReverseUrl => _siteSettingAppService.GetAsync().Result.SiteSettingLogoReverse;
-    public string SiteIcon => _siteSettingAppService.GetAsync().Result.SiteSettingLogo;
-    public string Catchword => _siteSettingAppService.GetAsync().Result.SiteSettingTitle;
-
+    public string AppName => SiteSettings.SiteSettingTitle;
+    public string LogoUrl => SiteSettings.SiteSettingLogo;
+    public string LogoReverseUrl => SiteSettings.SiteSettingLogoReverse;
+    public string SiteIcon => SiteSettings.SiteSettingIcon;
+    public string SiteDescription => SiteSettings.SiteSettingDescription;
 }

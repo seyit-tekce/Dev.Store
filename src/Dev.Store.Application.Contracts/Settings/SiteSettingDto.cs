@@ -10,6 +10,13 @@ namespace Dev.Store.Settings
         [Required]
         public string SiteSettingLogo { get; set; }
 
+        [Required]
+        
+        public string SiteSettingDescription { get; set; }
+        [Required]
+        public string SiteSettingIcon { get; set; }
+
         public string SiteSettingLogoReverse { get; set; }
+
     }
 }

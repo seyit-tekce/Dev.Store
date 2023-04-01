@@ -27,7 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{9F48
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Themes", "Themes", "{4AEA972A-BAE0-4495-8703-94CDFA3E8D2A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart", "src\modules\Volo.BasicTheme\src\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.csproj", "{0B432347-9C9C-423C-9398-0468E5ADC944}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart", "src\Modules\Themes\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.csproj", "{07F5AC19-BC8A-4813-9C0E-9A924C5FEA8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SiteContent", "SiteContent", "{1EC05A18-E9CD-4ECD-A6F7-28042C7CDB0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Store.Web.UI", "src\Modules\SiteContent\Dev.Store.Web.UI.SiteContent\Dev.Store.Web.UI.csproj", "{9904DE6C-4C8D-4D93-9E07-D1923B316352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,17 +79,23 @@ Global
 		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36941A13-BDD7-429B-9C98-EA2C8C0186EA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B432347-9C9C-423C-9398-0468E5ADC944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B432347-9C9C-423C-9398-0468E5ADC944}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B432347-9C9C-423C-9398-0468E5ADC944}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B432347-9C9C-423C-9398-0468E5ADC944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F5AC19-BC8A-4813-9C0E-9A924C5FEA8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F5AC19-BC8A-4813-9C0E-9A924C5FEA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F5AC19-BC8A-4813-9C0E-9A924C5FEA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F5AC19-BC8A-4813-9C0E-9A924C5FEA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9904DE6C-4C8D-4D93-9E07-D1923B316352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9904DE6C-4C8D-4D93-9E07-D1923B316352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9904DE6C-4C8D-4D93-9E07-D1923B316352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9904DE6C-4C8D-4D93-9E07-D1923B316352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4AEA972A-BAE0-4495-8703-94CDFA3E8D2A} = {9F481B6D-1196-4A22-B6A4-3D1ABB87C199}
-		{0B432347-9C9C-423C-9398-0468E5ADC944} = {4AEA972A-BAE0-4495-8703-94CDFA3E8D2A}
+		{07F5AC19-BC8A-4813-9C0E-9A924C5FEA8F} = {4AEA972A-BAE0-4495-8703-94CDFA3E8D2A}
+		{1EC05A18-E9CD-4ECD-A6F7-28042C7CDB0F} = {9F481B6D-1196-4A22-B6A4-3D1ABB87C199}
+		{9904DE6C-4C8D-4D93-9E07-D1923B316352} = {1EC05A18-E9CD-4ECD-A6F7-28042C7CDB0F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {28315BFD-90E7-4E14-A2EA-F3D23AF4126F}

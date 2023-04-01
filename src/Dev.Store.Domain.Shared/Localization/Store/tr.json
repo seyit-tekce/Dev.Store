@@ -165,6 +165,8 @@
     "SiteSettingTitle": "Site Başlığı",
     "SiteSettingLogo": "Logo",
     "SiteSettingLogoReverse": "Ters Logo",
+    "SiteSettingDescription": "Site Açıklaması",
+    "SiteSettingIcon": "Site Ikonu",
     "CountOfProduct": "Ürün",
     "Sort": "Sırala",
     "price_asc": "En Düşük Fiyat",

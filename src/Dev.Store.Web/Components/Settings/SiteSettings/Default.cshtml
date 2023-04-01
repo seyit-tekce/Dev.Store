@@ -7,22 +7,52 @@
 @{
     Layout = null;
 }
+<style>
+
+    input[type=file] {
+        width: 350px;
+        max-width: 100%;
+        color: #444;
+        padding: 5px;
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #555;
+    }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+            input[type=file]::file-selector-button:hover {
+                background: #0d45a5;
+            }
+</style>
 <abp-script src="/Components/Settings/SiteSettings/defult.js" />
 <form id="SiteSetting" method="post">
     <div>
         <abp-input asp-for="SiteSettingTitle" />
+        <abp-input asp-for="SiteSettingDescription"  />
         <div class="mb-3">
-            <label class="form-label" for="Files">@L["SiteSettingLogo"].Value</label>
-            @Html.Kendo().Upload().Name("SiteSettingLogo").Multiple(false).Validation(x=>{
-            x.AllowedExtensions("png","jpg","jpeg","webp","gif","svg");
-            })
+            <label class="form-label" for="SiteSettingIcon">@L["SiteSettingIcon"].Value</label><br/>
+            <input type="file" name="SiteSettingIcon" accept="image/*" />
         </div>
         <div class="mb-3">
-            <label class="form-label" for="SiteSettingLogoReverse">@L["SiteSettingLogoReverse"].Value</label>
-            @Html.Kendo().Upload().Name("SiteSettingLogoReverse").Multiple(false).Validation(x=>{
-            x.AllowedExtensions("png","jpg","jpeg","webp","gif","svg");
-            })
+            <label class="form-label" for="Files">@L["SiteSettingLogo"].Value</label><br />
+            <input type="file" name="SiteSettingLogo" accept="image/*" />
+          
         </div>
+        <div class="mb-3">
+            <label class="form-label" for="SiteSettingLogoReverse">@L["SiteSettingLogoReverse"].Value</label><br />
+            <input type="file" name="SiteSettingLogoReverse" accept="image/*" />
+        </div>
+     
 
 
     </div>

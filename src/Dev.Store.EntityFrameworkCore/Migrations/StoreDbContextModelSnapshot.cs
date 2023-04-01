@@ -19,7 +19,7 @@ namespace Dev.Store.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.PostgreSql)
-                .HasAnnotation("ProductVersion", "7.0.4")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -1212,6 +1212,9 @@ namespace Dev.Store.Migrations
                         .HasColumnType("character varying(40)")
                         .HasColumnName("ConcurrencyStamp");
 
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
@@ -1395,6 +1398,9 @@ namespace Dev.Store.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(false)
                         .HasColumnName("EmailConfirmed");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
@@ -1672,6 +1678,9 @@ namespace Dev.Store.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)")
                         .HasColumnName("DisplayName");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
@@ -2248,6 +2257,9 @@ namespace Dev.Store.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("integer");
+
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
                         .HasColumnName("ExtraProperties");
@@ -2464,6 +2476,9 @@ namespace Dev.Store.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DeletionTime");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")
@@ -2799,6 +2814,9 @@ namespace Dev.Store.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("DeletionTime");
+
+                    b.Property<int>("EntityVersion")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("text")

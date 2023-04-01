@@ -46,9 +46,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
-		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+		<PackageReference Include="Volo.Abp.Caching.StackExchangeRedis" Version="7.1.0" />
 	</ItemGroup>
 
 
@@ -56,14 +57,15 @@
 		<ProjectReference Include="..\Dev.Store.Application\Dev.Store.Application.csproj" />
 		<ProjectReference Include="..\Dev.Store.HttpApi\Dev.Store.HttpApi.csproj" />
 		<ProjectReference Include="..\Dev.Store.EntityFrameworkCore\Dev.Store.EntityFrameworkCore.csproj" />
-		<ProjectReference Include="..\modules\Volo.BasicTheme\src\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.csproj" />
-		<PackageReference Include="Volo.Abp.Autofac" Version="7.0.3" />
-		<PackageReference Include="Volo.Abp.Swashbuckle" Version="7.0.3" />
-		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.0.3" />
-		<PackageReference Include="Volo.Abp.Identity.Web" Version="7.0.3" />
-		<PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="7.0.3" />
-		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="7.0.3" />
-		<PackageReference Include="Volo.Abp.SettingManagement.Web" Version="7.0.3" />
+		<ProjectReference Include="..\Modules\SiteContent\Dev.Store.Web.UI.SiteContent\Dev.Store.Web.UI.csproj" />
+		<ProjectReference Include="..\Modules\Themes\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart\Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.csproj" />
+		<PackageReference Include="Volo.Abp.Autofac" Version="7.1.0" />
+		<PackageReference Include="Volo.Abp.Swashbuckle" Version="7.1.0" />
+		<PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="7.1.0" />
+		<PackageReference Include="Volo.Abp.Identity.Web" Version="7.1.0" />
+		<PackageReference Include="Volo.Abp.Account.Web.OpenIddict" Version="7.1.0" />
+		<PackageReference Include="Volo.Abp.TenantManagement.Web" Version="7.1.0" />
+		<PackageReference Include="Volo.Abp.SettingManagement.Web" Version="7.1.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="Kendo.Mvc">

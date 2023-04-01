@@ -4,6 +4,7 @@ using Dev.Store.EntityFrameworkCore;
 using Dev.Store.Localization;
 using Dev.Store.MultiTenancy;
 using Dev.Store.Web.Public.Menus;
+using Dev.Store.Web.UI.Branding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -25,6 +26,7 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
 using Volo.Abp.SettingManagement.Web;
@@ -47,7 +49,8 @@ namespace Dev.Store.Web.Public;
     typeof(AbpTenantManagementWebModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
-    typeof(DevStoreAspNetCoreMvcUIThemeMultiKartModule)
+    typeof(DevStoreAspNetCoreMvcUIThemeMultiKartModule),
+    typeof(AbpCachingStackExchangeRedisModule)
     )]
 public class StoreWebPublicModule : AbpModule
 {
@@ -80,6 +83,7 @@ public class StoreWebPublicModule : AbpModule
             options.TokenCookie.SecurePolicy = CookieSecurePolicy.Always;
         });
         context.Services.AddSameSiteCookiePolicy(); // cookie policy to deal with temporary browser incompatibilities
+        context.Services.AddSingleton<IDevBrandingProvider, StoreBrandingProvider>();
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
