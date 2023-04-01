@@ -176,6 +176,10 @@
     "rate_count_desc": "En Çok Değerlendirilen",
     "Home": "Anasayfa",
     "ThisProductHasFreeCargo": "Ücretsiz Teslimat!",
-    "AddToChart": "Sepete Ekle"
+    "AddToChart": "Sepete Ekle",
+    "MyAccount": "Hesabım",
+    "Language": "Dil Seçimi",
+    "Details": "Detaylar"
+    
   }
 }

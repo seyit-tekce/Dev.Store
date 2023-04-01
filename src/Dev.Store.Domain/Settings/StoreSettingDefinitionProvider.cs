@@ -33,6 +33,9 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
         context.Add(new SettingDefinition(StoreSettings.SiteSettingTitle, "Yönetim Paneli", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingTitle)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingDescription, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingDescription)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingIcon, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingIcon)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingAddress, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingAddress)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingPhoneNumber, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingPhoneNumber)));
+        context.Add(new SettingDefinition(StoreSettings.SiteSettingEmail, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingEmail)));
 
 
     }

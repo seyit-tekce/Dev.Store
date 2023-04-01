@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Dev.Store.Domain.Shared\Dev.Store.Domain.Shared.csproj" />
     <ProjectReference Include="..\..\SiteContent\Dev.Store.Web.UI.SiteContent\Dev.Store.Web.UI.csproj" />
   </ItemGroup>
 

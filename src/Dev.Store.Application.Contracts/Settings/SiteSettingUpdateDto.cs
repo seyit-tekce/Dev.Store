@@ -15,5 +15,8 @@ namespace Dev.Store.Settings
 
         [Required]
         public string SiteSettingDescription { get; set; }
+        public string SiteSettingPhoneNumber { get; set; }
+        public string SiteSettingEmail { get; set; }
+        public string SiteSettingAddress { get; set; }
     }
 }

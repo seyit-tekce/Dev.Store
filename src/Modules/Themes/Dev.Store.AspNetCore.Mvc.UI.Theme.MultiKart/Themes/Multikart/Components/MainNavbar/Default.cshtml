@@ -1,9 +1,13 @@
 ﻿@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Brand;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Menu;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.LanguageSwitch;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.SideNavbar;
+@using Dev.Store.Localization;
+@using Dev.Store.Web.UI.Branding;
 @using Localization.Resources.AbpUi;
 @using Microsoft.AspNetCore.Mvc.Localization;
-@inject IHtmlLocalizer<AbpUiResource> L
+@inject IHtmlLocalizer<StoreResource> L
+@inject IDevBrandingProvider BrandingProvider
 <header class="header-2">
     <div class="mobile-fix-option"></div>
     <div class="top-header top-header-dark">
@@ -12,23 +16,22 @@
                 <div class="col-lg-6">
                     <div class="header-contact">
                         <ul>
-                            <li>Welcome to Our store Multikart</li>
-                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                            <li>@BrandingProvider.AppName</li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>@BrandingProvider.PhoneNumber</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-6 text-end">
                     <ul class="header-dropdown">
-                        <li class="mobile-wishlist">
+                      @*  <li class="mobile-wishlist">
                             <a href="#">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                 wishlist
                             </a>
-                        </li>
+                        </li>*@
                         <li class="onhover-dropdown mobile-account">
                             <i class="fa fa-user" aria-hidden="true"></i>
-                            My
-                            Account
+                           @L["MyAccount"]
                             <ul class="onhover-show-div">
                                 <li><a href="login.html">Login</a></li>
                                 <li><a href="register.html">register</a></li>
@@ -89,18 +92,8 @@
                                              class="img-fluid blur-up lazyload" alt=""> <i class="ti-settings"></i>
                                     </div>
                                     <div class="show-div setting">
-                                        <h6>language</h6>
-                                        <ul>
-                                            <li><a href="#">english</a></li>
-                                            <li><a href="#">french</a></li>
-                                        </ul>
-                                        <h6>currency</h6>
-                                        <ul class="list-inline">
-                                            <li><a href="#">euro</a></li>
-                                            <li><a href="#">rupees</a></li>
-                                            <li><a href="#">pound</a></li>
-                                            <li><a href="#">doller</a></li>
-                                        </ul>
+                                        <h6>@L["Language"]</h6>
+                                        @await Component.InvokeAsync(typeof(LanguageSwitchViewComponent))
                                     </div>
                                 </li>
                                 <li class="onhover-div mobile-cart">
@@ -114,26 +107,6 @@
                                                 <a href="#">
                                                     <img class="me-3"
                                                          src="/assets/images/furniture/product/4.jpg" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <h4>item name</h4>
-                                                    </a>
-                                                    <h4><span>1 x $ 299.00</span></h4>
-                                                </div>
-                                            </div>
-                                            <div class="close-circle">
-                                                <a href="#">
-                                                    <i class="fa fa-times"
-                                                       aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="media">
-                                                <a href="#">
-                                                    <img class="me-3"
-                                                         src="/assets/images/furniture/product/10.jpg" alt="">
                                                 </a>
                                                 <div class="media-body">
                                                     <a href="#">

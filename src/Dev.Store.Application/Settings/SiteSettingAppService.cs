@@ -24,6 +24,9 @@ namespace Dev.Store.Settings
                 SiteSettingLogoReverse = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingLogoReverse),
                 SiteSettingIcon = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingIcon.Replace("http", "https")),
                 SiteSettingDescription = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingDescription),
+                SiteSettingAddress = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingAddress),
+                SiteSettingEmail = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingEmail),
+                SiteSettingPhoneNumber = await SettingProvider.GetOrNullAsync(StoreSettings.SiteSettingPhoneNumber),
             };
             return settingsDto;
         }
@@ -35,6 +38,9 @@ namespace Dev.Store.Settings
         {
             await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingTitle, input.SiteSettingTitle.ToString());
             await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingDescription, input.SiteSettingDescription.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingAddress, input.SiteSettingAddress.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingEmail, input.SiteSettingEmail.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingPhoneNumber, input.SiteSettingPhoneNumber.ToString());
             if (input.SiteSettingLogo != null)
             {
                 var result = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
