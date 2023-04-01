@@ -8,6 +8,7 @@ namespace Dev.Store.Migrations
     public partial class upgrade : Migration
     {
         /// <inheritdoc />
+        /// 
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
