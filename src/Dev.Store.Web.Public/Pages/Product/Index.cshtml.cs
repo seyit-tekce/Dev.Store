@@ -1,4 +1,5 @@
 using Dev.Store.Categories;
+using Dev.Store.Categories.Dtos;
 using Dev.Store.Products;
 using Dev.Store.Products.Dtos;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Dev.Store.Web.Public.Pages.Product
         private readonly IProductAppService _productAppService;
         private readonly ICategoryAppService _categoryAppService;
         public ProductDto Product { get; set; }
+        public CategoryDto Category { get; set; }
         public IEnumerable<ProductGridListDto> RelatedProducts { get; set; }
 
         public IndexModel(IProductAppService productAppService, ICategoryAppService categoryAppService)
@@ -26,6 +28,7 @@ namespace Dev.Store.Web.Public.Pages.Product
             {
                 Unauthorized();
             }
+            Category = getCategory;
             Product = await _productAppService.GetProductDetail(getCategory.Id, productLink);
         }
     }

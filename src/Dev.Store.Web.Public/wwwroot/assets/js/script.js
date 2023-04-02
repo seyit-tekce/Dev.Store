@@ -1,4 +1,4 @@
-
+var l = abp.localization.getResource("Dev.Store");
 // 01.Pre loader
 // 02.Tap on Top
 // 03.Age verify modal
@@ -205,7 +205,7 @@
         console.log("click");
         $('.top-panel-adv').addClass("hide");
     });
-    
+
 
     /*=========================
      09. left category slider height
@@ -1562,11 +1562,11 @@
 
     $('.left-arrow').click(function () {
         $('.custom-arrow-3').slick('slickPrev');
-      })
-      
-      $('.right-arrow').click(function () {
+    })
+
+    $('.right-arrow').click(function () {
         $('.custom-arrow-3').slick('slickNext');
-      })
+    })
 
 
     /*=====================
@@ -2046,17 +2046,25 @@ $('.size-box ul li').on('click', function (e) {
     $(this).parent().addClass('selected');
 });
 
-$('#cartEffect').on('click', function (e) {
-    if ($("#selectSize .size-box ul").hasClass('selected')) {
-        $('#cartEffect').text("Added to bag ");
-        $('.added-notification').addClass("show");
-        setTimeout(function () {
-            $('.added-notification').removeClass("show");
-        }, 5000);
-    } else {
-        $('#selectSize').addClass('cartMove');
-    }
-});
+//$('#cartEffect').on('click', function (e) {
+//    if ($("#selectSize .size-box ul").length > 0) {
+//        if ($("#selectSize .size-box ul").hasClass('selected')) {
+//            $('#cartEffect').text(l("AddedToTheBag"));
+//            $('.added-notification').addClass("show");
+//            setTimeout(function () {
+//                $('.added-notification').removeClass("show");
+//                $('#cartEffect').text(l("AddToChart"));
+
+//            }, 5000);
+//        } else {
+//            $('#selectSize').addClass('cartMove');
+//        }
+//    }
+//    else {
+
+//    }
+    
+//});
 
 // modern product box plus effect
 $('.add-extent .animated-btn').on('click', function (e) {

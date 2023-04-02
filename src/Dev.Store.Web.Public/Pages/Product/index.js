@@ -10,6 +10,19 @@
             init: function (price) {
                 product.functions.sets.setPrice(price);
             }
+        },
+        chart: {
+            addToChart: function () {
+
+
+
+
+            }
+
+
+
+
+
         }
 
 
