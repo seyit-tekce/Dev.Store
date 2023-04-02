@@ -262,3 +262,4 @@ src/Dev.Store.Blazor.Server/Logs/*
 src/Dev.Store.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
+/src/Dev.Store.Web.Public/Logs/logs.txt
