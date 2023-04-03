@@ -81,8 +81,8 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
             var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
             return result.Select(product =>
             {
-                var imagePath = product.ProductImages.FirstOrDefault(x => x.IsMain || true)?.UploadFile.FilePath;
-                var secondPath = product.ProductImages.FirstOrDefault(x => !x.IsMain)?.UploadFile.FilePath;
+                var imagePath = product.ProductImages.FirstOrDefault(x => x.IsMain || true)?.UploadFile.Medium();
+                var secondPath = product.ProductImages.FirstOrDefault(x => !x.IsMain)?.UploadFile.Medium();
                 var productPrice = product.Price;
                 return new ProductGridListDto
                 {
