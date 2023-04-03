@@ -22,3 +22,16 @@
 .full-width {
     width: 100% !important;
 }
+
+td {
+    padding-left: 0px !important
+}
+
+.accordion > .card {
+    border-radius: 0px !important;
+}
+
+.btn-link {
+    text-decoration: none !important;
+    color: black !important;
+}

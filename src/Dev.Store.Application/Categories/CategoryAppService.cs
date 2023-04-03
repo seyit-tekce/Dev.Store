@@ -1,11 +1,13 @@
 using Dev.Store.Categories.Dtos;
 using Dev.Store.Permissions;
 using Dev.Store.Products;
+using Dev.Store.Products.Dtos;
 using Dev.Store.UploadFiles;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,8 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Caching;
+
 namespace Dev.Store.Categories;
 public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, PagedAndSortedResultRequestDto, CreateUpdateCategoryDto, CreateUpdateCategoryDto>,
     ICategoryAppService
@@ -24,12 +28,13 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     protected override string DeletePolicyName { get; set; } = StorePermissions.Category.Delete;
     private readonly ICategoryRepository _repository;
     private readonly IUploadFileAppService uploadFileAppService;
-    private readonly IProductRepository _productRepository;
-    public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService, IProductRepository productRepository) : base(repository)
+    private readonly IDistributedCache<CategoryDto, string> _cache;
+
+    public CategoryAppService(ICategoryRepository repository, IUploadFileAppService uploadFileAppService, IDistributedCache<CategoryDto, string> cache) : base(repository)
     {
         _repository = repository;
         this.uploadFileAppService = uploadFileAppService;
-        _productRepository = productRepository;
+        _cache = cache;
     }
     [HttpGet]
     [Authorize(StorePermissions.Category.Default)]
@@ -129,8 +134,15 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     [AllowAnonymous]
     public async Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory)
     {
-        var main = await _repository.GetAsync(x => x.Link == mainCategory && x.CategoryParentId == null);
-        var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory, main.Id);
-        return ObjectMapper.Map<Category, CategoryDto>(sub);
+        return await _cache.GetOrAddAsync(mainCategory + "/" + subCategory, async () =>
+        {
+            var main = await _repository.GetAsync(x => x.Link == mainCategory && x.CategoryParentId == null);
+            var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory, main.Id);
+            return ObjectMapper.Map<Category, CategoryDto>(sub);
+        }, () => new DistributedCacheEntryOptions
+        {
+            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+        });
+
     }
 }
