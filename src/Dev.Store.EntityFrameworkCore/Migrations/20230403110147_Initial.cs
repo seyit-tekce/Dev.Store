@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Dev.Store.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -176,6 +176,7 @@ namespace Dev.Store.Migrations
                     ParentId = table.Column<Guid>(type: "uuid", nullable: true),
                     Code = table.Column<string>(type: "character varying(95)", maxLength: 95, nullable: false),
                     DisplayName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -256,6 +257,7 @@ namespace Dev.Store.Migrations
                     IsDefault = table.Column<bool>(type: "boolean", nullable: false),
                     IsStatic = table.Column<bool>(type: "boolean", nullable: false),
                     IsPublic = table.Column<bool>(type: "boolean", nullable: false),
+                    EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true)
                 },
@@ -310,6 +312,7 @@ namespace Dev.Store.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -348,6 +351,7 @@ namespace Dev.Store.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     AccessFailedCount = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
+                    EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -612,6 +616,7 @@ namespace Dev.Store.Migrations
                     Script = table.Column<string>(type: "text", nullable: true),
                     Style = table.Column<string>(type: "text", nullable: true),
                     IsHomePage = table.Column<bool>(type: "boolean", nullable: false),
+                    EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -1070,6 +1075,7 @@ namespace Dev.Store.Migrations
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
+                    EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -1155,8 +1161,9 @@ namespace Dev.Store.Migrations
                     Code = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BrandId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BrandId = table.Column<Guid>(type: "uuid", nullable: true),
                     IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -1172,8 +1179,7 @@ namespace Dev.Store.Migrations
                         name: "FK_AppProducts_AppBrands_BrandId",
                         column: x => x.BrandId,
                         principalTable: "AppBrands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AppProducts_AppCategories_CategoryId",
                         column: x => x.CategoryId,
@@ -1224,11 +1230,47 @@ namespace Dev.Store.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppProductImages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UploadFileId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsMain = table.Column<bool>(type: "boolean", nullable: false),
+                    ExtraProperties = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppProductImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppProductImages_AppProducts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "AppProducts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppProductImages_AppUploadFiles_UploadFileId",
+                        column: x => x.UploadFileId,
+                        principalTable: "AppUploadFiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppProductSets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false),
+                    SetName = table.Column<string>(type: "text", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
                     Amount = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
@@ -1551,6 +1593,16 @@ namespace Dev.Store.Migrations
                 column: "LocationParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppProductImages_ProductId",
+                table: "AppProductImages",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppProductImages_UploadFileId",
+                table: "AppProductImages",
+                column: "UploadFileId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppProducts_BrandId",
                 table: "AppProducts",
                 column: "BrandId");
@@ -1559,11 +1611,6 @@ namespace Dev.Store.Migrations
                 name: "IX_AppProducts_CategoryId",
                 table: "AppProducts",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppProducts_Code",
-                table: "AppProducts",
-                column: "Code");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppProductSets_Code",
@@ -1761,6 +1808,9 @@ namespace Dev.Store.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppLocations");
+
+            migrationBuilder.DropTable(
+                name: "AppProductImages");
 
             migrationBuilder.DropTable(
                 name: "AppProductSets");
