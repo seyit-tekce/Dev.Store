@@ -253,6 +253,8 @@ paket-files/
 
 # Store
 src/Dev.Store.Web/Logs/*
+src/Dev.Store.Web/wwwroot/libs/*
+src/Dev.Store.Web.Public/wwwroot/libs/*
 src/Dev.Store.Web.Host/Logs/*
 src/Dev.Store.AuthServer/Logs/*
 src/Dev.Store.HttpApi.Host/Logs/*
