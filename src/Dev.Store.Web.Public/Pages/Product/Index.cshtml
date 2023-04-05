@@ -1,10 +1,10 @@
 ﻿@page "{category}/{subcategory}/{productlink}"
 @using Dev.Store.Localization;
+@using Dev.Store;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout;
 @model Dev.Store.Web.Public.Pages.Product.IndexModel
 @inject IHtmlLocalizer<StoreResource> L
-
 @inject IPageLayout PageLayout
 @{
     PageLayout.Content.Title = Model.Product.Name;
@@ -12,8 +12,14 @@
     PageLayout.Content.BreadCrumb.Add(Model.Category.CategoryParent.Name, "/Categories/" + Model.Category.CategoryParent.Link);
     PageLayout.Content.BreadCrumb.Add(Model.Category.Name, "/Categories/" + Model.Category.CategoryParent.Link + "/" + Model.Category.Link);
 }
-<link href="~/Pages/Product/index.css" rel="stylesheet" />
-<abp-script src="/Pages/Product/index.js"></abp-script>
+@section scripts{
+    <abp-script src="/assets/js/sticky-kit.js"></abp-script>
+    <abp-script src="/Pages/Product/index.js"></abp-script>
+}
+@section styles{
+    <abp-style src="/Pages/Product/index.css"></abp-style>
+
+}
 <style>
     .accordion > .card {
         border-radius: 0px !important;
@@ -23,40 +29,70 @@
         text-decoration: none !important;
         color: black !important;
     }
-
 </style>
 <!-- section start -->
 <section>
     <div class="collection-wrapper">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-sm-2 col-xs-12">
+            <div class="row data-sticky_parent">
+                <div class="col-sm-12 col-md-12 col-lg-8">
                     <div class="row">
-                        <div class="col-12 p-0">
-                            <div class="slider-right-nav">
+                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                            <div class="row">
+                                <div class="col-12 p-0">
+                                    <div class="slider-right-nav">
+                                        @foreach (var image in Model.Product.ProductImages)
+                                        {
+                                            <div>
+                                                <img src="@(image.UploadFile.Small())" alt=""
+                                                     class="img-fluid blur-up lazyload">
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-sm-12 col-xs-12 order-up">
+                            <div class="product-right-slick">
                                 @foreach (var image in Model.Product.ProductImages)
                                 {
                                     <div>
-                                        <img src="@image.UploadFile.FilePath" alt=""
-                                             class="img-fluid blur-up lazyload">
+                                        <img src="@image.UploadFile.Big()" alt=""
+                                             class="img-fluid blur-up lazyload image_zoom_cls-0">
                                     </div>
                                 }
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-sm-10 col-xs-12 order-up">
-                    <div class="product-right-slick">
-                        @foreach (var image in Model.Product.ProductImages)
-                        {
-                            <div>
-                                <img src="@image.UploadFile.FilePath" alt=""
-                                     class="img-fluid blur-up lazyload image_zoom_cls-0">
-                            </div>
-                        }
+                    <div class="col-sm-12 col-lg-12">
+                        <abp-accordion>
+                            @if (Model.Product.ProductSizes.Any())
+                            {
+                                <abp-accordion-item title="@L["MeasurementOptions"].Value">
+                                    <div class="size-slick" style="padding:25px">
+                                        @foreach (var size in Model.Product.ProductSizes)
+                                        {
+                                            <a href="#" class="p-10 text-center " tabindex="0" data-size-price="@size.Price.ToString("n2") ₺" data-size-id="@size.Id">
+                                                <img src="@Model.Product.ProductImages.FirstOrDefault(x=>x.IsMain ||true).UploadFile.Small()" style="margin:auto" class="@(Model.Product.Price==size.Price?"size-active":"")">
+                                                <span class="text-center product-size-measurement">@(size.Height)x@(size.Width)</span>
+                                                <p class="product-size-price"> @size.Price.ToString("n2") ₺ </p>
+                                            </a>
+                                        }
+                                    </div>
+                                </abp-accordion-item>
+                            }
+                            @if (Model.Product.ProductSets.Any())
+                            {
+                                <abp-accordion-item title="@L["SetOptions"].Value">
+                                </abp-accordion-item>
+                            }
+                            <abp-accordion-item title="@L["Details"].Value">
+                                @Html.Raw(Model.Product.Description)
+                            </abp-accordion-item>
+                        </abp-accordion>
                     </div>
                 </div>
-                <div class="col-lg-4 rtl-text">
+                <div class="col-sm-12 col-md-12 col-lg-4">
                     <div class="product-right pro_sticky_info">
                         <h2 class="price-detail text-center">@Model.Product.Price.ToString("n2") ₺</h2>
                         <div class="rating-section">
@@ -84,8 +120,6 @@
                         {
                         <li class="@(item.Price==Model.Product.Price?"active":"")"><a href="javascript:void(0)" onclick="product.functions.sets.init('@item.Price.ToString("n2") ₺')">@item.Height x @item.Width</a></li>
                         }
-
-
                         </ul>
                         </div>
                         </div>
@@ -111,12 +145,9 @@
                         </tr>
                         }
                         </tbody>
-
                         </table>
-
                         </div>
                         }*@
-
                         <div class="product-buttons">
                             <a href="javascript:void(0)" id="cartEffect"
                                class="btn btn-solid hover-solid btn-animation btn-block" style="margin-left:0px!important">
@@ -155,30 +186,22 @@
                         </div>*@
                     </div>
                 </div>
+
+
+         
+                <div class="col-lg-4 rtl-text" >
+                
+                </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Section ends -->
 <!-- product-tab starts -->
-
 <section class="tab-product m-0">
-
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-lg-12">
-                <abp-accordion>
-                    @if (Model.Product.ProductSizes.Any())
-                    {
-                        <abp-accordion-item title="@L["MeasurementOptions"].Value">
-                            @Html.Raw(Model.Product.Description)
-                        </abp-accordion-item>
-                    }
-                    <abp-accordion-item title="@L["Details"].Value">
-                        @Html.Raw(Model.Product.Description)
-                    </abp-accordion-item>
-                </abp-accordion>
-            </div>
+       
         </div>
     </div>
 </section>
@@ -188,7 +211,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 product-related">
-                <h2>related products</h2>
+                <h2>@L["ReleatedProducts"].Value</h2>
             </div>
         </div>
         <div class="row search-product">
@@ -223,10 +246,7 @@
                         </div>
                     </div>
                 </div>
-
-
             }
-
         </div>
     </div>
 </section>

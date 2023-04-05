@@ -35,3 +35,27 @@ td {
     text-decoration: none !important;
     color: black !important;
 }
+
+.size-active {
+    border-radius: 2px;
+    border: 2px solid #40484e;
+}
+
+.p-10 {
+    padding: 10px;
+    margin: auto;
+}
+
+.size-slick.slick-initialized.slick-slider {
+    padding: 10px !important
+}
+
+.product-size-measurement {
+    color: var(--bs-body-color);
+    font-size:15px
+}
+.product-size-price {
+    color: var(--bs-body-color);
+    font-size: 16px;
+    font-weight: 700
+}

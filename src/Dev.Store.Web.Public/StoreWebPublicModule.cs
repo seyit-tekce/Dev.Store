@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -98,10 +99,18 @@ public class StoreWebPublicModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
-        context.Services.AddRazorPages().AddRazorPagesOptions(options =>
-                {
-                    options.Conventions.AddPageRoute("/Categories", "{category}/{subcategory}");
-                });
+
+    }
+
+    public void ConfigureRoutes(ServiceConfigurationContext context)
+    {
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AddPageRoute("/categories/index/{category}/{subcategory}", "/{category}/{subcategory}");
+        });
+           
+
+
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)

@@ -1316,7 +1316,7 @@ var l = abp.localization.getResource("Dev.Store");
         $('.slider-right-nav').slick({
             vertical: true,
             verticalSwiping: true,
-            slidesToShow: 3,
+            slidesToShow: 6,
             slidesToScroll: 1,
             asNavFor: '.product-right-slick',
             arrows: false,
@@ -1329,7 +1329,7 @@ var l = abp.localization.getResource("Dev.Store");
         $('.slider-right-nav').slick({
             vertical: false,
             verticalSwiping: false,
-            slidesToShow: 3,
+            slidesToShow: 6,
             slidesToScroll: 1,
             asNavFor: '.product-right-slick',
             arrows: false,
