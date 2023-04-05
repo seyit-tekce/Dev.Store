@@ -19,16 +19,12 @@
 
 	<ItemGroup>
 		<Compile Remove="Logs\**" />
-		<Compile Remove="wwwroot\libs\%40abp\**" />
 		<Compile Remove="wwwroot\themes\**" />
 		<Content Remove="Logs\**" />
-		<Content Remove="wwwroot\libs\%40abp\**" />
 		<Content Remove="wwwroot\themes\**" />
 		<EmbeddedResource Remove="Logs\**" />
-		<EmbeddedResource Remove="wwwroot\libs\%40abp\**" />
 		<EmbeddedResource Remove="wwwroot\themes\**" />
 		<None Remove="Logs\**" />
-		<None Remove="wwwroot\libs\%40abp\**" />
 		<None Remove="wwwroot\themes\**" />
 	</ItemGroup>
 
@@ -78,6 +74,9 @@
 		<Reference Include="Kendo.Mvc.resources">
 			<HintPath>..\Solution Items\Kendo.Mvc.resources.dll</HintPath>
 		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="wwwroot\libs\" />
 	</ItemGroup>
 
 </Project>
