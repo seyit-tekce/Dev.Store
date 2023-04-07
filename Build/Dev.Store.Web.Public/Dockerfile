@@ -7,6 +7,8 @@ EXPOSE 1002
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
+RUN dotnet tool install -g Volo.Abp.Cli
+RUN abp install-libs
 COPY ["NuGet.Config", "."]
 COPY ["src/Dev.Store.Web.Public/Dev.Store.Web.Public.csproj", "src/Dev.Store.Web.Public/"]
 COPY ["src/Dev.Store.Application/Dev.Store.Application.csproj", "src/Dev.Store.Application/"]
