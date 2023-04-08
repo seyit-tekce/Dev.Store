@@ -15,6 +15,9 @@ public interface IProductAppService :
         CreateUpdateProductDto>
 {
     public Task<IEnumerable<ProductGridListDto>> GetProductByCategoryIdPaging(Guid categoryId, int skip, int take);
+    public Task<IEnumerable<ProductGridListDto>> GetNewProducts();
+
     public Task<ProductDto> GetProductDetail(Guid categoryId, string productLink);
     Task<int> GetProductCount(Guid categoryId);
+    Task<IEnumerable<ProductGridListDto>> GetBestSellerProducts();
 }

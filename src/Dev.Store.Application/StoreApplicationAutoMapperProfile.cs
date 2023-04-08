@@ -19,6 +19,7 @@ using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
 using Dev.Store.UploadFiles;
 using Dev.Store.UploadFiles.Dtos;
+using System.Linq;
 
 namespace Dev.Store;
 
@@ -57,5 +58,14 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateSeoSettingDto, SeoSetting>(MemberList.Source);
         CreateMap<ProductImage, ProductImageDto>();
         CreateMap<CreateUpdateProductImageDto, ProductImage>(MemberList.Source);
+
+        CreateMap<Product, ProductGridListDto>()
+            .ForMember(x => x.BrandName, x => x.MapFrom(a => a.Brand.Name))
+            .ForMember(x => x.CategoryName, x => x.MapFrom(a => a.Category.Name))
+            .ForMember(x => x.CategoryLink, x => x.MapFrom(a => a.Category.Link))
+            .ForMember(x => x.ParentCategoryLink, x => x.MapFrom(a => a.Category.CategoryParent.Link))
+            .ForMember(x => x.MainImagePath, x => x.MapFrom(a => a.ProductImages.FirstOrDefault(b => b.IsMain || true).UploadFile.Medium()))
+            .ForMember(x => x.SecondImagePath, x => x.MapFrom(a => a.ProductImages.FirstOrDefault(b => !b.IsMain).UploadFile.Medium()));
+
     }
 }

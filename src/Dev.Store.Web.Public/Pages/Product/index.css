@@ -52,10 +52,29 @@ td {
 
 .product-size-measurement {
     color: var(--bs-body-color);
-    font-size:15px
+    font-size: 15px
 }
+
 .product-size-price {
     color: var(--bs-body-color);
     font-size: 16px;
     font-weight: 700
+}
+
+
+th {
+    padding: unset !important;
+}
+
+.accordion > .card {
+    border-radius: 0px !important;
+}
+
+    .accordion > .card > .card-header {
+        padding: 4px !important;
+    }
+
+.btn-link {
+    text-decoration: none !important;
+    color: black !important;
 }
