@@ -15,15 +15,52 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
     {
     }
 
+    public async Task<IEnumerable<Product>> GetBestSellerProductList(int skip = 0, int take = 8)
+    {
+        var queryable = await GetQueryableAsync();
+        return await queryable
+            .Include(x => x.Category).ThenInclude(x => x.CategoryParent)
+            .Include(x => x.Brand)
+            .Include(x => x.ProductImages)
+            .ThenInclude(x => x.UploadFile)
+            .OrderBy(x => GuidGenerator.Create())
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+    }
+
     public async Task<int> GetCountByCategoryId(Guid categoryId)
     {
         return await (await GetQueryableAsync()).CountAsync(x => x.CategoryId == categoryId);
     }
 
+    public async Task<IEnumerable<Product>> GetNewestProductList(int skip = 0, int take = 8)
+    {
+        var queryable = await GetQueryableAsync();
+        return await queryable
+            .Include(x => x.Category).ThenInclude(x => x.CategoryParent)
+            .Include(x => x.Brand)
+            .Include(x => x.ProductImages)
+            .ThenInclude(x => x.UploadFile)
+            .OrderBy(x => x.CreationTime)
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+    }
+
     public async Task<IEnumerable<Product>> GetProductsByCategoryId(Guid categoryId, int skip = 0, int take = 50)
     {
         var queryable = await GetQueryableAsync();
-        return await queryable.Include(x => x.Category).Include(x => x.Brand).Include(x => x.ProductImages).ThenInclude(x => x.UploadFile).Where(x => x.CategoryId == categoryId).OrderBy(x => x.CreationTime).Skip(skip).Take(take).ToListAsync();
+        return await queryable
+            .Include(x => x.Category)
+            .Include(x => x.Brand)
+            .Include(x => x.ProductImages)
+            .ThenInclude(x => x.UploadFile)
+            .Where(x => x.CategoryId == categoryId)
+            .OrderBy(x => x.CreationTime)
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
     }
 
     public async Task<Product> GetProductWithDetailsByCategoryAndCode(Guid categoryId, string code)

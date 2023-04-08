@@ -14,9 +14,7 @@ using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Caching;
 using Volo.Abp.Domain.Repositories;
-
 namespace Dev.Store.Products;
-
 public class ProductAppService : CrudAppService<Product, ProductDto, Guid, ProductListDto, CreateUpdateProductDto, CreateUpdateProductDto>,
     IProductAppService
 {
@@ -28,34 +26,29 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     private readonly IProductRepository _repository;
     private readonly SeoSettingAppService seoSettingAppService;
     private readonly IDistributedCache<IEnumerable<ProductGridListDto>, string> _cache;
-
     public ProductAppService(IRepository<Product, Guid> repository, IDistributedCache<IEnumerable<ProductGridListDto>, string> cache, IProductRepository repo, SeoSettingAppService seoSettingAppService) : base(repository)
     {
         _cache = cache;
         _repository = repo;
         this.seoSettingAppService = seoSettingAppService;
     }
-
     [HttpGet]
     [Authorize(StorePermissions.Product.Default)]
     public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
     {
         return (await _repository.WithDetailsAsync(x => x.Brand, x => x.Category)).ToDataSourceResult(request, x => ObjectMapper.Map<Product, ProductListDto>(x));
     }
-
     [HttpGet]
     [AllowAnonymous]
     public async Task<DataSourceResult> DataSourceGrid([DataSourceRequest] DataSourceRequest request)
     {
         return (await _repository.WithDetailsAsync(x => x.Brand, x => x.Category, x => x.ProductImages, x => x.ProductSizes)).ToDataSourceResult(request, x => ObjectMapper.Map<Product, ProductListDto>(x));
     }
-
     public override async Task<ProductDto> GetAsync(Guid id)
     {
         var q = await _repository.WithDetailsAsync(x => x.Category, x => x.Brand);
         return ObjectMapper.Map<Product, ProductDto>(q.FirstOrDefault(a => a.Id == id));
     }
-
     public override async Task<ProductDto> CreateAsync(CreateUpdateProductDto input)
     {
         var getByCode = await _repository.AnyAsync(x => x.Code == input.Code);
@@ -73,43 +66,45 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
         });
         return create;
     }
-
     public async Task<IEnumerable<ProductGridListDto>> GetProductByCategoryIdPaging(Guid categoryId, int skip, int take)
     {
         return await _cache.GetOrAddAsync(categoryId.ToString() + skip.ToString() + take.ToString(), async () =>
         {
             var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
-            return result.Select(product =>
-            {
-                var imagePath = product.ProductImages.FirstOrDefault(x => x.IsMain || true)?.UploadFile.Medium();
-                var secondPath = product.ProductImages.FirstOrDefault(x => !x.IsMain)?.UploadFile.Medium();
-                var productPrice = product.Price;
-                return new ProductGridListDto
-                {
-                    BrandId = product.BrandId,
-                    CategoryId = product.CategoryId,
-                    BrandName = product?.Brand?.Name,
-                    CategoryName = product.Category.Name,
-                    Code = product.Code,
-                    MainImagePath = imagePath,
-                    SecondImagePath = secondPath,
-                    Name = product.Name,
-                    Price = productPrice
-                };
-            });
+            return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
         }, () => new DistributedCacheEntryOptions
         {
             AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
         });
     }
-
     public async Task<int> GetProductCount(Guid categoryId)
     {
         return await _repository.GetCountByCategoryId(categoryId);
     }
-
     public async Task<ProductDto> GetProductDetail(Guid categoryId, string productLink)
     {
         return ObjectMapper.Map<Product, ProductDto>(await _repository.GetProductWithDetailsByCategoryAndCode(categoryId, productLink));
+    }
+    public async Task<IEnumerable<ProductGridListDto>> GetNewProducts()
+    {
+        return await _cache.GetOrAddAsync("newestproducts", async () =>
+        {
+            var result = await _repository.GetNewestProductList();
+            return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
+        }, () => new DistributedCacheEntryOptions
+        {
+            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+        });
+    }
+    public async Task<IEnumerable<ProductGridListDto>> GetBestSellerProducts()
+    {
+        return await _cache.GetOrAddAsync("bestSellerProducts", async () =>
+        {
+            var result = await _repository.GetBestSellerProductList();
+            return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
+        }, () => new DistributedCacheEntryOptions
+        {
+            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+        });
     }
 }

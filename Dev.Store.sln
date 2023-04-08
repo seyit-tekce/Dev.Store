@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.AspNetCore.Mvc.UI
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SiteContent", "SiteContent", "{1EC05A18-E9CD-4ECD-A6F7-28042C7CDB0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.Store.Web.UI", "src\Modules\SiteContent\Dev.Store.Web.UI.SiteContent\Dev.Store.Web.UI.csproj", "{9904DE6C-4C8D-4D93-9E07-D1923B316352}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.Store.Web.UI", "src\Modules\SiteContent\Dev.Store.Web.UI.SiteContent\Dev.Store.Web.UI.csproj", "{9904DE6C-4C8D-4D93-9E07-D1923B316352}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
