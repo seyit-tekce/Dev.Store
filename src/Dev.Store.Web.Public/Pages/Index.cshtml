@@ -6,8 +6,28 @@
 @inject IHtmlLocalizer<StoreResource> L
 @inject ICurrentUser CurrentUser
 @section styles {
-<abp-style src="/Pages/Index.css" />
+    <abp-style src="/Pages/Index.css" />
 }
 @section scripts {
-<abp-script src="/Pages/Index.js" />
+    <abp-script src="/Pages/Index.js" />
 }
+@{
+    ViewBag.FluidLayout = true;
+}
+
+
+<!-- Home slider -->
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.HomeSliderComponent.HomeSliderComponent))
+<!-- Home slider end -->
+<!-- collection banner -->
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.CollectionBannerComponent.CollectionBannerComponent))
+<!-- collection banner end -->
+<!-- Tab product -->
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.TabProductComponent.TabProductComponent),new Dev.Store.Web.Public.Pages.IndexComponents.TabProductComponent.TabProductComponentModel())
+<!-- Tab product end -->
+<!-- Parallax banner -->
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.ParallaxBannerComponent.ParallaxBannerComponent))
+<!-- Parallax banner end -->
+<!-- Blog-->
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.BlogComponent.BlogComponent))
+<!-- Blog end -->

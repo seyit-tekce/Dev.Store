@@ -1,3 +1,9 @@
 body {
     
 }
+
+.ratio_asos .bg-size:before {
+    padding-top: 60%;
+    content: "";
+    display: block;
+}

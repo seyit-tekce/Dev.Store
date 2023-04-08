@@ -16,30 +16,14 @@
                 $(".price-detail").html(price);
             }
         },
-        chart: {
+        cart: {
             addToChart: function () {
-
-
-
-
             }
-
-
-
-
-
         }
-
-
     },
     init: function () {
-
     }
-
-
 }
-
-
 $(".size-slick").slick({
     infinite: false,
     centerPadding: '20px',
@@ -48,7 +32,6 @@ $(".size-slick").slick({
     centerMode: true,
     variableWidth: true,
     focusOnSelect: true
-
 });
 product.init();
 $(document).ready(function () {
@@ -58,5 +41,6 @@ $(document).ready(function () {
 }).on("click", '[data-size-price]', function (e) {
     e.preventDefault();
     product.functions.sizes.setPrice($(this).attr('data-size-price'));
-
+    $(".size-active").removeClass("size-active");
+    $(this).find("img").addClass("size-active");
 });

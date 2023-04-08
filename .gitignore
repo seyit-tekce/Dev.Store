@@ -265,3 +265,5 @@ src/Dev.Store.Blazor.Server.Tiered/Logs/*
 
 # Use abp install-libs to restore.
 /src/Dev.Store.Web.Public/Logs/logs.txt
+/src/Dev.Store.Web.Public/Dev.Store.Web.Public.csproj
+/src/Dev.Store.Web.Public/package-lock.json
