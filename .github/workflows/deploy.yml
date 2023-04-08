@@ -93,14 +93,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_PASSWORD }}
           
-      - name: Install Node.js
-        run: sudo apt install nodejs   
-        
-      - name: Abp Install Abp Cli
-        run: dotnet tool install -g Volo.Abp.Cli
         
       - name: Abp Install Libs
-        run: abp install-libs
+      - run: dotnet tool install -g Volo.Abp.Cli
+      - run: abp install-libs
 
       - name: Build image
         uses: docker/build-push-action@v2
