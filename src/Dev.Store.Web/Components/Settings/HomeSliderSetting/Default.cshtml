@@ -1,0 +1,46 @@
+﻿@using Dev.Store.Localization;
+@using Kendo.Mvc.UI;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@model IEnumerable<Dev.Store.Settings.HomeSliderSettingDto>
+@inject IHtmlLocalizer<StoreResource> L
+
+@{
+    Layout = null;
+}
+<style>
+
+    input[type=file] {
+        width: 350px;
+        max-width: 100%;
+        color: #444;
+        padding: 5px;
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #555;
+    }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+            input[type=file]::file-selector-button:hover {
+                background: #0d45a5;
+            }
+</style>
+
+<abp-style src="/custom-libs/uppy/uppy.min.css"></abp-style>
+<abp-script src="/custom-libs/uppy/uppy.min.js" />
+<abp-script src="/custom-libs/uppy/tr_TR.min.js" />
+<abp-script src="/Components/Settings/HomeSliderSetting/defult.js" />
+
+
+<form id="HomeSliderSetting" method="post">
+    <div id="drag-drop-area" style="width:100%;margin-bottom:25px"></div>
+</form>

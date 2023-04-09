@@ -28,11 +28,19 @@ namespace Dev.Store.Web.Settings
                 typeof(FileUploaderSettingViewComponent)
             )
         );
+
             context.Groups.Add(
             new SettingPageGroup(
                 "Dev.Store.SiteSetting",
                 new LocalizableString(typeof(StoreResource), "SiteSetting").Localize(stringLocalizerFactory),
                 typeof(SiteSettingViewComponent)
+            )
+        );
+            context.Groups.Add(
+            new SettingPageGroup(
+                "Dev.Store.HomeSliderSetting",
+                new LocalizableString(typeof(StoreResource), "HomeSliderSetting").Localize(stringLocalizerFactory),
+                typeof(HomeSliderSettingViewComponent)
             )
         );
             return Task.CompletedTask;

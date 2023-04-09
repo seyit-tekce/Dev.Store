@@ -108,7 +108,7 @@ public class StoreWebPublicModule : AbpModule
         {
             options.Conventions.AddPageRoute("/categories/index/{category}/{subcategory}", "/{category}/{subcategory}");
         });
-           
+
 
 
     }
@@ -215,11 +215,14 @@ public class StoreWebPublicModule : AbpModule
         }
         app.UseUnitOfWork();
         app.UseAuthorization();
-        app.UseSwagger();
-        app.UseAbpSwaggerUI(options =>
+        if (env.IsDevelopment())
         {
-            options.SwaggerEndpoint("/swagger/v1/swagger.json", "Store API");
-        });
+            app.UseSwagger();
+            app.UseAbpSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Store API");
+            });
+        }
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
         app.UseConfiguredEndpoints();

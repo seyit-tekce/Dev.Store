@@ -1,11 +1,12 @@
 ﻿@using System.Linq
 @using System.Collections.Generic
+@using Dev.Store.Localization;
 @using Localization.Resources.AbpUi
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout;
 @using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.Views.Error
 @model AbpErrorViewModel
-@inject IHtmlLocalizer<AbpUiResource> L
+@inject IHtmlLocalizer<StoreResource> L
 @inject IPageLayout PageLayout
 @{
     var errorMessage = Model.ErrorInfo.Message;

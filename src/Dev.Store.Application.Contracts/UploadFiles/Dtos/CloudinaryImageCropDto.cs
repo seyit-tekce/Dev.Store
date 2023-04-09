@@ -27,7 +27,7 @@ namespace Dev.Store
             var b = a.Split('/');
             for (var i = 3; i < b.Length; i++)
             {
-                if (i == 6) d += "w_0.75,c_scale/q_auto:best/";
+                if (i == 6) d += "w_0.75,c_scale/q_auto:low/";
                 if (b.Length != i + 1)
                     d += b[i] + "/";
                 else
@@ -59,7 +59,7 @@ namespace Dev.Store
             var b = a.Split('/');
             for (var i = 3; i < b.Length; i++)
             {
-                if (i == 6) d += "w_0.25,c_scale/q_auto:best/";
+                if (i == 6) d += "w_0.25,c_scale/q_auto:low/";
                 if (b.Length != i + 1)
                     d += b[i] + "/";
                 else
@@ -69,6 +69,6 @@ namespace Dev.Store
         }
 
 
-     
+
     }
 }

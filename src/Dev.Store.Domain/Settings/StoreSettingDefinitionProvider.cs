@@ -10,6 +10,7 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
     {
         DefineFileSettings(context);
         DefineSiteSettings(context);
+        DefineHomeSliderSetting(context);
     }
 
     private void DefineFileSettings(ISettingDefinitionContext context)
@@ -36,6 +37,11 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
         context.Add(new SettingDefinition(StoreSettings.SiteSettingAddress, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingAddress)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingPhoneNumber, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingPhoneNumber)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingEmail, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingEmail)));
+
+    }
+    private void DefineHomeSliderSetting(ISettingDefinitionContext context)
+    {
+        context.Add(new SettingDefinition(StoreSettings.HomeSliderSettings, "", new LocalizableString(typeof(StoreResource), StoreSettings.HomeSliderSettings)));
 
 
     }
