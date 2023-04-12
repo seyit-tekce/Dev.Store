@@ -19,6 +19,8 @@ using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
 using Dev.Store.UploadFiles;
 using Dev.Store.UploadFiles.Dtos;
+using Dev.Store.HomeSliders;
+using Dev.Store.HomeSliders.Dtos;
 using System.Linq;
 
 namespace Dev.Store;
@@ -67,5 +69,7 @@ public class StoreApplicationAutoMapperProfile : Profile
             .ForMember(x => x.MainImagePath, x => x.MapFrom(a => a.ProductImages.FirstOrDefault(b => b.IsMain || true).UploadFile.Medium()))
             .ForMember(x => x.SecondImagePath, x => x.MapFrom(a => a.ProductImages.FirstOrDefault(b => !b.IsMain).UploadFile.Medium()));
 
+        CreateMap<HomeSlider, HomeSliderDto>();
+        CreateMap<CreateUpdateHomeSliderDto, HomeSlider>(MemberList.Source);
     }
 }

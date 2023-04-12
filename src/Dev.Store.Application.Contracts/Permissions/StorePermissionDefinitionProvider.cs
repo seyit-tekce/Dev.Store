@@ -69,8 +69,17 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         productImagePermission.AddChild(StorePermissions.ProductImage.Delete, L("Permission:Delete"));
 
 
-        var management = context.AddGroup("Management", L("Permission:Administration"));
-        management.AddPermission(StorePermissions.FileSettings.Default, L("Permission:FileSettings"));
+        var management = context.GetGroupOrNull("SettingManagement");
+        if (management != null)
+        {
+            management.AddPermission(StorePermissions.FileSettings.Default, L("Permission:FileSettings"));
+        }
+
+
+        var homeSliderPermission = myGroup.AddPermission(StorePermissions.HomeSlider.Default, L("Permission:HomeSlider"));
+        homeSliderPermission.AddChild(StorePermissions.HomeSlider.Create, L("Permission:Create"));
+        homeSliderPermission.AddChild(StorePermissions.HomeSlider.Update, L("Permission:Update"));
+        homeSliderPermission.AddChild(StorePermissions.HomeSlider.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

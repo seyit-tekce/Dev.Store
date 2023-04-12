@@ -1,3 +1,4 @@
+using Dev.Store.HomeSliders;
 using Dev.Store.Brands;
 using Dev.Store.Categories;
 using Dev.Store.Keywords;
@@ -23,7 +24,6 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
-
 namespace Dev.Store.EntityFrameworkCore;
 
 [DependsOn(
@@ -67,6 +67,7 @@ public class StoreEntityFrameworkCoreModule : AbpModule
             options.AddRepository<ProductSize, ProductSizeRepository>();
             options.AddRepository<SeoSetting, SeoSettingRepository>();
             options.AddRepository<ProductImage, ProductImageRepository>();
+            options.AddRepository<HomeSlider, HomeSliderRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

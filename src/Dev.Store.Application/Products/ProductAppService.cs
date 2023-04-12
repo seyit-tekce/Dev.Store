@@ -71,6 +71,7 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
         return await _cache.GetOrAddAsync(categoryId.ToString() + skip.ToString() + take.ToString(), async () =>
         {
             var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
+            await Task.CompletedTask;
             return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
         }, () => new DistributedCacheEntryOptions
         {
@@ -90,6 +91,7 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
         return await _cache.GetOrAddAsync("newestproducts", async () =>
         {
             var result = await _repository.GetNewestProductList();
+            await Task.CompletedTask;
             return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
         }, () => new DistributedCacheEntryOptions
         {
@@ -101,6 +103,7 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
         return await _cache.GetOrAddAsync("bestSellerProducts", async () =>
         {
             var result = await _repository.GetBestSellerProductList();
+            await Task.CompletedTask;
             return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
         }, () => new DistributedCacheEntryOptions
         {

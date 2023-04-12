@@ -25,6 +25,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
+using Dev.Store.HomeSliders;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -78,6 +79,7 @@ public class StoreDbContext :
     public DbSet<ProductSize> ProductSizes { get; set; }
     public DbSet<SeoSetting> SeoSettings { get; set; }
     public DbSet<ProductImage> ProductImages { get; set; }
+    public DbSet<HomeSlider> HomeSliders { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -243,6 +245,16 @@ public class StoreDbContext :
             b.HasIndex(x => x.ProductId);
 
             b.ConfigureByConvention();
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<HomeSlider>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "HomeSliders", StoreConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
 
             /* Configure more properties here */
         });
