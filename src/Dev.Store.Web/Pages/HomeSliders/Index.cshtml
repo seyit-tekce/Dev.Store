@@ -1,0 +1,51 @@
+@page
+@using Dev.Store
+@using Dev.Store.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Dev.Store.Web.Pages.HomeSliders
+@using Dev.Store.Localization
+@using Dev.Store.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<StoreResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["HomeSlider"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:HomeSlider"].Value);
+    PageLayout.Content.MenuItemName = StoreMenus.HomeSlider;
+}
+
+@section scripts
+    {
+    <abp-script src="/custom-libs/uppy/uppy.min.js" />
+    <abp-script src="/custom-libs/uppy/tr_TR.min.js" />
+    <abp-script src="/Pages/HomeSliders/index.js" />
+}
+@section styles
+    {
+    <abp-style src="/custom-libs/uppy/uppy.min.css"></abp-style>
+    <abp-style src="/Pages/HomeSliders/index.css" />
+}
+<abp-card>
+    <div id="drag-drop-area" style="width:100%;margin-bottom:25px"></div>
+</abp-card>
+
+<abp-card>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @{
+                var i = 0;
+            }
+            @foreach (var item in Model.HomeSliders)
+            {
+                <div class="carousel-item @(i==0?"active":"")">
+                    <img src="@item.UploadFile.Big()" class="d-block w-100" alt="...">
+                </div>
+                i++;
+            }
+
+        </div>
+    </div>
+</abp-card>

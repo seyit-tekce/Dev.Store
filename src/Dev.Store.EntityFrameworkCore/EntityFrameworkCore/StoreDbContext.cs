@@ -253,6 +253,15 @@ public class StoreDbContext :
         builder.Entity<HomeSlider>(b =>
         {
             b.ToTable(StoreConsts.DbTablePrefix + "HomeSliders", StoreConsts.DbSchema);
+            b.Property(x => x.UploadFileId).IsRequired();
+            b.Property(x => x.Title).IsRequired(false);
+            b.Property(x => x.Subtitle).IsRequired(false);
+            b.Property(x => x.ButtonLink).IsRequired(false);
+            b.Property(x => x.ButtonText).IsRequired(false);
+            b.Property(x => x.Order).IsRequired(false);
+            b.Property(x => x.Type).IsRequired(true);
+
+            b.HasOne(x => x.UploadFile).WithOne();
             b.ConfigureByConvention(); 
             
 

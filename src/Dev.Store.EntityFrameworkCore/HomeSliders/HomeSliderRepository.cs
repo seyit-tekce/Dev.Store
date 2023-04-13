@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Dev.Store.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -16,5 +18,9 @@ public class HomeSliderRepository : EfCoreRepository<StoreDbContext, HomeSlider,
     public override async Task<IQueryable<HomeSlider>> WithDetailsAsync()
     {
         return (await GetQueryableAsync()).IncludeDetails();
+    }
+    public async Task<IQueryable<HomeSlider>> WithDetailsAsync(HomeSliderType type)
+    {
+        return (await GetQueryableAsync()).Include(x => x.UploadFile).Where(x => x.Type == type);
     }
 }

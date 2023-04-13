@@ -17,7 +17,7 @@ namespace Dev.Store
             var a = file.FilePath;
             var d = "https://res.cloudinary.com/";
             var b = a.Split('/');
-            var imageScale =( scale / 100).ToString().Replace(",",".");
+            var imageScale = (scale / 100.00).ToString("N1").Replace(",", ".");
             var compression = "";
             if (_setting.FileSettingCompressionEnabled)
             {

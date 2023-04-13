@@ -2,7 +2,7 @@ using Dev.Store.HomeSliders;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dev.Store.Web.Pages.HomeSliders.HomeSlider.ViewModels;
+namespace Dev.Store.Web.Pages.HomeSliders.ViewModels;
 
 public class CreateEditHomeSliderViewModel
 {

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace Dev.Store.HomeSliders.Dtos;
@@ -5,8 +6,7 @@ namespace Dev.Store.HomeSliders.Dtos;
 [Serializable]
 public class CreateUpdateHomeSliderDto
 {
-    public Guid UploadFileId { get; set; }
-
+    public IFormFile File { get;set;}
     public string Title { get; set; }
 
     public string Subtitle { get; set; }

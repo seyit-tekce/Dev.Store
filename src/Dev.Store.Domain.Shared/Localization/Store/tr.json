@@ -181,7 +181,21 @@
     "Language": "Dil Seçimi",
     "Details": "Detaylar",
     "SelectSize": "Boyut Seçiniz",
-    "MeasurementOptions": "Ölçü Seçenekleri"
+    "MeasurementOptions": "Ölçü Seçenekleri",
+    "Permission:HomeSlider": "Anasayfa Ayarları",
+    "Menu:HomeSlider": "Anasayfa Ayarları",
+    "HomeSlider": "Anasayfa Ayarları",
+    "HomeSliderUploadFileId": "Dosya",
+    "HomeSliderTitle": "Başlık",
+    "HomeSliderSubtitle": "Alt Başlık",
+    "HomeSliderButtonLink": "Buton Linki",
+    "HomeSliderButtonText": "Buton Yazısı",
+    "HomeSliderOrder": "HomeSliderOrder",
+    "HomeSliderType": "Tipi",
+    "HomeSliderUploadFile": "Dosya",
+    "CreateHomeSlider": "Yeni Ayar Oluştur",
+    "EditHomeSlider": "Ayar Düzenle",
+    "HomeSliderDeletionConfirmationMessage": "Are you sure to delete the homeSlider {0}?"
 
   }
 }
