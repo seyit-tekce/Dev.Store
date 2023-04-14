@@ -1,20 +1,17 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Dev.Store.Permissions;
 using Dev.Store.HomeSliders.Dtos;
-using Volo.Abp.Application.Services;
-using Volo.Abp;
+using Dev.Store.Permissions;
 using Dev.Store.UploadFiles;
-using Volo.Abp.ObjectMapping;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Volo.Abp.Threading;
-using Volo.Abp.Validation;
+using Microsoft.Extensions.Caching.Distributed;
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Volo.Abp;
+using Volo.Abp.Application.Services;
+using Volo.Abp.Caching;
+using Volo.Abp.Validation;
 
 namespace Dev.Store.HomeSliders;
-
 
 public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Guid, HomeSliderGetListInput, CreateUpdateHomeSliderDto, CreateUpdateHomeSliderDto>,
     IHomeSliderAppService
@@ -24,20 +21,21 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
     protected override string CreatePolicyName { get; set; } = StorePermissions.HomeSlider.Create;
     protected override string UpdatePolicyName { get; set; } = StorePermissions.HomeSlider.Update;
     protected override string DeletePolicyName { get; set; } = StorePermissions.HomeSlider.Delete;
-
     private readonly IHomeSliderRepository _repository;
     private readonly IUploadFileAppService _uploadFileAppService;
+    private readonly IDistributedCache<IEnumerable<HomeSliderDto>, HomeSliderType> _cache;
 
-
-    public HomeSliderAppService(IHomeSliderRepository repository, IUploadFileAppService uploadFileAppService) : base(repository)
+    public HomeSliderAppService(IHomeSliderRepository repository, IUploadFileAppService uploadFileAppService, IDistributedCache<IEnumerable<HomeSliderDto>, HomeSliderType> cache) : base(repository)
     {
         _repository = repository;
         _uploadFileAppService = uploadFileAppService;
+        _cache = cache;
     }
+
     [IgnoreAntiforgeryToken(Order = 2000)]
     [HttpPost]
     [DisableValidation]
-    public async override Task<HomeSliderDto> CreateAsync([FromForm] CreateUpdateHomeSliderDto input)
+    public override async Task<HomeSliderDto> CreateAsync([FromForm] CreateUpdateHomeSliderDto input)
     {
         if (!input.File.ContentType.ToLower().Contains("image"))
         {
@@ -47,16 +45,19 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
         {
             File = input.File
         });
-
         var map = ObjectMapper.Map<CreateUpdateHomeSliderDto, HomeSlider>(input);
         map.UploadFileId = upload.Id;
         return ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.InsertAsync(map));
-
-
     }
 
     public async Task<IEnumerable<HomeSliderDto>> GetListByType(HomeSliderType type)
     {
-        return ObjectMapper.Map<IEnumerable<HomeSlider>, IEnumerable<HomeSliderDto>>((await _repository.WithDetailsAsync(type)));
+        return await _cache.GetOrAddAsync(type, async () =>
+        {
+            return ObjectMapper.Map<IEnumerable<HomeSlider>, IEnumerable<HomeSliderDto>>((await _repository.WithDetailsAsync(type)));
+        }, () => new DistributedCacheEntryOptions
+        {
+            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+        });
     }
 }

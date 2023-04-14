@@ -24,6 +24,7 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     protected override string UpdatePolicyName { get; set; } = StorePermissions.Product.Update;
     protected override string DeletePolicyName { get; set; } = StorePermissions.Product.Delete;
     private readonly IProductRepository _repository;
+    private static object lockobject = null;
     private readonly SeoSettingAppService seoSettingAppService;
     private readonly IDistributedCache<IEnumerable<ProductGridListDto>, string> _cache;
     public ProductAppService(IRepository<Product, Guid> repository, IDistributedCache<IEnumerable<ProductGridListDto>, string> cache, IProductRepository repo, SeoSettingAppService seoSettingAppService) : base(repository)
@@ -68,15 +69,17 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     }
     public async Task<IEnumerable<ProductGridListDto>> GetProductByCategoryIdPaging(Guid categoryId, int skip, int take)
     {
-        return await _cache.GetOrAddAsync(categoryId.ToString() + skip.ToString() + take.ToString(), async () =>
-        {
-            var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
-            await Task.CompletedTask;
-            return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
-        }, () => new DistributedCacheEntryOptions
+        return await _cache.GetOrAddAsync(categoryId.ToString() + skip.ToString() + take.ToString(), async () => await GetProductByCategoryIdPagingFromDataBase(categoryId, skip, take)
+        , () => new DistributedCacheEntryOptions
         {
             AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
         });
+    }
+    private async Task<IEnumerable<ProductGridListDto>> GetProductByCategoryIdPagingFromDataBase(Guid categoryId, int skip, int take)
+    {
+        var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
+        await Task.CompletedTask;
+        return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
     }
     public async Task<int> GetProductCount(Guid categoryId)
     {
