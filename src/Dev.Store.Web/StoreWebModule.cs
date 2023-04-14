@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -115,6 +116,7 @@ public class StoreWebModule : AbpModule
         ConfigureKendo(context);
         ConfigureSerializers(context);
         ConfigureSettings();
+        ConfigureRedis(context);
         context.Services.AddResponseCompression(c =>
         {
             c.EnableForHttps = true;
@@ -128,6 +130,11 @@ public class StoreWebModule : AbpModule
             options.TokenCookie.SecurePolicy = CookieSecurePolicy.Always;
         });
         context.Services.AddSameSiteCookiePolicy(); // cookie policy to deal with temporary browser incompatibilities
+    }
+
+    private void ConfigureRedis(ServiceConfigurationContext context)
+    {
+      
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)

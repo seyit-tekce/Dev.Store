@@ -26,4 +26,5 @@ public static class StoreSettings
     public const string SiteSettingEmail = Prefix + "SiteSettingEmail";
     public const string SiteSettingPhoneNumber = Prefix + "SiteSettingPhoneNumber";
     public const string SiteSettingAddress = Prefix + "SiteSettingAddress";
+
 }

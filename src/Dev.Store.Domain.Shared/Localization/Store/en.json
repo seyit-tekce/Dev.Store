@@ -155,7 +155,20 @@
     "Home": "Home",
     "MyAccount": "My Account",
     "Language": "ChooseLanguage",
-    "Details": "Details"
-
+    "Details": "Details",
+    "Permission:HomeSlider": "HomeSlider",
+    "Menu:HomeSlider": "MenuHomeSlider",
+    "HomeSlider": "HomeSlider",
+    "HomeSliderUploadFileId": "HomeSliderUploadFileId",
+    "HomeSliderTitle": "HomeSliderTitle",
+    "HomeSliderSubtitle": "HomeSliderSubtitle",
+    "HomeSliderButtonLink": "HomeSliderButtonLink",
+    "HomeSliderButtonText": "HomeSliderButtonText",
+    "HomeSliderOrder": "HomeSliderOrder",
+    "HomeSliderType": "HomeSliderType",
+    "HomeSliderUploadFile": "HomeSliderUploadFile",
+    "CreateHomeSlider": "CreateHomeSlider",
+    "EditHomeSlider": "EditHomeSlider",
+    "HomeSliderDeletionConfirmationMessage": "Are you sure to delete the homeSlider {0}?"
   }
 }

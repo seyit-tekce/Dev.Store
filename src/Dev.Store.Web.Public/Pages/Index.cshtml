@@ -1,4 +1,5 @@
 ﻿@page
+@using Dev.Store.Web.Public.Pages.IndexComponents.HomeSliderComponent;
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Dev.Store.Localization
 @using Volo.Abp.Users
@@ -17,7 +18,7 @@
 
 
 <!-- Home slider -->
-@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.HomeSliderComponent.HomeSliderComponent))
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.HomeSliderComponent.HomeSliderComponent),new HomeSliderModel())
 <!-- Home slider end -->
 <!-- collection banner -->
 @await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.CollectionBannerComponent.CollectionBannerComponent))

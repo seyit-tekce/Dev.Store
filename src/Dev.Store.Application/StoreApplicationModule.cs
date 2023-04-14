@@ -1,3 +1,7 @@
+using Dev.Store.Settings;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.FeatureManagement;
@@ -42,5 +46,14 @@ public class StoreApplicationModule : AbpModule
 
 
         //context.Services.AddDbContext<ProjectDbContext, MsDbContext>(ServiceLifetime.Transient);
+    }
+    public override async Task OnPostApplicationInitializationAsync(ApplicationInitializationContext context)
+    {
+        var settingService = context.ServiceProvider.GetService<IFileUploaderSettingAppService>();
+
+
+        await CloudinaryImageCropExtention.Configure(settingService);
+        await CloudinaryImageDtoCropExtention.Configure(settingService);
+        await base.OnPostApplicationInitializationAsync(context);
     }
 }

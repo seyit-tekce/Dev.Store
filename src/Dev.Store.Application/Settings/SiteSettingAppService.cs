@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Volo.Abp.SettingManagement;
+using Volo.Abp.Settings;
+
 namespace Dev.Store.Settings
 {
     public class SiteSettingAppService : ApplicationService, ISiteSettingAppService
@@ -47,7 +49,7 @@ namespace Dev.Store.Settings
                 {
                     File = input.SiteSettingLogo,
                 });
-                await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingLogo, result.FilePath.Replace("http","https"));
+                await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingLogo, result.FilePath.Replace("http", "https"));
             }
             if (input.SiteSettingLogoReverse != null)
             {

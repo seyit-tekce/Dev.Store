@@ -1,7 +1,5 @@
 using Dev.Store.Categories.Dtos;
 using Dev.Store.Permissions;
-using Dev.Store.Products;
-using Dev.Store.Products.Dtos;
 using Dev.Store.UploadFiles;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
@@ -134,15 +132,16 @@ public class CategoryAppService : CrudAppService<Category, CategoryDto, Guid, Pa
     [AllowAnonymous]
     public async Task<CategoryDto> GetCategoryByMainAndSubName(string mainCategory, string subCategory)
     {
-        return await _cache.GetOrAddAsync(mainCategory + "/" + subCategory, async () =>
-        {
-            var main = await _repository.GetAsync(x => x.Link == mainCategory && x.CategoryParentId == null);
-            var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory, main.Id);
-            return ObjectMapper.Map<Category, CategoryDto>(sub);
-        }, () => new DistributedCacheEntryOptions
-        {
-            AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
-        });
-
+        return await _cache.GetOrAddAsync(mainCategory + "/" + subCategory,
+            async () => await GetCategoryByMainAndSubNameFromDataBase(mainCategory, subCategory), () => new DistributedCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
+            });
+    }
+    private async Task<CategoryDto> GetCategoryByMainAndSubNameFromDataBase(string mainCategory, string subCategory)
+    {
+        var main = await _repository.GetAsync(x => x.Link == mainCategory && x.CategoryParentId == null);
+        var sub = await _repository.GetCategoryWithFileByLinkAndParentId(subCategory, main.Id);
+        return ObjectMapper.Map<Category, CategoryDto>(sub);
     }
 }

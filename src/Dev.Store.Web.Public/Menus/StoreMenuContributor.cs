@@ -1,4 +1,5 @@
 using Dev.Store.Categories;
+using Dev.Store.Permissions;
 using Dev.Store.Categories.Dtos;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

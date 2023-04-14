@@ -25,6 +25,7 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
+using Dev.Store.HomeSliders;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -78,6 +79,7 @@ public class StoreDbContext :
     public DbSet<ProductSize> ProductSizes { get; set; }
     public DbSet<SeoSetting> SeoSettings { get; set; }
     public DbSet<ProductImage> ProductImages { get; set; }
+    public DbSet<HomeSlider> HomeSliders { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -243,6 +245,25 @@ public class StoreDbContext :
             b.HasIndex(x => x.ProductId);
 
             b.ConfigureByConvention();
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<HomeSlider>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "HomeSliders", StoreConsts.DbSchema);
+            b.Property(x => x.UploadFileId).IsRequired();
+            b.Property(x => x.Title).IsRequired(false);
+            b.Property(x => x.Subtitle).IsRequired(false);
+            b.Property(x => x.ButtonLink).IsRequired(false);
+            b.Property(x => x.ButtonText).IsRequired(false);
+            b.Property(x => x.Order).IsRequired(false);
+            b.Property(x => x.Type).IsRequired(true);
+
+            b.HasOne(x => x.UploadFile).WithOne();
+            b.ConfigureByConvention(); 
+            
 
             /* Configure more properties here */
         });

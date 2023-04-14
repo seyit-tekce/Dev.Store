@@ -28,6 +28,7 @@ namespace Dev.Store.Web.Settings
                 typeof(FileUploaderSettingViewComponent)
             )
         );
+
             context.Groups.Add(
             new SettingPageGroup(
                 "Dev.Store.SiteSetting",
@@ -35,6 +36,7 @@ namespace Dev.Store.Web.Settings
                 typeof(SiteSettingViewComponent)
             )
         );
+           
             return Task.CompletedTask;
         }
     }

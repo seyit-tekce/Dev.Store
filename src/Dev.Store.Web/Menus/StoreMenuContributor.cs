@@ -75,5 +75,11 @@ public class StoreMenuContributor : IMenuContributor
                 new ApplicationMenuItem(StoreMenus.Product, l["Menu:Product"], "/Products", "fa-solid fa-couch")
             );
         }
+        if (await context.IsGrantedAsync(StorePermissions.HomeSlider.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSlider"], "/HomeSliders/HomeSlider")
+            );
+        }
     }
 }

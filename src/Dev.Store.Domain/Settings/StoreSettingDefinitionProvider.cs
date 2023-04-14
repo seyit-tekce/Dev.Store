@@ -37,6 +37,6 @@ public class StoreSettingDefinitionProvider : SettingDefinitionProvider
         context.Add(new SettingDefinition(StoreSettings.SiteSettingPhoneNumber, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingPhoneNumber)));
         context.Add(new SettingDefinition(StoreSettings.SiteSettingEmail, "", new LocalizableString(typeof(StoreResource), StoreSettings.SiteSettingEmail)));
 
-
     }
+   
 }

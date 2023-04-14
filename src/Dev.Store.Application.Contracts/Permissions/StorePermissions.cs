@@ -97,4 +97,12 @@ public static class StorePermissions
     {
         public const string Default = GroupName + ".FileSettings";
     }
+
+    public class HomeSlider
+    {
+        public const string Default = GroupName + ".HomeSlider";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }
