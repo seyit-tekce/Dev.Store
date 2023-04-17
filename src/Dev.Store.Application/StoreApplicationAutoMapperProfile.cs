@@ -45,8 +45,6 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateLocationDto, Location>(MemberList.Source);
         CreateMap<Keyword, KeywordDto>();
         CreateMap<CreateUpdateKeywordDto, Keyword>(MemberList.Source);
-
-
         CreateMap<UploadFile, UploadFileDto>();
         CreateMap<CreateUpdateUploadFileDto, UploadFile>(MemberList.Source);
         CreateMap<Product, ProductDto>();

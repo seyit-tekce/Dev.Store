@@ -215,6 +215,7 @@ public class StoreWebPublicModule : AbpModule
         }
         app.UseUnitOfWork();
         app.UseAuthorization();
+        app.UseResponseCompression();
         if (env.IsDevelopment())
         {
             app.UseSwagger();
