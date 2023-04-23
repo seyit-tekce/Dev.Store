@@ -77,9 +77,11 @@ public class StoreMenuContributor : IMenuContributor
         }
         if (await context.IsGrantedAsync(StorePermissions.HomeSlider.Default))
         {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSlider"], "/HomeSliders/HomeSlider")
-            );
+            var homeSettings = new ApplicationMenuItem(StoreMenus.HomeSettings, l["Menu:HomeSettings"], null, "fa fa-home");
+
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSlider"], "/HomeSliders?type=0", "fa fa-sliders"));
+            context.Menu.GetAdministration().AddItem(homeSettings);
+
         }
     }
 }

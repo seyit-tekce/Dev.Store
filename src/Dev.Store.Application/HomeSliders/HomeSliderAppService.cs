@@ -47,7 +47,11 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
         });
         var map = ObjectMapper.Map<CreateUpdateHomeSliderDto, HomeSlider>(input);
         map.UploadFileId = upload.Id;
-        return ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.InsertAsync(map));
+        var result = ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.InsertAsync(map)); 
+        await _cache.RefreshAsync(input.Type);
+
+
+        return result;
     }
 
     public async Task<IEnumerable<HomeSliderDto>> GetListByType(HomeSliderType type)

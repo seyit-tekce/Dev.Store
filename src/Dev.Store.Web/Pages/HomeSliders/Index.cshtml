@@ -12,8 +12,8 @@
 @inject IHtmlLocalizer<StoreResource> L
 @inject IAuthorizationService Authorization
 @{
-    PageLayout.Content.Title = L["HomeSlider"].Value;
-    PageLayout.Content.BreadCrumb.Add(L["Menu:HomeSlider"].Value);
+    PageLayout.Content.Title = L["Enum:HomeSliderType:" + (int)Model.Type].Value + " " + L["Setting"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:HomeSettings"].Value);
     PageLayout.Content.MenuItemName = StoreMenus.HomeSlider;
 }
 
@@ -32,20 +32,34 @@
     <div id="drag-drop-area" style="width:100%;margin-bottom:25px"></div>
 </abp-card>
 
-<abp-card>
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @{
-                var i = 0;
-            }
-            @foreach (var item in Model.HomeSliders)
-            {
-                <div class="carousel-item @(i==0?"active":"")">
-                    <img src="@item.UploadFile.Big()" class="d-block w-100" alt="...">
-                </div>
-                i++;
-            }
 
-        </div>
+@{
+    var i = 0;
+}
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        @foreach (var item in Model.HomeSliders)
+        {
+            <div class="carousel-item @(i==0?"active":"")">
+              
+                <img class="d-block w-100" src="@item.UploadFile.Big()" alt="First slide">
+              
+                <div class="carousel-caption d-none d-md-block float-start">
+                    <div class="delete-button"><button type="button" class="btn btn-danger" onclick="homeSliders.functions.delete('@item.Id')"></button></div>
+                    <h5>@item.Title</h5>
+                    <h5>@item.Subtitle</h5>
+                    <a href="@item.ButtonLink" class="btn btn-primary">@item.ButtonLink</a>
+                </div>
+            </div>
+            i++;
+        }
     </div>
-</abp-card>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

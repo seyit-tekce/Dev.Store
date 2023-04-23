@@ -18,5 +18,8 @@ public class StoreMenus
     public const string SeoSetting = Prefix + ".SeoSetting";
     public const string ProductImage = Prefix + ".ProductImage";
 
+
+
+    public const string HomeSettings = Prefix + ".HomeSettings";
     public const string HomeSlider = Prefix + ".HomeSlider";
 }
