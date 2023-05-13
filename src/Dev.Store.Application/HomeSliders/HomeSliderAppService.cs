@@ -1,10 +1,14 @@
 using Dev.Store.HomeSliders.Dtos;
 using Dev.Store.Permissions;
 using Dev.Store.UploadFiles;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
+using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Services;
@@ -32,9 +36,21 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
         _cache = cache;
     }
 
-    [IgnoreAntiforgeryToken(Order = 2000)]
+    public override async Task<HomeSliderDto> GetAsync(Guid id)
+    {
+        return ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.GetByIdAsync(id));
+    }
+
+
+
+    [HttpGet]
+    [Authorize(StorePermissions.Product.Default)]
+    public async Task<DataSourceResult> DataSource([DataSourceRequest] DataSourceRequest request)
+    {
+        return (await _repository.WithDetailsAsync(x => x.UploadFile)).ToDataSourceResult(request, x => ObjectMapper.Map<HomeSlider, HomeSliderDto>(x));
+    }
+
     [HttpPost]
-    [DisableValidation]
     public override async Task<HomeSliderDto> CreateAsync([FromForm] CreateUpdateHomeSliderDto input)
     {
         if (!input.File.ContentType.ToLower().Contains("image"))
@@ -47,10 +63,32 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
         });
         var map = ObjectMapper.Map<CreateUpdateHomeSliderDto, HomeSlider>(input);
         map.UploadFileId = upload.Id;
-        var result = ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.InsertAsync(map)); 
+        var result = ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.InsertAsync(map));
         await _cache.RefreshAsync(input.Type);
+        return result;
+    }
+    public override async Task<HomeSliderDto> UpdateAsync(Guid id, CreateUpdateHomeSliderDto input)
+    {
+        input.Id = id;
+        var map = ObjectMapper.Map<CreateUpdateHomeSliderDto, HomeSlider>(input);
+
+        if (input.File != null)
+        {
+            if (!input.File.ContentType.ToLower().Contains("image"))
+            {
+                throw new UserFriendlyException(L["FileIsNotImage"]);
+            }
+            var upload = await _uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto
+            {
+                File = input.File
+            });
+            map.UploadFileId = upload.Id;
+        }
 
 
+
+        var result = ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.UpdateAsync(map));
+        await _cache.RefreshAsync(input.Type);
         return result;
     }
 

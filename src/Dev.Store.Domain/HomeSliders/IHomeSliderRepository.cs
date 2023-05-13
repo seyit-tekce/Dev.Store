@@ -8,4 +8,5 @@ namespace Dev.Store.HomeSliders;
 public interface IHomeSliderRepository : IRepository<HomeSlider, Guid>
 {
     Task<IQueryable<HomeSlider>> WithDetailsAsync(HomeSliderType type);
+    Task<HomeSlider> GetByIdAsync(Guid id);
 }

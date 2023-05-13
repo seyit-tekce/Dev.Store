@@ -79,7 +79,9 @@ public class StoreMenuContributor : IMenuContributor
         {
             var homeSettings = new ApplicationMenuItem(StoreMenus.HomeSettings, l["Menu:HomeSettings"], null, "fa fa-home");
 
-            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSlider"], "/HomeSliders?type=0", "fa fa-sliders"));
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSliderType:0"], "/HomeSliders?type=0", "fa fa-sliders"));
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSliderType:1"], "/HomeSliders?type=1", "fa fa-sliders"));
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSliderType:2"], "/HomeSliders?type=2", "fa fa-sliders"));
             context.Menu.GetAdministration().AddItem(homeSettings);
 
         }

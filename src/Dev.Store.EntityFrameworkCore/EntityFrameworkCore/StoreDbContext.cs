@@ -65,6 +65,8 @@ public class StoreDbContext :
     public DbSet<Tenant> Tenants { get; set; }
 
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
+    public DbSet<IdentityUserDelegation> UserDelegations { get; set; }
+
 
     #endregion Entities from the modules
 
@@ -80,6 +82,7 @@ public class StoreDbContext :
     public DbSet<SeoSetting> SeoSettings { get; set; }
     public DbSet<ProductImage> ProductImages { get; set; }
     public DbSet<HomeSlider> HomeSliders { get; set; }
+
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -262,8 +265,8 @@ public class StoreDbContext :
             b.Property(x => x.Type).IsRequired(true);
 
             b.HasOne(x => x.UploadFile).WithOne();
-            b.ConfigureByConvention(); 
-            
+            b.ConfigureByConvention();
+
 
             /* Configure more properties here */
         });

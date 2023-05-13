@@ -15,6 +15,11 @@ public class HomeSliderRepository : EfCoreRepository<StoreDbContext, HomeSlider,
     {
     }
 
+    public async Task<HomeSlider> GetByIdAsync(Guid id)
+    {
+        return await (await GetQueryableAsync()).Include(x => x.UploadFile).Where(x => x.Id == id).FirstOrDefaultAsync();
+    }
+
     public override async Task<IQueryable<HomeSlider>> WithDetailsAsync()
     {
         return (await GetQueryableAsync()).IncludeDetails();

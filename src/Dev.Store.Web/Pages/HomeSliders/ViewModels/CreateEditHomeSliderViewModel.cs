@@ -1,4 +1,6 @@
 using Dev.Store.HomeSliders;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,10 +8,11 @@ namespace Dev.Store.Web.Pages.HomeSliders.ViewModels;
 
 public class CreateEditHomeSliderViewModel
 {
-    [Display(Name = "HomeSliderUploadFileId")]
-    public Guid UploadFileId { get; set; }
+    [Display(Name = "Image")]
+    public IFormFile File { get; set; }
 
     [Display(Name = "HomeSliderTitle")]
+    [Required]
     public string Title { get; set; }
 
     [Display(Name = "HomeSliderSubtitle")]
@@ -25,6 +28,11 @@ public class CreateEditHomeSliderViewModel
     public int Order { get; set; }
 
     [Display(Name = "HomeSliderType")]
+    [HiddenInput]
+    [Required]
     public HomeSliderType Type { get; set; }
+    [Display(Name = "HomeSliderType")]
+    [HiddenInput]
+    public Guid UploadFileId { get; set; }
 
 }

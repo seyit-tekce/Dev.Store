@@ -182,9 +182,9 @@
     "Details": "Detaylar",
     "SelectSize": "Boyut Seçiniz",
     "MeasurementOptions": "Ölçü Seçenekleri",
-    "Permission:HomeSlider": "Resim Sergisi Ayarları",
-    "Menu:HomeSlider": "Resim Sergisi Ayarları",
-    "HomeSlider": "Resim Sergisi Ayarları",
+    "Permission:HomeSlider": "Resim Karosel Ayarları",
+    "Menu:HomeSlider": "Resim Karosel Ayarları",
+    "HomeSlider": "Resim Karosel Ayarları",
     "HomeSliderUploadFileId": "Dosya",
     "HomeSliderTitle": "Başlık",
     "HomeSliderSubtitle": "Alt Başlık",
@@ -196,9 +196,12 @@
     "CreateHomeSlider": "Yeni Ayar Oluştur",
     "EditHomeSlider": "Ayar Düzenle",
     "HomeSliderDeletionConfirmationMessage": "Are you sure to delete the homeSlider {0}?",
-    "Enum:HomeSliderType:0": "Resim Sergisi",
+    "Enum:HomeSliderType:0": "Resim Karosel",
     "Enum:HomeSliderType:1": "Kolleksiyonlar",
     "Enum:HomeSliderType:2": "Parallaks",
+    "Menu:HomeSliderType:0": "Resim Karosel Ayarları",
+    "Menu:HomeSliderType:1": "Kolleksiyonlar Ayarları",
+    "Menu:HomeSliderType:2": "Parallaks Ayarları",
     "Menu:HomeSettings": "Anasayfa Ayarları"
   }
 }

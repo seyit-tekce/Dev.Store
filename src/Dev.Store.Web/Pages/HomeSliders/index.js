@@ -1,81 +1,57 @@
+var l = abp.localization.getResource("Store");
+
 var homeSliders = {
     defines: {
-        type: 0
+        createModal: new abp.ModalManager(abp.appPath + 'HomeSliders/CreateModal'),
+        editModal: new abp.ModalManager(abp.appPath + 'HomeSliders/EditModal'),
+        detailModal: new abp.ModalManager(abp.appPath + 'HomeSliders/DetailModal'),
+        load: null,
+        grid: function (e) {
+            return $("#homeSliderGrid").data("kendoGrid")
+        }
     },
     functions: {
-        uppy: function () {
-            var uppy = new Uppy.Uppy({
-                debug: false,
-                autoProceed: false,
-                locale: Uppy.locales.tr_TR,
-                allowMultipleUploadBatches: true,
-                restrictions: {
-                    allowedFileTypes: ["image/*"],
-                    requiredMetaFields: [],
-                }
-            });
-            uppy.use(Uppy.Dashboard, {
-                inline: true,
-                locale: Uppy.locales.tr_TR,
-                width: 100000,
-                target: '#drag-drop-area',
-                showProgressDetails: true,
-                browserBackButtonClose: false,
-                hideUploadButton: false,
-                metaFields: homeSliders.functions.getMetaFields()
-            })
-                .use(Uppy.ImageEditor, { target: Uppy.Dashboard })
-                .use(Uppy.DropTarget, { target: document.body })
-                .use(Uppy.Compressor)
-                .use(Uppy.XHRUpload, {
-                    endpoint: '/api/app/home-slider?type=' + homeSliders.defines.type,
-
-                }).on('complete', (result) => {
-                    homeSliders.defines.createModal.close();
-                    abp.notify.success(l("SuccessfullyCreated"));
-                    location.reload();
-
-                })
-            window.uppy = uppy;
+        detail: function (e) {
+            e.preventDefault();
+            var recordId = e.currentTarget.dataset["id"];
+            homeSliders.defines.detailModal.open({ id: recordId });
         },
-        delete: function (id) {
+        edit: function (e) {
+            var recordId = e.currentTarget.dataset["id"];
+            homeSliders.defines.editModal.open({ id: recordId });
+        },
+        delete: function (e) {
+            e.preventDefault();
             abp.message.confirm(l("DeletionConfirmationMessage"))
                 .then(function (confirmed) {
                     if (confirmed) {
-                        var recordId = id;
+                        var recordId = e.currentTarget.dataset["id"];
                         dev.store.homeSliders.homeSlider.delete(recordId)
                             .then(function () {
                                 abp.notify.success(l("SuccessfullyDeleted"));
-                                homeSliders.functions.createImages();
+                                homeSliders.defines.grid().dataSource.read();
                             });
                     }
                 });
         },
-        getMetaFields: function () {
-            return [this.createMetaFields("name","name",null,true)]
-        },
-        createMetaFields: function (id,name,placeholder,_required) {
-            return {
-                id: id,
-                name: name,
-                placeholder: placeholder,
-                render({ value, onChange, required, form }, h) {
-                    return h('input', {
-                        type: 'text',
-                        _required,
-                        form,
-                        onChange: (ev) => onChange(ev.target.checked ? 'on' : ''),
-                        defaultChecked: value === 'on',
-                    });
-                },
-            }
+        create: function (e, type) {
+            homeSliders.defines.load = new Loading($(e));
+            homeSliders.defines.load.Start();
+            homeSliders.defines.createModal.open({ type: type });
         }
-
-
     },
     init: function () {
-        homeSliders.functions.uppy();
-
+        homeSliders.defines.createModal.onResult(function (e, a) {
+            homeSliders.defines.grid().dataSource.read();
+            abp.notify.success(l("SuccessfullyAdded"));
+        });
+        homeSliders.defines.editModal.onResult(function () {
+            homeSliders.defines.grid().dataSource.read();
+            abp.notify.success(l("SuccessfullyUpdated"));
+        });
+        homeSliders.defines.createModal.onOpen(function () {
+            homeSliders.defines.load.Done();
+        });
 
     }
 }
