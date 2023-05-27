@@ -64,7 +64,7 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
         var map = ObjectMapper.Map<CreateUpdateHomeSliderDto, HomeSlider>(input);
         map.UploadFileId = upload.Id;
         var result = ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.InsertAsync(map));
-        await _cache.RefreshAsync(input.Type);
+        await _cache.RemoveAsync(input.Type);
         return result;
     }
     public override async Task<HomeSliderDto> UpdateAsync(Guid id, CreateUpdateHomeSliderDto input)
@@ -88,7 +88,7 @@ public class HomeSliderAppService : CrudAppService<HomeSlider, HomeSliderDto, Gu
 
 
         var result = ObjectMapper.Map<HomeSlider, HomeSliderDto>(await _repository.UpdateAsync(map));
-        await _cache.RefreshAsync(input.Type);
+        await _cache.RemoveAsync(input.Type);
         return result;
     }
 

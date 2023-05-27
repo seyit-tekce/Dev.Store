@@ -21,14 +21,14 @@
 @await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.HomeSliderComponent.HomeSliderComponent),new HomeSliderModel())
 <!-- Home slider end -->
 <!-- collection banner -->
-@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.CollectionBannerComponent.CollectionBannerComponent))
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.CollectionBannerComponent.CollectionBannerComponent),new HomeSliderModel())
 <!-- collection banner end -->
 <!-- Tab product -->
 @await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.TabProductComponent.TabProductComponent),new Dev.Store.Web.Public.Pages.IndexComponents.TabProductComponent.TabProductComponentModel())
 <!-- Tab product end -->
 <!-- Parallax banner -->
-@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.ParallaxBannerComponent.ParallaxBannerComponent))
+@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.ParallaxBannerComponent.ParallaxBannerComponent),new HomeSliderModel())
 <!-- Parallax banner end -->
 <!-- Blog-->
-@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.BlogComponent.BlogComponent))
+@*@await Component.InvokeAsync(typeof(Dev.Store.Web.Public.Pages.IndexComponents.BlogComponent.BlogComponent))*@
 <!-- Blog end -->
