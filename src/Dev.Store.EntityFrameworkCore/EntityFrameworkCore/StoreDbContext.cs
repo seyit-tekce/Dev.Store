@@ -1,7 +1,14 @@
 using Dev.Store.Brands;
 using Dev.Store.Categories;
+using Dev.Store.HomeSliders;
 using Dev.Store.Keywords;
 using Dev.Store.Locations;
+using Dev.Store.OrderActions;
+using Dev.Store.OrderAddress;
+using Dev.Store.OrderProducts;
+using Dev.Store.Orders;
+using Dev.Store.OrderSets;
+using Dev.Store.OrderSizes;
 using Dev.Store.ProductImages;
 using Dev.Store.Products;
 using Dev.Store.ProductSets;
@@ -9,6 +16,7 @@ using Dev.Store.ProductSizes;
 using Dev.Store.SeoSettings;
 using Dev.Store.UploadFiles;
 using Microsoft.EntityFrameworkCore;
+using System;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -25,7 +33,6 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
-using Dev.Store.HomeSliders;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -83,6 +90,34 @@ public class StoreDbContext :
     public DbSet<ProductImage> ProductImages { get; set; }
     public DbSet<HomeSlider> HomeSliders { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<Order> Orders { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<OrderAction> OrderActions { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<OrderAdress> OrderAddresses { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<OrderProduct> OrderProducts { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<OrderSet> OrderSets { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<OrderSize> OrderSizes { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<Address.Address> Addresses { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -265,6 +300,128 @@ public class StoreDbContext :
             b.Property(x => x.Type).IsRequired(true);
 
             b.HasOne(x => x.UploadFile).WithOne();
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<Order>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "Orders", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.Code).IsRequired(true);
+            b.Property(x => x.UserId).IsRequired(true);
+            b.Property(x => x.OrderAddressId).IsRequired(true);
+            b.Property(x => x.Method).IsRequired(true);
+
+            b.HasOne(x => x.User);
+            b.HasMany(x => x.Products).WithOne(x => x.Order).HasForeignKey(x => x.OrderId);
+            b.HasMany(x => x.OrderActions).WithOne(x => x.Order).HasForeignKey(x => x.OrderId);
+            b.HasOne(x => x.OrderAddress).WithOne(x => x.Order).HasForeignKey<OrderAdress>(x => x.OrderId);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<OrderAction>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "OrderActions", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.OrderId).IsRequired(true);
+            b.Property(x => x.Status).IsRequired(true);
+            b.Property(x => x.Note).IsRequired(false);
+
+            b.HasOne(x => x.Order).WithMany(x => x.OrderActions).HasForeignKey(x => x.OrderId);
+
+            b.ConfigureByConvention();
+        });
+
+
+        builder.Entity<OrderAdress>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "OrderAddresses", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.OrderId).IsRequired(true);
+            b.Property(x => x.AddressId).IsRequired(true);
+            b.Property(x => x.FullName).IsRequired(true);
+            b.Property(x => x.PhoneNumber).IsRequired(true);
+            b.Property(x => x.FullAddress).IsRequired(true);
+            b.HasOne(x => x.Address);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<OrderProduct>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "OrderProducts", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.OrderId).IsRequired(true);
+            b.Property(x => x.ProductId).IsRequired(true);
+
+            b.HasOne(x => x.Order).WithMany(x => x.Products);
+            b.HasOne(x => x.Product);
+            b.HasMany(x => x.OrderSizes).WithOne(x => x.OrderProduct).HasForeignKey(x => x.OrderProductId);
+            b.HasMany(x => x.OrderSets).WithOne(x => x.OrderProduct).HasForeignKey(x => x.OrderProductId);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<OrderSet>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "OrderSets", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.OrderProductId).IsRequired(true);
+            b.Property(x => x.SetId).IsRequired(true);
+            b.Property(x => x.Quantity).IsRequired(true);
+            b.Property(x => x.SetPrice).IsRequired(true);
+
+            b.HasOne(x => x.OrderProduct).WithMany(x => x.OrderSets).HasForeignKey(x=>x.SetId);
+            b.HasOne(x => x.ProductSet);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<OrderSize>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "OrderSizes", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.OrderProductId).IsRequired(true);
+            b.Property(x => x.SizeId).IsRequired(true);
+            b.Property(x => x.Quantity).IsRequired(true);
+            b.Property(x => x.SizePrice).IsRequired(true);
+
+            b.HasOne(x => x.OrderProduct).WithMany(x => x.OrderSizes);
+            b.HasOne(x => x.ProductSize);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<Address.Address>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "Addresses", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.AddressName).IsRequired(true);
+            b.Property(x => x.FirstName).IsRequired(true);
+            b.Property(x => x.LastName).IsRequired(true);
+            b.Property(x => x.PhoneNumber).IsRequired(true);
+            b.Property(x => x.Email).IsRequired(true);
+            b.Property(x => x.FullAddress).IsRequired(true);
+            b.Property(x => x.CityId).IsRequired(true);
+            b.Property(x => x.TownId).IsRequired(true);
+            b.Property(x => x.PostalCode).IsRequired(true);
+
+            b.HasOne(x => x.City);
+            b.HasOne(x => x.Town);
+
             b.ConfigureByConvention();
 
 

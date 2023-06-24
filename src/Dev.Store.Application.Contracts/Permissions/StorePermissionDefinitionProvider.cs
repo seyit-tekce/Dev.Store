@@ -80,6 +80,41 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         homeSliderPermission.AddChild(StorePermissions.HomeSlider.Create, L("Permission:Create"));
         homeSliderPermission.AddChild(StorePermissions.HomeSlider.Update, L("Permission:Update"));
         homeSliderPermission.AddChild(StorePermissions.HomeSlider.Delete, L("Permission:Delete"));
+
+        var orderPermission = myGroup.AddPermission(StorePermissions.Order.Default, L("Permission:Order"));
+        orderPermission.AddChild(StorePermissions.Order.Create, L("Permission:Create"));
+        orderPermission.AddChild(StorePermissions.Order.Update, L("Permission:Update"));
+        orderPermission.AddChild(StorePermissions.Order.Delete, L("Permission:Delete"));
+
+        var orderActionPermission = myGroup.AddPermission(StorePermissions.OrderAction.Default, L("Permission:OrderAction"));
+        orderActionPermission.AddChild(StorePermissions.OrderAction.Create, L("Permission:Create"));
+        orderActionPermission.AddChild(StorePermissions.OrderAction.Update, L("Permission:Update"));
+        orderActionPermission.AddChild(StorePermissions.OrderAction.Delete, L("Permission:Delete"));
+
+        var orderAdressPermission = myGroup.AddPermission(StorePermissions.OrderAdress.Default, L("Permission:OrderAdress"));
+        orderAdressPermission.AddChild(StorePermissions.OrderAdress.Create, L("Permission:Create"));
+        orderAdressPermission.AddChild(StorePermissions.OrderAdress.Update, L("Permission:Update"));
+        orderAdressPermission.AddChild(StorePermissions.OrderAdress.Delete, L("Permission:Delete"));
+
+        var orderProductPermission = myGroup.AddPermission(StorePermissions.OrderProduct.Default, L("Permission:OrderProduct"));
+        orderProductPermission.AddChild(StorePermissions.OrderProduct.Create, L("Permission:Create"));
+        orderProductPermission.AddChild(StorePermissions.OrderProduct.Update, L("Permission:Update"));
+        orderProductPermission.AddChild(StorePermissions.OrderProduct.Delete, L("Permission:Delete"));
+
+        var orderSetPermission = myGroup.AddPermission(StorePermissions.OrderSet.Default, L("Permission:OrderSet"));
+        orderSetPermission.AddChild(StorePermissions.OrderSet.Create, L("Permission:Create"));
+        orderSetPermission.AddChild(StorePermissions.OrderSet.Update, L("Permission:Update"));
+        orderSetPermission.AddChild(StorePermissions.OrderSet.Delete, L("Permission:Delete"));
+
+        var orderSizePermission = myGroup.AddPermission(StorePermissions.OrderSize.Default, L("Permission:OrderSize"));
+        orderSizePermission.AddChild(StorePermissions.OrderSize.Create, L("Permission:Create"));
+        orderSizePermission.AddChild(StorePermissions.OrderSize.Update, L("Permission:Update"));
+        orderSizePermission.AddChild(StorePermissions.OrderSize.Delete, L("Permission:Delete"));
+
+        var addressPermission = myGroup.AddPermission(StorePermissions.Address.Default, L("Permission:Address"));
+        addressPermission.AddChild(StorePermissions.Address.Create, L("Permission:Create"));
+        addressPermission.AddChild(StorePermissions.Address.Update, L("Permission:Update"));
+        addressPermission.AddChild(StorePermissions.Address.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

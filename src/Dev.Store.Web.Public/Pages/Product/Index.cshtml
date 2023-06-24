@@ -2,6 +2,7 @@
 @using Dev.Store.Localization;
 @using Dev.Store;
 @using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Text.Json;
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout;
 @model Dev.Store.Web.Public.Pages.Product.IndexModel
 @inject IHtmlLocalizer<StoreResource> L
@@ -15,6 +16,13 @@
 @section scripts{
     <abp-script src="/assets/js/sticky-kit.js"></abp-script>
     <abp-script src="/Pages/Product/index.js"></abp-script>
+    <script>
+
+        product.conts.product = @Html.Raw(JsonSerializer.Serialize(Model.Product))
+
+    </script>
+
+
 }
 @section styles{
     <abp-style src="/Pages/Product/index.css"></abp-style>
@@ -180,7 +188,7 @@
                         </table>
                         </div>
                         }*@
-                        <div class="product-buttons">
+                        <div class="product-buttons" onclick="product.functions.cart.addToChart()">
                             <a href="javascript:void(0)" id="cartEffect"
                                class="btn btn-solid hover-solid btn-animation btn-block" style="margin-left:0px!important">
                                 <i class="fa fa-shopping-cart me-1"

@@ -1,12 +1,15 @@
 ﻿@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Brand;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Menu;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.Cart;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.LanguageSwitch;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.SideNavbar;
 @using Dev.Store.Localization;
 @using Dev.Store.Web.UI.Branding;
 @using Localization.Resources.AbpUi;
 @using Microsoft.AspNetCore.Mvc.Localization;
+@using Volo.Abp.Users;
 @inject IHtmlLocalizer<StoreResource> L
+@inject ICurrentUser user
 @inject IDevBrandingProvider BrandingProvider
 <header class="header-2">
     <div class="mobile-fix-option"></div>
@@ -23,18 +26,29 @@
                 </div>
                 <div class="col-lg-6 text-end">
                     <ul class="header-dropdown">
-                      @*  <li class="mobile-wishlist">
-                            <a href="#">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                wishlist
-                            </a>
+                        @*  <li class="mobile-wishlist">
+                        <a href="#">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        wishlist
+                        </a>
                         </li>*@
                         <li class="onhover-dropdown mobile-account">
                             <i class="fa fa-user" aria-hidden="true"></i>
-                           @L["MyAccount"]
+                            @L["MyAccount"]
                             <ul class="onhover-show-div">
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="register.html">register</a></li>
+                                @if (user.IsAuthenticated)
+                                {
+                                    <p class="user-name">@user.Email</p>
+                                    <li><a onclick="openLoginModal()">@L["AllMyOrders"]</a></li>
+                                    <li><a onclick="openLoginModal()">@L["MyCuupons"]</a></li>
+                                    <li><a onclick="openLoginModal()">@L["LogOut"]</a></li>
+
+                                }
+                                else
+                                {
+                                    <li><a onclick="openLoginModal()">Login</a></li>
+                                }
+
                             </ul>
                         </li>
                     </ul>
@@ -102,37 +116,7 @@
                                              class="img-fluid blur-up lazyload" alt=""> <i class="ti-shopping-cart"></i>
                                     </div>
                                     <ul class="show-div shopping-cart">
-                                        <li>
-                                            <div class="media">
-                                                <a href="#">
-                                                    <img class="me-3"
-                                                         src="/assets/images/furniture/product/4.jpg" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <h4>item name</h4>
-                                                    </a>
-                                                    <h4><span>1 x $ 299.00</span></h4>
-                                                </div>
-                                            </div>
-                                            <div class="close-circle">
-                                                <a href="#">
-                                                    <i class="fa fa-times"
-                                                       aria-hidden="true"></i>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="total">
-                                                <h5>subtotal : <span>$299.00</span></h5>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="buttons">
-                                                <a href="cart.html" class="view-cart">view cart</a>
-                                                <a href="#" class="checkout">checkout</a>
-                                            </div>
-                                        </li>
+                                        @await Component.InvokeAsync(typeof(CartViewComponent))
                                     </ul>
                                 </li>
                             </ul>

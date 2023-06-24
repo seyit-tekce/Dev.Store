@@ -85,5 +85,11 @@ public class StoreMenuContributor : IMenuContributor
             context.Menu.GetAdministration().AddItem(homeSettings);
 
         }
+        if (await context.IsGrantedAsync(StorePermissions.Order.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(StoreMenus.Order, l["Menu:Order"], "/Orders/Order")
+            );
+        }
     }
 }

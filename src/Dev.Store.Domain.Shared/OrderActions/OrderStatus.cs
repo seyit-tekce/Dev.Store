@@ -1,4 +1,4 @@
-﻿namespace Dev.Store.Order
+﻿namespace Dev.Store.OrderActions
 {
     public enum OrderActionStatus
     {

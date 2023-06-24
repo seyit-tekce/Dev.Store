@@ -1,4 +1,4 @@
-﻿using Dev.Store.OrderProducts;
+using Dev.Store.OrderProducts;
 using Dev.Store.ProductSets;
 using System;
 using Volo.Abp.Domain.Entities.Auditing;
@@ -16,5 +16,27 @@ namespace Dev.Store.OrderSets
         public ProductSet ProductSet { get; set; }
 
 
+
+    protected OrderSet()
+    {
+    }
+
+    public OrderSet(
+        Guid id,
+        Guid orderProductId,
+        Guid setId,
+        int quantity,
+        double setPrice,
+        OrderProduct orderProduct,
+        ProductSet productSet
+    ) : base(id)
+    {
+        OrderProductId = orderProductId;
+        SetId = setId;
+        Quantity = quantity;
+        SetPrice = setPrice;
+        OrderProduct = orderProduct;
+        ProductSet = productSet;
+    }
     }
 }
