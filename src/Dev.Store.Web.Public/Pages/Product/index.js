@@ -1,5 +1,12 @@
 ﻿var product = {
-    conts: {},
+    conts: {
+        product: {
+
+
+
+        }
+
+    },
     functions: {
         sets: {
             setPrice: function (price) {
@@ -18,6 +25,11 @@
         },
         cart: {
             addToChart: function () {
+
+
+
+
+                alert("added")
             }
         }
     },

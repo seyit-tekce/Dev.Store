@@ -9,3 +9,8 @@
 .theme-color-1 {
     --theme-color: #191EEC;
 }
+
+.user-name {
+    color: var(--theme-color);
+    font-size:1.2em;
+}

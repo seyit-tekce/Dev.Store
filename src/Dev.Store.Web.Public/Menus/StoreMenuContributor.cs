@@ -34,7 +34,6 @@ public class StoreMenuContributor : IMenuContributor
             RecursiveMenu(subCategory, ref menu);
             context.Menu.AddItem(menu);
         }
-
     }
 
     private void RecursiveMenu(IEnumerable<CategoryDto> categories, ref ApplicationMenuItem menuItem)

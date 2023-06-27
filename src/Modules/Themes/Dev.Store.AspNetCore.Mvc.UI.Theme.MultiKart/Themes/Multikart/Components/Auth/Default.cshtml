@@ -1,0 +1,41 @@
+﻿@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Brand;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Menu;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.Cart;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.LanguageSwitch;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.Multikart.Components.SideNavbar;
+@using Dev.Store.Localization;
+@using Dev.Store.Web.UI.Branding;
+@using Localization.Resources.AbpUi;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Volo.Abp.Users;
+@inject IHtmlLocalizer<StoreResource> L
+@inject ICurrentUser user
+@inject IDevBrandingProvider BrandingProvider
+
+    <ul class="header-dropdown">
+        @*  <li class="mobile-wishlist">
+        <a href="#">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+        wishlist
+        </a>
+        </li>*@
+        <li class="onhover-dropdown mobile-account">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            @L["MyAccount"]
+            <ul class="onhover-show-div">
+                @if (user.IsAuthenticated)
+                {
+                    <p class="user-name">@user.Email</p>
+                    <li><a id="allOrders">@L["AllMyOrders"]</a></li>
+                    <li><a id="cuupons">@L["MyCuupons"]</a></li>
+                    <li><a id="logout">@L["LogOut"]</a></li>
+
+                }
+                else
+                {
+                    <li><a id="loginbutton">@L["Login"]</a></li>
+                }
+
+            </ul>
+        </li>
+    </ul>

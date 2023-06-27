@@ -1,12 +1,27 @@
 using AutoMapper;
+using Dev.Store.Address.Dtos;
 using Dev.Store.Brands;
 using Dev.Store.Brands.Dtos;
 using Dev.Store.Categories;
 using Dev.Store.Categories.Dtos;
+using Dev.Store.HomeSliders;
+using Dev.Store.HomeSliders.Dtos;
 using Dev.Store.Keywords;
 using Dev.Store.Keywords.Dtos;
 using Dev.Store.Locations;
 using Dev.Store.Locations.Dtos;
+using Dev.Store.OrderActions;
+using Dev.Store.OrderActions.Dtos;
+using Dev.Store.OrderAddress;
+using Dev.Store.OrderAddress.Dtos;
+using Dev.Store.OrderProducts;
+using Dev.Store.OrderProducts.Dtos;
+using Dev.Store.Orders;
+using Dev.Store.Orders.Dtos;
+using Dev.Store.OrderSets;
+using Dev.Store.OrderSets.Dtos;
+using Dev.Store.OrderSizes;
+using Dev.Store.OrderSizes.Dtos;
 using Dev.Store.ProductImages;
 using Dev.Store.ProductImages.Dtos;
 using Dev.Store.Products;
@@ -19,8 +34,6 @@ using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
 using Dev.Store.UploadFiles;
 using Dev.Store.UploadFiles.Dtos;
-using Dev.Store.HomeSliders;
-using Dev.Store.HomeSliders.Dtos;
 using System.Linq;
 
 namespace Dev.Store;
@@ -69,5 +82,19 @@ public class StoreApplicationAutoMapperProfile : Profile
 
         CreateMap<HomeSlider, HomeSliderDto>();
         CreateMap<CreateUpdateHomeSliderDto, HomeSlider>(MemberList.Source);
+        CreateMap<Order, OrderDto>();
+        CreateMap<CreateUpdateOrderDto, Order>(MemberList.Source);
+        CreateMap<OrderAction, OrderActionDto>();
+        CreateMap<CreateUpdateOrderActionDto, OrderAction>(MemberList.Source);
+        CreateMap<OrderAdress, OrderAdressDto>();
+        CreateMap<CreateUpdateOrderAdressDto, OrderAdress>(MemberList.Source);
+        CreateMap<OrderProduct, OrderProductDto>();
+        CreateMap<CreateUpdateOrderProductDto, OrderProduct>(MemberList.Source);
+        CreateMap<OrderSet, OrderSetDto>();
+        CreateMap<CreateUpdateOrderSetDto, OrderSet>(MemberList.Source);
+        CreateMap<OrderSize, OrderSizeDto>();
+        CreateMap<CreateUpdateOrderSizeDto, OrderSize>(MemberList.Source);
+        CreateMap<Address.Address, AddressDto>();
+        CreateMap<CreateUpdateAddressDto, Address.Address>(MemberList.Source);
     }
 }

@@ -77,8 +77,18 @@ public class StoreMenuContributor : IMenuContributor
         }
         if (await context.IsGrantedAsync(StorePermissions.HomeSlider.Default))
         {
+            var homeSettings = new ApplicationMenuItem(StoreMenus.HomeSettings, l["Menu:HomeSettings"], null, "fa fa-home");
+
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSliderType:0"], "/HomeSliders?type=0", "fa fa-sliders"));
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSliderType:1"], "/HomeSliders?type=1", "fa fa-sliders"));
+            homeSettings.AddItem(new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSliderType:2"], "/HomeSliders?type=2", "fa fa-sliders"));
+            context.Menu.GetAdministration().AddItem(homeSettings);
+
+        }
+        if (await context.IsGrantedAsync(StorePermissions.Order.Default))
+        {
             context.Menu.AddItem(
-                new ApplicationMenuItem(StoreMenus.HomeSlider, l["Menu:HomeSlider"], "/HomeSliders/HomeSlider")
+                new ApplicationMenuItem(StoreMenus.Order, l["Menu:Order"], "/Orders/Order")
             );
         }
     }

@@ -1,5 +1,6 @@
 @page
 @using Dev.Store
+@using Dev.Store.HomeSliders.Dtos;
 @using Dev.Store.Permissions
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
@@ -12,40 +13,85 @@
 @inject IHtmlLocalizer<StoreResource> L
 @inject IAuthorizationService Authorization
 @{
-    PageLayout.Content.Title = L["HomeSlider"].Value;
-    PageLayout.Content.BreadCrumb.Add(L["Menu:HomeSlider"].Value);
+    PageLayout.Content.Title = L["Enum:HomeSliderType:" + (int)Model.Type].Value + " " + L["Setting"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:HomeSettings"].Value);
     PageLayout.Content.MenuItemName = StoreMenus.HomeSlider;
+    var _default = await Authorization.IsGrantedAsync(StorePermissions.HomeSlider.Default);
+    var create = await Authorization.IsGrantedAsync(StorePermissions.HomeSlider.Create);
+    var delete = await Authorization.IsGrantedAsync(StorePermissions.HomeSlider.Delete);
+    var update = await Authorization.IsGrantedAsync(StorePermissions.HomeSlider.Update);
 }
 
 @section scripts
     {
-    <abp-script src="/custom-libs/uppy/uppy.min.js" />
-    <abp-script src="/custom-libs/uppy/tr_TR.min.js" />
     <abp-script src="/Pages/HomeSliders/index.js" />
 }
 @section styles
     {
-    <abp-style src="/custom-libs/uppy/uppy.min.css"></abp-style>
+
     <abp-style src="/Pages/HomeSliders/index.css" />
 }
-<abp-card>
-    <div id="drag-drop-area" style="width:100%;margin-bottom:25px"></div>
-</abp-card>
 
 <abp-card>
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @{
-                var i = 0;
-            }
-            @foreach (var item in Model.HomeSliders)
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@(L["Enum:HomeSliderType:" + (int)Model.Type].Value)</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (create)
+                {
+                    <abp-button text="@(L["Enum:HomeSliderType:" +(int)Model.Type].Value)" icon="plus" onclick="homeSliders.functions.create(this,'@((int)Model.Type)')" button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        @(
+            Html.Kendo().Grid<HomeSliderDto>()
+            .Name("homeSliderGrid")
+            .Columns(columns =>
             {
-                <div class="carousel-item @(i==0?"active":"")">
-                    <img src="@item.UploadFile.Big()" class="d-block w-100" alt="...">
-                </div>
-                i++;
-            }
+                columns.Command(command =>
+                {
+                    if (delete) command.Custom(L["Detail"].Value).IconClass("fa fa-eye").Click("homeSliders.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
+                    if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("homeSliders.functions.edit");
+                    if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("homeSliders.functions.delete");
+                });
+                columns.Bound(p => p.Title).Title(L["HomeSliderTitle"].Value);
+                columns.Bound(p => p.Subtitle).Title(L["HomeSliderSubtitle"].Value);
+                columns.Bound(p => p.UploadFile.FileName).Title(L["FileName"].Value);
+                columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Extensions.DateTimeLongFormat);
+            })
+            .ToolBar(tools =>
+            {
+                tools.Search().Text(" ");
+                tools.Excel().Text(" ");
+                tools.Pdf().Text(" ");
+            })
+            .Height(650)
+            .Scrollable(x => x.Height(650))
+            .Sortable()
+            .Selectable()
+            .Pageable(x => x.Refresh(true))
+            .Filterable()
+            .Events(a => a.DataBound("kendoGrid.events.databound")
+            .Edit("kendoGrid.events.edit")
+            .Cancel("kendoGrid.events.cancel")
+            .CellClose("kendoGrid.events.cellClose")
+            .Change("kendoGrid.events.change"))
+            .DataSource(dataSource => dataSource
+            .WebApi()
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+            .Filter(a => a.Add(b => b.Type).IsEqualTo(Model.Type))
+            .Read(read => read.Url("/api/app/home-slider/data-source"))
+            ).Deferred()
+            )
 
-        </div>
-    </div>
+
+
+    </abp-card-body>
 </abp-card>

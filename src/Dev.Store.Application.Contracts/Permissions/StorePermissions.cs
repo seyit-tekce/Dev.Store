@@ -105,4 +105,74 @@ public static class StorePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Order
+    {
+        public const string Default = GroupName + ".Order";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OrderAction
+    {
+        public const string Default = GroupName + ".OrderAction";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OrderAdress
+    {
+        public const string Default = GroupName + ".OrderAdress";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OrderProduct
+    {
+        public const string Default = GroupName + ".OrderProduct";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OrderSet
+    {
+        public const string Default = GroupName + ".OrderSet";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class OrderSize
+    {
+        public const string Default = GroupName + ".OrderSize";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Address
+    {
+        public const string Default = GroupName + ".Address";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

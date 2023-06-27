@@ -182,9 +182,9 @@
     "Details": "Detaylar",
     "SelectSize": "Boyut Seçiniz",
     "MeasurementOptions": "Ölçü Seçenekleri",
-    "Permission:HomeSlider": "Anasayfa Ayarları",
-    "Menu:HomeSlider": "Anasayfa Ayarları",
-    "HomeSlider": "Anasayfa Ayarları",
+    "Permission:HomeSlider": "Resim Karosel Ayarları",
+    "Menu:HomeSlider": "Resim Karosel Ayarları",
+    "HomeSlider": "Resim Karosel Ayarları",
     "HomeSliderUploadFileId": "Dosya",
     "HomeSliderTitle": "Başlık",
     "HomeSliderSubtitle": "Alt Başlık",
@@ -195,7 +195,23 @@
     "HomeSliderUploadFile": "Dosya",
     "CreateHomeSlider": "Yeni Ayar Oluştur",
     "EditHomeSlider": "Ayar Düzenle",
-    "HomeSliderDeletionConfirmationMessage": "Are you sure to delete the homeSlider {0}?"
+    "HomeSliderDeletionConfirmationMessage": "Are you sure to delete the homeSlider {0}?",
+    "Enum:HomeSliderType:0": "Resim Karosel",
+    "Enum:HomeSliderType:1": "Kolleksiyonlar",
+    "Enum:HomeSliderType:2": "Parallaks",
+    "Menu:HomeSliderType:0": "Resim Karosel Ayarları",
+    "Menu:HomeSliderType:1": "Kolleksiyonlar Ayarları",
+    "Menu:HomeSliderType:2": "Parallaks Ayarları",
+    "Menu:HomeSettings": "Anasayfa Ayarları",
+    "New Products": "Yeni Ürünler",
+    "Top Sellers": "Çok Satanlar",
+    "ChooseForYou": "Sizin İçin Seçtiklerimiz",
+    "FeaturedProduct": "Öne Çıkan Ürünler",
+    "AllMyOrders": "Tüm Siparişlerim",
+    "MyCuupons": "Kuponlarım",
+    "LogOut": "Çıkış Yap",
+    "YourCartEmpty": "Sepetin Boş"
+
 
   }
 }

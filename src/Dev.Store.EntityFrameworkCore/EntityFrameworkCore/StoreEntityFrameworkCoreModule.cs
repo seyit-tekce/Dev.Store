@@ -1,3 +1,10 @@
+using Dev.Store.Address;
+using Dev.Store.OrderSizes;
+using Dev.Store.OrderSets;
+using Dev.Store.OrderProducts;
+using Dev.Store.OrderAddress;
+using Dev.Store.OrderActions;
+using Dev.Store.Orders;
 using Dev.Store.HomeSliders;
 using Dev.Store.Brands;
 using Dev.Store.Categories;
@@ -68,6 +75,13 @@ public class StoreEntityFrameworkCoreModule : AbpModule
             options.AddRepository<SeoSetting, SeoSettingRepository>();
             options.AddRepository<ProductImage, ProductImageRepository>();
             options.AddRepository<HomeSlider, HomeSliderRepository>();
+            options.AddRepository<Order, OrderRepository>();
+            options.AddRepository<OrderAction, OrderActionRepository>();
+            options.AddRepository<OrderAdress, OrderAdressRepository>();
+            options.AddRepository<OrderProduct, OrderProductRepository>();
+            options.AddRepository<OrderSet, OrderSetRepository>();
+            options.AddRepository<OrderSize, OrderSizeRepository>();
+            options.AddRepository<Address.Address, AddressRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

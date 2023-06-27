@@ -1,0 +1,42 @@
+﻿@page
+@model Dev.Store.Web.Pages.HomeSliders.DetailModalModel
+@{
+    Layout = null;
+}
+
+
+<style>
+
+    .container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    /* Centered text */
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        text-align: left;
+    }
+</style>
+<abp-modal size="ExtraLarge">
+    <abp-modal-body>
+        <div class="container">
+            <img src="@Model.HomeSlider.UploadFile.FilePath" alt="@Model.HomeSlider.UploadFile.FileName" style="width:100%;">
+            <div class="centered">
+                <h4>@Model.HomeSlider.Title</h4>
+                <h5>@Model.HomeSlider.Subtitle</h5>
+                @if (Model.HomeSlider.ButtonText != null)
+                {
+                    <abp-button button-type="Primary" onclick="window.open(@Model.HomeSlider.ButtonLink)" text="@Model.HomeSlider.ButtonText" />
+                }
+
+
+            </div>
+
+        </div>
+
+    </abp-modal-body>
+</abp-modal>
