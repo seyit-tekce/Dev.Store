@@ -1,4 +1,5 @@
-﻿@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Brand;
+﻿@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Auth;
+@using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Brand;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Menu;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.Cart;
 @using Dev.Store.AspNetCore.Mvc.UI.Theme.MultiKart.Themes.MultiKart.Components.Toolbar.LanguageSwitch;
@@ -25,33 +26,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 text-end">
-                    <ul class="header-dropdown">
-                        @*  <li class="mobile-wishlist">
-                        <a href="#">
-                        <i class="fa fa-heart" aria-hidden="true"></i>
-                        wishlist
-                        </a>
-                        </li>*@
-                        <li class="onhover-dropdown mobile-account">
-                            <i class="fa fa-user" aria-hidden="true"></i>
-                            @L["MyAccount"]
-                            <ul class="onhover-show-div">
-                                @if (user.IsAuthenticated)
-                                {
-                                    <p class="user-name">@user.Email</p>
-                                    <li><a onclick="openLoginModal()">@L["AllMyOrders"]</a></li>
-                                    <li><a onclick="openLoginModal()">@L["MyCuupons"]</a></li>
-                                    <li><a onclick="openLoginModal()">@L["LogOut"]</a></li>
-
-                                }
-                                else
-                                {
-                                    <li><a onclick="openLoginModal()">Login</a></li>
-                                }
-
-                            </ul>
-                        </li>
-                    </ul>
+                    @await Component.InvokeAsync(typeof(AuthViewComponent))
                 </div>
             </div>
         </div>
@@ -115,7 +90,7 @@
                                         <img src="/assets/images/icon/cart.png"
                                              class="img-fluid blur-up lazyload" alt=""> <i class="ti-shopping-cart"></i>
                                     </div>
-                                    <ul class="show-div shopping-cart">
+                                    <ul class="show-div shopping-cart" style="display:flex;">
                                         @await Component.InvokeAsync(typeof(CartViewComponent))
                                     </ul>
                                 </li>

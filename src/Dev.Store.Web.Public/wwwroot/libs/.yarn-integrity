@@ -6,11 +6,11 @@
   "flags": [],
   "linkedModules": [],
   "topLevelPatterns": [
-    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.2.0",
+    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.2.1",
     "owl.carousel@2.3.4"
   ],
   "lockfileEntries": {
-    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.2.0": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.2.0.tgz#dc76d1d869e16876288c90f5fec31df3a99bb628",
+    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.2.1": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.2.1.tgz#54dc657cf367adf0d8bd829109aa19a198e7d9e7",
     "@abp/aspnetcore.mvc.ui.theme.shared@~7.2.1": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.shared/-/aspnetcore.mvc.ui.theme.shared-7.2.1.tgz#68903cb3fafca670d603e658f20e435734e3d738",
     "@abp/aspnetcore.mvc.ui@~7.2.1": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui/-/aspnetcore.mvc.ui-7.2.1.tgz#b4ae5dcdb90983673092dbfee93c16f21cbb21fe",
     "@abp/bootstrap-datepicker@~7.2.1": "https://registry.yarnpkg.com/@abp/bootstrap-datepicker/-/bootstrap-datepicker-7.2.1.tgz#eca6c1138074ce222ff6c474bc51f4fbe05882c3",
