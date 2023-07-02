@@ -8,17 +8,14 @@ using Volo.Abp.Identity;
 
 namespace Dev.Store.Orders
 {
-    public class Order : FullAuditedAggregateRoot<Guid>
+    public class Order : FullAuditedAggregateRootWithUser<Guid, IdentityUser>
     {
         public virtual string Code { get; set; }
-        public virtual Guid UserId { get; set; }
         public virtual Guid OrderAddressId { get; set; }
         public virtual OrderMethod Method { get; set; }
         public IEnumerable<OrderProduct> Products { get; set; }
         public IEnumerable<OrderAction> OrderActions { get; set; }
         public OrderAdress OrderAddress { get; set; }
-        public IdentityUser User { get; set; }
-
         protected Order()
         {
         }
@@ -26,7 +23,6 @@ namespace Dev.Store.Orders
         public Order(
             Guid id,
             string code,
-            Guid userId,
             Guid orderAddressId,
             OrderMethod method,
             IEnumerable<OrderProduct> products,
@@ -34,7 +30,6 @@ namespace Dev.Store.Orders
         ) : base(id)
         {
             Code = code;
-            UserId = userId;
             OrderAddressId = orderAddressId;
             Method = method;
             Products = products;

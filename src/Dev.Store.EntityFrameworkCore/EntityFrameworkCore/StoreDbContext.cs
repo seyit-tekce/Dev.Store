@@ -1,4 +1,5 @@
 using Dev.Store.Brands;
+using Dev.Store.CartProducts;
 using Dev.Store.Categories;
 using Dev.Store.HomeSliders;
 using Dev.Store.Keywords;
@@ -16,7 +17,6 @@ using Dev.Store.ProductSizes;
 using Dev.Store.SeoSettings;
 using Dev.Store.UploadFiles;
 using Microsoft.EntityFrameworkCore;
-using System;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -33,6 +33,8 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Volo.CmsKit.EntityFrameworkCore;
+using Dev.Store.CartSets;
+using Dev.Store.CartSizes;
 
 namespace Dev.Store.EntityFrameworkCore;
 
@@ -118,6 +120,18 @@ public class StoreDbContext :
     /// 
     /// </summary>
     public DbSet<Address.Address> Addresses { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<CartProduct> CartProducts { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<CartSet> CartSets { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<CartSize> CartSizes { get; set; }
 
     public StoreDbContext(DbContextOptions<StoreDbContext> options)
         : base(options)
@@ -311,11 +325,9 @@ public class StoreDbContext :
         {
             b.ToTable(StoreConsts.DbTablePrefix + "Orders", StoreConsts.DbSchema, table => table.HasComment(""));
             b.Property(x => x.Code).IsRequired(true);
-            b.Property(x => x.UserId).IsRequired(true);
             b.Property(x => x.OrderAddressId).IsRequired(true);
             b.Property(x => x.Method).IsRequired(true);
 
-            b.HasOne(x => x.User);
             b.HasMany(x => x.Products).WithOne(x => x.Order).HasForeignKey(x => x.OrderId);
             b.HasMany(x => x.OrderActions).WithOne(x => x.Order).HasForeignKey(x => x.OrderId);
             b.HasOne(x => x.OrderAddress).WithOne(x => x.Order).HasForeignKey<OrderAdress>(x => x.OrderId);
@@ -380,7 +392,7 @@ public class StoreDbContext :
             b.Property(x => x.Quantity).IsRequired(true);
             b.Property(x => x.SetPrice).IsRequired(true);
 
-            b.HasOne(x => x.OrderProduct).WithMany(x => x.OrderSets).HasForeignKey(x=>x.SetId);
+            b.HasOne(x => x.OrderProduct).WithMany(x => x.OrderSets).HasForeignKey(x => x.SetId);
             b.HasOne(x => x.ProductSet);
             b.ConfigureByConvention();
 
@@ -422,6 +434,53 @@ public class StoreDbContext :
             b.HasOne(x => x.City);
             b.HasOne(x => x.Town);
 
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<CartProduct>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "CartProducts", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.ProductId).IsRequired(true);
+            b.Property(x => x.Amount).IsRequired(true).HasDefaultValue(1);
+            b.HasOne(x => x.Product);
+            b.HasMany(x => x.CartSets).WithOne(x => x.CartProduct).HasForeignKey(x => x.CartProductId);
+            b.HasMany(x => x.CartSizes).WithOne(x => x.CartProduct).HasForeignKey(x => x.CartProductId);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<CartSet>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "CartSets", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.CartProductId).IsRequired(true);
+            b.Property(x => x.SetId).IsRequired(true);
+            b.Property(x => x.Quantity).IsRequired(true);
+
+            b.HasOne(x => x.CartProduct).WithMany(x => x.CartSets);
+            b.HasOne(x => x.ProductSet);
+            b.ConfigureByConvention();
+
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<CartSize>(b =>
+        {
+            b.ToTable(StoreConsts.DbTablePrefix + "CartSizes", StoreConsts.DbSchema, table => table.HasComment(""));
+            b.Property(x => x.CartProductId).IsRequired(true);
+            b.Property(x => x.SizeId).IsRequired(true);
+            b.Property(x => x.Quantity).IsRequired(true);
+
+            b.HasOne(x => x.CartProduct).WithMany(x => x.CartSizes);
+            b.HasOne(x => x.ProductSize);
             b.ConfigureByConvention();
 
 

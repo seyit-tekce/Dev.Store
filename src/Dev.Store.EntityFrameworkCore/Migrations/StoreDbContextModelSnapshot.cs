@@ -145,6 +145,180 @@ namespace Dev.Store.Migrations
                     b.ToTable("AppBrands", (string)null);
                 });
 
+            modelBuilder.Entity("Dev.Store.CartProducts.CartProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("Amount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("double precision")
+                        .HasDefaultValue(1.0);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("AppCartProducts", null, t =>
+                        {
+                            t.HasComment("");
+                        });
+                });
+
+            modelBuilder.Entity("Dev.Store.CartSets.CartSet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CartProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid?>("ProductSetId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("SetId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartProductId");
+
+                    b.HasIndex("ProductSetId");
+
+                    b.ToTable("AppCartSets", null, t =>
+                        {
+                            t.HasComment("");
+                        });
+                });
+
+            modelBuilder.Entity("Dev.Store.CartSizes.CartSize", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CartProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<Guid?>("DeleterId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("DeleterId");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("DeletionTime");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<Guid?>("ProductSizeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("SizeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartProductId");
+
+                    b.HasIndex("ProductSizeId");
+
+                    b.ToTable("AppCartSizes", null, t =>
+                        {
+                            t.HasComment("");
+                        });
+                });
+
             modelBuilder.Entity("Dev.Store.Categories.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -731,12 +905,13 @@ namespace Dev.Store.Migrations
                     b.Property<Guid>("OrderAddressId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("DeleterId");
+
+                    b.HasIndex("LastModifierId");
 
                     b.ToTable("AppOrders", null, t =>
                         {
@@ -3659,6 +3834,51 @@ namespace Dev.Store.Migrations
                     b.Navigation("Town");
                 });
 
+            modelBuilder.Entity("Dev.Store.CartProducts.CartProduct", b =>
+                {
+                    b.HasOne("Dev.Store.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Dev.Store.CartSets.CartSet", b =>
+                {
+                    b.HasOne("Dev.Store.CartProducts.CartProduct", "CartProduct")
+                        .WithMany("CartSets")
+                        .HasForeignKey("CartProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dev.Store.ProductSets.ProductSet", "ProductSet")
+                        .WithMany()
+                        .HasForeignKey("ProductSetId");
+
+                    b.Navigation("CartProduct");
+
+                    b.Navigation("ProductSet");
+                });
+
+            modelBuilder.Entity("Dev.Store.CartSizes.CartSize", b =>
+                {
+                    b.HasOne("Dev.Store.CartProducts.CartProduct", "CartProduct")
+                        .WithMany("CartSizes")
+                        .HasForeignKey("CartProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Dev.Store.ProductSizes.ProductSize", "ProductSize")
+                        .WithMany()
+                        .HasForeignKey("ProductSizeId");
+
+                    b.Navigation("CartProduct");
+
+                    b.Navigation("ProductSize");
+                });
+
             modelBuilder.Entity("Dev.Store.Categories.Category", b =>
                 {
                     b.HasOne("Dev.Store.Categories.Category", "CategoryParent")
@@ -3779,13 +3999,23 @@ namespace Dev.Store.Migrations
 
             modelBuilder.Entity("Dev.Store.Orders.Order", b =>
                 {
-                    b.HasOne("Volo.Abp.Identity.IdentityUser", "User")
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", "Creator")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CreatorId");
 
-                    b.Navigation("User");
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", "Deleter")
+                        .WithMany()
+                        .HasForeignKey("DeleterId");
+
+                    b.HasOne("Volo.Abp.Identity.IdentityUser", "LastModifier")
+                        .WithMany()
+                        .HasForeignKey("LastModifierId");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Deleter");
+
+                    b.Navigation("LastModifier");
                 });
 
             modelBuilder.Entity("Dev.Store.ProductImages.ProductImage", b =>
@@ -4022,6 +4252,13 @@ namespace Dev.Store.Migrations
             modelBuilder.Entity("Dev.Store.Brands.Brand", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Dev.Store.CartProducts.CartProduct", b =>
+                {
+                    b.Navigation("CartSets");
+
+                    b.Navigation("CartSizes");
                 });
 
             modelBuilder.Entity("Dev.Store.Categories.Category", b =>

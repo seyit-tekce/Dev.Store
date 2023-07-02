@@ -1,3 +1,6 @@
+using Dev.Store.CartSizes;
+using Dev.Store.CartSets;
+using Dev.Store.CartProducts;
 using Dev.Store.Address;
 using Dev.Store.OrderSizes;
 using Dev.Store.OrderSets;
@@ -82,6 +85,9 @@ public class StoreEntityFrameworkCoreModule : AbpModule
             options.AddRepository<OrderSet, OrderSetRepository>();
             options.AddRepository<OrderSize, OrderSizeRepository>();
             options.AddRepository<Address.Address, AddressRepository>();
+            options.AddRepository<CartProduct, CartProductRepository>();
+            options.AddRepository<CartSet, CartSetRepository>();
+            options.AddRepository<CartSize, CartSizeRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

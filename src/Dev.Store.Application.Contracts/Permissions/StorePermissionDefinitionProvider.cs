@@ -115,6 +115,21 @@ public class StorePermissionDefinitionProvider : PermissionDefinitionProvider
         addressPermission.AddChild(StorePermissions.Address.Create, L("Permission:Create"));
         addressPermission.AddChild(StorePermissions.Address.Update, L("Permission:Update"));
         addressPermission.AddChild(StorePermissions.Address.Delete, L("Permission:Delete"));
+
+        var cartProductPermission = myGroup.AddPermission(StorePermissions.CartProduct.Default, L("Permission:CartProduct"));
+        cartProductPermission.AddChild(StorePermissions.CartProduct.Create, L("Permission:Create"));
+        cartProductPermission.AddChild(StorePermissions.CartProduct.Update, L("Permission:Update"));
+        cartProductPermission.AddChild(StorePermissions.CartProduct.Delete, L("Permission:Delete"));
+
+        var cartSetPermission = myGroup.AddPermission(StorePermissions.CartSet.Default, L("Permission:CartSet"));
+        cartSetPermission.AddChild(StorePermissions.CartSet.Create, L("Permission:Create"));
+        cartSetPermission.AddChild(StorePermissions.CartSet.Update, L("Permission:Update"));
+        cartSetPermission.AddChild(StorePermissions.CartSet.Delete, L("Permission:Delete"));
+
+        var cartSizePermission = myGroup.AddPermission(StorePermissions.CartSize.Default, L("Permission:CartSize"));
+        cartSizePermission.AddChild(StorePermissions.CartSize.Create, L("Permission:Create"));
+        cartSizePermission.AddChild(StorePermissions.CartSize.Update, L("Permission:Update"));
+        cartSizePermission.AddChild(StorePermissions.CartSize.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)
