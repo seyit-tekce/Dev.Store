@@ -6,4 +6,8 @@ public class IndexModel : StorePageModel
     {
 
     }
+
+
+
+
 }

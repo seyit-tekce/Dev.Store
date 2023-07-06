@@ -34,7 +34,14 @@ using Dev.Store.SeoSettings;
 using Dev.Store.SeoSettings.Dtos;
 using Dev.Store.UploadFiles;
 using Dev.Store.UploadFiles.Dtos;
+using Dev.Store.CartProducts;
+using Dev.Store.CartProducts.Dtos;
+using Dev.Store.CartSets;
+using Dev.Store.CartSets.Dtos;
+using Dev.Store.CartSizes;
+using Dev.Store.CartSizes.Dtos;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Dev.Store;
 
@@ -96,5 +103,18 @@ public class StoreApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateOrderSizeDto, OrderSize>(MemberList.Source);
         CreateMap<Address.Address, AddressDto>();
         CreateMap<CreateUpdateAddressDto, Address.Address>(MemberList.Source);
+        CreateMap<CartProduct, CartProductDto>();
+        CreateMap<CreateUpdateCartProductDto, CartProduct>(MemberList.Source);
+        CreateMap<CartSet, CartSetDto>();
+        CreateMap<CreateUpdateCartSetDto, CartSet>(MemberList.Source);
+        CreateMap<CartSize, CartSizeDto>();
+        CreateMap<CreateUpdateCartSizeDto, CartSize>(MemberList.Source);
+
+        CreateMap<CartProduct, CartProductListDto>()
+            .ForMember(x => x.MainImagePath, x => x.MapFrom(a => a.Product.ProductImages.FirstOrDefault(b => b.IsMain || true).UploadFile.Medium()))
+            .ForMember(x => x.Name, x => x.MapFrom(x => x.Product.Name))
+            .ForMember(x => x.Code, x => x.MapFrom(x => x.Product.Code))
+            .ForMember(x => x.Price, x => x.MapFrom(x => x.Product.Price));
+        CreateMap<IEnumerable<CartProduct>, CartDto>().ForMember(x => x.Products, x => x.MapFrom(a => a));
     }
 }

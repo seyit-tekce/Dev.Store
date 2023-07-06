@@ -175,4 +175,34 @@ public static class StorePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CartProduct
+    {
+        public const string Default = GroupName + ".CartProduct";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CartSet
+    {
+        public const string Default = GroupName + ".CartSet";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    public class CartSize
+    {
+        public const string Default = GroupName + ".CartSize";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

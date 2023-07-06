@@ -25,11 +25,7 @@
         },
         cart: {
             addToChart: function () {
-
-
-
-
-                alert("added")
+                window.cart.functions.add();
             }
         }
     },

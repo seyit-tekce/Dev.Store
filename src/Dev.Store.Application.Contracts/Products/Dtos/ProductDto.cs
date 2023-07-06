@@ -7,7 +7,6 @@ using Dev.Store.SeoSettings.Dtos;
 using System;
 using System.Collections.Generic;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Caching;
 
 namespace Dev.Store.Products.Dtos;
 
@@ -28,20 +27,4 @@ public class ProductDto : FullAuditedEntityDto<Guid>
     public ICollection<ProductSizeDto> ProductSizes { get; set; }
     public ICollection<ProductImageDto> ProductImages { get; set; }
     public SeoSettingDto SeoSetting { get; set; }
-}
-
-[CacheName("ProductList")]
-public class ProductGridListDto
-{
-    public string Name { get; set; }
-    public string Code { get; set; }
-    public Guid CategoryId { get; set; }
-    public string CategoryName { get; set; }
-    public string CategoryLink { get; set; }
-    public string ParentCategoryLink { get; set; }
-    public Guid? BrandId { get; set; }
-    public string BrandName { get; set; }
-    public string MainImagePath { get; set; }
-    public string SecondImagePath { get; set; }
-    public double Price { get; set; }
 }
