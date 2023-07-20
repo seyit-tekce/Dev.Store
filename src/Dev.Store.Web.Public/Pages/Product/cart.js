@@ -7,8 +7,19 @@ $(function () {
         },
         functions: {
             add: function (prd) {
+                var productId = $("#productSection").data("productid");
+                if (productId == null) {
+                    return;
+                }
+                dev.store.cartProducts.cartProduct.create({
+                    productId: productId,
+                    amount: 1,
+                }).then(x => {
+
+                    debugger;
 
 
+                });
 
 
             },
@@ -28,6 +39,6 @@ $(function () {
     }
 
 
-    window.cart = cart; 
+    window.cart = cart;
 
 });

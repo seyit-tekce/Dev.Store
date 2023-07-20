@@ -1,4 +1,7 @@
+using Dev.Store.CartSets.Dtos;
+using Dev.Store.CartSizes.Dtos;
 using System;
+using System.Collections.Generic;
 
 namespace Dev.Store.CartProducts.Dtos;
 
@@ -15,18 +18,13 @@ public class CreateUpdateCartProductDto
     /// </summary>
     public double Amount { get; set; }
 
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    //public Product Product { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public IEnumerable<CreateUpdateCartSizeDto> CartSizes { get; set; }
 
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    //public IEnumerable<CartSize> CartSizes { get; set; }
-
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    //public IEnumerable<CartSet> CartSets { get; set; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public IEnumerable<CreateUpdateCartSetDto> CartSets { get; set; }
 }

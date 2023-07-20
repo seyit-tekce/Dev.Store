@@ -1,5 +1,6 @@
 using Dev.Store.CartProducts.Dtos;
 using Dev.Store.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,9 +8,7 @@ using Volo.Abp.Application.Services;
 
 namespace Dev.Store.CartProducts;
 
-/// <summary>
-///
-/// </summary>
+ 
 public class CartProductAppService : CrudAppService<CartProduct, CartProductDto, Guid, CartProductDto, CreateUpdateCartProductDto, CreateUpdateCartProductDto>,
     ICartProductAppService
 {
@@ -29,5 +28,10 @@ public class CartProductAppService : CrudAppService<CartProduct, CartProductDto,
     {
         var res = await _repository.GetUserCartAsync(userId, sessionId);
         return ObjectMapper.Map<IEnumerable<CartProduct>, CartDto>(res);
+    }
+    [AllowAnonymous]
+    public override Task<CartProductDto> CreateAsync(CreateUpdateCartProductDto input)
+    {
+        return base.CreateAsync(input);
     }
 }

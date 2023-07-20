@@ -17,21 +17,12 @@
     <abp-script src="/assets/js/sticky-kit.js"></abp-script>
     <abp-script src="/Pages/Product/index.js"></abp-script>
     <abp-script src="/Pages/Product/cart.js"></abp-script>
-    <script>
-
-        product.conts.product = @Html.Raw(JsonSerializer.Serialize(Model.Product))
-
-    </script>
-
-
 }
 @section styles{
     <abp-style src="/Pages/Product/index.css"></abp-style>
 
 }
-
-<!-- section start -->
-<section>
+<section data-productId="@Model.Product.Id" id="productSection">
     <div class="collection-wrapper">
         <div class="container">
             <div class="row data-sticky_parent">
