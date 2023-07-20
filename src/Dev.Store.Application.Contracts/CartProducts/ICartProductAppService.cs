@@ -20,4 +20,5 @@ public interface ICartProductAppService :
 {
 
     Task<CartDto> GetUserCart(Guid? userId = null, Guid? sessionId = null);
+    Task AddToChart(CreateUpdateCartProductDto input);
 }
