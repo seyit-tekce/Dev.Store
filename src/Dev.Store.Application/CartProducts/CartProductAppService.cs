@@ -24,9 +24,9 @@ public class CartProductAppService : CrudAppService<CartProduct, CartProductDto,
         _repository = repository;
     }
 
-    public async Task<CartDto> GetUserCart(Guid? userId = null, Guid? sessionId = null)
+    public async Task<CartDto> GetUserCart(Guid? sessionId = null)
     {
-        var res = await _repository.GetUserCartAsync(userId, sessionId);
+        var res = await _repository.GetUserCartAsync(CurrentUser.Id, sessionId);
         return ObjectMapper.Map<IEnumerable<CartProduct>, CartDto>(res);
     }
     public override Task<CartProductDto> CreateAsync(CreateUpdateCartProductDto input)
@@ -35,9 +35,15 @@ public class CartProductAppService : CrudAppService<CartProduct, CartProductDto,
     }
     [AllowAnonymous]
 
-    public async Task AddToChart(CreateUpdateCartProductDto input)
+    public async Task AddToChart(CreateUpdateCartProductDto input, Guid? sessionid)
     {
+
         var map = ObjectMapper.Map<CreateUpdateCartProductDto, CartProduct>(input);
+        if (sessionid.HasValue)
+        {
+            map.SessionId = sessionid.Value;
+
+        }
         await _repository.InsertAsync(map);
     }
 

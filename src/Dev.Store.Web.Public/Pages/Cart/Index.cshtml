@@ -1,4 +1,102 @@
 ﻿@page
+@using Dev.Store.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout;
+@inject IHtmlLocalizer<StoreResource> L
+@inject IPageLayout PageLayout
 @model Dev.Store.Web.Public.Pages.Cart.IndexModel
 @{
+    PageLayout.Content.Title = L["Cart"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Home"].Value, "/");
+    PageLayout.Content.BreadCrumb.Add(L["Cart"].Value);
+
 }
+<section class="cart-section section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="cart_counter">
+                    <div class="countdownholder">
+                        Your cart will be expired in<span id="timer">10:53</span> minutes!
+                    </div>
+                    <a href="checkout.html" class="cart_checkout btn btn-solid btn-xs">check out</a>
+                </div>
+            </div>
+            <div class="col-sm-12 table-responsive-xs">
+                <table class="table cart-table">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="Column">image</th>
+                            <th scope="Column">product name</th>
+                            <th scope="Column">price</th>
+                            <th scope="Column">quantity</th>
+                            <th scope="Column">action</th>
+                            <th scope="Column">total</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.Cart.Products)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#"><img src="@item.MainImagePath" alt=""></a>
+                                </td>
+                                <td>
+                                    <a href="#">@item.Name</a>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input type="text" name="quantity" class="form-control input-number" value="@item.Amount">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <h2 class="td-color">@item.Price.ToString("N2") ₺</h2>
+                                        </div>
+                                        <div class="col">
+                                            <h2 class="td-color">
+                                                <a href="#" class="icon"><i class="ti-close"></i></a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h2>@item.Price.ToString("N2") ₺</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <input type="number" name="quantity" class="form-control input-number" value="@item.Amount">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                                <td>
+                                    <h2 class="td-color">@item.TotalPrice.ToString("N2") ₺</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+
+                </table>
+                <div class="table-responsive-md">
+                    <table class="table cart-table ">
+                        <tfoot>
+                            <tr>
+                                <td>total price :</td>
+                                <td>
+                                    <h2>@((Model.Cart.Total ?? 0).ToString("N2")) ₺</h2>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row cart-buttons">
+            <div class="col-6"><a href="#" class="btn btn-solid">@L[""]</a></div>
+            <div class="col-6"><a href="#" class="btn btn-solid">check out</a></div>
+        </div>
+    </div>
+</section>

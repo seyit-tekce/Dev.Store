@@ -18,7 +18,12 @@ public class CartProductRepository : EfCoreRepository<StoreDbContext, CartProduc
 
     public async Task<IEnumerable<CartProduct>> GetUserCartAsync(Guid? userId = null, Guid? sessionId = null)
     {
-        return await (await GetQueryableAsync()).Include(x => x.CartSets).ThenInclude(x => x.ProductSet).Include(x => x.CartSizes).ThenInclude(x => x.ProductSize).Include(x => x.Product).ThenInclude(x => x.ProductImages).Where(x => x.SessionId == sessionId || x.CreatorId == userId).ToListAsync();
+        return await (await GetQueryableAsync())
+            .Include(x => x.CartSets).ThenInclude(x => x.ProductSet)
+            .Include(x => x.CartSizes).ThenInclude(x => x.ProductSize)
+            .Include(x => x.Product)
+            .ThenInclude(x => x.ProductImages)
+            .Where(x => x.SessionId == sessionId || (x.CreatorId == userId && x.CreatorId != null)).ToListAsync();
     }
 
     public override async Task<IQueryable<CartProduct>> WithDetailsAsync()
