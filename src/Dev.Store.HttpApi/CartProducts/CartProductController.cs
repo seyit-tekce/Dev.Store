@@ -2,12 +2,9 @@ using Dev.Store.CartProducts.Dtos;
 using Dev.Store.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OpenIddict.Abstractions;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp;
-using Volo.Abp.Application.Dtos;
-using Volo.Abp.Security.Claims;
 
 namespace Dev.Store.CartProducts;
 
@@ -16,23 +13,31 @@ namespace Dev.Store.CartProducts;
 public class CartController : StoreController
 {
     private readonly ICartProductAppService _service;
-    private readonly ICurrentPrincipalAccessor _currentPrincipalAccessor;
-    public CartController(ICartProductAppService service, ICurrentPrincipalAccessor currentPrincipalAccessor)
+
+    public CartController(ICartProductAppService service)
     {
         _service = service;
-        _currentPrincipalAccessor = currentPrincipalAccessor;
     }
 
-    [HttpGet]
-    [Route("user-cart")]
-    public virtual Task<CartDto> GetUserCart()
+
+    [HttpPost]
+    [Route("add-to-cart")]
+    public virtual async Task AddToCart(CreateUpdateCartProductDto item)
     {
-        var sessionId = _currentPrincipalAccessor.Principal.GetClaim("sessionId");
+        var sessionId = HttpContext.Session.GetString("sessionId");
         if (sessionId == null)
         {
             sessionId = Guid.NewGuid().ToString();
-            _currentPrincipalAccessor.Principal.AddClaim("sessionId", sessionId);
+            HttpContext.Session.SetString("sessionId", sessionId);
         }
-        return _service.GetUserCart(CurrentUser.Id, new Guid(sessionId));
+
+        await _service.AddToChart(new CreateUpdateCartProductDto
+        {
+            Amount = item.Amount,
+            CartSets = item.CartSets,
+            CartSizes = item.CartSizes,
+            ProductId = item.ProductId
+        }, new Guid(sessionId));
+
     }
 }

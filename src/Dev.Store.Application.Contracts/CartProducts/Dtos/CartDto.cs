@@ -5,7 +5,7 @@ namespace Dev.Store.CartProducts.Dtos;
 
 public class CartDto
 {
-    public double? Total { get; set; }
+    public double? Total { get { return SubTotal; } }
 
     public double? SubTotal
     {

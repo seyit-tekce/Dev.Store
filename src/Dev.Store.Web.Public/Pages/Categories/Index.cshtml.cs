@@ -1,20 +1,16 @@
 using Dev.Store.Categories;
-using Dev.Store.Categories.Dtos;
 using Dev.Store.Products;
-using Dev.Store.Products.Dtos;
+using Dev.Store.Web.Public.Pages.Categories.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dev.Store.Web.Public.Pages.Categories
 {
     public class IndexModel : PageModel
     {
-        public CategoryDto Category { get; set; }
-        public IEnumerable<ProductGridListDto> Products { get; set; }
-
-        public int ProductCount { get; set; }
+        public IndexViewModel View { get; set; }
         [BindProperty(SupportsGet = true)]
         public int Paging { get; set; } = 0;
 
@@ -26,16 +22,29 @@ namespace Dev.Store.Web.Public.Pages.Categories
             this.categoryAppService = categoryAppService;
             this.productAppService = productAppService;
         }
-
-        public async Task OnGet(string category, string subcategory)
+        public async Task OnGetAsync(string category, string subcategory)
         {
             var getCategory = await categoryAppService.GetCategoryByMainAndSubName(category, subcategory);
             var getProduct = await productAppService.GetProductByCategoryIdPaging(getCategory.Id, Paging * 25, 25);
             var getProductCount = await productAppService.GetProductCount(getCategory.Id);
 
-            this.Category = getCategory;
-            this.Products = getProduct;
-            this.ProductCount = getProductCount;
+            View = new IndexViewModel
+            {
+                CategoryLink = getCategory.Link,
+                CategoryName = getCategory.Name,
+                CategoryParentLink = getCategory.CategoryParent.Link,
+                CategoryParentName = getCategory.CategoryParent.Name,
+                ProductCount = getProductCount,
+                Products = getProduct.Select(a => new IndexViewModelProduct
+                {
+                    MainImage = a.MainImagePath,
+                    Price = a.Price,
+                    ProductName = a.Name,
+                    SecondImage = a.SecondImagePath,
+                    ProductCode = a.Code
+                }).ToList()
+            };
+
         }
     }
 }

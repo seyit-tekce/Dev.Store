@@ -115,6 +115,7 @@ public class StoreApplicationAutoMapperProfile : Profile
             .ForMember(x => x.Name, x => x.MapFrom(x => x.Product.Name))
             .ForMember(x => x.Code, x => x.MapFrom(x => x.Product.Code))
             .ForMember(x => x.Price, x => x.MapFrom(x => x.Product.Price));
+
         CreateMap<IEnumerable<CartProduct>, CartDto>().ForMember(x => x.Products, x => x.MapFrom(a => a));
     }
 }

@@ -24,8 +24,8 @@
             }
         },
         cart: {
-            addToChart: function () {
-                window.cart.functions.add();
+            addToChart: function (e) {
+                window.cart.functions.add(e);
             }
         }
     },

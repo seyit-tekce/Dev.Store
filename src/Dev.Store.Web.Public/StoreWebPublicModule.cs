@@ -100,6 +100,12 @@ public class StoreWebPublicModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+        context.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromSeconds(10);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
     }
 
     public void ConfigureRoutes(ServiceConfigurationContext context)
@@ -213,6 +219,7 @@ public class StoreWebPublicModule : AbpModule
         {
             app.UseMultiTenancy();
         }
+        app.UseSession();
         app.UseUnitOfWork();
         app.UseAuthorization();
         if (env.IsDevelopment())
