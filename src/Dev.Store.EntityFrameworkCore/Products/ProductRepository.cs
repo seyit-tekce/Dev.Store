@@ -51,6 +51,7 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
     public async Task<IEnumerable<Product>> GetProductsByCategoryId(Guid categoryId, int skip = 0, int take = 50)
     {
         var queryable = await GetQueryableAsync();
+        queryable = queryable.Where(x => x.ProductImages.Any());
         return await queryable
             .Include(x => x.Category)
             .Include(x => x.Brand)

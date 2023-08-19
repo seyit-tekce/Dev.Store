@@ -23,6 +23,7 @@ public class CartProductRepository : EfCoreRepository<StoreDbContext, CartProduc
             .Include(x => x.CartSizes).ThenInclude(x => x.ProductSize)
             .Include(x => x.Product)
             .ThenInclude(x => x.ProductImages)
+            .ThenInclude(x => x.UploadFile)
             .Where(x => x.SessionId == sessionId || (x.CreatorId == userId && x.CreatorId != null)).ToListAsync();
     }
 

@@ -23,6 +23,7 @@ public class StoreMenuContributor : IMenuContributor
 
     private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
+        context.Menu.TryRemoveMenuItem("Abp.Application.Main.Administration");
         var categoryAppService = context.ServiceProvider.GetService<ICategoryAppService>();
         Categories = await categoryAppService.GetCategoriesAsync();
         var getMainList = Categories.Where(x => x.CategoryParentId == null).OrderBy(x => x.Order);

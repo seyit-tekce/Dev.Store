@@ -143,6 +143,11 @@ public class StoreWebPublicModule : AbpModule
                     bundle.AddFiles("/global-styles.css");
                 }
             );
+            options.ScriptBundles.Configure(MultikartThemeBundles.Scripts.Global, bundle =>
+            {
+                bundle.AddFiles("/libs/js-cookie/dist/js.cookie.js");
+                bundle.AddFiles("/global.js");
+            });
         });
     }
 

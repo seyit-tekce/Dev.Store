@@ -3,12 +3,13 @@ using Dev.Store.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 
 namespace Dev.Store.CartProducts;
 
-
+[AllowAnonymous]
 public class CartProductAppService : CrudAppService<CartProduct, CartProductDto, Guid, CartProductDto, CreateUpdateCartProductDto, CreateUpdateCartProductDto>,
     ICartProductAppService
 {
@@ -17,13 +18,14 @@ public class CartProductAppService : CrudAppService<CartProduct, CartProductDto,
     protected override string CreatePolicyName { get; set; } = StorePermissions.CartProduct.Create;
     protected override string UpdatePolicyName { get; set; } = StorePermissions.CartProduct.Update;
     protected override string DeletePolicyName { get; set; } = StorePermissions.CartProduct.Delete;
+
     private readonly ICartProductRepository _repository;
 
     public CartProductAppService(ICartProductRepository repository) : base(repository)
     {
         _repository = repository;
     }
-
+    [AllowAnonymous]
     public async Task<CartDto> GetUserCart(Guid? sessionId = null)
     {
         var res = await _repository.GetUserCartAsync(CurrentUser.Id, sessionId);
@@ -33,8 +35,9 @@ public class CartProductAppService : CrudAppService<CartProduct, CartProductDto,
     {
         return base.CreateAsync(input);
     }
-    [AllowAnonymous]
 
+
+    [AllowAnonymous]
     public async Task AddToChart(CreateUpdateCartProductDto input, Guid? sessionid)
     {
 
@@ -44,7 +47,25 @@ public class CartProductAppService : CrudAppService<CartProduct, CartProductDto,
             map.SessionId = sessionid.Value;
 
         }
-        await _repository.InsertAsync(map);
+        var userChart = await GetUserCart(sessionid);
+
+        var hasProduct = userChart.Products.Any(x => x.ProductId == input.ProductId);
+
+        if (hasProduct)
+        {
+            var product = await _repository.FindAsync(x => x.ProductId == input.ProductId && x.SessionId == sessionid || (x.CreatorId == CurrentUser.Id && x.CreatorId != null));
+            product.Amount = product.Amount + input.Amount;
+            await _repository.UpdateAsync(product);
+
+        }
+        else
+        {
+            await _repository.InsertAsync(map);
+
+        }
+
+
+
     }
 
 }

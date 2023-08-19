@@ -1,9 +1,6 @@
 ﻿var product = {
     conts: {
         product: {
-
-
-
         }
 
     },
@@ -49,6 +46,32 @@ $(document).ready(function () {
 }).on("click", '[data-size-price]', function (e) {
     e.preventDefault();
     product.functions.sizes.setPrice($(this).attr('data-size-price'));
-    $(".size-active").removeClass("size-active");
-    $(this).find("img").addClass("size-active");
+    $(".size-active").removeClass("size-active").addClass("size-deactive");
+    $(this).find("img").addClass("size-active").removeClass("size-deactive");
 });
+
+$(function () {
+    $('#product-sizes').owlCarousel({
+        loop: false,
+        margin: 10,
+        nav: true,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: true
+            },
+            600: {
+                items: 3,
+                nav: false
+            },
+            1000: {
+                items: 5,
+                nav: true,
+                loop: false
+            }
+        }
+    })
+
+})
+

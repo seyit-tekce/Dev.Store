@@ -14,32 +14,15 @@
 <section class="cart-section section-b-space">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="cart_counter">
-                    <div class="countdownholder">
-                        Your cart will be expired in<span id="timer">10:53</span> minutes!
-                    </div>
-                    <a href="checkout.html" class="cart_checkout btn btn-solid btn-xs">check out</a>
-                </div>
-            </div>
             <div class="col-sm-12 table-responsive-xs">
                 <table class="table cart-table">
-                    <thead>
-                        <tr class="table-head">
-                            <th scope="Column">image</th>
-                            <th scope="Column">product name</th>
-                            <th scope="Column">price</th>
-                            <th scope="Column">quantity</th>
-                            <th scope="Column">action</th>
-                            <th scope="Column">total</th>
-                        </tr>
-                    </thead>
+
                     @foreach (var item in Model.Cart.Products)
                     {
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="#"><img src="@item.MainImagePath" alt=""></a>
+                                    <a href=""><img src="@item.MainImagePath" alt=""></a>
                                 </td>
                                 <td>
                                     <a href="#">@item.Name</a>
@@ -95,8 +78,7 @@
             </div>
         </div>
         <div class="row cart-buttons">
-            <div class="col-6"><a href="#" class="btn btn-solid">@L[""]</a></div>
-            <div class="col-6"><a href="#" class="btn btn-solid">check out</a></div>
+            <div class="col-12"><a href="/cart/checkout" class="btn btn-solid">@L["CheckOut"]</a></div>
         </div>
     </div>
 </section>
