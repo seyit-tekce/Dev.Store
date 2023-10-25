@@ -8,8 +8,13 @@ kendo.culture("tr-TR");
 var kendoGrid = {
     functions: {
         updateCommandButtons: function (e) {
-
             var gridSender = e.sender;
+            //if (e.sender.element.find('.k-command-cell').length == 0) {
+            //    var grid = $(e.sender.content).parents("[data-role='grid']").data("kendoGrid");
+            //    grid.hideColumn(0);
+            //    $("[role='grid']").css("width", "");
+
+            //}
             e.sender.element.find('.k-command-cell').each(function (i, elem) {
                 $(elem).parents("tr").on("dblclick", function () {
                     var dblClickItem = $(this).find('[data-dblclick="true"]');
@@ -52,7 +57,7 @@ var kendoGrid = {
                 if (e.sender.element.find('.k-command-cell').length > 0) {
                     var grid = $(e.sender.content).parents("[data-role='grid']").data("kendoGrid");
                     var td = e.sender.element.find('.k-command-cell')[0];
-                    if (grid._group) {
+                    if (grid?._group) {
                         grid.hideColumn(0);
                     }
                     else {
@@ -82,8 +87,22 @@ var kendoGrid = {
                             clone.data("row", JSON.stringify(data));
                             clone.attr("data-id", data["id"]);
                             clone.removeClass("k-primary");
+
+
                             clone.attr("style", "background-color:transparent;text-align:left;font-family: Poppins, sans-serif;font-size:11px;font-weight: 600;border-width:0;box-shadow:none;display:block;");
 
+                            var toVisible = $(i).attr("data-visible");
+                            if (toVisible != null && toVisible != '' && toVisible.split(":").length > 1) {
+                                var key = toVisible.split(":")[0];
+                                var values = toVisible.split(":")[1].split(",");
+                                if (values.indexOf(data[key].toString()) == -1) {
+                                    $(i).hide();
+                                    return;
+                                }
+                                else {
+                                    $(i).show();
+                                }
+                            }
                             $('<li/>')
                                 .hover(
                                     function () {
@@ -130,10 +149,18 @@ var kendoGrid = {
             var grid = $(e.sender.element).data("kendoGrid");
 
             //set height
-            var heigth = window.innerHeight - 235;
-            if (grid != undefined) {
-                $(e.sender.element).height(heigth);
-                grid.resize();
+            if (e.sender.element.attr("fixHeight") != "false") {
+
+                var heigth = window.innerHeight - 200;
+
+                if (grid != undefined) {
+                    if (grid.element.parents(".tab-content").length > 0) {
+                        heigth -= 50;
+                    }
+                    grid.element.parents(".card:first").addClass("mb-0");
+                    $(e.sender.element).height(heigth);
+                    grid.resize();
+                }
             }
 
 
@@ -497,7 +524,6 @@ function getBase64(file) {
 
 (function ($) {
     $.fn.serializeFiles = function () {
-        debugger
         var form = $(this),
             formData = new FormData()
         formParams = form.serializeArray();

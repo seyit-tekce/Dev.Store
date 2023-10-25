@@ -213,7 +213,10 @@
     "YourCartEmpty": "Sepetin Boş",
     "Cart": "Sepet",
     "CheckOut": "Sepeti Onayla",
-    "SetOptions": "Takım İçeriğini Değiştir"
+    "SetOptions": "Takım İçeriğini Değiştir",
+    "Categories": "Kategoriler",
+    "SupportAndHelp": "Yardım Ve Destek",
+    "StoreInformation": "İletişim"
 
 
   }
