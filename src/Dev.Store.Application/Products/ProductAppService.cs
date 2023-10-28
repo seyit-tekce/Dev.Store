@@ -47,8 +47,8 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     }
     public override async Task<ProductDto> GetAsync(Guid id)
     {
-        var q = await _repository.WithDetailsAsync(x => x.Category, x => x.Brand);
-        return ObjectMapper.Map<Product, ProductDto>(q.FirstOrDefault(a => a.Id == id));
+        var q = await _repository.GetProductById(id);
+        return ObjectMapper.Map<Product, ProductDto>(q);
     }
     public override async Task<ProductDto> CreateAsync(CreateUpdateProductDto input)
     {

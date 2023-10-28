@@ -211,7 +211,12 @@
     "MyCuupons": "Kuponlarım",
     "LogOut": "Çıkış Yap",
     "YourCartEmpty": "Sepetin Boş",
-    "Cart": "Sepet"
+    "Cart": "Sepet",
+    "CheckOut": "Sepeti Onayla",
+    "SetOptions": "Takım İçeriğini Değiştir",
+    "Categories": "Kategoriler",
+    "SupportAndHelp": "Yardım Ve Destek",
+    "StoreInformation": "İletişim"
 
 
   }

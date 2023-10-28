@@ -48,9 +48,21 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
             .ToListAsync();
     }
 
+    public async Task<Product> GetProductById(Guid productId)
+    {
+        var queryable = await GetQueryableAsync();
+        return await queryable
+            .Include(x => x.Category)
+            .Include(x => x.Brand)
+            .Include(x => x.ProductImages)
+            .ThenInclude(x => x.UploadFile)
+            .FirstOrDefaultAsync(x => x.Id == productId);
+    }
+
     public async Task<IEnumerable<Product>> GetProductsByCategoryId(Guid categoryId, int skip = 0, int take = 50)
     {
         var queryable = await GetQueryableAsync();
+        queryable = queryable.Where(x => x.ProductImages.Any());
         return await queryable
             .Include(x => x.Category)
             .Include(x => x.Brand)

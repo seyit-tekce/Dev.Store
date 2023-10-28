@@ -34,6 +34,58 @@
         margin-left: -1px !important;
     }
 
+    .product {
+        float: left;
+        position: relative;
+        height: 270px;
+        /* padding: 10px; */
+    }
+
+        .product img {
+            height: 500px;
+        }
+
+    .k-listview:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    .deletecontext {
+        visibility: hidden;
+    }
+
+    .product:hover .deletecontext {
+        visibility: visible;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        margin: 0;
+        line-height: 110px;
+        vertical-align: middle;
+        text-align: center;
+        color: #fff;
+        background-color: rgba(0,0,0,0.75);
+        transition: background .2s linear, color .2s linear;
+        -moz-transition: background .2s linear, color .2s linear;
+        -webkit-transition: background .2s linear, color .2s linear;
+        -o-transition: background .2s linear, color .2s linear;
+    }
+
+    .vitrin-image {
+        position: absolute;
+        top: 0px;
+        background: #F0E68C;
+        text-align: center;
+        padding: 11px 10px 0px 11px;
+        margin-bottom: 0px;
+        font-weight: 600;
+    }
+
+    }
 </style>
 <abp-style src="/custom-libs/uppy/uppy.min.css"></abp-style>
 @section scripts
@@ -58,25 +110,45 @@
             </div>
         </abp-card-header>
         <abp-card-body>
-            <div class="row" id="imageGrid">
-            </div>
+            @(Html.Kendo().ListView<ProductImageDto>()
+                .Name("ProductImageGrid")
+                .TagName("div")
+                .ClientTemplateId("template")
+                .DataSource(dataSource => dataSource
+                .WebApi()
+                .Read(read => read.Url("/api/app/product-image/data-source"))
+                .Filter(a => a.Add(b => b.ProductId).IsEqualTo(Model))
+                .PageSize(21)
+                )
+                .Selectable(ListViewSelectionMode.Single)
+                .Scrollable(ListViewScrollableMode.Endless)
+                .HtmlAttributes(new { style = "height:650px;" })
+                .Pageable(pageable => pageable
+                .Refresh(true)
+                .ButtonCount(5)
+                .PageSizes(new[] { 5, 15, 21 })
+                ).Deferred()
+                )
         </abp-card-body>
     </abp-card>
 </abp-card>
 
-<script id="imageTemplate" type="text/template">
-        <div class="col-lg-3 col-sm-12 col-md-12 mr-3 ">
-        <div class="card w-100 border border-secondary" style="height:250px;">
-            <div class="card-header">
-                <button type="button" class="btn btn-danger float-end" onclick="productImage.functions.delete('{Id}')"><i class="fa fa-trash"></i></button>
-                <div class="form-check form-switch">
-                    <input onchange="productImage.functions.setMain('{Id}')" {{checked}} class="form-check-input" type="radio" name="IsMain" id="IsMain{i}">
-                    <label class="form-check-label" for="IsMain{i}">@L["IsMain"].Value</label>
-                </div>
-            </div>
-            <div style="height:220px;padding:15px">
-                <img class="card-img-top" style="object-fit:contain;padding:25px" src="{{src}}" />
+
+<script type="text/html" id="template">
+     <div class="product">
+        <img src="#:UploadFile.FilePath#" />
+           #if(IsMain){# 
+               <div class="vitrin-image" >
+                    <p >Vitrin Resmi</p>
+               </div> 
+           #}#
+       
+        <div class="deletecontext">
+            <div stlye="display:flex">
+                #if(!IsMain){#  <button class="btn btn-primary" onclick="productImage.functions.setMain('#:Id#')" style="margin-right:25px">Vitrin Resmi Yap</button> #}#
+                <button class="btn btn-secondary" onclick="productImage.functions.delete('#:Id#')">Sil</button>
             </div>
         </div>
     </div>
 </script>
+

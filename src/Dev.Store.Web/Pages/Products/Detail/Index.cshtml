@@ -52,11 +52,10 @@
 <abp-row>
     <abp-container class="col-sm-12 col-md-12 col-lg-12 col-xl-2">
         <abp-card>
-            <a style="position:absolute;right:10px;top:10px;color:#000;" data-toggle="modal" data-url="Things/EditModal?Id=3a0803ec-7d5a-0266-0f52-ea5231def964" href="#"><i class="fa fa-edit"></i></a>
+            <a style="position:absolute;right:10px;top:10px;color:#000;" data-toggle="modal" data-url="products/editmodal?Id=@Model.Id" href="#"><i class="fa fa-edit"></i></a>
 
-            <div class="rounded-circle" style="width: 100px; height: 100px; background: #4736a0; color: #fff; margin: 30px auto 0px; text-align: center; line-height: 100px; ">
-                <i class="fa-3x fa-archive"></i>
-            </div>
+            <img src="@Model.Product.ProductImages.FirstOrDefault(x=>x.IsMain ||true).UploadFile.Small()" class="rounded-circle" style="width: 100px; height: 100px; background: #4736a0; color: #fff; margin: 30px auto 0px; text-align: center; line-height: 100px; ">
+            </img>
             <abp-card-body>
                 <abp-card-title class="m-0 text-center  pt-1">@Model.Product.Name</abp-card-title>
                 <div class="text-center">
@@ -72,7 +71,7 @@
                 }
                 <a class="list-group-item list-group-item-action " id="productsize-list" data-bs-toggle="tab" data-bs-target="#productsize" role="tab" aria-controls="property">@L["ProductSize"].Value</a>
                 <a class="list-group-item list-group-item-action " id="productsets-list" data-bs-toggle="tab" data-bs-target="#productsets" role="tab" aria-controls="property">@L["ProductSet"].Value</a>
-                <a class="list-group-item list-group-item-action " id="productSeo-list" data-bs-toggle="tab" data-bs-target="#productSeo" role="tab" aria-controls="property">@L["SeoSettings"].Value</a>
+                @* <a class="list-group-item list-group-item-action " id="productSeo-list" data-bs-toggle="tab" data-bs-target="#productSeo" role="tab" aria-controls="property">@L["SeoSettings"].Value</a> *@
             </div>
         </abp-card>
     </abp-container>
@@ -229,9 +228,9 @@
                 </abp-card>
             </div>
 
-            <div class="tab-pane fade" id="productSeo" role="tabpanel" aria-labelledby="productSeo-list">
+         @*    <div class="tab-pane fade" id="productSeo" role="tabpanel" aria-labelledby="productSeo-list">
                 @await Component.InvokeAsync(typeof(Dev.Store.Web.Pages.Products.Detail.Components.ProductSeoComponenet.ProductSeoComponenet), Model.Id)
-            </div>
+            </div> *@
 
         </div>
     </abp-container>

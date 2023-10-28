@@ -22,12 +22,12 @@
 }
 
 @section scripts
-{
+    {
     <abp-script src="/Pages/Products/index.js" />
 }
 @section styles
-{
-    <abp-style src="/Pages/Products/index.css"/>
+    {
+    <abp-style src="/Pages/Products/index.css" />
 }
 
 <abp-card>
@@ -47,13 +47,13 @@
     <abp-card-body>
         @(
             Html.Kendo().Grid<ProductListDto>()
-                    .Name("products")
-                    .Columns(columns =>
-                    {
-                        columns.Command(command =>
-                        {
+            .Name("products")
+            .Columns(columns =>
+            {
+                columns.Command(command =>
+                {
                     if (delete) command.Custom(L["Detail"].Value).IconClass("fa fa-eye").Click("products.functions.detail").HtmlAttributes(new Dictionary<string, object> { { "data-dblclick", "true" } });
-                            if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("products.functions.edit");
+                    if (update) command.Custom(L["Edit"].Value).IconClass("fa fa-edit").Click("products.functions.edit");
                     if (delete) command.Custom(L["Delete"].Value).IconClass("fa fa-trash").Click("products.functions.delete");
                 });
                 columns.Bound(p => p.Name).Title(L["ProductName"].Value);
@@ -71,6 +71,7 @@
             .Scrollable(x => x.Height(650))
             .Sortable()
             .Selectable()
+            .Search(x => x.Field(a => a.Name).Field(a => a.Code).Field(a => a.Category.Name))
             .Pageable(x => x.Refresh(true))
             .Filterable()
             .Events(a => a.DataBound("kendoGrid.events.databound")

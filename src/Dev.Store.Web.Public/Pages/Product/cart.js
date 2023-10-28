@@ -14,12 +14,17 @@ $(function () {
                 if (productId == null) {
                     return;
                 }
-                dev.store.cartProducts.cart.addToCart({
-                    productId: productId,
-                    amount: 1,
-                }).then((e) => {
-                    $(e).find("a").html('Sepete Eklendi')
-                    location.href = "/cart";
+                $.ajax({
+                    url: "/cart",
+                    type:"PUT",
+                    data: {
+                        productId: productId,
+                        amount: 1,
+                    },
+                    success: function (a) {
+                        $(e).find("a").html('Sepete Eklendi')
+                        location.href = "/cart";
+                    }
                 });
             },
             remove: function () {

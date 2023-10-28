@@ -19,10 +19,12 @@
     <abp-script src="/assets/js/sticky-kit.js"></abp-script>
     <abp-script src="/Pages/Product/index.js"></abp-script>
     <abp-script src="/Pages/Product/cart.js"></abp-script>
+    <abp-script src="/libs/owl.carousel/dist/owl.carousel.min.js"></abp-script>
 }
 @section styles{
     <abp-style src="/Pages/Product/index.css"></abp-style>
-
+    <abp-style src="/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
+    <abp-style src="/libs/owl.carousel/dist/assets/owl.theme.default.min.css" />
 }
 <section data-productId="@Model.Product.Id" id="productSection">
     <div class="collection-wrapper">
@@ -59,32 +61,40 @@
                     </div>
                     <div class="col-sm-12 col-lg-12">
                         <abp-accordion>
+                            <abp-accordion-item title="@L["Details"].Value" active="true">
+                                @Html.Raw(Model.Product.Description)
+                            </abp-accordion-item>
                             @if (Model.Product.ProductSizes.Any())
                             {
-                                <abp-accordion-item title="@L["MeasurementOptions"].Value">
-                                    <div class="size-slick" style="padding:25px">
+                                <abp-accordion-item title="@L["MeasurementOptions"].Value" id="sizes-card">
+                                    <div id="product-sizes" class="owl-carousel" style="padding:25px">
                                         @foreach (var size in Model.Product.ProductSizes)
                                         {
-                                            <a href="#" class="p-10 text-center " tabindex="0" data-size-price="@size.Price.ToString("n2") ₺" data-size-id="@size.Id">
-                                                <img src="@Model.Product.ProductImages.FirstOrDefault(x=>x.IsMain ||true).UploadFile.Small()" style="margin:auto" class="@(Model.Product.Price==size.Price?"size-active":"")">
+
+                                            <div class="text-center " data-size-price="@size.Price.ToString("n2") ₺" data-size-id="@size.Id">
+                                                <img src="@Model.Product.ProductImages.FirstOrDefault(x=>x.IsMain ||true).UploadFile.Small()" style="margin:auto" class="@(Model.Product.Price==size.Price?"size-active":"size-deactive")">
                                                 <span class="text-center product-size-measurement">@(size.Height)x@(size.Width)</span>
                                                 <p class="product-size-price"> @size.Price.ToString("n2") ₺ </p>
-                                            </a>
+
+
+
+                                            </div>
+
                                         }
                                     </div>
                                 </abp-accordion-item>
                             }
                             @if (Model.Product.ProductSets.Any())
                             {
-                                <abp-accordion-item title="@L["SetOptions"].Value">
+                                <abp-accordion-item title="@L["SetOptions"].Value" id="sets-card">
                                     <div class="single-product-tables">
                                         <table class="" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Parçalar</th>
-                                                    <th>Birim Fiyat</th>
-                                                    <th width="20%">Adet</th>
-                                                    <th>Toplam Fiyat</th>
+                                                    <th width="40%">Parçalar</th>
+                                                    <th width="15%">Birim Fiyat</th>
+                                                    <th width="10%" valign="middle">Adet</th>
+                                                    <th width="35%">Toplam Fiyat</th>
                                                 </tr>
 
                                             </thead>
@@ -97,14 +107,18 @@
                                                     <tr>
                                                         <td>@set.SetName</td>
                                                         <td>@set.Price.ToString("n2") ₺</td>
-                                                        <td>
+                                                        <td valign="middle">
                                                             @if (set.IsOptional)
                                                             {
                                                                 <a href="#">takıma ekle</a>
                                                             }
                                                             else
                                                             {
-                                                                <input type="number" class="numberstyle" min="0" step="1" value="@set.Amount" />
+                                                                <div class="number-input" style="display:flex">
+                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                                                                    <input class="quantity" min="1" name="quantity" step="1" value="@set.Amount" type="number">
+                                                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                                </div>
                                                             }
                                                         </td>
                                                         <td>@((set.Amount * set.Price).ToString("n2")) ₺</td>
@@ -120,9 +134,7 @@
 
                                 </abp-accordion-item>
                             }
-                            <abp-accordion-item title="@L["Details"].Value">
-                                @Html.Raw(Model.Product.Description)
-                            </abp-accordion-item>
+
                         </abp-accordion>
                     </div>
                 </div>
@@ -254,16 +266,20 @@
                         <div class="img-wrapper">
                             <div class="front">
                                 <a href="/Product/@Model.Category.CategoryParent.Link/@Model.Category.Link/@product.Code">
-                                    <img src="@product.MainImagePath"
+                                    <img src="@Url.Content(product.MainImagePath)"
                                          class="img-fluid blur-up lazyload bg-img" alt="">
                                 </a>
                             </div>
-                            <div class="back">
-                                <a href="/Product/@Model.Category.CategoryParent.Link/@Model.Category.Link/@product.Code">
-                                    <img src="@product.SecondImagePath"
-                                         class="img-fluid blur-up lazyload bg-img" alt="">
-                                </a>
-                            </div>
+                            @if (product.SecondImagePath != null)
+                            {
+                                <div class="back">
+                                    <a href="/Product/@Model.Category.CategoryParent.Link/@Model.Category.Link/@product.Code">
+                                        <img src="@Url.Content(product.SecondImagePath)"
+                                             class="img-fluid blur-up lazyload bg-img" alt="">
+                                    </a>
+                                </div>
+                            }
+
                         </div>
                         <div class="product-detail">
                             <div>

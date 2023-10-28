@@ -6,11 +6,12 @@
   "flags": [],
   "linkedModules": [],
   "topLevelPatterns": [
-    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.3.0",
+    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.4.1",
+    "js-cookie@3.0.5",
     "owl.carousel@2.3.4"
   ],
   "lockfileEntries": {
-    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.3.0": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.3.0.tgz#7e05ce2a897de0f0bb016e0ae4a9adfd0260e7be",
+    "@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.4.1": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.4.1.tgz#414d28d6347aecc7a0246ada8dfa2f447781613c",
     "@abp/aspnetcore.mvc.ui.theme.shared@~7.2.1": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui.theme.shared/-/aspnetcore.mvc.ui.theme.shared-7.2.1.tgz#68903cb3fafca670d603e658f20e435734e3d738",
     "@abp/aspnetcore.mvc.ui@~7.2.1": "https://registry.yarnpkg.com/@abp/aspnetcore.mvc.ui/-/aspnetcore.mvc.ui-7.2.1.tgz#b4ae5dcdb90983673092dbfee93c16f21cbb21fe",
     "@abp/bootstrap-datepicker@~7.2.1": "https://registry.yarnpkg.com/@abp/bootstrap-datepicker/-/bootstrap-datepicker-7.2.1.tgz#eca6c1138074ce222ff6c474bc51f4fbe05882c3",
@@ -248,6 +249,7 @@
     "jquery@>=1.8.3": "https://registry.yarnpkg.com/jquery/-/jquery-3.6.4.tgz#ba065c188142100be4833699852bf7c24dc0252f",
     "jquery@^3.5.1": "https://registry.yarnpkg.com/jquery/-/jquery-3.6.4.tgz#ba065c188142100be4833699852bf7c24dc0252f",
     "jquery@~3.6.0": "https://registry.yarnpkg.com/jquery/-/jquery-3.6.4.tgz#ba065c188142100be4833699852bf7c24dc0252f",
+    "js-cookie@3.0.5": "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.5.tgz#0b7e2fd0c01552c58ba86e0841f94dc2557dcdbc",
     "json-stable-stringify-without-jsonify@^1.0.1": "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651",
     "just-compare@^1.3.0": "https://registry.yarnpkg.com/just-compare/-/just-compare-1.5.1.tgz#aed7e93e6bae9c3b69d79aea7805684132a0c0c5",
     "just-debounce@^1.0.0": "https://registry.yarnpkg.com/just-debounce/-/just-debounce-1.1.0.tgz#2f81a3ad4121a76bc7cb45dbf704c0d76a8e5ddf",

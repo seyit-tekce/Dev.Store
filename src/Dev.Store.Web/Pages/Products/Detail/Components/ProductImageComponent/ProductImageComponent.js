@@ -35,7 +35,7 @@
 
                 }).on('complete', (result) => {
                     productImage.defines.createModal.close();
-                    productImage.functions.createImages();
+                    $("#ProductImageGrid").data("kendoListView").dataSource.read();
                     abp.notify.success(l("SuccessfullyCreated"));
 
                 })
@@ -48,32 +48,11 @@
                         var recordId = id;
                         dev.store.productImages.productImage.delete(recordId)
                             .then(function () {
+                                $("#ProductImageGrid").data("kendoListView").dataSource.read();
                                 abp.notify.success(l("SuccessfullyDeleted"));
-                                productImage.functions.createImages();
                             });
                     }
                 });
-        },
-        createImages: function () {
-            $("#imageGrid").html(null);
-            return dev.store.productImages.productImage.dataSource(null, { data: { pageSize: 99999, filter: "productId~eq~'" + ImageProductId + "'" } }) .then(x => {
-                debugger
-
-                if (x.Data.length == 0) {
-                    $("#imageGrid").html('<b class="text-center">Lütfen Resim Eklemek İçin Sağ Üstteki Butonu Kullanın</b>');
-                    return;
-                }
-                var template = $("#imageTemplate").html();
-                $.each(x.Data, function (i, item) {
-                    var _template = template.replaceAll("{{src}}", item.UploadFile.FilePath)
-                    _template = _template.replaceAll("{Id}", item.Id)
-                    _template = _template.replaceAll("{i}", i)
-                    _template = _template.replaceAll("{{checked}}", item.IsMain?"checked":"")
-                    $("#imageGrid").append(_template);
-                });
-
-
-            });
         },
         create: function () {
             productImage.defines.createModal.open();
@@ -82,12 +61,11 @@
             var recordId = id;
             dev.store.productImages.productImage.setMain(recordId).then(x => {
                 abp.notify.success(l("SuccessfullyUpdated"));
-                productImage.functions.createImages();
+                $("#ProductImageGrid").data("kendoListView").dataSource.read();
             })
         }
     },
     init: function () {
-        productImage.functions.createImages();
 
     }
 }

@@ -7,6 +7,6 @@ public class IndexModel : StorePageModel
 
     public void OnGet()
     {
-
+        
     }
 }

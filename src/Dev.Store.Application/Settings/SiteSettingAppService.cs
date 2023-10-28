@@ -38,11 +38,11 @@ namespace Dev.Store.Settings
         }
         public async Task<SiteSettingDto> UpdateAsync([FromForm] SiteSettingUpdateDto input)
         {
-            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingTitle, input.SiteSettingTitle.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingDescription, input.SiteSettingDescription.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingAddress, input.SiteSettingAddress.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingEmail, input.SiteSettingEmail.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingPhoneNumber, input.SiteSettingPhoneNumber.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingTitle, input.SiteSettingTitle?.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingDescription, input.SiteSettingDescription?.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingAddress, input.SiteSettingAddress?.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingEmail, input.SiteSettingEmail?.ToString());
+            await SettingManager.SetGlobalAsync(StoreSettings.SiteSettingPhoneNumber, input.SiteSettingPhoneNumber?.ToString());
             if (input.SiteSettingLogo != null)
             {
                 var result = await uploadFileAppService.CreateAsync(new UploadFiles.Dtos.CreateUpdateUploadFileDto

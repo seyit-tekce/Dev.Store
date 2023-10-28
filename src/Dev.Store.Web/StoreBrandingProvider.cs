@@ -12,8 +12,8 @@ public class StoreBrandingProvider : DefaultBrandingProvider
     {
         _siteSettingAppService = siteSettingAppService;
     }
-    public override string AppName => _siteSettingAppService.GetAsync().Result.SiteSettingTitle;
-    public override string LogoUrl => _siteSettingAppService.GetAsync().Result.SiteSettingLogo;
-    public override string LogoReverseUrl => _siteSettingAppService.GetAsync().Result.SiteSettingLogoReverse;
+    public override string AppName => _siteSettingAppService.GetAsync().GetAwaiter().GetResult().SiteSettingTitle;
+    public override string LogoUrl => _siteSettingAppService.GetAsync().GetAwaiter().GetResult().SiteSettingLogo;
+    public override string LogoReverseUrl => _siteSettingAppService.GetAsync().GetAwaiter().GetResult().SiteSettingLogoReverse;
 
 }

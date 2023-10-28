@@ -6,26 +6,28 @@ namespace Dev.Store.Settings
 {
     public class FileUploaderSettingAppService : ApplicationService, IFileUploaderSettingAppService
     {
-        protected ISettingManager SettingManager { get; }
+        protected ISettingManager _settingManager { get; }
         public FileUploaderSettingAppService(ISettingManager settingManager)
         {
-            SettingManager = settingManager;
+            _settingManager = settingManager;
         }
         public async Task<FileUploaderSettingDto> GetAsync()
         {
+            
+
             await CheckFeatureAsync();
             var settingsDto = new FileUploaderSettingDto
             {
-                FileSettingCloudinaryEnabled = Convert.ToBoolean(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingCloudinaryEnabled)),
-                FileSettingCloudinaryCloudName = Convert.ToString(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingCloudinaryCloudName)),
-                FileSettingCloudinaryApiKey = Convert.ToString(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingCloudinaryApiKey)),
-                FileSettingCloudinarApiSecret = Convert.ToString(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingCloudinarApiSecret)),
-                FileSettingCompressionEnabled = Convert.ToBoolean(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingCompressionEnabled)),
-                FileSettingCompressionRate = Convert.ToDouble(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingCompressionRate)),
-                FileSettingBigImageScale = Convert.ToDouble(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingBigImageScale)),
-                FileSettingMediumImageScale = Convert.ToDouble(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingMediumImageScale)),
-                FileSettingSmallImageScale = Convert.ToDouble(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingSmallImageScale)),
-                FileSettingMobileImageScale = Convert.ToDouble(await SettingProvider.GetOrNullAsync(StoreSettings.FileSettingMobileImageScale)),
+                FileSettingCloudinaryEnabled = Convert.ToBoolean(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingCloudinaryEnabled)),
+                FileSettingCloudinaryCloudName = Convert.ToString(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingCloudinaryCloudName)),
+                FileSettingCloudinaryApiKey = Convert.ToString(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingCloudinaryApiKey)),
+                FileSettingCloudinarApiSecret = Convert.ToString(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingCloudinarApiSecret)),
+                FileSettingCompressionEnabled = Convert.ToBoolean(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingCompressionEnabled)),
+                FileSettingCompressionRate = Convert.ToDouble(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingCompressionRate)),
+                FileSettingBigImageScale = Convert.ToDouble(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingBigImageScale)),
+                FileSettingMediumImageScale = Convert.ToDouble(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingMediumImageScale)),
+                FileSettingSmallImageScale = Convert.ToDouble(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingSmallImageScale)),
+                FileSettingMobileImageScale = Convert.ToDouble(await _settingManager.GetOrNullGlobalAsync(StoreSettings.FileSettingMobileImageScale)),
             };
             return settingsDto;
         }
@@ -35,16 +37,16 @@ namespace Dev.Store.Settings
         }
         public async Task<FileUploaderSettingDto> UpdateAsync(FileUploaderSettingDto input)
         {
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinaryEnabled, input.FileSettingCloudinaryEnabled.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinaryCloudName, input.FileSettingCloudinaryCloudName.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinaryApiKey, input.FileSettingCloudinaryApiKey.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinarApiSecret, input.FileSettingCloudinarApiSecret.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingCompressionEnabled, input.FileSettingCompressionEnabled.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingCompressionRate, input.FileSettingCompressionRate.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingBigImageScale, input.FileSettingBigImageScale.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingMediumImageScale, input.FileSettingMediumImageScale.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingSmallImageScale, input.FileSettingSmallImageScale.ToString());
-            await SettingManager.SetGlobalAsync(StoreSettings.FileSettingMobileImageScale, input.FileSettingMobileImageScale.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinaryEnabled, input.FileSettingCloudinaryEnabled.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinaryCloudName, input.FileSettingCloudinaryCloudName.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinaryApiKey, input.FileSettingCloudinaryApiKey.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingCloudinarApiSecret, input.FileSettingCloudinarApiSecret.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingCompressionEnabled, input.FileSettingCompressionEnabled.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingCompressionRate, input.FileSettingCompressionRate.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingBigImageScale, input.FileSettingBigImageScale.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingMediumImageScale, input.FileSettingMediumImageScale.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingSmallImageScale, input.FileSettingSmallImageScale.ToString());
+            await _settingManager.SetGlobalAsync(StoreSettings.FileSettingMobileImageScale, input.FileSettingMobileImageScale.ToString());
             return await GetAsync();
         }
     }

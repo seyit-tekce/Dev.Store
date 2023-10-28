@@ -44,8 +44,22 @@ namespace Dev.Store.Web.Pages.Products.Detail.Components.ProductSeoComponenet
             }
 
             var model = ObjectMapper.Map<SeoSetting, CreateEditSeoSettingViewModel>(seo);
+            
             model.Product = product;
-            return View("ProductSeoComponenet.cshtml", model);
+            model._Keywords=model.Keywords.Split(",").ToList();
+            var s = new Model
+            {
+                ViewModel = model,
+            };
+            return View("ProductSeoComponenet.cshtml", s);
         }
+    }
+
+    public class Model
+    {
+
+        public CreateEditSeoSettingViewModel ViewModel { get; set; }
+
+
     }
 }

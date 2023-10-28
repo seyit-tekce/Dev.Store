@@ -31,6 +31,7 @@ public class EditModalModel : StorePageModel
 
     public virtual async Task<IActionResult> OnPostAsync()
     {
+        ViewModel.Keywords = string.Join(",", ViewModel._Keywords);
         var dto = ObjectMapper.Map<CreateEditSeoSettingViewModel, CreateUpdateSeoSettingDto>(ViewModel);
         await _service.UpdateAsync(Id, dto);
         return NoContent();
