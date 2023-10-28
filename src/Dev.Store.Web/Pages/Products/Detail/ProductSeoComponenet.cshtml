@@ -1,13 +1,14 @@
 ﻿@using Dev.Store.Localization;
 @using Dev.Store.Permissions;
 @using Dev.Store.ProductImages.Dtos;
+@using Dev.Store.Web.Pages.Products.Detail.Components.ProductSeoComponenet;
 @using Dev.Store.Web.Pages.SeoSettings.SeoSetting.ViewModels;
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
 @inject IAuthorizationService Authorization
 @inject IHtmlLocalizer<StoreResource> L
-@model CreateEditSeoSettingViewModel
+@model Model
 @{
     Layout = null;
 
@@ -48,57 +49,37 @@
         </abp-card-header>
         <abp-card-body>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="row seo-padding" style="cursor: pointer;">
-                                <div class="col-sm-12">
-                                    <div class="row">
-                                        <div class="col-sm-1">
-                                            <div>
-                                                <img height="16"
-                                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABs0lEQVR4AWL4//8/RRjO8Iucx+noO0MWUDo16FYABMGP6ZfUcRnWtm27jVPbtm3bttuH2t3eFPcY9pLz7NxiLjCyVd87pKnHyqXyxtCs8APd0rnyxiu4qSeA3QEDrAwBDrT1s1Rc/OrjLZwqVmOSu6+Lamcpp2KKMA9PH1BYXMe1mUP5qotvXTywsOEEYHXxrY+3cqk6TMkYpNr2FeoY3KIr0RPtn9wQ2unlA+GMkRw6+9TFw4YTwDUzx/JVvARj9KaedXRO8P5B1Du2S32smzqUrcKGEyA+uAgQjKX7zf0boWHGfn71jIKj2689gxp7OAGShNcBUmLMPVjZuiKcA2vuWHHDCQxMCz629kXAIU4ApY15QwggAFbfOP9DhgBJ+nWVJ1AZAfICAj1pAlY6hCADZnveQf7bQIwzVONGJonhLIlS9gr5mFg44Xd+4S3XHoGNPdJl1INIwKyEgHckEhgTe1bGiFY9GSFBYUwLh1IkiJUbY407E7syBSFxKTszEoiE/YdrgCEayDmtaJwCI9uu8TKMuZSVfSa4BpGgzvomBR/INhLGzrqDotp01ZR8pn/1L0JN9d9XNyx0AAAAAElFTkSuQmCC">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <p>www.yatakbazaburada.com > product/@Model.Product.Code</p>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <h4 style="color:rgb(25, 13,210)">
-                                                <p id="productName">@Model.Title</p> - yatabazaburada.com
-                                            </h4>
-                                        </div>
-                                        <div class="col-sm-10">
-                                            <p *ngIf="siteDescription?.length<=0">
-                                                <span class="text-muted">@DateTime.Now.ToString("dd.MM.yyyy") ⋅ </span>
-                                                Lütfen aşağıdaki kod parçasını düzenleyerek bir meta açıklama sağlayın. Aksi takdirde,
-                                                Google arama sonuçlarında gösterilmek üzere yayınınızın alakalı bir bölümünü bulmaya
-                                                çalışır.
-                                            </p>
-                                            <p *ngIf="siteDescription?.length>0">
-                                                <span class="text-muted">@DateTime.Now.ToString("dd.MM.yyyy")</span>
-                                                <p id="productName">@Model.Description</p>
-                                            </p>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="d-flex align-items-center">
-                                                <img  id="mainImage"
-                                                     style="border-radius: 10%;" height="104" width="104">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div> </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
+            <form data-ajaxForm="true" asp-page="/SeoSettings/SeoSetting/EditModal" autocomplete="off" id="categoryForm">
+
+                <abp-input asp-for="ViewModel.Title"></abp-input>
+                <abp-input asp-for="ViewModel.Description"></abp-input>
+                <div class="mt-3">
+                    @(Html.Kendo().MultiSelectFor(x => x.ViewModel._Keywords)
+                        .DownArrow(true)
+                        .DataTextField("Name")
+                        .DataValueField("Name")
+                        .HtmlAttributes(new { style = "width: 100%" })
+                        .Filter("contains")
+                        .DataSource(source =>
+                        {
+
+                            source.Custom().Transport(c => c.Read(g => g.Url("/api/app/keyword/data-source").Type(HttpVerbs.Get))).Schema(g => g.Data("Data").Total("Total"))
+                            .ServerFiltering(true).ServerSorting(true).ServerPaging(true).Page(1).PageSize(100).Type("aspnetmvc-ajax");
+                        }).Deferred()
+                        )
                 </div>
-               
-            </div>
+
+                <div class="mt-3">
+
+                    <button class="btn btn-primary" type="submit" style="float:right">Kaydet</button>
+
+                </div>
+            </form>
+
+
+
+
+
 
         </abp-card-body>
     </abp-card>

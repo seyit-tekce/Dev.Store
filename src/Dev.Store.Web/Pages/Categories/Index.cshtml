@@ -75,7 +75,7 @@
                 columns.Bound(p => p.Link).Title(L["CategoryCode"].Value);
                 columns.Bound(p => p.Order).Title(L["Order"].Value);
                 columns.Bound(p => p.CreationTime).Title(L["CreationTime"].Value).Format(Dev.Store.Extensions.DateTimeLongFormat);
-                columns.Bound(p => p.Description).Title(L["CategoryDescription"].Value);
+                columns.Bound(p => p.Description).Title(L["CategoryDescription"].Value).ClientTemplate("<span title='#:Description#' data-bs-toggle='tooltip'>#:Description?.substr(0,10)#</span>");
                 columns.Bound(p => p.IsVisible).Title(L["CategoryIsVisible"].Value).ClientTemplate($"#=IsVisible==true?'{L["Yes"].Value}':'{L["No"].Value}'#");
             })
             .ToolBar(tools =>
