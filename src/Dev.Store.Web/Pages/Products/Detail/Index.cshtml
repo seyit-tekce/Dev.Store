@@ -54,7 +54,7 @@
         <abp-card>
             <a style="position:absolute;right:10px;top:10px;color:#000;" data-toggle="modal" data-url="products/editmodal?Id=@Model.Id" href="#"><i class="fa fa-edit"></i></a>
 
-            <img src="@Model.Product.ProductImages.FirstOrDefault(x=>x.IsMain ||true).UploadFile.Small()" class="rounded-circle" style="width: 100px; height: 100px; background: #4736a0; color: #fff; margin: 30px auto 0px; text-align: center; line-height: 100px; ">
+            <img src="@Model.Product.ProductImages?.FirstOrDefault(x=>x.IsMain ||true)?.UploadFile?.Small()" class="rounded-circle" style="width: 100px; height: 100px; background: #4736a0; color: #fff; margin: 30px auto 0px; text-align: center; line-height: 100px; ">
             </img>
             <abp-card-body>
                 <abp-card-title class="m-0 text-center  pt-1">@Model.Product.Name</abp-card-title>
