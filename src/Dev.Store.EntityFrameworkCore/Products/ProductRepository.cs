@@ -42,6 +42,8 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
             .Include(x => x.Brand)
             .Include(x => x.ProductImages)
             .ThenInclude(x => x.UploadFile)
+            .Include(x => x.ProductSets)
+            .Include(x => x.ProductSizes)
             .OrderBy(x => x.CreationTime)
             .Skip(skip)
             .Take(take)
@@ -54,8 +56,11 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
         return await queryable
             .Include(x => x.Category)
             .Include(x => x.Brand)
+              .Include(x => x.ProductSets)
+            .Include(x => x.ProductSizes)
             .Include(x => x.ProductImages)
             .ThenInclude(x => x.UploadFile)
+                 
             .FirstOrDefaultAsync(x => x.Id == productId);
     }
 
