@@ -4,6 +4,7 @@
 @using Dev.Store.Web.UI.Branding;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using System.Text.Json;
+@using System.Web;
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout;
 @model Dev.Store.Web.Public.Pages.Product.IndexModel
 @inject IHtmlLocalizer<StoreResource> L
@@ -62,7 +63,7 @@
                     <div class="col-sm-12 col-lg-12">
                         <abp-accordion>
                             <abp-accordion-item title="@L["Details"].Value" active="true">
-                                @Html.Raw(Model.Product.Description)
+                                <div>@Html.Raw(HttpUtility.HtmlDecode(Model.Product.Description))</div>
                             </abp-accordion-item>
                             @if (Model.Product.ProductSizes.Any())
                             {

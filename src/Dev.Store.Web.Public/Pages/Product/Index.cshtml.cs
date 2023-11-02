@@ -3,6 +3,7 @@ using Dev.Store.Categories.Dtos;
 using Dev.Store.Products;
 using Dev.Store.Products.Dtos;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc.UI.RazorPages;
 namespace Dev.Store.Web.Public.Pages.Product
@@ -30,6 +31,7 @@ namespace Dev.Store.Web.Public.Pages.Product
             }
             Category = getCategory;
             Product = await _productAppService.GetProductDetail(getCategory.Id, productLink);
+            Product.Price = (Product.ProductSets?.Where(b => !b.IsOptional).Sum(b => b.Price) + Product.ProductSizes?.Where(b => b.IsDefault).Sum(x => x.Price))??0;  
         }
     }
 }
