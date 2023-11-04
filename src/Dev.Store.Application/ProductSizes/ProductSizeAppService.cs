@@ -43,7 +43,7 @@ public class ProductSizeAppService : CrudAppService<ProductSize, ProductSizeDto,
             throw new UserFriendlyException("Daha önce ayný kod girilmiþtir");
         }
 
-        var findMaster = await _repository.FindAsync(x => x.IsDefault);
+        var findMaster = await _repository.FindAsync(x => x.IsDefault && x.ProductId == input.ProductId);
         if (findMaster != null && input.IsDefault)
         {
             findMaster.IsDefault = false;
