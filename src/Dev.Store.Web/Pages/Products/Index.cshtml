@@ -81,6 +81,7 @@
             .Change("kendoGrid.events.change"))
             .DataSource(dataSource => dataSource
             .WebApi()
+            .PageSize(50)
             .Model(model =>
             {
                 model.Id(p => p.Id);

@@ -13,6 +13,7 @@
     "bootstrap5-toggle": "5.0.4",
     "jquery-slugify": "1.2.5",
     "slugify": "1.6.5",
-    "speakingurl": "14.0.1"
+    "speakingurl": "14.0.1",
+    "grapesjs": "0.21.7"
   }
 }

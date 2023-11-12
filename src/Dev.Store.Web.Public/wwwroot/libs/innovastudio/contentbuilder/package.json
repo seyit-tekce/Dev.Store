@@ -1,0 +1,61 @@
+{
+  "name": "@innovastudio/contentbuilder",
+  "type": "module",
+  "version": "1.4.120",
+  "description": "",
+  "main": "public/contentbuilder/contentbuilder.esm.js",
+  "files": [
+    "public/contentbuilder"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "start": "concurrently \"node server.js\" \"webpack serve --config webpack.config.js\"",
+    "scss": "sass --no-source-map src/scss/contentbuilder.scss:public/contentbuilder/contentbuilder.css src/scss/themes/dark.scss:public/contentbuilder/themes/dark.css src/scss/themes/colored-blue.scss:public/contentbuilder/themes/colored-blue.css src/scss/themes/colored-blue6.scss:public/contentbuilder/themes/colored-blue6.css src/scss/themes/colored-darkblue.scss:public/contentbuilder/themes/colored-darkblue.css src/scss/themes/colored-green.scss:public/contentbuilder/themes/colored-green.css src/scss/themes/colored-orange.scss:public/contentbuilder/themes/colored-orange.css src/scss/themes/colored-magenta.scss:public/contentbuilder/themes/colored-magenta.css src/scss/themes/colored-purple.scss:public/contentbuilder/themes/colored-purple.css src/scss/themes/colored-pink.scss:public/contentbuilder/themes/colored-pink.css src/scss/themes/colored-red.scss:public/contentbuilder/themes/colored-red.css src/scss/themes/colored-yellow.scss:public/contentbuilder/themes/colored-yellow.css src/scss/themes/colored-green4.scss:public/contentbuilder/themes/colored-green4.css src/scss/themes/colored-dark.scss:public/contentbuilder/themes/colored-dark.css src/scss/themes/light-blue.scss:public/contentbuilder/themes/light-blue.css src/scss/themes/light-pink.scss:public/contentbuilder/themes/light-pink.css src/scss/themes/light-purple.scss:public/contentbuilder/themes/light-purple.css src/scss/themes/light-red.scss:public/contentbuilder/themes/light-red.css src/scss/themes/light-yellow.scss:public/contentbuilder/themes/light-yellow.css src/scss/themes/light-green.scss:public/contentbuilder/themes/light-green.css src/scss/themes/light-cyan.scss:public/contentbuilder/themes/light-cyan.css src/scss/themes/light-blue2.scss:public/contentbuilder/themes/light-blue2.css src/scss/themes/light-pink2.scss:public/contentbuilder/themes/light-pink2.css src/scss/themes/light-purple2.scss:public/contentbuilder/themes/light-purple2.css src/scss/themes/light-blue3.scss:public/contentbuilder/themes/light-blue3.css src/scss/themes/light-yellow2.scss:public/contentbuilder/themes/light-yellow2.css src/scss/themes/light-gray3.scss:public/contentbuilder/themes/light-gray3.css src/scss/themes/light-gray2.scss:public/contentbuilder/themes/light-gray2.css src/scss/themes/light-gray.scss:public/contentbuilder/themes/light-gray.css src/scss/themes/colored-blue2.scss:public/contentbuilder/themes/colored-blue2.css src/scss/themes/colored-blue4.scss:public/contentbuilder/themes/colored-blue4.css src/scss/themes/colored-blue3.scss:public/contentbuilder/themes/colored-blue3.css src/scss/themes/colored-blue5.scss:public/contentbuilder/themes/colored-blue5.css src/scss/themes/colored-pink3.scss:public/contentbuilder/themes/colored-pink3.css src/scss/themes/colored-purple2.scss:public/contentbuilder/themes/colored-purple2.css src/scss/themes/colored-yellow2.scss:public/contentbuilder/themes/colored-yellow2.css src/scss/themes/colored-red3.scss:public/contentbuilder/themes/colored-red3.css src/scss/themes/colored-green2.scss:public/contentbuilder/themes/colored-green2.css src/scss/themes/colored-green3.scss:public/contentbuilder/themes/colored-green3.css src/scss/themes/colored-pink2.scss:public/contentbuilder/themes/colored-pink2.css src/scss/themes/colored-orange2.scss:public/contentbuilder/themes/colored-orange2.css src/scss/themes/colored-red2.scss:public/contentbuilder/themes/colored-red2.css src/scss/themes/colored-gray.scss:public/contentbuilder/themes/colored-gray.css src/scss/themes/dark-blue.scss:public/contentbuilder/themes/dark-blue.css src/scss/themes/dark-blue2.scss:public/contentbuilder/themes/dark-blue2.css src/scss/themes/dark-purple.scss:public/contentbuilder/themes/dark-purple.css src/scss/themes/dark-pink.scss:public/contentbuilder/themes/dark-pink.css src/scss/themes/dark-blue3.scss:public/contentbuilder/themes/dark-blue3.css src/scss/themes/dark-gray.scss:public/contentbuilder/themes/dark-gray.css src/scss/themes/dark-red.scss:public/contentbuilder/themes/dark-red.css  src/scss/themes/colored-red4.scss:public/contentbuilder/themes/colored-red4.css src/scss/themes/colored-blue7.scss:public/contentbuilder/themes/colored-blue7.css src/scss/themes/colored-pink4.scss:public/contentbuilder/themes/colored-pink4.css  src/scss/themes/colored-blue8.scss:public/contentbuilder/themes/colored-blue8.css src/scss/themes/colored-green5.scss:public/contentbuilder/themes/colored-green5.css src/scss/themes/colored-orange3.scss:public/contentbuilder/themes/colored-orange3.css src/scss/themes/colored-red5.scss:public/contentbuilder/themes/colored-red5.css  ",
+    "serve": "webpack serve --config webpack.config.js",
+    "build-old": "webpack --config webpack.prod.config.js",
+    "scss2": "sass --watch --no-source-map src/scss/contentbuilder.scss public/contentbuilder/contentbuilder.css",
+    "scss3": "sass --watch --no-source-map  src/scss/themes/light-gray3.scss:public/contentbuilder/themes/light-gray3.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "SEE LICENSE IN license.txt",
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.18.2",
+    "@babel/preset-env": "^7.15.6",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-image": "^2.1.1",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "babel-loader": "^8.2.2",
+    "concurrently": "^6.2.1",
+    "cors": "^2.8.5",
+    "css-loader": "^6.3.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "formidable-serverless": "^1.1.1",
+    "mini-css-extract-plugin": "^2.3.0",
+    "multer": "^1.4.5-lts.1",
+    "rollup": "^2.57.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.42.1",
+    "sass-loader": "^12.1.0",
+    "serve-static": "^1.14.1",
+    "sharp": "^0.30.3",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1"
+  },
+  "dependencies": {
+    "@monaco-editor/loader": "^1.3.2",
+    "blueimp-load-image": "^5.16.0",
+    "cropperjs": "^1.5.12",
+    "js-beautify": "^1.14.0",
+    "moveable": "^0.30.0",
+    "sortablejs": "^1.14.0",
+    "string-similarity-js": "^2.1.4"
+  }
+}
