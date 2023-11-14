@@ -39,7 +39,6 @@ public class StoreWebAutoMapperProfile : Profile
         CreateMap<CreateEditProductSetViewModel, CreateUpdateProductSetDto>();
         CreateMap<ProductSetDto, CreateEditProductSetViewModel>();
         CreateMap<SeoSetting, CreateEditSeoSettingViewModel>();
-
         CreateMap<CreateEditHomeSliderViewModel, CreateUpdateHomeSliderDto>();
         CreateMap<HomeSliderDto, CreateEditHomeSliderViewModel>();
 

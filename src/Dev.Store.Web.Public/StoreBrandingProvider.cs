@@ -3,14 +3,14 @@ using Dev.Store.Web.UI.Branding;
 using Volo.Abp.DependencyInjection;
 namespace Dev.Store.Web.Public;
 [Dependency(ReplaceServices = true)]
-public class StoreBrandingProvider : IDevBrandingProvider, ITransientDependency
+public class StoreBrandingProvider : IDevBrandingProvider, ISingletonDependency
 {
     private readonly ISiteSettingAppService _siteSettingAppService;
     private SiteSettingDto SiteSettings { get; }
     public StoreBrandingProvider(ISiteSettingAppService siteSettingAppService)
     {
         _siteSettingAppService = siteSettingAppService;
-        SiteSettings = _siteSettingAppService.GetAsync().Result;
+        SiteSettings = _siteSettingAppService.GetAsync().GetAwaiter().GetResult();
     }
     public string AppName => SiteSettings.SiteSettingTitle;
     public string LogoUrl => SiteSettings.SiteSettingLogo;
