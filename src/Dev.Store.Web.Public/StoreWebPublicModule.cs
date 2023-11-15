@@ -112,7 +112,7 @@ public class StoreWebPublicModule : AbpModule
     {
         Configure<RazorPagesOptions>(options =>
         {
-            options.Conventions.AddPageRoute("/categories/index/{category}/{subcategory}", "/{category}/{subcategory}");
+            options.Conventions.AddPageRoute("/categories/Index/{category}/{subcategory?}", "/{category}/{subcategory?}");
         });
 
 

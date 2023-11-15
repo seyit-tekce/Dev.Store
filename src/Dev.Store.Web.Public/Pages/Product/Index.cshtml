@@ -1,6 +1,7 @@
 ﻿@page "{category}/{subcategory}/{productlink}"
 @using Dev.Store.Localization;
 @using Dev.Store;
+@using Dev.Store.Web.Public.Infrastructure.Helper
 @using Dev.Store.Web.UI.Branding;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using System.Text.Json;
@@ -16,13 +17,13 @@
     PageLayout.Content.BreadCrumb.Add(Model.Category.Name, "/Categories/" + Model.Category.CategoryParent.Link + "/" + Model.Category.Link);
 
 }
-@section scripts{
+@section scripts {
     <abp-script src="/assets/js/sticky-kit.js"></abp-script>
     <abp-script src="/Pages/Product/index.js"></abp-script>
     <abp-script src="/Pages/Product/cart.js"></abp-script>
     <abp-script src="/libs/owl.carousel/dist/owl.carousel.min.js"></abp-script>
 }
-@section styles{
+@section styles {
     <abp-style src="/Pages/Product/index.css"></abp-style>
     <abp-style src="/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
     <abp-style src="/libs/owl.carousel/dist/assets/owl.theme.default.min.css" />
@@ -60,10 +61,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-lg-12">
+                    <div class="col-sm-12 col-lg-12 product-details">
                         <abp-accordion>
                             <abp-accordion-item title="@L["Details"].Value" active="true">
-                                <div>@Html.Raw(HttpUtility.HtmlDecode(Model.Product.Description))</div>
+                                <div class="description">@Html.Raw(MakeHtmlGood.Make(HttpUtility.HtmlDecode(Model.Product.Description)))</div>
                             </abp-accordion-item>
                             @if (Model.Product.ProductSizes.Any())
                             {
@@ -142,12 +143,11 @@
                 <div class="col-sm-12 col-md-12 col-lg-4">
                     <div class="product-right pro_sticky_info">
                         <h2 class="price-detail text-center">@Model.Product.Price.ToString("n2") ₺</h2>
-                        <div class="rating-section">
-                            <div class="rating">
-                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                            </div>
-                            @* <h6>120 ratings</h6>*@
+                        @* <div class="rating-section">
+                        <div class="rating">
+                        <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
                         </div>
+                        </div> *@
                         @*  <ul class="color-variant">
                         <li class="bg-light0 active"></li>
                         <li class="bg-light1"></li>
@@ -284,9 +284,7 @@
                         </div>
                         <div class="product-detail">
                             <div>
-                                <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                </div>
+
                                 <a href="/Product/@Model.Category.CategoryParent.Link/@Model.Category.Link/@product.Code">
                                     <h6>@product.Name</h6>
                                 </a>

@@ -1,14 +1,137 @@
 import { FlattedElement, IArrayFormat, IObject, SplitOptions } from "./types";
+/**
+* @namespace
+* @name Utils
+*/
+/**
+ * Returns the inner product of two numbers(`a1`, `a2`) by two criteria(`b1`, `b2`).
+ * @memberof Utils
+ * @param - The first number
+ * @param - The second number
+ * @param - The first number to base on the inner product
+ * @param - The second number to base on the inner product
+ * @return - Returns the inner product
+import { dot } from "@daybrush/utils";
+
+console.log(dot(0, 15, 2, 3)); // 6
+console.log(dot(5, 15, 2, 3)); // 9
+console.log(dot(5, 15, 1, 1)); // 10
+ */
 export declare function dot(a1: number, a2: number, b1: number, b2: number): number;
+/**
+* Check the type that the value is undefined.
+* @memberof Utils
+* @param {string} value - Value to check the type
+* @return {boolean} true if the type is correct, false otherwise
+* @example
+import {isUndefined} from "@daybrush/utils";
+
+console.log(isUndefined(undefined)); // true
+console.log(isUndefined("")); // false
+console.log(isUndefined(1)); // false
+console.log(isUndefined(null)); // false
+*/
 export declare function isUndefined(value: any): value is undefined;
+/**
+* Check the type that the value is object.
+* @memberof Utils
+* @param {string} value - Value to check the type
+* @return {} true if the type is correct, false otherwise
+* @example
+import {isObject} from "@daybrush/utils";
+
+console.log(isObject({})); // true
+console.log(isObject(undefined)); // false
+console.log(isObject("")); // false
+console.log(isObject(null)); // false
+*/
 export declare function isObject(value: any): value is IObject<any>;
+/**
+* Check the type that the value is isArray.
+* @memberof Utils
+* @param {string} value - Value to check the type
+* @return {} true if the type is correct, false otherwise
+* @example
+import {isArray} from "@daybrush/utils";
+
+console.log(isArray([])); // true
+console.log(isArray({})); // false
+console.log(isArray(undefined)); // false
+console.log(isArray(null)); // false
+*/
 export declare function isArray(value: any): value is any[];
+/**
+* Check the type that the value is string.
+* @memberof Utils
+* @param {string} value - Value to check the type
+* @return {} true if the type is correct, false otherwise
+* @example
+import {isString} from "@daybrush/utils";
+
+console.log(isString("1234")); // true
+console.log(isString(undefined)); // false
+console.log(isString(1)); // false
+console.log(isString(null)); // false
+*/
 export declare function isString(value: any): value is string;
 export declare function isNumber(value: any): value is number;
+/**
+* Check the type that the value is function.
+* @memberof Utils
+* @param {string} value - Value to check the type
+* @return {} true if the type is correct, false otherwise
+* @example
+import {isFunction} from "@daybrush/utils";
+
+console.log(isFunction(function a() {})); // true
+console.log(isFunction(() => {})); // true
+console.log(isFunction("1234")); // false
+console.log(isFunction(1)); // false
+console.log(isFunction(null)); // false
+*/
 export declare function isFunction(value: any): value is (...args: any[]) => any;
 export declare function splitText(text: string, splitOptions: string | SplitOptions): string[];
+/**
+* divide text by space.
+* @memberof Utils
+* @param {string} text - text to divide
+* @return {Array} divided texts
+* @example
+import {spliceSpace} from "@daybrush/utils";
+
+console.log(splitSpace("a b c d e f g"));
+// ["a", "b", "c", "d", "e", "f", "g"]
+console.log(splitSpace("'a,b' c 'd,e' f g"));
+// ["'a,b'", "c", "'d,e'", "f", "g"]
+*/
 export declare function splitSpace(text: string): string[];
+/**
+* divide text by comma.
+* @memberof Utils
+* @param {string} text - text to divide
+* @return {Array} divided texts
+* @example
+import {splitComma} from "@daybrush/utils";
+
+console.log(splitComma("a,b,c,d,e,f,g"));
+// ["a", "b", "c", "d", "e", "f", "g"]
+console.log(splitComma("'a,b',c,'d,e',f,g"));
+// ["'a,b'", "c", "'d,e'", "f", "g"]
+*/
 export declare function splitComma(text: string): string[];
+/**
+* divide text by bracket "(", ")".
+* @memberof Utils
+* @param {string} text - text to divide
+* @return {object} divided texts
+* @example
+import {splitBracket} from "@daybrush/utils";
+
+console.log(splitBracket("a(1, 2)"));
+// {prefix: "a", value: "1, 2", suffix: ""}
+console.log(splitBracket("a(1, 2)b"));
+// {prefix: "a", value: "1, 2", suffix: "b"}
+*/
 export declare function splitBracket(text: string): {
     prefix?: undefined;
     value?: undefined;
@@ -18,39 +141,265 @@ export declare function splitBracket(text: string): {
     value: string;
     suffix: string;
 };
+/**
+* divide text by number and unit.
+* @memberof Utils
+* @param {string} text - text to divide
+* @return {} divided texts
+* @example
+import {splitUnit} from "@daybrush/utils";
+
+console.log(splitUnit("10px"));
+// {prefix: "", value: 10, unit: "px"}
+console.log(splitUnit("-10px"));
+// {prefix: "", value: -10, unit: "px"}
+console.log(splitUnit("a10%"));
+// {prefix: "a", value: 10, unit: "%"}
+*/
 export declare function splitUnit(text: string): {
     prefix: string;
     unit: string;
     value: number;
 };
+/**
+* transform strings to camel-case
+* @memberof Utils
+* @param {String} text - string
+* @return {String} camel-case string
+* @example
+import {camelize} from "@daybrush/utils";
+
+console.log(camelize("transform-origin")); // transformOrigin
+console.log(camelize("abcd_efg")); // abcdEfg
+console.log(camelize("abcd efg")); // abcdEfg
+*/
 export declare function camelize(str: string): string;
+/**
+* transform a camelized string into a lowercased string.
+* @memberof Utils
+* @param {string} text - a camel-cased string
+* @param {string} [separator="-"] - a separator
+* @return {string}  a lowercased string
+* @example
+import {decamelize} from "@daybrush/utils";
+
+console.log(decamelize("transformOrigin")); // transform-origin
+console.log(decamelize("abcdEfg", "_")); // abcd_efg
+*/
 export declare function decamelize(str: string, separator?: string): string;
+/**
+* transforms something in an array into an array.
+* @memberof Utils
+* @param - Array form
+* @return an array
+* @example
+import {toArray} from "@daybrush/utils";
+
+const arr1 = toArray(document.querySelectorAll(".a")); // Element[]
+const arr2 = toArray(document.querySelectorAll<HTMLElement>(".a")); // HTMLElement[]
+*/
 export declare function toArray<T>(value: IArrayFormat<T>): T[];
+/**
+* Date.now() method
+* @memberof CrossBrowser
+* @return {number} milliseconds
+* @example
+import {now} from "@daybrush/utils";
+
+console.log(now()); // 12121324241(milliseconds)
+*/
 export declare function now(): number;
+/**
+* Returns the index of the first element in the array that satisfies the provided testing function.
+* @function
+* @memberof CrossBrowser
+* @param - The array `findIndex` was called upon.
+* @param - A function to execute on each value in the array until the function returns true, indicating that the satisfying element was found.
+* @param - Returns defaultIndex if not found by the function.
+* @example
+import { findIndex } from "@daybrush/utils";
+
+findIndex([{a: 1}, {a: 2}, {a: 3}, {a: 4}], ({ a }) => a === 2); // 1
+*/
 export declare function findIndex<T>(arr: T[], callback: (element: T, index: number, arr: T[]) => any, defaultIndex?: number): number;
+/**
+* Returns the reverse direction index of the first element in the array that satisfies the provided testing function.
+* @function
+* @memberof CrossBrowser
+* @param - The array `findLastIndex` was called upon.
+* @param - A function to execute on each value in the array until the function returns true, indicating that the satisfying element was found.
+* @param - Returns defaultIndex if not found by the function.
+* @example
+import { findLastIndex } from "@daybrush/utils";
+
+findLastIndex([{a: 1}, {a: 2}, {a: 3}, {a: 4}], ({ a }) => a === 2); // 1
+*/
 export declare function findLastIndex<T>(arr: T[], callback: (element: T, index: number, arr: T[]) => any, defaultIndex?: number): number;
+/**
+* Returns the value of the reverse direction element in the array that satisfies the provided testing function.
+* @function
+* @memberof CrossBrowser
+* @param - The array `findLast` was called upon.
+* @param - A function to execute on each value in the array,
+* @param - Returns defalutValue if not found by the function.
+* @example
+import { find } from "@daybrush/utils";
+
+find([{a: 1}, {a: 2}, {a: 3}, {a: 4}], ({ a }) => a === 2); // {a: 2}
+*/
 export declare function findLast<T>(arr: T[], callback: (element: T, index: number, arr: T[]) => any, defalutValue?: T): T | undefined;
+/**
+* Returns the value of the first element in the array that satisfies the provided testing function.
+* @function
+* @memberof CrossBrowser
+* @param - The array `find` was called upon.
+* @param - A function to execute on each value in the array,
+* @param - Returns defalutValue if not found by the function.
+* @example
+import { find } from "@daybrush/utils";
+
+find([{a: 1}, {a: 2}, {a: 3}, {a: 4}], ({ a }) => a === 2); // {a: 2}
+*/
 export declare function find<T>(arr: T[], callback: (element: T, index: number, arr: T[]) => any, defalutValue?: T): T | undefined;
+/**
+* window.requestAnimationFrame() method with cross browser.
+* @function
+* @memberof CrossBrowser
+* @param {FrameRequestCallback} callback - The function to call when it's time to update your animation for the next repaint.
+* @return {number} id
+* @example
+import {requestAnimationFrame} from "@daybrush/utils";
+
+requestAnimationFrame((timestamp) => {
+  console.log(timestamp);
+});
+*/
 export declare const requestAnimationFrame: (callback: FrameRequestCallback) => number;
+/**
+* window.cancelAnimationFrame() method with cross browser.
+* @function
+* @memberof CrossBrowser
+* @param {number} handle - the id obtained through requestAnimationFrame method
+* @return {void}
+* @example
+import { requestAnimationFrame, cancelAnimationFrame } from "@daybrush/utils";
+
+const id = requestAnimationFrame((timestamp) => {
+  console.log(timestamp);
+});
+
+cancelAnimationFrame(id);
+*/
 export declare const cancelAnimationFrame: (handle: number) => void;
+/**
+* @function
+* @memberof Utils
+*/
 export declare function getKeys(obj: IObject<any>): string[];
+/**
+* @function
+* @memberof Utils
+*/
 export declare function getValues(obj: IObject<any>): any[];
+/**
+* @function
+* @memberof Utils
+*/
 export declare function getEntries(obj: IObject<any>): [string, any][];
+/**
+* @function
+* @memberof Utils
+*/
 export declare function sortOrders(keys: Array<string | number>, orders?: Array<string | number>): void;
+/**
+* convert unit size to px size
+* @function
+* @memberof Utils
+*/
 export declare function convertUnitSize(pos: string, size: number | IObject<((pos: number) => number) | number>): number;
+/**
+* calculate between min, max
+* @function
+* @memberof Utils
+*/
 export declare function between(value: number, min: number, max: number): number;
 export declare function checkBoundSize(targetSize: number[], compareSize: number[], isMax: boolean, ratio?: number): number[];
+/**
+* calculate bound size
+* @function
+* @memberof Utils
+*/
 export declare function calculateBoundSize(size: number[], minSize: number[], maxSize: number[], keepRatio?: number | boolean): number[];
+/**
+* Add all the numbers.
+* @function
+* @memberof Utils
+*/
 export declare function sum(nums: number[]): number;
+/**
+* Average all numbers.
+* @function
+* @memberof Utils
+*/
 export declare function average(nums: number[]): number;
+/**
+* Get the angle of two points. (0 <= rad < 359)
+* @function
+* @memberof Utils
+*/
 export declare function getRad(pos1: number[], pos2: number[]): number;
+/**
+* Get the average point of all points.
+* @function
+* @memberof Utils
+*/
 export declare function getCenterPoint(points: number[][]): number[];
+/**
+* Gets the direction of the shape.
+* @function
+* @memberof Utils
+*/
 export declare function getShapeDirection(points: number[][]): 1 | -1;
+/**
+* Get the distance between two points.
+* @function
+* @memberof Utils
+*/
 export declare function getDist(a: number[], b?: number[]): number;
+/**
+* throttle number depending on the unit.
+* @function
+* @memberof Utils
+*/
 export declare function throttle(num: number, unit?: number): number;
+/**
+* throttle number array depending on the unit.
+* @function
+* @memberof Utils
+*/
 export declare function throttleArray(nums: number[], unit?: number): number[];
+/**
+* @function
+* @memberof Utils
+*/
 export declare function counter(num: number): number[];
+/**
+* @function
+* @memberof Utils
+*/
 export declare function replaceOnce(text: string, fromText: RegExp | string, toText: string | ((...args: any[]) => string)): string;
+/**
+* @function
+* @memberof Utils
+*/
 export declare function flat<Type>(arr: Type[][]): Type[];
+/**
+* @function
+* @memberof Utils
+*/
 export declare function deepFlat<T extends any[]>(arr: T): Array<FlattedElement<T[0]>>;
+/**
+ * @function
+ * @memberof Utils
+ */
 export declare function pushSet<T>(elements: T[], element: T): void;

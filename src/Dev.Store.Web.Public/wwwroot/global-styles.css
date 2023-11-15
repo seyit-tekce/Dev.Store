@@ -3,14 +3,20 @@
 }
 
 :root {
-    --theme-color: #191EEC !important;
+    --theme-color: #0E2954 !important;
+    --theme-button-color: #0E2954 !important;
 }
 
 .theme-color-1 {
-    --theme-color: #191EEC;
+    --theme-color: #000000;
 }
 
 .user-name {
     color: var(--theme-color);
-    font-size:1.2em;
+    font-size: 1.3em;
+}
+
+.btn-solid {
+    background-image: linear-gradient(30deg, var(--theme-button-color) 50%, transparent 50%) !important;
+    border: 2px solid var(--theme-button-color);
 }

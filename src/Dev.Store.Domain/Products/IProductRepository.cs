@@ -13,4 +13,5 @@ public interface IProductRepository : IRepository<Product, Guid>
     public Task<IEnumerable<Product>> GetBestSellerProductList(int skip = 0, int take = 8);
     public Task<Product> GetProductWithDetailsByCategoryAndCode(Guid categoryId, string code);
     public Task<Product> GetProductById(Guid productId);
+    Task<IEnumerable<Product>> GetProductsByCategoryIds(Guid[] categoryId, int skip = 0, int take = 50);
 }
