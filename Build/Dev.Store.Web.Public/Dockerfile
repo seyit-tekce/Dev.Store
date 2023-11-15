@@ -22,16 +22,9 @@ COPY . .
 WORKDIR "/src/src/Dev.Store.Web.Public"
 RUN dotnet build "Dev.Store.Web.Public.csproj" -c Release -o /app/build
 
-# Install Volo.Abp.Cli
-RUN dotnet tool install -g Volo.Abp.Cli --version 4.4.0
 
-# Setup Node.js
+RUN dotnet tool install -g Volo.Abp.Cli
 RUN apt-get update -q && apt-get install -qy nodejs npm
-RUN npm install -g npm@latest
-RUN npm install -g n
-RUN n stable
-
-# Install ABP libraries
 RUN abp install-libs
 
 FROM build AS publish
