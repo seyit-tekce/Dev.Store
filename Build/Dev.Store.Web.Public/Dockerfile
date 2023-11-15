@@ -22,6 +22,10 @@ COPY . .
 WORKDIR "/src/src/Dev.Store.Web.Public"
 RUN dotnet build "Dev.Store.Web.Public.csproj" -c Release -o /app/build
 
+RUN dotnet tool install -g Volo.Abp.Cli
+RUN apt-get update -q && apt-get install -qy nodejs npm
+RUN abp install-libs
+
 FROM build AS publish
 RUN dotnet publish "Dev.Store.Web.Public.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
