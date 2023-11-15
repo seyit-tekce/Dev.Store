@@ -81,7 +81,7 @@ public class StoreApplicationAutoMapperProfile : Profile
 
         CreateMap<Product, ProductGridListDto>()
             .ForMember(x => x.BrandName, x => x.MapFrom(a => a.Brand.Name))
-            .ForMember(x => x.Price, x => x.MapFrom(a => a.ProductSets.Where(b => !b.IsOptional).Sum(b => b.Price) + a.ProductSizes.Where(b => b.IsDefault).Sum(b => b.Price)))
+            .ForMember(x => x.Price, x => x.MapFrom(a => (a.ProductSets != null ? a.ProductSets.Where(b => !b.IsOptional).Sum(b => b.Price) : 0) + (a.ProductSizes != null ? a.ProductSizes.Where(b => b.IsDefault).Sum(b => b.Price) : 0)))
             .ForMember(x => x.CategoryName, x => x.MapFrom(a => a.Category.Name))
             .ForMember(x => x.CategoryLink, x => x.MapFrom(a => a.Category.Link))
             .ForMember(x => x.ParentCategoryLink, x => x.MapFrom(a => a.Category.CategoryParent.Link))

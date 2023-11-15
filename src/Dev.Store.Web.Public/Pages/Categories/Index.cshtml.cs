@@ -32,8 +32,8 @@ namespace Dev.Store.Web.Public.Pages.Categories
             {
                 CategoryLink = getCategory.Link,
                 CategoryName = getCategory.Name,
-                CategoryParentLink = getCategory.CategoryParent.Link,
-                CategoryParentName = getCategory.CategoryParent.Name,
+                CategoryParentLink = getCategory.CategoryParent?.Link,
+                CategoryParentName = getCategory.CategoryParent?.Name,
                 ProductCount = getProductCount,
                 Products = getProduct.Select(a => new IndexViewModelProduct
                 {

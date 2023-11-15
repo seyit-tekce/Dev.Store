@@ -60,7 +60,7 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
             .Include(x => x.ProductSizes)
             .Include(x => x.ProductImages)
             .ThenInclude(x => x.UploadFile)
-                 
+
             .FirstOrDefaultAsync(x => x.Id == productId);
     }
 
@@ -69,11 +69,30 @@ public class ProductRepository : EfCoreRepository<StoreDbContext, Product, Guid>
         var queryable = await GetQueryableAsync();
         queryable = queryable.Where(x => x.ProductImages.Any());
         return await queryable
+            .Include(x => x.ProductSizes)
+            .Include(x => x.ProductSets)
             .Include(x => x.Category)
             .Include(x => x.Brand)
             .Include(x => x.ProductImages)
             .ThenInclude(x => x.UploadFile)
             .Where(x => x.CategoryId == categoryId)
+            .OrderBy(x => x.CreationTime)
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+    }
+    public async Task<IEnumerable<Product>> GetProductsByCategoryIds(Guid[] categoryId, int skip = 0, int take = 50)
+    {
+        var queryable = await GetQueryableAsync();
+        queryable = queryable.Where(x => x.ProductImages.Any());
+        return await queryable
+            .Include(x => x.ProductSizes)
+            .Include(x => x.ProductSets)
+            .Include(x => x.Category)
+            .Include(x => x.Brand)
+            .Include(x => x.ProductImages)
+            .ThenInclude(x => x.UploadFile)
+            .Where(x => categoryId.Contains(x.CategoryId))
             .OrderBy(x => x.CreationTime)
             .Skip(skip)
             .Take(take)

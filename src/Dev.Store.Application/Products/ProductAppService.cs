@@ -1,4 +1,6 @@
-﻿using Dev.Store.Permissions;
+﻿using Dev.Store.Categories;
+using Dev.Store.Categories.Dtos;
+using Dev.Store.Permissions;
 using Dev.Store.Products.Dtos;
 using Dev.Store.SeoSettings;
 using Kendo.Mvc.Extensions;
@@ -24,14 +26,16 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     protected override string UpdatePolicyName { get; set; } = StorePermissions.Product.Update;
     protected override string DeletePolicyName { get; set; } = StorePermissions.Product.Delete;
     private readonly IProductRepository _repository;
+    private readonly ICategoryRepository _categoryRepository;
     private static object lockobject = null;
     private readonly SeoSettingAppService seoSettingAppService;
     private readonly IDistributedCache<IEnumerable<ProductGridListDto>, string> _cache;
-    public ProductAppService(IRepository<Product, Guid> repository, IDistributedCache<IEnumerable<ProductGridListDto>, string> cache, IProductRepository repo, SeoSettingAppService seoSettingAppService) : base(repository)
+    public ProductAppService(IRepository<Product, Guid> repository, IDistributedCache<IEnumerable<ProductGridListDto>, string> cache, IProductRepository repo, SeoSettingAppService seoSettingAppService, ICategoryRepository categoryRepository) : base(repository)
     {
         _cache = cache;
         _repository = repo;
         this.seoSettingAppService = seoSettingAppService;
+        _categoryRepository = categoryRepository;
     }
     [HttpGet]
     [Authorize(StorePermissions.Product.Default)]
@@ -77,10 +81,16 @@ public class ProductAppService : CrudAppService<Product, ProductDto, Guid, Produ
     }
     private async Task<IEnumerable<ProductGridListDto>> GetProductByCategoryIdPagingFromDataBase(Guid categoryId, int skip, int take)
     {
-        var result = await _repository.GetProductsByCategoryId(categoryId, skip, take);
+        var categoryChildrens = await _categoryRepository.GetCategoryWithChildrenById(categoryId);
+        var ids = categoryChildrens.CategoryChildren.Select(a => a.Id).ToList();
+        ids.Add(categoryId);
+
+        var result = await _repository.GetProductsByCategoryIds(ids.ToArray(), skip, take);
         await Task.CompletedTask;
         return ObjectMapper.Map<IEnumerable<Product>, IEnumerable<ProductGridListDto>>(result);
     }
+    
+
     public async Task<int> GetProductCount(Guid categoryId)
     {
         return await _repository.GetCountByCategoryId(categoryId);

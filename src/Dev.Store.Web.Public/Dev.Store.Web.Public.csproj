@@ -19,12 +19,16 @@
 
 	<ItemGroup>
 		<Compile Remove="Logs\**" />
+		<Compile Remove="wwwroot\libs\**" />
 		<Compile Remove="wwwroot\themes\**" />
 		<Content Remove="Logs\**" />
+		<Content Remove="wwwroot\libs\**" />
 		<Content Remove="wwwroot\themes\**" />
 		<EmbeddedResource Remove="Logs\**" />
+		<EmbeddedResource Remove="wwwroot\libs\**" />
 		<EmbeddedResource Remove="wwwroot\themes\**" />
 		<None Remove="Logs\**" />
+		<None Remove="wwwroot\libs\**" />
 		<None Remove="wwwroot\themes\**" />
 	</ItemGroup>
 
@@ -50,6 +54,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="HtmlAgilityPack" Version="1.11.54" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
 		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
