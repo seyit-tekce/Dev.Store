@@ -24,10 +24,6 @@ RUN dotnet build "Dev.Store.Web.Public.csproj" -c Release -o /app/build
 
 
 
-RUN apt-get update -q && apt-get install -qy nodejs npm
-COPY ./install-libs.sh /install-libs.sh
-RUN chmod +x /install-libs.sh
-RUN /install-libs.sh
 
 
 FROM build AS publish
