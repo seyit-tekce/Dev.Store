@@ -18,6 +18,7 @@
                                             <ul>
                                                 @foreach (var subCategory in category.Items.OrderBy(x => x.Order).Skip(i * 5).Take(5))
                                                 {
+
                                                     <li>
                                                         <a href="@subCategory.Url">
                                                             @subCategory.DisplayName

@@ -2,10 +2,12 @@
 @using Dev.Store.Web.Public.Pages.IndexComponents.HomeSliderComponent;
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Dev.Store.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
 @using Volo.Abp.Users
 @model Dev.Store.Web.Public.Pages.IndexModel
 @inject IHtmlLocalizer<StoreResource> L
 @inject ICurrentUser CurrentUser
+@inject IPageLayout PageLayout
 @section styles {
     <abp-style src="/Pages/Index.css" />
 }
@@ -13,6 +15,7 @@
     <abp-script src="/Pages/Index.js" />
 }
 @{
+    PageLayout.Content.Title = "Anasayfa";
     ViewBag.FluidLayout = true;
 }
 
