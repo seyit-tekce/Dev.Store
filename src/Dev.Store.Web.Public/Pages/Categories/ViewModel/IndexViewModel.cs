@@ -6,6 +6,7 @@ namespace Dev.Store.Web.Public.Pages.Categories.ViewModel
     {
         public string CategoryName { get; set; }
         public string CategoryLink { get; set; }
+        public string Description { get; set; }
         public string CategoryParentName { get; set; }
         public string CategoryParentLink { get; set; }
 

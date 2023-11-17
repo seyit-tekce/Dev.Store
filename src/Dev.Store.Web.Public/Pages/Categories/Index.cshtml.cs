@@ -35,6 +35,7 @@ namespace Dev.Store.Web.Public.Pages.Categories
                 CategoryParentLink = getCategory.CategoryParent?.Link,
                 CategoryParentName = getCategory.CategoryParent?.Name,
                 ProductCount = getProductCount,
+                Description = getCategory.Description,
                 Products = getProduct.Select(a => new IndexViewModelProduct
                 {
                     MainImage = a.MainImagePath,
